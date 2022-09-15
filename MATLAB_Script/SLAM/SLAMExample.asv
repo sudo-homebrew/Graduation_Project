@@ -95,7 +95,7 @@ end
 velMsg.Linear.X = 0;
 send(robotCmd,velMsg)
 
-%%%%%% Disconnecting ROS and clear memories
-clear all;
+%%%%%% Disconnecting ROS
+% clear all;
 
 rosshutdown;
