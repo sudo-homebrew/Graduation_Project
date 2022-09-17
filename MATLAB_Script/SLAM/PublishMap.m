@@ -12,8 +12,9 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     isSuccess = true;
     setenv('ROS_DOMAIN_ID', int2str(domainID))
     
-    
-    n = ros2node(ROS2NodeName, domainID);
+    dID = 25;
+    n = ros2node("matlab_example_robot", dID);
+%     n = ros2node("matlab_example_robot", 25);
     
     lidarSub = ros2subscriber(n, "/scan","sensor_msgs/LaserScan", "Reliability","besteffort","Durability","volatile","Depth",5);
     [mapPub, mapMsg] = ros2publisher(n,"/map_info","std_msgs/Float64MultiArray","Reliability","besteffort","Durability","volatile","Depth",5);
