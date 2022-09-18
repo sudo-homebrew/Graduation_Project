@@ -12,13 +12,21 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     isSuccess = true;
     setenv('ROS_DOMAIN_ID', int2str(domainID))
     
+    r2nn = "matlab_example_robot";
     dID = 25;
-    n = ros2node("matlab_example_robot", dID);
-%     n = ros2node("matlab_example_robot", 25);
+    n = ros2node(r2nn, dID);
+    
+%     n = ros2node(ROS2NodeName, domainID);
     
     lidarSub = ros2subscriber(n, "/scan","sensor_msgs/LaserScan", "Reliability","besteffort","Durability","volatile","Depth",5);
-    [mapPub, mapMsg] = ros2publisher(n,"/map_info","std_msgs/Float64MultiArray","Reliability","besteffort","Durability","volatile","Depth",5);
-%     mapPub = ros2publisher(n,"/map_info","std_msgs/Float64MultiArray","Reliability","besteffort","Durability","volatile","Depth",5);
+%     [mapPub, mapMsg] = ros2publisher(n,"/map_info","std_msgs/Float64MultiArray","Reliability","besteffort","Durability","volatile","Depth",5);
+    
+    
+
+    mapPub = ros2publisher(n,"/map_info","std_msgs/Float64MultiArray","Reliability","besteffort","Durability","volatile","Depth",5);
+    
+    mapMsg = ros2message(mapPub);
+    
 %     mapMsg.MessageType = 'std_msgs/Float64MultiArray';
 %     mapMsg.layout.MessageType = 'std_msgs/MultiArrayLayout';
 %     mapMsg.layout.dim.MessageType = 'std_msgs/MultiArrayDimension';
@@ -30,7 +38,7 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     
     
     %%  SLAM Section  %%
-    sc = {};
+%     sc = {};
     maxLidarRange = 8;
     mapResolution = 20;
     maxNumScans = 360;
@@ -55,7 +63,7 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     while toc <= duration
     %%%%%%%%%%%%%%%%%%%%%%%    SLAM Section     %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-        [scanMsge, isScaned] = receive(lidarSub, 1);
+        [scanMsge, isScaned] = receive(lidarSub);
         scan_temp = rosReadLidarScan(scanMsge);
 %         sc = [sc, scan_temp];
         isScanAccepted = addScan(slamAlg, scan_temp);
@@ -73,7 +81,7 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
         if(~isScanAccepted || ~isScaned)
-            fprintf("Error occured");
+            fprintf(2, "Error occured");
             break;
         end
 
@@ -83,25 +91,25 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     
     
     
-    figure;
-    show(slamAlg);
-    title({'Map of the Environment','Pose Graph'});
+%     figure;
+%     show(slamAlg);
+%     title({'Map of the Environment','Pose Graph'});
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     
     
-    [scans, optimizedPoses]  = scansAndPoses(slamAlg);
-    map = buildMap(scans, optimizedPoses, mapResolution, maxLidarRange);
-    
-    
-    
-    figure; 
-    show(map);
-    hold on
-    show(slamAlg.PoseGraph, 'IDs', 'off');
-    hold off
-    title('Occupancy Grid Map Built Using Lidar SLAM');
+%     [scans, optimizedPoses]  = scansAndPoses(slamAlg);
+%     map = buildMap(scans, optimizedPoses, mapResolution, maxLidarRange);
+%     
+%     
+%     
+%     figure; 
+%     show(map);
+%     hold on
+%     show(slamAlg.PoseGraph, 'IDs', 'off');
+%     hold off
+%     title('Occupancy Grid Map Built Using Lidar SLAM');
     
     % occMatrix = getOccupancy(map);
 end
