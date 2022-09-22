@@ -23,10 +23,14 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     
     
 
-    mapPub = ros2publisher(n,"/map_info","std_msgs/Float64MultiArray","Reliability","besteffort","Durability","volatile","Depth",5);
+%     mapPub = ros2publisher(n,"/map_info","std_msgs/Float64MultiArray","Reliability","besteffort","Durability","volatile","Depth",5);
+%     
+%     mapMsg = ros2message(mapPub);
     
-    mapMsg = ros2message(mapPub);
-    
+
+    mapPub = ros2publisher(n,"/map_info","nav_msgs/OccupancyGrid","Reliability","besteffort","Durability","volatile","Depth",5);
+    mapMsg= ros2message(mapPub);
+
 %     mapMsg.MessageType = 'std_msgs/Float64MultiArray';
 %     mapMsg.layout.MessageType = 'std_msgs/MultiArrayLayout';
 %     mapMsg.layout.dim.MessageType = 'std_msgs/MultiArrayDimension';
@@ -48,7 +52,8 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     slamAlg.LoopClosureThreshold = 210;  
     slamAlg.LoopClosureSearchRadius = 8;
     
-    
+    mapMsg.info.resolution = mapResolution;
+
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     % Pause Option
@@ -64,6 +69,8 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     %%%%%%%%%%%%%%%%%%%%%%%    SLAM Section     %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
         [scanMsge, isScaned] = receive(lidarSub);
+
+        before = clock;
         scan_temp = rosReadLidarScan(scanMsge);
 %         sc = [sc, scan_temp];
         isScanAccepted = addScan(slamAlg, scan_temp);
@@ -71,11 +78,14 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
         [scans, optimizedPoses]  = scansAndPoses(slamAlg);
         map = buildMap(scans, optimizedPoses, mapResolution, maxLidarRange);
         occMatrix = getOccupancy(map);
-
+        
+        elapse = etime(clodk, before);
 %%%%%%%%%%%%%%%%%%%%%%%%    Publish Section     %%%%%%%%%%%%%%%%%%%%%%%%%%%
         [occMatrix_row, occMatrix_col] = size(occMatrix);
-        mapMsg.layout.stride = occMatrix_row * occMatrix_col;
-        mapMsg.data = occMatrix(:)';
+        mapMsg.info.width = typecast(occMatrix_row, 'unit32');
+        mapMsg.info.height = typecast(occMatrix_col, 'unit32');
+        mapMsg.data = cast(100 * occMatrix, int8);
+        mapMsg.info.map_load_time = typecast(elapse, 'float32');
 
         send(mapPub, mapMsg)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
