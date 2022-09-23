@@ -52,7 +52,7 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     slamAlg.LoopClosureThreshold = 210;  
     slamAlg.LoopClosureSearchRadius = 8;
     
-    mapMsg.info.resolution = mapResolution;
+    mapMsg.info.resolution = typecast(mapResolution, 'single');
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -64,13 +64,14 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     
 
     tic
+    cnt = 0;
     
     while toc <= duration
     %%%%%%%%%%%%%%%%%%%%%%%    SLAM Section     %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
         [scanMsge, isScaned] = receive(lidarSub);
 
-        before = clock;
+%         before = toc;
         scan_temp = rosReadLidarScan(scanMsge);
 %         sc = [sc, scan_temp];
         isScanAccepted = addScan(slamAlg, scan_temp);
@@ -79,15 +80,18 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
         map = buildMap(scans, optimizedPoses, mapResolution, maxLidarRange);
         occMatrix = getOccupancy(map);
         
-        elapse = etime(clodk, before);
+%         elapse = toc - before;
 %%%%%%%%%%%%%%%%%%%%%%%%    Publish Section     %%%%%%%%%%%%%%%%%%%%%%%%%%%
         [occMatrix_row, occMatrix_col] = size(occMatrix);
-        mapMsg.info.width = typecast(occMatrix_row, 'unit32');
-        mapMsg.info.height = typecast(occMatrix_col, 'unit32');
-        mapMsg.data = cast(100 * occMatrix, int8);
-        mapMsg.info.map_load_time = typecast(elapse, 'float32');
+        mapMsg.info.width = cast(occMatrix_row, 'uint32');
+        mapMsg.info.height = cast(occMatrix_col, 'uint32');
+        mapMsg.data = cast(100 * occMatrix, 'int8');
+%         mapMsg.info.map_load_time = elapse;
+%         mapMsg.header.stamp. = typecast(cnt, 'uint8');
+
 
         send(mapPub, mapMsg)
+        cnt = cnt + 1;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
         if(~isScanAccepted || ~isScaned)
@@ -123,4 +127,3 @@ function [isSuccess, sc] = PublishMap(domainID, ROS2NodeName, duration)
     
     % occMatrix = getOccupancy(map);
 end
-
