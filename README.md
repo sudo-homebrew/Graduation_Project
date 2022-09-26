@@ -20,7 +20,7 @@
 
 ### Ant Colony Optimization(Global Path Planning)
 
-<img src="https://user-images.githubusercontent.com/56228085/192175335-3a489d8e-986f-4b3a-b429-701dde231292.png" width=70% height=70%/>
+<img src="https://user-images.githubusercontent.com/56228085/192175335-3a489d8e-986f-4b3a-b429-701dde231292.png" width=60% height=60%/>
 
 계산문제를 푸는 확률적 해법 중 하나로 그래프에서 최적의 경로를 찾는 데 쓰인다. heuristic search로 접근하여 최적의 경로가 아니더라도 빠른 시간 내에 적절한 경로를 찾는 방법을 사용한다. 여러 비교 논문들을 분석 결과 global path planning algorithm 중에서 가장 좋은 성능을 보여 ACO algorithm을 사용하고자 한다.
 
@@ -42,3 +42,8 @@ SLAM(Simultaneous Localisation and Mapping)은 미지의 환경에서 Map을 설
 ## Architecture
 
 <img src="https://user-images.githubusercontent.com/56228085/192175327-3c98092f-98de-4c39-a870-84c1a6d3ef84.png" width=85% height=85%/>
+
+## System Build
+
+- GPU Server Machine으로 Virtual environment상에서 Implementation 및 DRL Training한 후 실제 physical robot(Turtlebot3 Waffle Pi)에 Deployment할 예정이다.
+- Python Code로 DRL algorithm 을 실행하고 병렬적으로 MATLAB code로 SLAM algorithm을 실행해 실시간으로 local DDS communication을 통해 Occupancy Grid Map 정보 및 Location 정보를 DRL Training module에 전달하는 방식으로 시스템을 구축할 계획이다.
