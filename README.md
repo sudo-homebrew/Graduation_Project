@@ -41,4 +41,4 @@ SLAM(Simultaneous Localisation and Mapping)은 미지의 환경에서 Map을 설
 
 ## Architecture
 
-<img src="https://user-images.githubusercontent.com/56228085/192175327-3c98092f-98de-4c39-a870-84c1a6d3ef84.png" width=70% height=70%/>
+<img src="https://user-images.githubusercontent.com/56228085/192175327-3c98092f-98de-4c39-a870-84c1a6d3ef84.png" width=85% height=85%/>
