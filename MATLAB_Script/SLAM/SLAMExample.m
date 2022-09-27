@@ -1,3 +1,5 @@
+% This code is performing SLAM Algorithm with ROS1
+
 ipaddress = '192.168.188.128';
 rosinit(ipaddress,11311);
 
@@ -5,17 +7,31 @@ rosinit(ipaddress,11311);
 
 velocity = 0.2;
 
-robotCmd = rospublisher("/cmd_vel","DataFormat","struct") ;
+robotCmd = rospublisher("/cmd_vel","DataFormat","struct");
 velMsg = rosmessage(robotCmd);
 
+
+% Init robot velocity status
+velMsg.Linear.X = 0;
+velMsg.Linear.Y = 0;
+velMsg.Linear.Z = 0;
+velMsg.Angular.X = 0;
+velMsg.Angular.Y = 0;
+velMsg.Angular.Z = 0;
+send(robotCmd,velMsg);
+
+
+
+% Go straight for 5 secons
 velMsg.Linear.X = velocity;
 send(robotCmd,velMsg);
-pause(4);
+
+pause(5);
 velMsg.Linear.X = 0;
 send(robotCmd,velMsg);
 
 
-
+% Display Status
 rostopic type /cmd_vel;
 
 rostopic info /cmd_vel
@@ -53,6 +69,8 @@ rosPlot(scanMsg)
 
 velMsg.Angular.Z = velocity;
 send(robotCmd,velMsg)
+
+
 tic;
 while toc < 10
   scanMsg = receive(lidarSub);
@@ -77,7 +95,7 @@ end
 velMsg.Linear.X = 0;
 send(robotCmd,velMsg)
 
-%%%%%% Disconnecting ROS
-% clear all;
+%%%%%% Disconnecting ROS and clear memories
+clear all;
 
 rosshutdown;
