@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="install dynamixel_sdk folders little problems in 3 folders" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2ElGyQR01I2WFrfBkKUVJUSzwqA" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\install" />
+      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\build" />
+      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\build\turtlebot3_teleop" />
+      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\build\turtlebot3_dqn" />
+      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\src" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="" />
+      <created>1663163010366</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1663163010366</updated>
+    </task>
+    <task id="LOCAL-00001" summary="build dynamixel_sdk">
+      <created>1663164012484</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1663164012484</updated>
+    </task>
+    <task id="LOCAL-00002" summary="build dynamixel_sdk related folders and files">
+      <created>1663164244825</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1663164244825</updated>
+    </task>
+    <task id="LOCAL-00003" summary="build turtlebot3, turtlebot3 related files">
+      <created>1663239263829</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1663239263829</updated>
+    </task>
+    <task id="LOCAL-00004" summary="src DynamixelSDK, turtlebot3">
+      <created>1663309757386</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1663309757387</updated>
+    </task>
+    <task id="LOCAL-00005" summary="src turtlebot3_msgs, turtlebot3_simulations">
+      <created>1663664910764</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1663664910764</updated>
+    </task>
+    <task id="LOCAL-00006" summary="src turtlebot3_machine_learning">
+      <created>1663764974633</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1663764974633</updated>
+    </task>
+    <task id="LOCAL-00007" summary="build dynamixel_sdk folders">
+      <created>1664085766893</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1664085766893</updated>
+    </task>
+    <task id="LOCAL-00008" summary="build turtlebot3 folders">
+      <created>1664282848077</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1664282848077</updated>
+    </task>
+    <task id="LOCAL-00009" summary="build turtlebot3 folders # little problem on turtlebot3_dqn">
+      <created>1664370166857</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1664370166857</updated>
+    </task>
+    <task id="LOCAL-00010" summary="build turtlebot3 folders">
+      <created>1664456950661</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1664456950661</updated>
+    </task>
+    <task id="LOCAL-00011" summary="build turtlebot3 folders">
+      <created>1664528957665</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1664528957665</updated>
+    </task>
+    <task id="LOCAL-00012" summary="build turtlebot3 folders, little problem in teleop folder">
+      <created>1664604863926</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1664604863926</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="build dynamixel_sdk" />
+    <MESSAGE value="build dynamixel_sdk related folders and files" />
+    <MESSAGE value="build turtlebot3, turtlebot3 related files" />
+    <MESSAGE value="src DynamixelSDK, turtlebot3" />
+    <MESSAGE value="src turtlebot3_msgs, turtlebot3_simulations" />
+    <MESSAGE value="src turtlebot3_machine_learning" />
+    <MESSAGE value="build dynamixel_sdk folders" />
+    <MESSAGE value="build turtlebot3 folders # little problem on turtlebot3_dqn" />
+    <MESSAGE value="build turtlebot3 folders" />
+    <MESSAGE value="build turtlebot3 folders, little problem in teleop folder" />
+    <MESSAGE value="install dynamixel_sdk folders little problems in 3 folders" />
+    <option name="LAST_COMMIT_MESSAGE" value="install dynamixel_sdk folders little problems in 3 folders" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="546" y="414" width="615" height="276" key="#Notifications" timestamp="1664086074972">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="546" y="414" width="615" height="276" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1664086074972" />
+    <state x="1009" y="286" key="FileChooserDialogImpl" timestamp="1664604883167">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1009" y="286" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1664604883167" />
+    <state x="162" y="197" key="SettingsEditor" timestamp="1664086316864">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="162" y="197" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1664086316864" />
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1664957032551">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1664957032551" />
+    <state x="726" y="493" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1664957126955">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="726" y="493" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1664957126955" />
+    <state x="353" y="291" key="git4idea.merge.GitPullDialog" timestamp="1663164113868">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="353" y="291" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663164113868" />
+    <state x="987" y="275" width="672" height="678" key="search.everywhere.popup" timestamp="1663309739235">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="987" y="275" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1663309739235" />
+  </component>
+</project>
