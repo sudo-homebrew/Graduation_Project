@@ -26,6 +26,7 @@ function isSuccess = PySLAM(domainID, ROS2NodeName, duration)
     mapResolution = 20;
     maxNumScans = 360;
     global map
+    global slamALg
     slamAlg = lidarSLAM(mapResolution, maxLidarRange, maxNumScans);
     
     

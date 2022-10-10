@@ -16,6 +16,7 @@ occmap = eng.PyGetMap()
 
 print(occmap)
 
+eng.PyResetMap()
 time.sleep(4)
 
 print(occmap)
