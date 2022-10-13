@@ -2,11 +2,11 @@ function isSuccess = PySLAM(domainID, ROS2NodeName, duration)
 %PUBLISHMAP Summary of this function goes here
 %   Detailed explanation goes here
 
-    arguments
-        domainID (1, 1) int64
-        ROS2NodeName (1, 1) string
-        duration (1, 1) int64 = 100;
-    end
+%     arguments
+%         domainID (1, 1) int64
+%         ROS2NodeName (1, 1) string
+%         duration (1, 1) int64 = 100;
+%     end
     
     
     isSuccess = true;
@@ -33,7 +33,6 @@ function isSuccess = PySLAM(domainID, ROS2NodeName, duration)
     slamAlg.LoopClosureThreshold = 210;  
     slamAlg.LoopClosureSearchRadius = 8;
     
-    mapMsg.info.resolution = typecast(mapResolution, 'single');
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -61,18 +60,6 @@ function isSuccess = PySLAM(domainID, ROS2NodeName, duration)
         map = buildMap(scans, optimizedPoses, mapResolution, maxLidarRange);
 %         occMatrix = getOccupancy(map);
         
-%         elapse = toc - before;
-%%%%%%%%%%%%%%%%%%%%%%%%    Publish Section     %%%%%%%%%%%%%%%%%%%%%%%%%%%
-%         [occMatrix_row, occMatrix_col] = size(occMatrix);
-%         mapMsg.info.width = cast(occMatrix_row, 'uint32');
-%         mapMsg.info.height = cast(occMatrix_col, 'uint32');
-%         mapMsg.data = cast(100 * occMatrix, 'int8');
-% %         mapMsg.info.map_load_time = elapse;
-% %         mapMsg.header.stamp. = typecast(cnt, 'uint8');
-% 
-% 
-%         send(mapPub, mapMsg)
-%         cnt = cnt + 1;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
         if(~isScanAccepted || ~isScaned)
@@ -89,25 +76,24 @@ function isSuccess = PySLAM(domainID, ROS2NodeName, duration)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%    Plot Section     %%%%%%%%%%%%%%%%%%%%%%%%%%%
-    figure;
-    show(slamAlg);
-    title({'Map of the Environment','Pose Graph'});
-    
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    
-    
-    [scans, optimizedPoses]  = scansAndPoses(slamAlg);
-    map = buildMap(scans, optimizedPoses, mapResolution, maxLidarRange);
-    
-    
-    
-    figure; 
-    show(map);
-    hold on
-    show(slamAlg.PoseGraph, 'IDs', 'off');
-    hold off
-    title('Occupancy Grid Map Built Using Lidar SLAM');
-    
-    % occMatrix = getOccupancy(map);
+%     figure;
+%     show(slamAlg);
+%     title({'Map of the Environment','Pose Graph'});
+%     
+%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     
+%     
+%     
+%     [scans, optimizedPoses]  = scansAndPoses(slamAlg);
+%     map = buildMap(scans, optimizedPoses, mapResolution, maxLidarRange);
+%     
+%     
+%     
+%     figure; 
+%     show(map);
+%     hold on
+%     show(slamAlg.PoseGraph, 'IDs', 'off');
+%     hold off
+%     title('Occupancy Grid Map Built Using Lidar SLAM');
+%     
 end
