@@ -56,6 +56,7 @@ def main(args=None):
     map = eng.GetMap(slamAlg)
     
     print(map)
+    eng.PyGetMapFile(slamAlg)
 
 if __name__ == '__main__':
     main()
