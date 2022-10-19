@@ -13,7 +13,7 @@ class laser_sub(Node):
         ** Initialise variables
         ************************************************************"""
         self.scan_ranges = []
-        self.scanMsge = 0
+        self.scanMsg = 0
         
         """************************************************************
         ** Initialise ROS publishers and subscribers
@@ -45,18 +45,30 @@ def main(args=None):
     for _ in range(10):
       rclpy.spin_once(sub) # get laser_scan(10 for certain)
       
-    slamAlg = eng.UpdateSlam(sub.scanmsge, slamAlg)
+    [slamAlg, isAccepted] = eng.UpdateSLAM(slamAlg, sub.scanMsg)
+    
+    for _ in range(10):
+      rclpy.spin_once(sub) # get laser_scan(10 for certain)
+      
+    [slamAlg, isAccepted] = eng.UpdateSLAM(slamAlg, sub.scanMsg)
+    
+    for _ in range(10):
+      rclpy.spin_once(sub) # get laser_scan(10 for certain)
+      
+    [slamAlg, isAccepted] = eng.UpdateSLAM(slamAlg, sub.scanMsg)
     
     
     for _ in range(10):
       rclpy.spin_once(sub) # get laser_scan(10 for certain)
     
-    slamAlg = eng.UpdateSlam(sub.scanmsge, slamAlg)
+    [slamAlg, isAccepted] = eng.UpdteSLAM(slamAlg, sub.scanMsg)
     
     map = eng.GetMap(slamAlg)
     
     print(map)
     eng.PyGetMapFile(slamAlg)
+    
+    eng.quit()
 
 if __name__ == '__main__':
     main()
