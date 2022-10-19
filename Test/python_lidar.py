@@ -3,7 +3,7 @@ from rclpy.node import Node
 from rclpy.qos import QoSProfile
 from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import LaserScan
-
+import matlab.engine
 
 class laser_sub(Node):
     def __init__(self):
@@ -13,6 +13,7 @@ class laser_sub(Node):
         ** Initialise variables
         ************************************************************"""
         self.scan_ranges = []
+        self.scanMsge = 0
         
         """************************************************************
         ** Initialise ROS publishers and subscribers
@@ -34,11 +35,27 @@ class laser_sub(Node):
 
     def scan_callback(self, msg):
         self.scan_ranges = msg.ranges # 0 ~ 359 list if 3.5 > = inf
+        self.scanMsge = msg
       
 def main(args=None):
     sub = laser_sub()
+    eng = matlab.engine.start_matlab()
+    slamAlg = eng.GetSLAM_Alg()
+    
     for _ in range(10):
       rclpy.spin_once(sub) # get laser_scan(10 for certain)
+      
+    slamAlg = eng.UpdateSlam(sub.scanmsge, slamAlg)
+    
+    
+    for _ in range(10):
+      rclpy.spin_once(sub) # get laser_scan(10 for certain)
+    
+    slamAlg = eng.UpdateSlam(sub.scanmsge, slamAlg)
+    
+    map = eng.GetMap(slamAlg)
+    
+    print(map)
 
 if __name__ == '__main__':
     main()
