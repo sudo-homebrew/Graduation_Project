@@ -39,7 +39,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/turtlebot3_ws/install" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -146,7 +146,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664604863926</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="install dynamixel_sdk folders little problems in 3 folders">
+      <created>1664957261030</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1664957261030</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -180,18 +187,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="546" y="414" width="615" height="276" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1664086074972" />
+    <state x="204" y="290" width="1449" height="661" key="DiffContextDialog" timestamp="1664957285405">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="204" y="290" width="1449" height="661" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1664957285405" />
     <state x="1009" y="286" key="FileChooserDialogImpl" timestamp="1664604883167">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1009" y="286" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1664604883167" />
+    <state x="971" y="311" key="RollbackChangesDialog" timestamp="1664957237711">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="971" y="311" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1664957237711" />
     <state x="162" y="197" key="SettingsEditor" timestamp="1664086316864">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="162" y="197" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1664086316864" />
-    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1664957032551">
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1664957271263">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1664957032551" />
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1664957271263" />
     <state x="726" y="493" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1664957126955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
