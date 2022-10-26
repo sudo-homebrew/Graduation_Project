@@ -645,8 +645,8 @@
     <param.deeplearning.DeepLearningCustomCallback />
     <param.deeplearning.TargetLib>option.deeplearning.targetlibrary.none</param.deeplearning.TargetLib>
     <var.cfiTargetLibSuppression>false</var.cfiTargetLibSuppression>
-    <var.hasMatlabDeepLearningSupportPackage>false</var.hasMatlabDeepLearningSupportPackage>
-    <var.hasGpuDeepLearningSupportPackage>false</var.hasGpuDeepLearningSupportPackage>
+    <var.hasMatlabDeepLearningSupportPackage>true</var.hasMatlabDeepLearningSupportPackage>
+    <var.hasGpuDeepLearningSupportPackage>true</var.hasGpuDeepLearningSupportPackage>
     <param.tensorrt.DataType />
     <param.tensorrt.DataPath />
     <param.tensorrt.NumCalibrationBatches />
@@ -787,6 +787,8 @@
       <param.deeplearning.DeepLearningCustomCallback />
       <param.deeplearning.TargetLib />
       <var.cfiTargetLibSuppression />
+      <var.hasMatlabDeepLearningSupportPackage />
+      <var.hasGpuDeepLearningSupportPackage />
       <param.tensorrt.DataType />
       <param.tensorrt.DataPath />
       <param.tensorrt.NumCalibrationBatches />
@@ -849,7 +851,7 @@
     </unset>
     <fileset.entrypoints>
       <file custom-data-expanded="false" value="${PROJECT_ROOT}/PublishMap.m">
-        <Marker>1664170979944</Marker>
+        <Marker>1666156097021</Marker>
       </file>
     </fileset.entrypoints>
     <fileset.testbench />
@@ -857,17 +859,24 @@
       <file custom-data-expanded="false" value="${PROJECT_ROOT}/PublishMap.m">
         <Inputs fileName="PublishMap.m" functionName="PublishMap">
           <Input Name="domainID" typeId="0" />
-          <Input Name="ROS2NodeName" typeId="0" />
+          <Input Name="ROS2NodeName" typeId="1" />
           <Input Name="duration" typeId="0" />
           <idpTable>
             <type typeId="0">
-              <Class>&lt;Undefined&gt;</Class>
+              <Class>double</Class>
               <Size>1 x 1</Size>
               <Value />
               <InitialValue />
               <UserDefined>false</UserDefined>
               <Complex>false</Complex>
               <Sparse>false</Sparse>
+            </type>
+            <type typeId="1">
+              <Class>char</Class>
+              <Size>1 x 20</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
             </type>
           </idpTable>
         </Inputs>
