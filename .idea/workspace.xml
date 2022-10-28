@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="install dynamixel_sdk folders little problems in 3 folders" />
+    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="dqn_gazebo, drl_trainer little modify" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,10 +45,10 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\install" />
+      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\build" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\build\turtlebot3_teleop" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\build\turtlebot3_dqn" />
-      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\src" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -153,7 +153,21 @@
       <option name="project" value="LOCAL" />
       <updated>1664957261030</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="install turtlebot3, turtlebot3_bringup, turtlebot3_cartographer 3 little problem">
+      <created>1666769333586</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1666769333586</updated>
+    </task>
+    <task id="LOCAL-00015" summary="dqn_gazebo, drl_trainer little modify">
+      <created>1666773154295</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1666773154295</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -180,13 +194,15 @@
     <MESSAGE value="build turtlebot3 folders" />
     <MESSAGE value="build turtlebot3 folders, little problem in teleop folder" />
     <MESSAGE value="install dynamixel_sdk folders little problems in 3 folders" />
-    <option name="LAST_COMMIT_MESSAGE" value="install dynamixel_sdk folders little problems in 3 folders" />
+    <MESSAGE value="install turtlebot3, turtlebot3_bringup, turtlebot3_cartographer 3 little problem" />
+    <MESSAGE value="dqn_gazebo, drl_trainer little modify" />
+    <option name="LAST_COMMIT_MESSAGE" value="dqn_gazebo, drl_trainer little modify" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="546" y="414" width="615" height="276" key="#Notifications" timestamp="1664086074972">
+    <state x="546" y="414" width="615" height="276" key="#Notifications" timestamp="1666769461273">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="546" y="414" width="615" height="276" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1664086074972" />
+    <state x="546" y="414" width="615" height="276" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1666769461273" />
     <state x="204" y="290" width="1449" height="661" key="DiffContextDialog" timestamp="1664957285405">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -199,14 +215,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="971" y="311" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1664957237711" />
-    <state x="162" y="197" key="SettingsEditor" timestamp="1664086316864">
+    <state x="162" y="197" key="SettingsEditor" timestamp="1666769649735">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="162" y="197" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1664086316864" />
-    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1664957271263">
+    <state x="162" y="197" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1666769649735" />
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1666773157452">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1664957271263" />
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1666773157452" />
     <state x="726" y="493" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1664957126955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -215,6 +231,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="353" y="291" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663164113868" />
+    <state x="1137" y="453" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1666769552810">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1137" y="453" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1666769552810" />
     <state x="987" y="275" width="672" height="678" key="search.everywhere.popup" timestamp="1663309739235">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
