@@ -19,10 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="install turtlebot3, turtlebot3_bringup, turtlebot3_cartographer 3 little problem">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_dqn/turtlebot3_dqn/drl_trainer/drl_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_dqn/turtlebot3_dqn/drl_trainer/drl_trainer.py" afterDir="false" />
-    </list>
+    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="dqn_gazebo, drl_trainer little modify" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -163,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666769333586</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="dqn_gazebo, drl_trainer little modify">
+      <created>1666773154295</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1666773154295</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -191,7 +195,8 @@
     <MESSAGE value="build turtlebot3 folders, little problem in teleop folder" />
     <MESSAGE value="install dynamixel_sdk folders little problems in 3 folders" />
     <MESSAGE value="install turtlebot3, turtlebot3_bringup, turtlebot3_cartographer 3 little problem" />
-    <option name="LAST_COMMIT_MESSAGE" value="install turtlebot3, turtlebot3_bringup, turtlebot3_cartographer 3 little problem" />
+    <MESSAGE value="dqn_gazebo, drl_trainer little modify" />
+    <option name="LAST_COMMIT_MESSAGE" value="dqn_gazebo, drl_trainer little modify" />
   </component>
   <component name="WindowStateProjectService">
     <state x="546" y="414" width="615" height="276" key="#Notifications" timestamp="1666769461273">
@@ -214,10 +219,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="162" y="197" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1666769649735" />
-    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1666769653890">
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1666773157452">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1666769653890" />
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1666773157452" />
     <state x="726" y="493" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1664957126955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
