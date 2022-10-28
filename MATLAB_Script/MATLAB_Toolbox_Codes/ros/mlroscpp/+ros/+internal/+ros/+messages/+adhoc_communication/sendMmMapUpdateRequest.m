@@ -1,0 +1,47 @@
+function [data, info] = sendMmMapUpdateRequest
+%SendMmMapUpdate gives an empty data for adhoc_communication/SendMmMapUpdateRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'adhoc_communication/SendMmMapUpdateRequest';
+[data.DstRobot, info.DstRobot] = ros.internal.ros.messages.ros.char('string',0);
+[data.Topic, info.Topic] = ros.internal.ros.messages.ros.char('string',0);
+[data.MapUpdate, info.MapUpdate] = ros.internal.ros.messages.adhoc_communication.mmMapUpdate;
+info.MapUpdate.MLdataType = 'struct';
+info.MessageType = 'adhoc_communication/SendMmMapUpdateRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,30);
+info.MatPath{1} = 'dst_robot';
+info.MatPath{2} = 'topic';
+info.MatPath{3} = 'map_update';
+info.MatPath{4} = 'map_update.src_robot';
+info.MatPath{5} = 'map_update.update_numbers';
+info.MatPath{6} = 'map_update.map';
+info.MatPath{7} = 'map_update.map.header';
+info.MatPath{8} = 'map_update.map.header.seq';
+info.MatPath{9} = 'map_update.map.header.stamp';
+info.MatPath{10} = 'map_update.map.header.stamp.sec';
+info.MatPath{11} = 'map_update.map.header.stamp.nsec';
+info.MatPath{12} = 'map_update.map.header.frame_id';
+info.MatPath{13} = 'map_update.map.info';
+info.MatPath{14} = 'map_update.map.info.map_load_time';
+info.MatPath{15} = 'map_update.map.info.map_load_time.sec';
+info.MatPath{16} = 'map_update.map.info.map_load_time.nsec';
+info.MatPath{17} = 'map_update.map.info.resolution';
+info.MatPath{18} = 'map_update.map.info.width';
+info.MatPath{19} = 'map_update.map.info.height';
+info.MatPath{20} = 'map_update.map.info.origin';
+info.MatPath{21} = 'map_update.map.info.origin.position';
+info.MatPath{22} = 'map_update.map.info.origin.position.x';
+info.MatPath{23} = 'map_update.map.info.origin.position.y';
+info.MatPath{24} = 'map_update.map.info.origin.position.z';
+info.MatPath{25} = 'map_update.map.info.origin.orientation';
+info.MatPath{26} = 'map_update.map.info.origin.orientation.x';
+info.MatPath{27} = 'map_update.map.info.origin.orientation.y';
+info.MatPath{28} = 'map_update.map.info.origin.orientation.z';
+info.MatPath{29} = 'map_update.map.info.origin.orientation.w';
+info.MatPath{30} = 'map_update.map.data';

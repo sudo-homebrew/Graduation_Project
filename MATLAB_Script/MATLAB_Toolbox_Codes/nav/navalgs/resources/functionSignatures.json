@@ -1,0 +1,563 @@
+{
+    "buildMap":
+    {
+        "inputs":
+        [
+            {"name":"scans", "kind":"required", "type":"cell"},
+            {"name":"poses", "kind":"required", "type":"numeric"},
+            {"name":"mapResolution", "kind":"required", "type":"numeric"},
+            {"name":"maxLidarRange", "kind":"required", "type":"numeric"},
+            {"name":"MapWidth", "kind":"namevalue", "type":"numeric"},
+            {"name":"MapHeight", "kind":"namevalue", "type":"numeric"}
+        ]
+    },
+    "factorGraphSolverOptions":
+    {
+        "inputs":
+        [
+            {"name":"MaxIterations", "kind":"namevalue", "type":["numeric", "scalar", "positive", "integer", "real"]},
+            {"name":"FunctionTolerance", "kind":"namevalue", "type":["numeric", "scalar", "positive", "real"]},
+            {"name":"GradientTolerance", "kind":"namevalue", "type":["numeric", "scalar", "positive", "real"]},
+            {"name":"StepTolerance", "kind":"namevalue", "type":["numeric", "scalar", "positive", "real"]},
+            {"name":"VerbosityLevel", "kind":"namevalue", "type":["numeric", "choices={0,1,2}"]},
+            {"name":"TrustRegionStrategyType", "kind":"namevalue", "type":["numeric", "choices={0,1}"]}
+        ]
+    },
+    "factorGPS":
+    {
+        "inputs":
+        [
+            {"name":"NodeID", "kind":"required", "type":["numeric", "scalar", "integer", "positive"]},
+            {"name":"Location", "kind":"namevalue", "type":["numeric", "vector", "numel=3"]},
+            {"name":"HDOP", "kind":"namevalue", "type":["numeric", "scalar"]},
+            {"name":"VDOP", "kind":"namevalue", "type":["numeric", "scalar"]},
+            {"name":"ReferenceLocation", "kind":"namevalue", "type":["numeric", "vector", "numel=3"]},
+            {"name":"ReferenceFrame", "kind":"namevalue", "type":"choices={'ENU','NED'}"}
+        ]
+    },
+    "factorIMU":
+    {
+        "inputs":
+        [
+            {"name":"NodeID", "kind":"required", "type":["numeric", "vector", "row", "numel=6", "integer", "positive"]},
+            {"name":"SampleRate", "kind":"required", "type":["numeric", "scalar", ">=100"]},
+            {"name":"GyroscopeBiasNoise", "kind":"required", "type":["numeric", "2d", "size=3,3"]},
+            {"name":"AccelerometerBiasNoise", "kind":"required", "type":["numeric", "2d", "size=3,3"]},
+            {"name":"GyroscopeNoise", "kind":"required", "type":["numeric", "2d", "size=3,3"]},
+            {"name":"AccelerometerNoise", "kind":"required", "type":["numeric", "2d", "size=3,3"]},
+            {"name":"GyroscopeReadings", "kind":"required", "type":["numeric", "2d", "ncols=3"]},
+            {"name":"AccelerometerReadings", "kind":"required", "type":["numeric", "2d", "ncols=3", "@(AccelerometerReadings, GyroscopeReadings) size(AccelerometerReadings,1)==size(GyroscopeReadings,1)"]},
+            {"name":"ReferenceFrame", "kind":"namevalue", "type":"choices={'ENU','NED'}"}
+        ]
+    },
+    "factorTwoPoseSE2":
+    {
+        "inputs":
+        [
+            {"name":"NodeID", "kind":"required", "type":["numeric", "vector", "row", "numel=2", "integer"]},
+            {"name":"Measurement", "kind":"namevalue", "type":["numeric", "vector", "row", "numel=3"]},
+            {"name":"Information", "kind":"namevalue", "type":["numeric", "2d", "size=3,3"]}
+        ]
+    },
+    "factorTwoPoseSE3":
+    {
+        "inputs":
+        [
+            {"name":"NodeID", "kind":"required", "type":["numeric", "vector", "row", "numel=2", "integer"]},
+            {"name":"Measurement", "kind":"namevalue", "type":["numeric", "vector", "row", "numel=7"]},
+            {"name":"Information", "kind":"namevalue", "type":["numeric", "2d", "size=6,6"]}
+        ]
+    },
+    "factorPoseSE3Prior":
+    {
+        "inputs":
+        [
+            {"name":"NodeID", "kind":"required", "type":["numeric", "scalar", "integer", "positive"]},
+            {"name":"Measurement", "kind":"namevalue", "type":["numeric", "vector", "row", "numel=7"]},
+            {"name":"Information", "kind":"namevalue", "type":["numeric", "2d", "size=6,6"]}
+        ]
+    },
+    "factorVelocity3Prior":
+    {
+        "inputs":
+        [
+            {"name":"NodeID", "kind":"required", "type":["numeric", "scalar", "integer", "positive"]},
+            {"name":"Measurement", "kind":"namevalue", "type":["numeric", "vector", "row", "numel=3"]},
+            {"name":"Information", "kind":"namevalue", "type":["numeric", "2d", "size=3,3"]}
+        ]
+    },
+    "factorIMUBiasPrior":
+    {
+        "inputs":
+        [
+            {"name":"NodeID", "kind":"required", "type":["numeric", "scalar", "integer", "positive"]},
+            {"name":"Measurement", "kind":"namevalue", "type":["numeric", "vector", "row", "numel=6"]},
+            {"name":"Information", "kind":"namevalue", "type":["numeric", "2d", "size=6,6"]}
+        ]
+    },
+    "importFactorGraph":
+    {
+        "inputs":
+        [
+            {"name":"filename", "kind":"required","type":[["char"], ["file=*.g2o"]]}
+        ]
+    },
+    "nav.algs.internal.factorPoseSE2AndPoint2":
+    {
+        "inputs":
+        [
+            {"name":"NodeID", "kind":"required", "type":["numeric", "vector", "row", "numel=2", "integer", "positive"]},
+            {"name":"Measurement", "kind":"namevalue", "type":["numeric", "vector", "row", "numel=2"]},
+            {"name":"Information", "kind":"namevalue", "type":["numeric", "2d", "size=2,2"]}
+        ]
+    },
+    "nav.algs.internal.factorPoseSE3AndPoint3":
+    {
+        "inputs":
+        [
+            {"name":"NodeID", "kind":"required", "type":["numeric", "vector", "row", "numel=2", "integer", "positive"]},
+            {"name":"Measurement", "kind":"namevalue", "type":["numeric", "vector", "row", "numel=3"]},
+            {"name":"Information", "kind":"namevalue", "type":["numeric", "2d", "size=3,3"]}
+        ]
+    },
+    "nav.algs.internal.factorPoseSE2Prior":
+    {
+        "inputs":
+        [
+            {"name":"NodeID", "kind":"required", "type":["numeric", "scalar", "integer", "positive"]},
+            {"name":"Measurement", "kind":"namevalue", "type":["numeric", "vector", "row", "numel=3"]},
+            {"name":"Information", "kind":"namevalue", "type":["numeric", "2d", "size=3,3"]}
+        ]
+    },
+    "nav.algs.internal.PoseGraphBase.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.PoseGraphBase"},
+            {"name":"Parent", "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"IDs", "kind":"namevalue", "type":"choices={'all','nodes', 'loopclosures', 'off'}"}
+        ]
+    },
+    "poseGraphSolverOptions":
+    {
+        "inputs":
+        [
+            {"name":"optionStr", "kind":"required", "type":"choices={'builtin-trust-region','g2o-levenberg-marquardt'}"}
+        ]
+    },
+    "optimizePoseGraph":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"obj", "kind":"required", "type":[["robotics.PoseGraph"], ["robotics.PoseGraph3D"]]},
+                     {"mutuallyExclusiveGroup":
+                      [
+                          [
+                              {"name":"Solver", "kind":"ordered", "type":"choices={'builtin-trust-region'}","default":"'builtin-trust-region'"},
+                              {"name":"FirstNodePose", "kind":"namevalue"},
+                              {"name":"FunctionTolerance", "kind":"namevalue"},
+                              {"name":"GradientTolerance", "kind":"namevalue"},
+                              {"name":"InitialTrustRegionRadius", "kind":"namevalue"},
+                              {"name":"LoopClosuresToIgnore", "kind":"namevalue"},
+                              {"name":"MaxIterations", "kind":"namevalue"},
+                              {"name":"MaxTime", "kind":"namevalue"},
+                              {"name":"StepTolerance", "kind":"namevalue"},
+                              {"name":"VerboseOutput", "kind":"namevalue", "type":"choices={'on', 'off'}"}
+                          ],
+
+                          [
+                              {"name":"Solver", "kind":"required", "type":"choices={'g2o-levenberg-marquardt'}"},
+                              {"name":"MaxIterations", "kind":"namevalue"},
+                              {"name":"MaxTime", "kind":"namevalue"},
+                              {"name":"LoopClosuresToIgnore", "kind":"namevalue"},
+                              {"name":"VerboseOutput", "kind":"namevalue", "type":"choices={'on', 'off'}"},
+                              {"name":"FunctionTolerance", "kind":"namevalue"},
+                              {"name":"FirstNodePose", "kind":"namevalue"}
+
+                          ]
+
+                      ]
+                     }
+
+                 ],
+                 [
+                     {"name":"obj", "kind":"required", "type":"digraph"},
+                     {"name":"Solver", "kind":"required", "type":"choices={'g2o-levenberg-marquardt'}"},
+                     {"name":"MaxIterations", "kind":"namevalue"},
+                     {"name":"MaxTime", "kind":"namevalue"},
+                     {"name":"FunctionTolerance", "kind":"namevalue"},
+                     {"name":"VerboseOutput", "kind":"namevalue", "type":"choices={'on', 'off'}"}
+
+
+                 ]
+             ]
+            }
+        ]
+    },
+    "lidarSLAM.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"lidarSLAM"},
+            {"name":"Parent", "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"Poses", "kind":"namevalue", "type":"choices={'on','off'}"}
+        ]
+    },
+    "occupancyMap":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+                [
+                    [
+                        {"name":"map", "kind":"required", "type":"occupancyMap"}
+                    ],
+                    [
+                    {"name":"M", 	"kind":"required", "type":["numeric","positive","scalar"]},
+                    {"name":"N",  	"kind":"required", "type":["numeric","positive","scalar"]},
+                    {"name":"res",  "kind":"required",  "type":["numeric","positive","integer","scalar"]},
+                    {"name":"grid",	"kind":"ordered",  "type":["choices={'grid'}"]}
+                    ],
+                    [
+                        {"name":"M", 	"kind":"required", "type":["numeric","positive","scalar"]},
+                        {"name":"N",  	"kind":"required", "type":["numeric","positive","scalar"]},
+                        {"name":"res",  "kind":"ordered",  "type":["numeric","positive","integer","scalar"]}
+                    ],
+                    [
+                        {"name":"matrix",  "kind":"required",  "type":["numeric","logical","@(m)any(size(m,[1 2]) > 1) && numel(size(m))==2"]}
+                    ]
+                ]
+            },
+            {"name":"LayerName", "kind":"namevalue", "type":"string"}
+        ]
+    },
+    "occupancyMap.checkOccupancy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap"},
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"XY", "kind":"required", "type":"numeric"}
+                 ],
+                 [
+                     {"name":"botLeft", "kind":"required", "type":"numeric"},
+                     {"name":"matSize", "kind":"required", "type":"numeric"}
+                 ]
+             ]
+            },
+            {"name":"Frame", "kind":"ordered", "type":"choices={'world','local','grid'}"}
+        ]
+    },
+    "occupancyMap.getOccupancy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap"},
+            {"mutuallyExclusiveGroup":
+                [
+                    [
+                        {"name":"XY",      "kind":"required", "type":["numeric","ncols=2","real"]}
+                    ],
+                    [
+                        {"name":"botLeft", "kind":"required", "type":["numeric","row","numel=2","real"]},
+                        {"name":"matSize", "kind":"required", "type":["numeric","row","numel=2","positive"]}
+                    ]
+                ]
+            },
+            {"name":"Frame", "kind":"ordered", "type":"choices={'world','local','grid'}"}
+        ]
+    },
+    "occupancyMap.setOccupancy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap"},
+            {"mutuallyExclusiveGroup":
+                [
+                    [
+                        {"name":"XY",     "kind":"required", "type":["numeric","ncols=2","real"]},
+                        {"name":"values", "kind":"required", "type":[["logical","numeric","scalar"],["logical","numeric","column","@(x,XY)isequal(numel(x),size(XY,1))"]]}
+                    ],
+                    [
+                        {"name":"botLeft",     "kind":"required", "type":["numeric","row","numel=2","real"]},
+                        {"name":"inputMatrix", "kind":"required", "type":["logical","numeric","@(x)numel(size(x)) < 3"]}
+                    ]
+                ]
+            },
+            {"name":"Frame", "kind":"ordered", "type":"choices={'world','local','grid'}"}
+        ]
+    },
+    "occupancyMap3D.checkOccupancy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap"},
+            {"mutuallyExclusiveGroup":
+                [
+                    [
+                        {"name":"XY",      "kind":"positional", "type":["numeric","ncols=2","real"]}
+                    ],
+                    [
+                        {"name":"botLeft", "kind":"required", "type":["numeric","row","numel=2","real"]},
+                        {"name":"matSize", "kind":"required", "type":["numeric","row","numel=2","positive"]}
+                    ]
+                ]
+            },
+            {"name":"Frame", "kind":"ordered", "type":"choices={'world','local','grid'}"}
+        ]
+    },
+    "occupancyMap.updateOccupancy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap"},
+            {"mutuallyExclusiveGroup":
+                [
+                    [
+                        {"name":"XY",     "kind":"required", "type":["numeric","ncols=2","real"]},
+                        {"name":"values", "kind":"required", "type":[["logical","numeric","scalar"],["logical","numeric","column","@(x,XY)isequal(numel(x),size(XY,1))"]]}
+                    ],
+                    [
+                        {"name":"botLeft",     "kind":"required", "type":["numeric","row","numel=2","real"]},
+                        {"name":"inputMatrix", "kind":"required", "type":["logical","numeric","@(x)numel(size(x)) < 3"]}
+                    ]
+                ]
+            },
+            {"name":"Frame", "kind":"ordered", "type":"choices={'world','local','grid'}"}
+        ]
+    },
+    "occupancyMap.inflate":
+    {
+        "inputs":
+        [
+            {"name":"obj",    "kind":"required", "type":"occupancyMap"},
+            {"name":"Radius", "kind":"required", "type":"numeric"},
+            {"name":"Frame",  "kind":"ordered",  "type":"choices={'world','local','grid'}"}
+        ]
+    },
+    "occupancyMap.move":
+    {
+        "inputs":
+        [
+            {"name":"obj",       "kind":"required",  "type":"occupancyMap"},
+            {"name":"moveValue", "kind":"required",  "type":["numeric","row","numel=2","real"]},
+            {"name":"MoveType",  "kind":"namevalue", "type":"choices={'Absolute','Relative'}"},
+            {"name":"SyncWith",  "kind":"namevalue", "type":["occupancyMap","@(x,obj)all(x~=obj)"]},
+            {"name":"FillValue", "kind":"namevalue", "type":["logical","numeric","scalar"]}
+        ]
+    },
+    "occupancyMap.syncWith":
+    {
+        "inputs":
+        [
+            {"name":"obj",       "kind":"required", "type":"occupancyMap"},
+            {"name":"sourcemap", "kind":"required", "type":["occupancyMap","@(x,obj)all(x~=obj)"]}
+        ]
+    },
+    "occupancyMap.occupancyMatrix":
+    {
+        "inputs":
+        [
+            {"name":"obj",         "kind":"required", "type":"occupancyMap"},
+            {"name":"ternaryFlag", "kind":"ordered",  "type":"choices={'ternary'}"}
+        ]
+    },
+    "occupancyMap.show":
+    {
+        "inputs":
+        [
+            {"name":"obj",        "kind":"required",  "type":"occupancyMap"},
+            {"name":"Frame",      "kind":"ordered",   "type":"choices={'world','local','grid'}"},
+            {"name":"Parent",     "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"FastUpdate", "kind":"namevalue", "type":"choices={0,1}"}
+        ]
+    },
+    "occupancyMap.insertRay":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap"}
+        ]
+    },
+    "occupancyMap.raycast":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"occupancyMap"}
+        ]
+    },
+    "occupancyMap.copy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap"}
+        ]
+    },
+    "occupancyMap.loadobj":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap"}
+        ]
+    },
+    "occupancyMap.rayIntersection":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"occupancyMap"}
+        ]
+    },
+    "occupancyMap3D":
+    {
+        "inputs":
+        [
+            {"name":"res", "kind":"required"},
+            {"name":"ProbabilitySaturation", "kind":"namevalue"},
+            {"name":"FreeThreshold", "kind":"namevalue"},
+            {"name":"OccupiedThreshold", "kind":"namevalue"}
+        ]
+    },
+    "occupancyMap3D.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap3D"}
+        ]
+    },
+    "occupancyMap3D.inflate":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap3D"}
+        ]
+    },
+    "occupancyMap3D.insertPointCloud":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap3D"}
+        ]
+    },
+    "occupancyMap3D.getOccupancy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap3D"}
+        ]
+    },
+    "occupancyMap3D.setOccupancy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap3D"}
+        ]
+    },
+    "occupancyMap3D.checkOccupancy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap3D"}
+        ]
+    },
+    "occupancyMap3D.rayIntersection":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap3D"}
+        ]
+    },
+    "occupancyMap3D.updateOccupancy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap3D"}
+        ]
+    },
+    "occupancyMap3D.copy":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"occupancyMap3D"}
+        ]
+    },
+    "importOccupancyMap3D":
+    {
+        "inputs":
+        [
+            {"name":"mapPath", "kind":"required", "type":[["file=*.bt, *.ot"], ["matlabpathfile=*.bt, *.ot"]]}
+        ]
+    },
+    "exportOccupancyMap3D":
+    {
+        "inputs":
+        [
+            {"name":"map", "kind":"required", "type":"occupancyMap3D"},
+            {"name":"mapPath", "kind":"required", "type":["file=*.bt, *.ot"]}
+        ]
+    },
+    "dubinsConnection":
+    {
+        "inputs":
+        [
+            {"name":"MinTurningRadius", "kind":"namevalue"},
+            {"name":"DisabledPathTypes", "kind":"namevalue"}
+        ]
+    },
+    "dubinsConnection.connect":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"dubinsConnection"},
+            {"name":"startPose", "kind":"required", "type":"numeric"},
+            {"name":"goalPose", "kind":"required", "type":"numeric"},
+            {"name":"PathSegments", "kind":"namevalue", "type":"choices={'all','optimal'}"}
+        ]
+    },
+    "dubinsPathSegment.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"dubinsPathSegment"},
+            {"name":"Parent", "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"Positions", "kind":"namevalue", "type":"choices={'both', 'goal', 'none', 'start'}"},
+            {"name":"Headings", "kind":"namevalue", "type":"cell"},
+            {"name":"HeadingLength", "kind":"namevalue", "type":"double"}
+        ]
+    },
+    "reedsSheppConnection":
+    {
+        "inputs":
+        [
+            {"name":"DisabledPathTypes", "kind":"namevalue"},
+            {"name":"ForwardCost", "kind":"namevalue"},
+            {"name":"MinTurningRadius", "kind":"namevalue"},
+            {"name":"ReverseCost", "kind":"namevalue"}
+        ]
+    },
+    "reedsSheppConnection.connect":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"reedsSheppConnection"},
+            {"name":"startPose", "kind":"required", "type":"numeric"},
+            {"name":"goalPose", "kind":"required", "type":"numeric"},
+            {"name":"PathSegments", "kind":"namevalue", "type":"choices={'all', 'optimal'}"}
+        ]
+    },
+    "reedsSheppPathSegment.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"reedsSheppPathSegment"},
+            {"name":"Parent", "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"Positions", "kind":"namevalue", "type":"choices={'both', 'goal', 'none', 'start'}"},
+            {"name":"Headings", "kind":"namevalue", "type":"cell"},
+            {"name":"HeadingLength", "kind":"namevalue", "type":"double"}
+        ]
+    }
+}

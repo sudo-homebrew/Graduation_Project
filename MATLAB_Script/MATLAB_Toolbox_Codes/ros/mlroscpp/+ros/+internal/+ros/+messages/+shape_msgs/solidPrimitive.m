@@ -1,0 +1,41 @@
+function [data, info] = solidPrimitive
+%SolidPrimitive gives an empty data for shape_msgs/SolidPrimitive
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'shape_msgs/SolidPrimitive';
+[data.BOX, info.BOX] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.SPHERE, info.SPHERE] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.CYLINDER, info.CYLINDER] = ros.internal.ros.messages.ros.default_type('uint8',1, 3);
+[data.CONE, info.CONE] = ros.internal.ros.messages.ros.default_type('uint8',1, 4);
+[data.Type, info.Type] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.Dimensions, info.Dimensions] = ros.internal.ros.messages.ros.default_type('double',NaN);
+[data.BOXX, info.BOXX] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.BOXY, info.BOXY] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.BOXZ, info.BOXZ] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.SPHERERADIUS, info.SPHERERADIUS] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.CYLINDERHEIGHT, info.CYLINDERHEIGHT] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.CYLINDERRADIUS, info.CYLINDERRADIUS] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.CONEHEIGHT, info.CONEHEIGHT] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.CONERADIUS, info.CONERADIUS] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+info.MessageType = 'shape_msgs/SolidPrimitive';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,14);
+info.MatPath{1} = 'BOX';
+info.MatPath{2} = 'SPHERE';
+info.MatPath{3} = 'CYLINDER';
+info.MatPath{4} = 'CONE';
+info.MatPath{5} = 'type';
+info.MatPath{6} = 'dimensions';
+info.MatPath{7} = 'BOX_X';
+info.MatPath{8} = 'BOX_Y';
+info.MatPath{9} = 'BOX_Z';
+info.MatPath{10} = 'SPHERE_RADIUS';
+info.MatPath{11} = 'CYLINDER_HEIGHT';
+info.MatPath{12} = 'CYLINDER_RADIUS';
+info.MatPath{13} = 'CONE_HEIGHT';
+info.MatPath{14} = 'CONE_RADIUS';

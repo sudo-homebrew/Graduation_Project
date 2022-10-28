@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2014-2020 The MathWorks, Inc. -->
+<productinfo version="2.0">
+  <name>Robot Operating System (ROS)</name>
+  <baseproductid>8</baseproductid>
+  <deviceid>Generic</deviceid>
+  <subfamily>Generic</subfamily>
+  <productionhwdevicetype>Generic-&gt;Unspecified (assume 32-bit Generic)</productionhwdevicetype>
+  <enableprodhwdevicetype>true</enableprodhwdevicetype>
+  <toolchain name="Catkin" IsLoadCommandMATLABFcn="true">
+    <loadcommand>ros.codertarget.internal.DeploymentHooks.loadCommand</loadcommand>
+    <loadcommandargs>ros.codertarget.internal.DeploymentHooks.getLoadCommandArgs</loadcommandargs>
+  </toolchain>
+  <parameterinfo>$(TARGET_ROOT)/registry/parameters/ros_parameters.xml</parameterinfo>
+  <attributeinfo>$(TARGET_ROOT)/registry/attributes/ros_attributes.xml</attributeinfo>
+  <rtosinfo>$(MATLAB_ROOT)/toolbox/target/codertarget/rtos/registry/linux.xml</rtosinfo>
+  <matlabpilinfo GetPropsFcn="ros.codertarget.internal.getMATLABPILProps"></matlabpilinfo>
+</productinfo>

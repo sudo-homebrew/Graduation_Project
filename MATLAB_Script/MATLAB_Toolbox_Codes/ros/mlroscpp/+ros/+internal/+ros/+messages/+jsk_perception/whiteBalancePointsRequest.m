@@ -1,0 +1,44 @@
+function [data, info] = whiteBalancePointsRequest
+%WhiteBalancePoints gives an empty data for jsk_perception/WhiteBalancePointsRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'jsk_perception/WhiteBalancePointsRequest';
+[data.ReferenceColor, info.ReferenceColor] = ros.internal.ros.messages.ros.default_type('single',3);
+[data.Input, info.Input] = ros.internal.ros.messages.sensor_msgs.pointCloud2;
+info.Input.MLdataType = 'struct';
+info.MessageType = 'jsk_perception/WhiteBalancePointsRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,28);
+info.MatPath{1} = 'reference_color';
+info.MatPath{2} = 'input';
+info.MatPath{3} = 'input.header';
+info.MatPath{4} = 'input.header.seq';
+info.MatPath{5} = 'input.header.stamp';
+info.MatPath{6} = 'input.header.stamp.sec';
+info.MatPath{7} = 'input.header.stamp.nsec';
+info.MatPath{8} = 'input.header.frame_id';
+info.MatPath{9} = 'input.height';
+info.MatPath{10} = 'input.width';
+info.MatPath{11} = 'input.fields';
+info.MatPath{12} = 'input.fields.INT8';
+info.MatPath{13} = 'input.fields.UINT8';
+info.MatPath{14} = 'input.fields.INT16';
+info.MatPath{15} = 'input.fields.UINT16';
+info.MatPath{16} = 'input.fields.INT32';
+info.MatPath{17} = 'input.fields.UINT32';
+info.MatPath{18} = 'input.fields.FLOAT32';
+info.MatPath{19} = 'input.fields.FLOAT64';
+info.MatPath{20} = 'input.fields.name';
+info.MatPath{21} = 'input.fields.offset';
+info.MatPath{22} = 'input.fields.datatype';
+info.MatPath{23} = 'input.fields.count';
+info.MatPath{24} = 'input.is_bigendian';
+info.MatPath{25} = 'input.point_step';
+info.MatPath{26} = 'input.row_step';
+info.MatPath{27} = 'input.data';
+info.MatPath{28} = 'input.is_dense';

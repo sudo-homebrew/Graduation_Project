@@ -1,0 +1,47 @@
+function [data, info] = clientListResponse
+%ClientList gives an empty data for concert_msgs/ClientListResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'concert_msgs/ClientListResponse';
+[data.Clients, info.Clients] = ros.internal.ros.messages.concert_msgs.concertClient;
+info.Clients.MLdataType = 'struct';
+info.Clients.MaxLen = NaN;
+info.Clients.MinLen = 0;
+data.Clients = data.Clients([],1);
+info.MessageType = 'concert_msgs/ClientListResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,29);
+info.MatPath{1} = 'clients';
+info.MatPath{2} = 'clients.name';
+info.MatPath{3} = 'clients.gateway_name';
+info.MatPath{4} = 'clients.platform';
+info.MatPath{5} = 'clients.system';
+info.MatPath{6} = 'clients.robot';
+info.MatPath{7} = 'clients.client_status';
+info.MatPath{8} = 'clients.app_status';
+info.MatPath{9} = 'clients.status';
+info.MatPath{10} = 'clients.last_connection_timestamp';
+info.MatPath{11} = 'clients.last_connection_timestamp.sec';
+info.MatPath{12} = 'clients.last_connection_timestamp.nsec';
+info.MatPath{13} = 'clients.apps';
+info.MatPath{14} = 'clients.apps.name';
+info.MatPath{15} = 'clients.apps.display_name';
+info.MatPath{16} = 'clients.apps.description';
+info.MatPath{17} = 'clients.apps.platform';
+info.MatPath{18} = 'clients.apps.status';
+info.MatPath{19} = 'clients.apps.icon';
+info.MatPath{20} = 'clients.apps.icon.format';
+info.MatPath{21} = 'clients.apps.icon.data';
+info.MatPath{22} = 'clients.apps.pairing_clients';
+info.MatPath{23} = 'clients.apps.pairing_clients.client_type';
+info.MatPath{24} = 'clients.apps.pairing_clients.manager_data';
+info.MatPath{25} = 'clients.apps.pairing_clients.manager_data.key';
+info.MatPath{26} = 'clients.apps.pairing_clients.manager_data.value';
+info.MatPath{27} = 'clients.apps.pairing_clients.app_data';
+info.MatPath{28} = 'clients.apps.pairing_clients.app_data.key';
+info.MatPath{29} = 'clients.apps.pairing_clients.app_data.value';

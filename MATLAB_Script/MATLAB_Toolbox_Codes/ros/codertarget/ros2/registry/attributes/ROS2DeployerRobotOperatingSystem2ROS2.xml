@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<productinfo version="3.0">
+  <name>ROS2 Deployer</name>
+  <targetname>ROS2</targetname>
+  <needsmainfcn>true</needsmainfcn>
+  <mainfcnsignature>int main(int argc, char **argv)</mainfcnsignature>
+  <token Name="_SUPPORTS_CPP_CODEGEN_" Value="true"/>
+  <onhardwareselecthook>ros.slros2.internal.cgen.onHardwareSelect</onhardwareselecthook>
+  <oncodegenentryhook>ros.codertarget.internal.onCodegenEntryHook</oncodegenentryhook>
+  <onhardwaredeselecthook>ros.slros2.internal.cgen.onHardwareDeselect</onhardwaredeselecthook>
+  <onbuildentryhook>ros.slros2.internal.cgen.onBuildEntryHook</onbuildentryhook>
+  <onaftercodegenhook>ros.slros2.internal.cgen.onAfterCodeGen</onaftercodegenhook>
+  <detectoverrun>false</detectoverrun>
+  <honorruntimestoprequest>true</honorruntimestoprequest>
+  <sdcardinbackgroundtask>false</sdcardinbackgroundtask>
+  <includestdio>true</includestdio>
+  <enableoneclick>true</enableoneclick>
+  <externalmodeinfo connectfcn="" postdisconnecttargetfcn="" preconnectfcn="">
+    <name>TCP/IP</name>
+    <buildconfigurationinfofile>$(TARGET_ROOT)/registry/attributes/TCPIP_ExternalModeBuildConfig.xml</buildconfigurationinfofile>
+    <modelparameter callback="" name="CodeInterfacePackaging">
+      <value>Nonreusable function</value>
+    </modelparameter>
+    <codertargetparameter callback="" name="Runtime.BuildAction">
+      <value>Build and run</value>
+    </codertargetparameter>
+    <transport name="tcpip">
+      <ipaddress value="ros.codertarget.internal.getExtmodeDeviceAddress(hCS)">
+        <visible>false</visible>
+      </ipaddress>
+      <port value="17725">
+        <visible>true</visible>
+      </port>
+      <verbose>
+        <value>false</value>
+        <visible>true</visible>
+      </verbose>
+      <type>tcp/ip</type>
+      <iointerfacename>TCP/IP</iointerfacename>
+    </transport>
+    <setupfcn>ros.slros2.internal.cgen.ExternalModeUtil.SetupFcn(hObj);</setupfcn>
+    <closefcn>ros.slros2.internal.cgen.ExternalModeUtil.CloseFcn(hObj);</closefcn>
+    <task default="background">
+      <inbackground>true</inbackground>
+      <inforeground>true</inforeground>
+      <visible>true</visible>
+    </task>
+  </externalmodeinfo>
+  <buildconfigurationinfofile>$(TARGET_ROOT)/registry/attributes/ROS2BuildConfiguration.xml</buildconfigurationinfofile>
+</productinfo>

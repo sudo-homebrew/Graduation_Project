@@ -1,0 +1,42 @@
+function [data, info] = databaseModelPoseList
+%DatabaseModelPoseList gives an empty data for household_objects_database_msgs/DatabaseModelPoseList
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'household_objects_database_msgs/DatabaseModelPoseList';
+[data.ModelList, info.ModelList] = ros.internal.ros.messages.household_objects_database_msgs.databaseModelPose;
+info.ModelList.MLdataType = 'struct';
+info.ModelList.MaxLen = NaN;
+info.ModelList.MinLen = 0;
+data.ModelList = data.ModelList([],1);
+info.MessageType = 'household_objects_database_msgs/DatabaseModelPoseList';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,24);
+info.MatPath{1} = 'model_list';
+info.MatPath{2} = 'model_list.model_id';
+info.MatPath{3} = 'model_list.type';
+info.MatPath{4} = 'model_list.type.key';
+info.MatPath{5} = 'model_list.type.db';
+info.MatPath{6} = 'model_list.pose';
+info.MatPath{7} = 'model_list.pose.header';
+info.MatPath{8} = 'model_list.pose.header.seq';
+info.MatPath{9} = 'model_list.pose.header.stamp';
+info.MatPath{10} = 'model_list.pose.header.stamp.sec';
+info.MatPath{11} = 'model_list.pose.header.stamp.nsec';
+info.MatPath{12} = 'model_list.pose.header.frame_id';
+info.MatPath{13} = 'model_list.pose.pose';
+info.MatPath{14} = 'model_list.pose.pose.position';
+info.MatPath{15} = 'model_list.pose.pose.position.x';
+info.MatPath{16} = 'model_list.pose.pose.position.y';
+info.MatPath{17} = 'model_list.pose.pose.position.z';
+info.MatPath{18} = 'model_list.pose.pose.orientation';
+info.MatPath{19} = 'model_list.pose.pose.orientation.x';
+info.MatPath{20} = 'model_list.pose.pose.orientation.y';
+info.MatPath{21} = 'model_list.pose.pose.orientation.z';
+info.MatPath{22} = 'model_list.pose.pose.orientation.w';
+info.MatPath{23} = 'model_list.confidence';
+info.MatPath{24} = 'model_list.detector_name';

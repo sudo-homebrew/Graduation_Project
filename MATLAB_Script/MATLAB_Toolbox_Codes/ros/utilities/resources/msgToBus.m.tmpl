@@ -1,0 +1,166 @@
+function slBusOut = {% MsgName %}(msgIn, slBusOut, varargin)
+%#codegen
+
+%   Copyright 2021 The MathWorks, Inc.
+
+{% var msgFields = fieldnames(EmptyMsg) %}
+{% for j=numel(msgFields) %}
+    {% var reservedNameChecker = ros.slros.internal.bus.ReservedNamesChecker.getInstance %}
+    {% var reservedNames = reservedNameChecker.ExclusionList %}
+    {% var msgField = msgFields{j} %}
+    {% var busField = msgFields{j} %}
+    {% if ismember(msgField, reservedNames) %}
+          {% var busField = [msgFields{j},'_'] %}
+    {% endif %}
+    {% if ~isequal('MessageType', msgField) %}
+        {% var thisinfo = MsgInfo.(msgField) %}
+        {% if ~thisinfo.constant %}
+            {% if isequal('struct',thisinfo.MLdataType) %}
+                {% var thismsgtype = strsplit(eval(['MsgInfo.',(msgField),'.MessageType']),'/') %}
+                {% var thispkgname = thismsgtype{1} %}
+                {% var thismsgname = thismsgtype{2} %}
+                {% if  isnan(thisinfo.MaxLen) || (thisinfo.MaxLen > thisinfo.MinLen) %}
+                    {% var recvdLenInfoProp = [busField,'_SL_Info.ReceivedLength']  %}
+                    {% var currLenInfoProp = [busField,'_SL_Info.CurrentLength']  %}
+    maxlength = length(slBusOut.{% busField %});
+    recvdlength = length(msgIn.{% msgField %});
+    currentlength = min(maxlength, recvdlength);
+    if (max(recvdlength) > maxlength) && ...
+            isequal(varargin{1}{1},ros.slros.internal.bus.VarLenArrayTruncationAction.EmitWarning)
+        diag = MSLDiagnostic([], ...
+                             message('ros:slros:busconvert:TruncatedArray', ...
+                                     '{% msgField %}', msgIn.MessageType, maxlength, max(recvdlength), maxlength, varargin{2}));
+        reportAsWarning(diag);
+    end
+    slBusOut.{% recvdLenInfoProp %} = uint32(recvdlength);
+    slBusOut.{% currLenInfoProp %} = uint32(currentlength);
+    for iter=1:currentlength
+        slBusOut.{%busField%}(iter) = bus_conv_fcns.{% RosVersion %}.msgToBus.{% thispkgname %}.{% thismsgname %}(msgIn.{% msgField %}(iter),slBusOut(1).{% busField %}(iter),varargin{:});
+    end
+                {% endif %}
+
+                {% if isequal(thisinfo.MaxLen,thisinfo.MinLen) && (thisinfo.MaxLen > 0)  %}
+    currentlength = length(slBusOut.{% busField %});
+    for iter=1:currentlength
+        slBusOut.{%busField%}(iter) = bus_conv_fcns.{% RosVersion %}.msgToBus.{% thispkgname %}.{% thismsgname %}(msgIn.{% msgField %}(iter),slBusOut(1).{% busField %}(iter),varargin{:});
+    end
+                {% endif %}
+
+                {% if (thisinfo.MaxLen == 1) && (thisinfo.MinLen == 1)  %}
+    slBusOut.{%busField%} = bus_conv_fcns.{% RosVersion %}.msgToBus.{% thispkgname %}.{% thismsgname %}(msgIn.{% msgField %},slBusOut(1).{% busField %},varargin{:});
+                {% endif %}
+            {% endif %}
+            {% if ~isequal('struct',thisinfo.MLdataType) % nested primitive %}
+                {% var castDataType = thisinfo.MLdataType %}
+                {% var getLengthFcn = 'length' %}
+                {% if (isequal('ros/Time',MsgInfo.MessageType) || isequal('ros/Duration',MsgInfo.MessageType) || isequal('uint64',thisinfo.MLdataType) || isequal('int64',thisinfo.MLdataType)) %}
+                    {% var castDataType = 'double' %}
+                {% endif %}
+                {% var isVarLen = isnan(thisinfo.MaxLen) || (thisinfo.MaxLen > thisinfo.MinLen) %}
+                {% var isFixedLen = isequal(thisinfo.MaxLen, thisinfo.MinLen) && ((thisinfo.MaxLen > 1) || ros.slros.internal.ROSUtil.isFixedSizeArray(MessageType,msgField,RosVersion)) %}
+                {% var isStringArray = isequal('string',thisinfo.MLdataType) && (isVarLen || isFixedLen) %}
+                {% var isStringArrayFixed = isequal('string',thisinfo.MLdataType) && isFixedLen %}
+                {% if isequal('string',thisinfo.MLdataType) %}
+                    {% var castDataType = 'char' %}
+                        {% if ~isStringArray %}
+                            {% var getLengthFcn = 'strlength' %}
+                        {% endif %}
+                {% endif %}
+
+                {% if isequal('char',thisinfo.MLdataType) %}
+                    {% var castDataType = 'uint8' %}
+                {% endif %}
+
+                {% if ( isFixedLen && ~isequal('string',thisinfo.MLdataType) && ~isequal('char',thisinfo.MLdataType)) %}
+                    currentlength = {% getLengthFcn %}(slBusOut.{% busField %});
+                    slBusOut.{% busField %} = {% castDataType %}(msgIn.{% msgField %}(1:currentlength));
+                {% endif %}
+
+                {% if ( isFixedLen && isequal('char',thisinfo.MLdataType)) %}
+                    currentlength = {% getLengthFcn %}(slBusOut.{% busField %});
+                    slBusOut.{% busField %} = {% castDataType %}(msgIn.{% msgField %}(1:currentlength)).';
+                {% endif %}
+
+                {% if isVarLen || isStringArray %}
+                    {% var recvdLenInfoProp = [busField,'_SL_Info.ReceivedLength']  %}
+                    {% var currLenInfoProp = [busField,'_SL_Info.CurrentLength']  %}
+    maxlength = {% getLengthFcn %}(slBusOut.{% busField %});
+    recvdlength = {% getLengthFcn %}(msgIn.{% msgField %});
+    currentlength = min(maxlength, recvdlength);
+    if (max(recvdlength) > maxlength) && ...
+            isequal(varargin{1}{1},ros.slros.internal.bus.VarLenArrayTruncationAction.EmitWarning)
+        diag = MSLDiagnostic([], ...
+                             message('ros:slros:busconvert:TruncatedArray', ...
+                                     '{% msgField %}', msgIn.MessageType, maxlength, max(recvdlength), maxlength, varargin{2}));
+        reportAsWarning(diag);
+    end
+                    {% if ( isVarLen && ~isequal('string',thisinfo.MLdataType) && ~isequal('char',thisinfo.MLdataType)) %}
+    slBusOut.{% recvdLenInfoProp %} = uint32(recvdlength);
+    slBusOut.{% currLenInfoProp %} = uint32(currentlength);
+    slBusOut.{% busField %} = {% castDataType %}(msgIn.{% msgField %}(1:slBusOut.{% currLenInfoProp %}));
+                          
+    if recvdlength < maxlength
+    slBusOut.{% busField %}(recvdlength+1:maxlength) = 0;
+    end
+                    {% endif %}
+
+                    {% if ( isVarLen && isequal('char',thisinfo.MLdataType)) %}
+    slBusOut.{% recvdLenInfoProp %} = uint32(recvdlength);
+    slBusOut.{% currLenInfoProp %} = uint32(currentlength);
+    slBusOut.{% busField %} = {% castDataType %}(msgIn.{% msgField %}(1:currentlength)).';
+    if recvdlength < maxlength
+    slBusOut.{% busField %}(recvdlength+1:maxlength) = 0;
+    end                      
+                    {% endif %}
+
+                    {% if isStringArray %}
+    {% if isVarLen %}
+    slBusOut.{% recvdLenInfoProp %} = uint32(recvdlength);
+    slBusOut.{% currLenInfoProp %} = uint32(currentlength);
+    {% endif %}
+    {% var isLower = isstrprop(msgField,'lower') %}
+    {% var isUpper = isstrprop(msgField,'upper') %}
+    for iter=1:currentlength
+        recvlen = strlength(msgIn.{% msgField %}(iter));
+        {% if isequal(isLower(1),1) %}
+        maxlen = length(slBusOut.{% busField %}(iter).data);
+        {% endif %}
+        {% if isequal(isUpper(1),1) %}
+        maxlen = length(slBusOut.{% busField %}(iter).Data);
+        {% endif %}
+        curlen = min(recvlen, maxlen);
+        if (max(recvlen) > maxlen) && ...
+                isequal(varargin{1}{1},ros.slros.internal.bus.VarLenArrayTruncationAction.EmitWarning)
+            diag = MSLDiagnostic([], ...
+                                 message('ros:slros:busconvert:TruncatedArray', ...
+                                         '{% msgField %}', msgIn.MessageType, maxlen, max(recvdlength), maxlength, varargin{2}));
+            reportAsWarning(diag);
+        end
+        {% if isequal(isLower(1),1) %}
+        slBusOut.{% busField %}(iter).data_SL_Info.CurrentLength = uint32(curlen);
+        slBusOut.{% busField %}(iter).data_SL_Info.ReceivedLength = uint32(recvlen);
+        slBusOut.{% busField %}(iter).data(1:curlen) = uint8(char(msgIn.{% msgField %}(iter)));
+        {% endif %}
+        {% if isequal(isUpper(1),1) %}
+        slBusOut.{% busField %}(iter).Data_SL_Info.CurrentLength = uint32(curlen);
+        slBusOut.{% busField %}(iter).Data_SL_Info.ReceivedLength = uint32(recvlen);
+        slBusOut.{% busField %}(iter).Data(1:curlen) = uint8(char(msgIn.{% msgField %}(iter)));
+        {% endif %}
+    end
+                    {% endif %}
+                {% endif %}
+                {% if ( (thisinfo.MaxLen == 1) || (thisinfo.MinLen == 1)) && ~isequal('string',thisinfo.MLdataType)  %}
+    slBusOut.{% busField %} = {% castDataType %}(msgIn.{% msgField %});
+                {% endif %}
+                {% if ( (thisinfo.MaxLen == 1) || (thisinfo.MinLen == 1)) && isequal('string',thisinfo.MLdataType) && ~isFixedLen %}
+    slBusOut.{% busField %}_SL_Info.ReceivedLength = uint32(strlength(msgIn.{% msgField %}));
+    currlen  = min(slBusOut.{% busField %}_SL_Info.ReceivedLength, length(slBusOut.{% busField %}));
+    slBusOut.{% busField %}_SL_Info.CurrentLength = uint32(currlen);
+    slBusOut.{% busField %}(1:currlen) = uint8(char(msgIn.{% msgField %}(1:currlen))).';
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+end
+

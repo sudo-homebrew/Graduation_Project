@@ -1,0 +1,23 @@
+classdef Gazebo_msgs_custom_{% msgInfo.baseName %} < robotics.slgazebo.internal.msgs.Gazebo_Msgs
+    % This function is for internal use only. It may be removed in the future.
+    % DO NOT EDIT!
+    % Gazebo_msgs_custom{% msgInfo.baseName %} this is the template for custom {% msgInfo.baseName %} message bus type
+    %
+    %   Copyright 2019-2020 The MathWorks, Inc.
+
+    properties
+        
+        MessageType = 'gazebo_msgs/custom/{% msgInfo.MessageType %}';
+       
+        {% msgInfo.field %}
+        
+
+    end
+    methods
+        
+        function obj = Gazebo_msgs_custom_{% msgInfo.baseName %}(~)
+             {% msgInfo.definition %}
+        end
+        
+    end
+end

@@ -1,0 +1,45 @@
+function [data, info] = graspResult
+%GraspResult gives an empty data for manipulation_msgs/GraspResult
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'manipulation_msgs/GraspResult';
+[data.SUCCESS, info.SUCCESS] = ros.internal.ros.messages.ros.default_type('int32',1, 1);
+[data.GRASPOUTOFREACH, info.GRASPOUTOFREACH] = ros.internal.ros.messages.ros.default_type('int32',1, 2);
+[data.GRASPINCOLLISION, info.GRASPINCOLLISION] = ros.internal.ros.messages.ros.default_type('int32',1, 3);
+[data.GRASPUNFEASIBLE, info.GRASPUNFEASIBLE] = ros.internal.ros.messages.ros.default_type('int32',1, 4);
+[data.PREGRASPOUTOFREACH, info.PREGRASPOUTOFREACH] = ros.internal.ros.messages.ros.default_type('int32',1, 5);
+[data.PREGRASPINCOLLISION, info.PREGRASPINCOLLISION] = ros.internal.ros.messages.ros.default_type('int32',1, 6);
+[data.PREGRASPUNFEASIBLE, info.PREGRASPUNFEASIBLE] = ros.internal.ros.messages.ros.default_type('int32',1, 7);
+[data.LIFTOUTOFREACH, info.LIFTOUTOFREACH] = ros.internal.ros.messages.ros.default_type('int32',1, 8);
+[data.LIFTINCOLLISION, info.LIFTINCOLLISION] = ros.internal.ros.messages.ros.default_type('int32',1, 9);
+[data.LIFTUNFEASIBLE, info.LIFTUNFEASIBLE] = ros.internal.ros.messages.ros.default_type('int32',1, 10);
+[data.MOVEARMFAILED, info.MOVEARMFAILED] = ros.internal.ros.messages.ros.default_type('int32',1, 11);
+[data.GRASPFAILED, info.GRASPFAILED] = ros.internal.ros.messages.ros.default_type('int32',1, 12);
+[data.LIFTFAILED, info.LIFTFAILED] = ros.internal.ros.messages.ros.default_type('int32',1, 13);
+[data.RETREATFAILED, info.RETREATFAILED] = ros.internal.ros.messages.ros.default_type('int32',1, 14);
+[data.ResultCode, info.ResultCode] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.ContinuationPossible, info.ContinuationPossible] = ros.internal.ros.messages.ros.default_type('logical',1);
+info.MessageType = 'manipulation_msgs/GraspResult';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,16);
+info.MatPath{1} = 'SUCCESS';
+info.MatPath{2} = 'GRASP_OUT_OF_REACH';
+info.MatPath{3} = 'GRASP_IN_COLLISION';
+info.MatPath{4} = 'GRASP_UNFEASIBLE';
+info.MatPath{5} = 'PREGRASP_OUT_OF_REACH';
+info.MatPath{6} = 'PREGRASP_IN_COLLISION';
+info.MatPath{7} = 'PREGRASP_UNFEASIBLE';
+info.MatPath{8} = 'LIFT_OUT_OF_REACH';
+info.MatPath{9} = 'LIFT_IN_COLLISION';
+info.MatPath{10} = 'LIFT_UNFEASIBLE';
+info.MatPath{11} = 'MOVE_ARM_FAILED';
+info.MatPath{12} = 'GRASP_FAILED';
+info.MatPath{13} = 'LIFT_FAILED';
+info.MatPath{14} = 'RETREAT_FAILED';
+info.MatPath{15} = 'result_code';
+info.MatPath{16} = 'continuation_possible';

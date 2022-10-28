@@ -1,0 +1,39 @@
+function [data, info] = constants
+%Constants gives an empty data for test_msgs/Constants
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'test_msgs/Constants';
+[data.BOOL_CONST, info.BOOL_CONST] = ros.internal.ros2.messages.ros2.default_type('logical',1,0, 1, [NaN]);
+[data.BYTE_CONST, info.BYTE_CONST] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 50, [NaN]);
+[data.CHAR_CONST, info.CHAR_CONST] = ros.internal.ros2.messages.ros2.char('char',1,NaN,0,'d', NaN);
+[data.FLOAT32_CONST, info.FLOAT32_CONST] = ros.internal.ros2.messages.ros2.default_type('single',1,0, 1.125, [NaN]);
+[data.FLOAT64_CONST, info.FLOAT64_CONST] = ros.internal.ros2.messages.ros2.default_type('double',1,0, 1.125, [NaN]);
+[data.INT8_CONST, info.INT8_CONST] = ros.internal.ros2.messages.ros2.default_type('int8',1,0, -50, [NaN]);
+[data.UINT8_CONST, info.UINT8_CONST] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 200, [NaN]);
+[data.INT16_CONST, info.INT16_CONST] = ros.internal.ros2.messages.ros2.default_type('int16',1,0, -1000, [NaN]);
+[data.UINT16_CONST, info.UINT16_CONST] = ros.internal.ros2.messages.ros2.default_type('uint16',1,0, 2000, [NaN]);
+[data.INT32_CONST, info.INT32_CONST] = ros.internal.ros2.messages.ros2.default_type('int32',1,0, -30000, [NaN]);
+[data.UINT32_CONST, info.UINT32_CONST] = ros.internal.ros2.messages.ros2.default_type('uint32',1,0, 60000, [NaN]);
+[data.INT64_CONST, info.INT64_CONST] = ros.internal.ros2.messages.ros2.default_type('int64',1,0, -40000000, [NaN]);
+[data.UINT64_CONST, info.UINT64_CONST] = ros.internal.ros2.messages.ros2.default_type('uint64',1,0, 50000000, [NaN]);
+info.MessageType = 'test_msgs/Constants';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,13);
+info.MatPath{1} = 'BOOL_CONST';
+info.MatPath{2} = 'BYTE_CONST';
+info.MatPath{3} = 'CHAR_CONST';
+info.MatPath{4} = 'FLOAT32_CONST';
+info.MatPath{5} = 'FLOAT64_CONST';
+info.MatPath{6} = 'INT8_CONST';
+info.MatPath{7} = 'UINT8_CONST';
+info.MatPath{8} = 'INT16_CONST';
+info.MatPath{9} = 'UINT16_CONST';
+info.MatPath{10} = 'INT32_CONST';
+info.MatPath{11} = 'UINT32_CONST';
+info.MatPath{12} = 'INT64_CONST';
+info.MatPath{13} = 'UINT64_CONST';

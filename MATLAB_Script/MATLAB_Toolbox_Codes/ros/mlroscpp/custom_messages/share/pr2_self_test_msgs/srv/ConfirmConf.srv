@@ -1,0 +1,7 @@
+string message
+string details
+---
+byte RETRY = 0
+byte FAIL = 1
+
+byte retry

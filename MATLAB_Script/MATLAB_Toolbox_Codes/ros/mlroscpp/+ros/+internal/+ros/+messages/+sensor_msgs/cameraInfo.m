@@ -1,0 +1,47 @@
+function [data, info] = cameraInfo
+%CameraInfo gives an empty data for sensor_msgs/CameraInfo
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'sensor_msgs/CameraInfo';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Height, info.Height] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.Width, info.Width] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.DistortionModel, info.DistortionModel] = ros.internal.ros.messages.ros.char('string',0);
+[data.D, info.D] = ros.internal.ros.messages.ros.default_type('double',NaN);
+[data.K, info.K] = ros.internal.ros.messages.ros.default_type('double',9);
+[data.R, info.R] = ros.internal.ros.messages.ros.default_type('double',9);
+[data.P, info.P] = ros.internal.ros.messages.ros.default_type('double',12);
+[data.BinningX, info.BinningX] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.BinningY, info.BinningY] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.Roi, info.Roi] = ros.internal.ros.messages.sensor_msgs.regionOfInterest;
+info.Roi.MLdataType = 'struct';
+info.MessageType = 'sensor_msgs/CameraInfo';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,21);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'height';
+info.MatPath{8} = 'width';
+info.MatPath{9} = 'distortion_model';
+info.MatPath{10} = 'D';
+info.MatPath{11} = 'K';
+info.MatPath{12} = 'R';
+info.MatPath{13} = 'P';
+info.MatPath{14} = 'binning_x';
+info.MatPath{15} = 'binning_y';
+info.MatPath{16} = 'roi';
+info.MatPath{17} = 'roi.x_offset';
+info.MatPath{18} = 'roi.y_offset';
+info.MatPath{19} = 'roi.height';
+info.MatPath{20} = 'roi.width';
+info.MatPath{21} = 'roi.do_rectify';

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 The MathWorks, Inc. -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="https://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     id="Layer_1"
+     version="1.1"
+     viewBox="-8 -4 50 40"
+     height="60"
+     width="110">
+   <g style="isolation:isolate">
+      <g data-name="Layer 1" id="a41e8e05-9e76-4183-8fcb-c1b5d3e7c2a0">
+         <path d="M27.41,25.19a1,1,0,0,0,0-1.41,1,1,0,0,0-1.41,0l-1,1a1,1,0,0,0,1.41,1.41Z"
+               fill="#a6a6a6"
+               stroke="#333"
+               stroke-linecap="round"
+               stroke-linejoin="round"
+               stroke-width="0.75"/>
+         <polygon fill="#fff"
+                  points="18.51 7.98 9.25 7.98 9.25 27.67 24.5 27.67 24.5 13.97 18.51 13.97 18.51 7.98"
+                  stroke="#333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.75"/>
+         <path d="M19.39,15.51V14.22h4.86l-4.41,1.6A.33.33,0,0,1,19.39,15.51Z" fill="#333"
+               opacity="0.25"
+               style="mix-blend-mode:multiply"/>
+         <line fill="#fff" stroke="gray" stroke-linejoin="round" stroke-width="0.75"
+               x1="11.98"
+               x2="21.35"
+               y1="16.37"
+               y2="16.37"/>
+         <line fill="#fff" stroke="gray" stroke-linejoin="round" stroke-width="0.75"
+               x1="11.98"
+               x2="21.35"
+               y1="19.19"
+               y2="19.19"/>
+         <line fill="#fff" stroke="gray" stroke-linejoin="round" stroke-width="0.75"
+               x1="11.98"
+               x2="21.35"
+               y1="22"
+               y2="22"/>
+         <line fill="#fff" stroke="gray" stroke-linejoin="round" stroke-width="0.75"
+               x1="11.98"
+               x2="19.48"
+               y1="24.81"
+               y2="24.81"/>
+         <rect fill="gray" height="3.07" width="7.62" x="10.88" y="10.11"/>
+         <path d="M9.83,1.9h2a1.87,1.87,0,0,1,.8.15,1,1,0,0,1,.59,1A1.15,1.15,0,0,1,13,3.7a1.09,1.09,0,0,1-.45.39.87.87,0,0,1,.38.27.92.92,0,0,1,.15.54l0,.58a1.59,1.59,0,0,0,0,.37.36.36,0,0,0,.19.26v.1h-.72a1.31,1.31,0,0,1-.05-.15c0-.06,0-.17,0-.34l0-.72a.59.59,0,0,0-.31-.56,1.2,1.2,0,0,0-.5-.08H10.42V6.21H9.83Zm1.9,2a1.09,1.09,0,0,0,.63-.16.69.69,0,0,0,.23-.59.64.64,0,0,0-.33-.63,1,1,0,0,0-.46-.09H10.42V3.87Z"
+               fill="#333"/>
+         <path d="M17.64,2.52A2.34,2.34,0,0,1,18.07,4a2.58,2.58,0,0,1-.49,1.6,1.94,1.94,0,0,1-1.64.75,2,2,0,0,1-1.56-.65,2.49,2.49,0,0,1-.51-1.6,2.56,2.56,0,0,1,.44-1.5A1.88,1.88,0,0,1,16,1.78,2,2,0,0,1,17.64,2.52Zm-.51,2.74A2.34,2.34,0,0,0,17.47,4a1.78,1.78,0,0,0-.4-1.22A1.34,1.34,0,0,0,16,2.3a1.43,1.43,0,0,0-1.09.46,2,2,0,0,0-.42,1.36,2,2,0,0,0,.36,1.2A1.35,1.35,0,0,0,16,5.81,1.22,1.22,0,0,0,17.13,5.26Z"
+               fill="#333"/>
+         <path d="M19.14,4.82a1.25,1.25,0,0,0,.17.59,1.07,1.07,0,0,0,1,.43,1.72,1.72,0,0,0,.58-.09.66.66,0,0,0,.5-.65.58.58,0,0,0-.21-.51,2.22,2.22,0,0,0-.68-.25l-.56-.13a2.36,2.36,0,0,1-.78-.29.89.89,0,0,1-.4-.8,1.24,1.24,0,0,1,.39-1,1.54,1.54,0,0,1,1.11-.38,1.85,1.85,0,0,1,1.11.33,1.19,1.19,0,0,1,.46,1h-.54a1.18,1.18,0,0,0-.18-.53,1,1,0,0,0-.87-.33,1,1,0,0,0-.71.21.7.7,0,0,0-.22.51.5.5,0,0,0,.26.46,4,4,0,0,0,.76.24l.58.13a1.71,1.71,0,0,1,.65.28,1,1,0,0,1,.4.87,1.09,1.09,0,0,1-.51,1,2.15,2.15,0,0,1-1.17.31A1.69,1.69,0,0,1,19,5.92a1.36,1.36,0,0,1-.43-1.1Z"
+               fill="#333"/>
+         <polygon fill="#fff" points="18.51 13.97 24.5 13.97 18.51 7.98 18.51 13.97"
+                  stroke="#333"
+                  stroke-linecap="round"
+                  stroke-linejoin="bevel"
+                  stroke-width="0.75"/>
+         <rect fill="#e6e6e6" height="6.06" stroke="#333" stroke-linecap="round"
+               stroke-linejoin="round"
+               stroke-width="0.75"
+               transform="translate(26.17 -9.22) rotate(45)"
+               width="2"
+               x="23.21"
+               y="23.95"/>
+         <polygon fill="#fff" points="20.68 30.52 21.38 28.39 22.8 29.81 20.68 30.52"
+                  stroke="#333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.75"/>
+         <polyline fill="none" points="4.24 7.51 4.24 11.65 6.73 11.65" stroke="#333"
+                   stroke-linecap="round"
+                   stroke-linejoin="round"
+                   stroke-width="0.75"/>
+         <polygon fill="#333" points="6.29 13.14 8.88 11.65 6.29 10.15 6.29 13.14"/>
+      </g>
+   </g>
+</svg>

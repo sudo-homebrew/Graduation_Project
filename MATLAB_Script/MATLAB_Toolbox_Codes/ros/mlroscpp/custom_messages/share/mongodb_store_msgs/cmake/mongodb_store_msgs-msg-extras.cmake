@@ -1,0 +1,2 @@
+set(mongodb_store_msgs_MESSAGE_FILES "msg/SerialisedMessage.msg;msg/StringList.msg;msg/StringPair.msg;msg/StringPairList.msg;msg/MoveEntriesAction.msg;msg/MoveEntriesActionGoal.msg;msg/MoveEntriesActionResult.msg;msg/MoveEntriesActionFeedback.msg;msg/MoveEntriesGoal.msg;msg/MoveEntriesResult.msg;msg/MoveEntriesFeedback.msg")
+set(mongodb_store_msgs_SERVICE_FILES "srv/MongoDeleteMsg.srv;srv/MongoInsertMsg.srv;srv/MongoQueryMsg.srv;srv/MongoUpdateMsg.srv")

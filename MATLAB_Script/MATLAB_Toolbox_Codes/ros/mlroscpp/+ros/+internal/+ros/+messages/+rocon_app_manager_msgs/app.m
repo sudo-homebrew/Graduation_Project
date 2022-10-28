@@ -1,0 +1,41 @@
+function [data, info] = app
+%App gives an empty data for rocon_app_manager_msgs/App
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'rocon_app_manager_msgs/App';
+[data.Name, info.Name] = ros.internal.ros.messages.ros.char('string',0);
+[data.DisplayName, info.DisplayName] = ros.internal.ros.messages.ros.char('string',0);
+[data.Description, info.Description] = ros.internal.ros.messages.ros.char('string',0);
+[data.Platform, info.Platform] = ros.internal.ros.messages.ros.char('string',0);
+[data.Status, info.Status] = ros.internal.ros.messages.ros.char('string',0);
+[data.Icon, info.Icon] = ros.internal.ros.messages.rocon_app_manager_msgs.icon;
+info.Icon.MLdataType = 'struct';
+[data.PairingClients, info.PairingClients] = ros.internal.ros.messages.rocon_app_manager_msgs.pairingClient;
+info.PairingClients.MLdataType = 'struct';
+info.PairingClients.MaxLen = NaN;
+info.PairingClients.MinLen = 0;
+data.PairingClients = data.PairingClients([],1);
+info.MessageType = 'rocon_app_manager_msgs/App';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,16);
+info.MatPath{1} = 'name';
+info.MatPath{2} = 'display_name';
+info.MatPath{3} = 'description';
+info.MatPath{4} = 'platform';
+info.MatPath{5} = 'status';
+info.MatPath{6} = 'icon';
+info.MatPath{7} = 'icon.format';
+info.MatPath{8} = 'icon.data';
+info.MatPath{9} = 'pairing_clients';
+info.MatPath{10} = 'pairing_clients.client_type';
+info.MatPath{11} = 'pairing_clients.manager_data';
+info.MatPath{12} = 'pairing_clients.manager_data.key';
+info.MatPath{13} = 'pairing_clients.manager_data.value';
+info.MatPath{14} = 'pairing_clients.app_data';
+info.MatPath{15} = 'pairing_clients.app_data.key';
+info.MatPath{16} = 'pairing_clients.app_data.value';

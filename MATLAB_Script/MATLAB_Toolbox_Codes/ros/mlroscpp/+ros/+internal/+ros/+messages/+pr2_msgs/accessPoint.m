@@ -1,0 +1,39 @@
+function [data, info] = accessPoint
+%AccessPoint gives an empty data for pr2_msgs/AccessPoint
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'pr2_msgs/AccessPoint';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Essid, info.Essid] = ros.internal.ros.messages.ros.char('string',0);
+[data.Macaddr, info.Macaddr] = ros.internal.ros.messages.ros.char('string',0);
+[data.Signal, info.Signal] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Noise, info.Noise] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Snr, info.Snr] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Channel, info.Channel] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Rate, info.Rate] = ros.internal.ros.messages.ros.char('string',0);
+[data.TxPower, info.TxPower] = ros.internal.ros.messages.ros.char('string',0);
+[data.Quality, info.Quality] = ros.internal.ros.messages.ros.default_type('int32',1);
+info.MessageType = 'pr2_msgs/AccessPoint';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'essid';
+info.MatPath{8} = 'macaddr';
+info.MatPath{9} = 'signal';
+info.MatPath{10} = 'noise';
+info.MatPath{11} = 'snr';
+info.MatPath{12} = 'channel';
+info.MatPath{13} = 'rate';
+info.MatPath{14} = 'tx_power';
+info.MatPath{15} = 'quality';

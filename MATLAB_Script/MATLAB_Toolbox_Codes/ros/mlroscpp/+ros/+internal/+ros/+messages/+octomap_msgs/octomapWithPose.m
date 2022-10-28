@@ -1,0 +1,46 @@
+function [data, info] = octomapWithPose
+%OctomapWithPose gives an empty data for octomap_msgs/OctomapWithPose
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'octomap_msgs/OctomapWithPose';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Origin, info.Origin] = ros.internal.ros.messages.geometry_msgs.pose;
+info.Origin.MLdataType = 'struct';
+[data.Octomap, info.Octomap] = ros.internal.ros.messages.octomap_msgs.octomap;
+info.Octomap.MLdataType = 'struct';
+info.MessageType = 'octomap_msgs/OctomapWithPose';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,27);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'origin';
+info.MatPath{8} = 'origin.position';
+info.MatPath{9} = 'origin.position.x';
+info.MatPath{10} = 'origin.position.y';
+info.MatPath{11} = 'origin.position.z';
+info.MatPath{12} = 'origin.orientation';
+info.MatPath{13} = 'origin.orientation.x';
+info.MatPath{14} = 'origin.orientation.y';
+info.MatPath{15} = 'origin.orientation.z';
+info.MatPath{16} = 'origin.orientation.w';
+info.MatPath{17} = 'octomap';
+info.MatPath{18} = 'octomap.header';
+info.MatPath{19} = 'octomap.header.seq';
+info.MatPath{20} = 'octomap.header.stamp';
+info.MatPath{21} = 'octomap.header.stamp.sec';
+info.MatPath{22} = 'octomap.header.stamp.nsec';
+info.MatPath{23} = 'octomap.header.frame_id';
+info.MatPath{24} = 'octomap.binary';
+info.MatPath{25} = 'octomap.id';
+info.MatPath{26} = 'octomap.resolution';
+info.MatPath{27} = 'octomap.data';

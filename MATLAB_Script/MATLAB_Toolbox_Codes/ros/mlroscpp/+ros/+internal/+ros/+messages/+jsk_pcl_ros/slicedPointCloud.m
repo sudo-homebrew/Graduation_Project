@@ -1,0 +1,46 @@
+function [data, info] = slicedPointCloud
+%SlicedPointCloud gives an empty data for jsk_pcl_ros/SlicedPointCloud
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'jsk_pcl_ros/SlicedPointCloud';
+[data.PointCloud, info.PointCloud] = ros.internal.ros.messages.sensor_msgs.pointCloud2;
+info.PointCloud.MLdataType = 'struct';
+[data.SliceIndex, info.SliceIndex] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.SequenceId, info.SequenceId] = ros.internal.ros.messages.ros.default_type('uint8',1);
+info.MessageType = 'jsk_pcl_ros/SlicedPointCloud';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,29);
+info.MatPath{1} = 'point_cloud';
+info.MatPath{2} = 'point_cloud.header';
+info.MatPath{3} = 'point_cloud.header.seq';
+info.MatPath{4} = 'point_cloud.header.stamp';
+info.MatPath{5} = 'point_cloud.header.stamp.sec';
+info.MatPath{6} = 'point_cloud.header.stamp.nsec';
+info.MatPath{7} = 'point_cloud.header.frame_id';
+info.MatPath{8} = 'point_cloud.height';
+info.MatPath{9} = 'point_cloud.width';
+info.MatPath{10} = 'point_cloud.fields';
+info.MatPath{11} = 'point_cloud.fields.INT8';
+info.MatPath{12} = 'point_cloud.fields.UINT8';
+info.MatPath{13} = 'point_cloud.fields.INT16';
+info.MatPath{14} = 'point_cloud.fields.UINT16';
+info.MatPath{15} = 'point_cloud.fields.INT32';
+info.MatPath{16} = 'point_cloud.fields.UINT32';
+info.MatPath{17} = 'point_cloud.fields.FLOAT32';
+info.MatPath{18} = 'point_cloud.fields.FLOAT64';
+info.MatPath{19} = 'point_cloud.fields.name';
+info.MatPath{20} = 'point_cloud.fields.offset';
+info.MatPath{21} = 'point_cloud.fields.datatype';
+info.MatPath{22} = 'point_cloud.fields.count';
+info.MatPath{23} = 'point_cloud.is_bigendian';
+info.MatPath{24} = 'point_cloud.point_step';
+info.MatPath{25} = 'point_cloud.row_step';
+info.MatPath{26} = 'point_cloud.data';
+info.MatPath{27} = 'point_cloud.is_dense';
+info.MatPath{28} = 'slice_index';
+info.MatPath{29} = 'sequence_id';

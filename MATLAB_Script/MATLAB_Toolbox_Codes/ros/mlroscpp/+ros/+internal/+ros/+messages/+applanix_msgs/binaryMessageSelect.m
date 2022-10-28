@@ -1,0 +1,45 @@
+function [data, info] = binaryMessageSelect
+%BinaryMessageSelect gives an empty data for applanix_msgs/BinaryMessageSelect
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'applanix_msgs/BinaryMessageSelect';
+[data.Transaction, info.Transaction] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.Reserved, info.Reserved] = ros.internal.ros.messages.ros.default_type('uint8',7);
+[data.PortsCount, info.PortsCount] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.Ports, info.Ports] = ros.internal.ros.messages.applanix_msgs.cOMPortMessages;
+info.Ports.MLdataType = 'struct';
+info.Ports.MaxLen = NaN;
+info.Ports.MinLen = 0;
+data.Ports = data.Ports([],1);
+info.MessageType = 'applanix_msgs/BinaryMessageSelect';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,24);
+info.MatPath{1} = 'transaction';
+info.MatPath{2} = 'reserved';
+info.MatPath{3} = 'ports_count';
+info.MatPath{4} = 'ports';
+info.MatPath{5} = 'ports.port_num';
+info.MatPath{6} = 'ports.MESSAGES_NMEA_GST';
+info.MatPath{7} = 'ports.MESSAGES_NMEA_GGA';
+info.MatPath{8} = 'ports.MESSAGES_NMEA_HDT';
+info.MatPath{9} = 'ports.MESSAGES_NMEA_ZDA';
+info.MatPath{10} = 'ports.MESSAGES_NMEA_EVT1';
+info.MatPath{11} = 'ports.MESSAGES_NMEA_EVT2';
+info.MatPath{12} = 'ports.MESSAGES_NMEA_VTG';
+info.MatPath{13} = 'ports.MESSAGES_NMEA_PASHR';
+info.MatPath{14} = 'ports.MESSAGES_NMEA_GGA2';
+info.MatPath{15} = 'ports.MESSAGES_NMEA_PPS';
+info.MatPath{16} = 'ports.MESSAGES_NMEA_GGK';
+info.MatPath{17} = 'ports.MESSAGES_NMEA_RMC';
+info.MatPath{18} = 'ports.MESSAGES_BIN_GIMBAL_LOOP';
+info.MatPath{19} = 'ports.MESSAGES_BIN_RDR1';
+info.MatPath{20} = 'ports.MESSAGES_BIN_PAST2';
+info.MatPath{21} = 'ports.MESSAGES_BIN_PPS';
+info.MatPath{22} = 'ports.MESSAGES_BIN_TM1B';
+info.MatPath{23} = 'ports.messages';
+info.MatPath{24} = 'ports.update_rate';

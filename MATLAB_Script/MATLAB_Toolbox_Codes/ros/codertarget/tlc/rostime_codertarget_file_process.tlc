@@ -1,0 +1,1555 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Copyright 2013-2019 The MathWorks, Inc.
+%% Modified version for the ROS "/clock" synchronization
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%selectfile NULL_FILE
+
+%% Need to set the template compliance flag before we can use the API
+%<LibSetCodeTemplateComplianceLevel(1)>
+%assign MATLAB_ROOT = FEVAL("matlabroot")
+%assign MAINLIB_ROOT = FEVAL("fullfile", MATLAB_ROOT, "toolbox", "target", "codertarget", "rtw")
+%addincludepath MAINLIB_ROOT
+%assign RTOS = FEVAL("codertarget.targethardware.getTargetRTOS", CompiledModel.Name)
+%if FEVAL("codertarget.target.supportsCoderTarget", CompiledModel.Name)
+  %assign ::ISCODERTARGET = 1
+  %assign ::ProfileGenCode = 0
+  %assign ::isProfilePIL = 0
+  %assign ::isPIL = 0
+  %assign ::isLIB = 0
+  %assign tgt = FEVAL("codertarget.target.getTargetName" , CompiledModel.Name)
+  %if ISEQUAL(tgt, [])
+    %assign ::ISCODERTARGET = 0
+    %assign tgt = "unknown target"
+  %endif
+%else
+  %assign ::ISCODERTARGET = 0
+%endif
+
+%% ROS-specific defines
+%assign ::IsTimeNotificationEnabled = FEVAL("codertarget.data.getParameterValue", CompiledModel.Name, "ROS.ROSTimeNotification")
+%assign ::TimeNotificationTopic = FEVAL("codertarget.data.getParameterValue", CompiledModel.Name, "ROS.StepNotify")
+%assign ::ROSDetectTaskOverruns = FEVAL("codertarget.data.getParameterValue", CompiledModel.Name, "DetectTaskOverruns")
+%assign ::ROSDetectOverrunFcn = FEVAL("codertarget.attributes.getAttribute", CompiledModel.Name, "DetectOverrunFcn")
+
+%%-------------------------------------------------------------------------
+%% "codertarget_OS.tlc"
+%function locLibGetCustomIncludes()
+  %openfile tmpFcnBuf
+  %assign INCFILES = FEVAL("codertarget.targethardware.getTargetHardwareIncludeFiles", CompiledModel.Name)
+  %assign arraySize = SIZE(INCFILES)
+  %assign numIncFiles = arraySize[1]
+  %foreach idx = numIncFiles
+    #include "%<INCFILES[idx]>"
+  %endforeach
+  %assign INCFILES = FEVAL("codertarget.rtos.getIncludeFiles", CompiledModel.Name)
+  %assign arraySize = SIZE(INCFILES)
+  %assign numIncFiles = arraySize[1]
+  %foreach idx = numIncFiles
+    #include "%<INCFILES[idx]>"
+  %endforeach
+  %closefile tmpFcnBuf
+  %return tmpFcnBuf
+%endfunction
+
+%function SLibCreateMain(mainFileName) void
+  %assign INCLUDESTDIO = FEVAL("codertarget.attributes.getAttribute", CompiledModel.Name, "IncludeStdIO")
+  %<SLibSetModelFileName("mainSrc", mainFileName)>
+  %<SLibSetModelFileName("mainHdr", mainFileName)>
+  %openfile tmpFcnBuf
+  %<SLibDeclareGlobalVariablesForCPPClass()>\
+  %<SLibDeclareModelFcnArgs(TLC_TRUE)>\
+  %<SLibDeclareFcnProtoCtlGlobalVariables()>
+  %closefile tmpFcnBuf
+  %<SLibCacheCodeToFile("mainSrc_data_defn", tmpFcnBuf)>
+  %<SLibCacheCodeToFile("mainSrc_ban", tmpFcnBuf)>
+  %<SLibCacheCodeToFile("mainSrc_fcn_defn", FcnGenerateMainFunctions(0))>
+  %<LibAddToCommonIncludes("%<mainFileName>.h")>
+  %openfile tmpFcnBuf
+  %if INCLUDESTDIO
+    #include <stdio.h>
+    #include <stdlib.h>
+  %endif
+  #include "%<FcnGetPublicModelHeaderFile()>"
+  %<SLibIncludePrivateHeader()>
+  %<SLibRtwIncludes()>
+  %<locLibGetCustomIncludes()>
+  #include "MW_custom_RTOS_header.h"
+  #include "ros/ros.h"
+  #include "std_msgs/Bool.h"
+  #include "std_msgs/String.h"
+  #include "rosgraph_msgs/Clock.h"
+
+  #define UNUSED(x) x = x
+  void ROS_myRTOSInit(double baseRatePeriod, int numSubrates);
+  static void publishDone(bool status);
+  %closefile tmpFcnBuf
+  %<SLibCacheCodeToFile("mainSrc_incl", tmpFcnBuf)>
+  %%
+  %<CTLibCreateMainBody()> %% This is a Coder Target function
+%endfunction
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ROS_codertarget_mainOS
+%include "commonthreadlib.tlc"
+
+%function SLibPrintProfilerData() Output
+  %assign profiling = FEVAL("get_param", CompiledModel.Name, "CodeExecutionProfiling")
+  %assign profiler = FEVAL("codertarget.attributes.getAttribute", CompiledModel.Name, "Profiler")
+  %if ISEQUAL(profiling, "on") && !ISEMPTY(profiler) && ISEQUAL(profiler.PrintData, "1") && ISEQUAL(profiler.InstantPrint, "0")
+    %assign fName = CompiledModel.Name + ".txt"
+    {
+      FILE* fid;
+      unsigned int i;
+      fid = fopen("%<fName>", "w");
+      if (fid!=NULL) {
+        for (i=0; i<profilingDataIdx; i++) {
+          fprintf(fid, "%lu, %lu, %lu\n",
+          profilingData.sectionID[i], profilingData.timerValue[i], profilingData.coreID[i]);
+        }
+        fclose(fid);
+      }
+    }
+  %endif
+%endfunction
+
+%function locLibIsCoreAffinityRequired()
+  %assign retVal = TLC_FALSE
+  %if LibIsDeploymentDiagram()
+    %assign retVal = LibIsCoreAffinityRequired()
+  %endif
+  %return retVal
+%endfunction
+
+%function SLibCallMdlStepMultiTaskingBaseRate(RunExtModeServer) Output
+  %if ((ExtMode == 1) && (RunExtModeServer == 1))
+    %assign ExtModeInBackground = locIsExtModeInBackground()
+    %assign buffsRec   = ::CompiledModel.CachedCodeBuffsForRootSys
+    %if ISFIELD(buffsRec,"ExtModeHeader") && !WHITE_SPACE(buffsRec.ExtModeHeader)
+      %<buffsRec.ExtModeHeader>\
+    %endif
+    %if !ExtModeInBackground
+      %<FcnGenerateExtModeOneStep()>
+    %else
+      boolean_T rtmStopReq = false;
+      rt_PktServerWork(%<RTMGet("RTWExtModeInfo")>, ...
+        %<NumSynchronousSampleTimes>, ...
+        &rtmStopReq);
+      if (rtmStopReq) {
+        %<RTMSetStopRequested("true")>;
+      }
+    %endif
+  %endif
+  %if !GenerateClassInterface
+    %<FcnCallMdlStep(0)>\
+  %else %%in class gen mode
+    %<::CPPObjectName>.step0();
+  %endif
+%endfunction
+
+%function SLibTidRunsThisStep(tid) Output
+  %if GenerateClassInterface
+    rtmStepTask(%<CPPObjectName>.getRTM(), %<tid>)
+  %else
+    %<RTMTaskRunsThisBaseStep(tid)>
+  %endif
+%endfunction
+
+%function SLibGetVarDeclrMultiTasking(eventFlagsVar, indexVar, numSubrateTasks ) Output
+  %if (eventFlagsVar != "")
+    boolean_T %<eventFlagsVar>[%<numSubrateTasks>];
+  %endif
+  %if (indexVar != "")
+    int_T %<indexVar>;
+  %endif
+%endfunction
+
+%function SLibCallMdlStepMultiTaskingSubRate(tid) Output
+  %if GenerateGRTWrapper
+    %assign genLocalMain = 1
+  %elseif (ConfigSet.GenerateSampleERTMain || RateBasedStepFcn) && ...
+    (!SLibConcurrentTasks()) || GenerateClassInterface
+    %assign genLocalMain = 0
+  %else
+    %assign genLocalMain = 1
+  %endif
+  %if genLocalMain == 1
+    %<LibCallModelStep(tid)>
+  %else
+    switch(%<tid>) {
+      %foreach idx = LibGetNumSyncPeriodicTasks() - 1
+        %assign i = idx + 1 + FixedStepOpts.TID01EQ
+        case %<i>:
+        %assign rootSystem.CurrentTID = i
+        %if !GenerateClassInterface
+          %<FcnCallMdlStep(i)>\
+        %else %%in class gen mode
+          %<::CPPObjectName>.step%<i>();
+        %endif
+        break;
+      %endforeach
+      default:
+      break;
+    }
+  %endif
+%endfunction
+
+%function SLibCallMdlStepSingleTasking(RunExtModeServer) Output
+  %assign arg = (FcnNumST() > 1) ? "0" : ""
+  %if ((ExtMode == 1) && (RunExtModeServer == 1))
+    %assign ExtModeInBackground = locIsExtModeInBackground()
+    %assign buffsRec = ::CompiledModel.CachedCodeBuffsForRootSys
+    %if ISFIELD(buffsRec,"ExtModeHeader") && !WHITE_SPACE(buffsRec.ExtModeHeader)
+      %<buffsRec.ExtModeHeader>\
+    %endif
+    %if !ExtModeInBackground
+      %<FcnGenerateExtModeOneStep()>
+    %else
+      boolean_T rtmStopReq = false;
+      rt_PktServerWork(%<RTMGet("RTWExtModeInfo")>, ...
+        %<NumSynchronousSampleTimes>, ...
+        &rtmStopReq);
+      if (rtmStopReq) {
+        %<RTMSetStopRequested("true")>;
+      }
+    %endif
+  %endif
+  %<FcnCallMdlStep(arg)>\
+%endfunction
+
+%function SLibRtwIncludes() Output
+  #include "rtwtypes.h"
+  #include "limits.h"
+  %if SLibRealNonFinitesRequired()
+    %<SLibIncludeRTnonFiniteHeader()>
+  %endif
+  %if EXISTS(EXTMODE)
+    #include "ext_work.h"
+  %endif
+  %if MatFileLogging
+    #include "rt_logging.h"
+    %if (::CompiledModel.RTWStatesLogging==1)
+      #include "rt_logging_mmi.h"
+    %endif
+  %endif
+  %<SLibCacheCodeToFile("mainSrc_defines", LibDeclareERTDefines(NumSystems-1))>
+  %assign supportsToAsyncBlkInsertion = locGetSupportsAsyncBlkInsertion()
+  %if supportsToAsyncBlkInsertion
+    #define GOTO_EXIT_IF_ERROR(msg, cond)     \
+    if (cond) {                           \
+    errorPrefix = msg;                \
+    goto EXIT_POINT;                  \
+  }
+
+  #define ERROR_EXIT(msg, cond)             \
+  if (cond) {                           \
+  (void)fprintf(stderr, msg, cond); \
+  return(EXIT_FAILURE);             \
+}
+  extern void commServiceStartThread(void * param);
+extern void* getCommService();
+extern const char *TgtConnInit(int_T argc, char_T *argv[]);
+extern void TgtConnTerm();
+extern void TgtConnPreStep(int_T tid);
+extern void TgtConnPostStep(int_T tid);
+%endif
+%endfunction
+
+%function SLibRtwModelInitialize(status, RunExtModeServer) Output
+  %<FcnPackModelDataIntoRTM()>
+  %<FcnGenerateModelInitialize()>
+  %if locGetSupportsAsyncBlkInsertion()
+    %assign commServiceArgs = FEVAL("codertarget.targetservices.getCommServiceArgs", CompiledModel.Name)
+    csInstance = getCommService(%<commServiceArgs>);
+    // Target connectivity initialization
+    const char * csErrorStatus;
+    csErrorStatus = TgtConnInit(argc, argv);
+    ERROR_EXIT("Error initializing target connectivity: %s\n", csErrorStatus);
+  %endif
+  %if ExtMode
+    %<SLibGenERTExtModeInit()>
+  %endif
+%endfunction
+
+%function SLibRtwModelTerminate(RunExtModeServer) Output
+  %if MatFileLogging
+    %<SLibGenLoggingStop("MATFILE")>
+  %endif
+  %if ((ExtMode == 1) && (RunExtModeServer == 1))
+    rtExtModeShutdown(%<NumSynchronousSampleTimes>);
+  %endif
+  %if locGetSupportsAsyncBlkInsertion()
+    TgtConnTerm();
+  %endif
+  %<FcnGenerateModelTerminate()>\
+  %<SLibPrintProfilerData()>
+%endfunction
+
+%function libFcnGetNumberMdsTasks()
+  %assign numTasks = 0
+  %assign numPeriodicGroups = 0 %% just for temporary not-allowing the new feature
+  %assign nTaskGroups = %<LibGetNumTriggers()>
+  %foreach tgIdx = nTaskGroups
+    %assign evType = LibGetTriggerType(tgIdx)
+    %if ISEQUAL(evType, "PeriodicTrigger")
+      %assign numTasks = numTasks + LibGetNumTriggerTasks(tgIdx)
+      %assign numPeriodicGroups = numPeriodicGroups + 1
+    %endif
+  %endforeach
+  %if (numPeriodicGroups > 1)
+    %% TODO ZG - improve error messsage
+    %error("Cannot support multiple periodic triggers yet.")
+  %endif
+  %return numTasks
+%endfunction
+
+%function locIsExtModeInBackground()
+  %if !EXISTS(::isExtModeInBackground)
+    %assign ::isExtModeInBackground = FEVAL("codertarget.attributes.isExtModeInBackground", CompiledModel.Name)
+  %endif
+  %return ::isExtModeInBackground
+%endfunction
+
+%function locGetSupportsAsyncBlkInsertion()
+  %if !EXISTS(::supportsToAsyncBlkInsertion)
+    %assign ::supportsToAsyncBlkInsertion = FEVAL("codertarget.attributes.supportTargetServicesFeature", CompiledModel.Name, "supportsAsyncQueueBlockInsertion", "CheckIfToAsynqBlocksPresent")
+  %endif
+  %return ::supportsToAsyncBlkInsertion
+%endfunction
+
+%function locLibGetNumberISRs()
+  %assign numISRs = 0
+  %foreach idx = LibGetNumTriggers()
+    %assign evType = LibGetTriggerType(idx)
+    %if ISEQUAL(evType, "Periodic")
+      %continue
+    %endif
+    %assign type = LibGetTriggerHandlerType(idx)
+    %if ISEQUAL(type, "isr")
+      %assign numISRs = numISRs + 1
+    %endif
+  %endforeach
+  %return numISRs
+%endfunction
+
+%function locLibFcnGetBaseRatePriority()
+  %assign BaseRate = FEVAL("codertarget.data.getRTOSBaseRatePriority", CompiledModel.Name)
+  %if ISEQUAL(BaseRate,"non-integer")
+    %error("RTOS base rate task priority must be set to an integer number. To avoid this error, select Simulation > Model Configuration Parameters > Coder Target and set the base rate task priority to an integer number.")
+  %endif
+  %if ISEMPTY(BaseRate)
+    %assign BaseRate = "40"
+  %endif
+  %assign baseRatePriority = %<CAST("Number", BaseRate)>
+  %return baseRatePriority
+%endfunction
+
+%function locLibRenderPriorities(numAperiodicTasks, numSubrateTasks, baseRatePriority)
+  %assign ppo = FEVAL("get_param", CompiledModel.Name, "PositivePriorityOrder")
+  %openfile tmpBuf
+  %if LibIsDeploymentDiagram()
+    %assign asyncPr = 1
+    %if numAperiodicTasks > 0  %% Reserve highest priority to async
+      %assign asyncPr = 2
+    %endif
+    %assign idx = 0
+    %foreach ehIdx = LibGetNumTriggers()
+      %assign evType = LibGetTriggerType(ehIdx)
+      %if ISEQUAL(evType, "Aperiodic")
+        %continue
+      %endif
+      %foreach taskIdx = LibGetNumTriggerTasks(ehIdx)
+        %assign stId = LibGetTriggerTaskSampleTimeIndex(ehIdx, taskIdx)
+        %if ISEQUAL(ppo, "on")
+          %assign pt = %<CAST("Number", baseRatePriority - 1)> - %<asyncPr> - %<stId>
+        %else
+          %assign pt = %<CAST("Number", baseRatePriority + 1)> + %<asyncPr> + %<stId>
+        %endif
+        subratePriority[%<idx>] = %<pt>;
+        %if locLibIsCoreAffinityRequired()
+          coreAffinity[%<idx>] = %<LibGetTaskCoreAffinity(ehIdx, taskIdx)>;
+        %endif
+        %assign idx = idx + 1
+      %endforeach
+    %endforeach
+  %else
+    %foreach idx = numSubrateTasks
+      %if ISEQUAL(ppo, "on")
+        subratePriority[%<idx>] = %<CAST("Number", baseRatePriority -1 - idx)>;
+      %else
+        subratePriority[%<idx>] = %<CAST("Number", baseRatePriority + 1 + idx)>;
+      %endif
+    %endforeach
+  %endif
+  %closefile tmpBuf
+  %return tmpBuf
+%endfunction
+
+%function libGetCoderTargetAPIData()
+  %createrecord record { ...
+    taskdatatype FEVAL("codertarget.rtos.getTaskDataType", CompiledModel.Name); ...
+    taskcreatecall FEVAL("codertarget.rtos.getTaskCreateCall", CompiledModel.Name); ...
+    taskexitcall FEVAL("codertarget.rtos.getTaskExitCall", CompiledModel.Name); ...
+    taskjoincall FEVAL("codertarget.rtos.getTaskJoinCall", CompiledModel.Name); ...
+    semdatatype FEVAL("codertarget.rtos.getSemaphoreDataType", CompiledModel.Name); ...
+    seminitcall FEVAL("codertarget.rtos.getSemaphoreInitCall", CompiledModel.Name); ...
+    semwaitcall FEVAL("codertarget.rtos.getSemaphoreWaitCall", CompiledModel.Name); ...
+    sempostcall FEVAL("codertarget.rtos.getSemaphorePostCall", CompiledModel.Name); ...
+    semdestroycall FEVAL("codertarget.rtos.getSemaphoreDestroyCall", CompiledModel.Name); ...
+    eventsendcall FEVAL("codertarget.rtos.getEventSendCall", CompiledModel.Name); ...
+    initcall FEVAL("codertarget.rtos.getInitCall", CompiledModel.Name) ...
+  }
+  %return record
+%endfunction
+
+%function locFcnGetNumberSubrateTasks()
+    %assign isSingleTasking = RootSystemIsSingleRate || SLibSingleTasking()
+    %if LibIsDeploymentDiagram()
+      %assign numSubrateTasks = libFcnGetNumberMdsTasks()      
+    %elseif isSingleTasking
+      %assign numSubrateTasks = 0
+    %else
+      %assign numSubrateTasks = FcnNumST() - 1 - FixedStepOpts.TID01EQ
+    %endif
+    %return numSubrateTasks
+%endfunction
+
+%function locLibRenderMWCustomRTOSHeader(ctAPI, ExtModeInBackground) void
+  %assign BaseRate = locLibFcnGetBaseRatePriority()
+  %openfile rtosHeaderFile = "MW_custom_RTOS_header.h"
+  %selectfile rtosHeaderFile
+  #ifndef _MW_CUSTOM_RTOS_HEADER_H_
+  #define _MW_CUSTOM_RTOS_HEADER_H_
+  #define MW_BASERATE_PRIORITY %<BaseRate>
+  #define MW_BASERATE_PERIOD %<FcnGetPeriodFromTID(0)>
+  #define MW_NUMBER_SUBRATES %<locFcnGetNumberSubrateTasks()>
+  #define MW_NUMBER_APERIODIC_TASKS %<SLibGetNumAperiodicTasks()>
+  #define MW_IS_CONCURRENT %<!ISEQUAL(CompiledModel.ConcurrentTasks, "no")>
+  %if locLibIsCoreAffinityRequired()
+    #define COREAFFINITYREQUIRED
+    extern int coreAffinity[];
+  %endif
+
+  %if (SLibGetNumAperiodicTasks() != 0)
+    #define MW_HAS_APERIODIC_TASKS
+  %endif
+  %if (locFcnGetNumberSubrateTasks() != 0)
+    #define MW_HAS_MULTIPLE_RATES
+  %endif
+  extern void exitFcn(int sig);
+  extern void *terminateTask(void *arg);
+  extern void *baseRateTask(void *arg);
+  extern void *subrateTask(void *arg);
+  %if (SLibGetNumAperiodicTasks() != 0)
+    extern void* (*pAsyncTasks[])(void* arg);
+  %endif
+
+  %if (ExtMode == 1)
+    %if ExtModeInBackground
+      #define MW_NEEDS_BACKGROUND_TASK
+      %assign ppo = FEVAL("get_param", CompiledModel.Name, "PositivePriorityOrder")
+      %if ISEQUAL(ppo, "on")
+        #define MW_BACKGROUNDTASK_PRIORITY %<BaseRate - locFcnGetNumberSubrateTasks() - 1>
+      %else
+        #define MW_BACKGROUNDTASK_PRIORITY %<BaseRate + locFcnGetNumberSubrateTasks() + 1>
+      %endif
+      extern void *backgroundTask(void *arg);
+      extern %<ctAPI.taskdatatype> backgroundThread;
+    %endif
+  %endif
+
+  extern %<ctAPI.taskdatatype> schedulerThread;
+  extern %<ctAPI.taskdatatype> terminateThread;
+  extern %<ctAPI.taskdatatype> baseRateThread;
+  extern %<ctAPI.taskdatatype> subRateThread[];
+  %if (SLibGetNumAperiodicTasks() != 0)
+    extern %<ctAPI.taskdatatype> asyncThread[];
+  %endif
+  extern %<ctAPI.semdatatype> termSem;
+  extern %<ctAPI.semdatatype> stopSem;
+  extern %<ctAPI.semdatatype> baserateTaskSem;
+  extern %<ctAPI.semdatatype> subrateTaskSem[];
+  extern int taskId[];
+  extern int subratePriority[];
+  %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+      extern pthread_mutex_t rateTaskFcnRunningMutex[];
+      extern int testForRateOverrun(int rateID);
+  %endif
+  %if (locLibGetNumberISRs() != 0)
+    extern int eventsToBlock[];
+  %endif
+  #endif
+  %closefile rtosHeaderFile
+%endfunction
+
+%function locLibRenderJoinTasks(ctAPI)
+  %assign isSingleTasking = RootSystemIsSingleRate || SLibSingleTasking()
+  %assign numSubrateTasks = locFcnGetNumberSubrateTasks()
+  %assign numAperiodicTasks = SLibGetNumAperiodicTasks()
+  %openfile tmpFileBuf
+  %if (!isSingleTasking) || (LibIsDeploymentDiagram())
+    %if (numAperiodicTasks > 0)
+      // Signal all aperiodic tasks to complete
+      %foreach aehIdx = LibGetNumTriggers()
+        %assign evType = LibGetTriggerType(aehIdx)
+        %if ISEQUAL(evType, "PeriodicTrigger")
+          %continue
+        %endif
+        %assign targetObj = LibGetTriggerTargetObject(aehIdx)
+        %assign sigNumber = targetObj.SignalNumber
+        %assign aehName   = LibGetTriggerName(aehIdx)
+        %assign type      = LibGetTriggerHandlerType(aehIdx)
+        %assert ISEQUAL(type, "task") || ISEQUAL(type, "isr")
+        %if ISEQUAL(type, "task")
+          // Signal all aperiodic tasks to complete
+          for (i=0; i < %<numAperiodicTasks>; i++)
+          {
+            ret = %<ctAPI.eventsendcall>(SIGRTMIN + %<sigNumber[0]>);
+            CHECK_STATUS(ret, 0, "%<ctAPI.eventsendcall>");
+          }
+        %endif
+      %endforeach
+    %endif
+
+    // Signal all periodic tasks to complete
+    for (i=0;i<%<numSubrateTasks>;i++)
+    {
+      CHECK_STATUS(%<ctAPI.sempostcall>(&subrateTaskSem[i]), 0, "%<ctAPI.sempostcall>");
+      CHECK_STATUS(%<ctAPI.semdestroycall>(&subrateTaskSem[i]), 0, "%<ctAPI.semdestroycall>");
+    }
+    %if (numAperiodicTasks > 0)
+      // Signal all aperiodic tasks to complete
+      %foreach aehIdx = LibGetNumTriggers()
+        %assign evType = LibGetTriggerType(aehIdx)
+        %if ISEQUAL(evType, "PeriodicTrigger")
+          %continue
+        %endif
+        %assign targetObj = LibGetTriggerTargetObject(aehIdx)
+        %assign sigNumber = targetObj.SignalNumber
+        %assign aehName   = LibGetTriggerName(aehIdx)
+        %assign type      = LibGetTriggerHandlerType(aehIdx)
+        %assert ISEQUAL(type, "task") || ISEQUAL(type, "isr")
+        %if ISEQUAL(type, "task")
+          // Wait for all aperiodic tasks to complete
+          for (i=0; i<%<numAperiodicTasks>; i++)
+          {
+            ret = %<ctAPI.taskjoincall>(asyncThread[i], (void**)&threadJoinStatus);
+            CHECK_STATUS(ret, 0, "%<ctAPI.taskjoincall>");
+          }
+        %endif
+      %endforeach
+    %endif
+    // Wait for all periodic tasks to complete
+    for (i=0;i<%<numSubrateTasks>;i++)
+    {
+      ret = %<ctAPI.taskjoincall>(subRateThread[i], (void**)&threadJoinStatus);
+      CHECK_STATUS(ret, 0, "%<ctAPI.taskjoincall>");
+    }
+  %endif
+  // Wait for baseRate task to complete
+  ret = %<ctAPI.taskjoincall>(baseRateThread, (void**)&threadJoinStatus);
+  CHECK_STATUS(ret, 0, "%<ctAPI.taskjoincall>");
+  %closefile tmpFileBuf
+  %return tmpFileBuf
+%endfunction
+
+%function locLibRenderTerminateTask(ctAPI, numSubrateTasks)
+  %openfile tmpFileBuf
+  void *terminateTask(void *arg)
+  {
+    int i;
+    int ret;
+    %<ctAPI.semwaitcall>(&termSem);
+    terminatingmodel = 1;
+    printf("** Terminating the model \"%s\" **\n", "%<::CompiledModel.Name>");
+    fflush(stdout);
+    %<locLibRenderJoinTasks(ctAPI)>
+    %<SLibRtwModelTerminate(1)>
+    %if LibIsDeploymentDiagram()
+      %<locLibDisableSignalHandler()>
+    %endif
+
+    // Shutdown the ROS
+    ros::shutdown();
+
+    %<ctAPI.sempostcall>(&stopSem);
+    %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+    {
+        int idxMutex;
+        for (idxMutex=0; idxMutex<%<numSubrateTasks+1>; idxMutex++) 
+        pthread_mutex_destroy(&rateTaskFcnRunningMutex[idxMutex]);
+    }
+    %endif
+    return NULL;
+  }
+  %closefile tmpFileBuf
+  %return tmpFileBuf
+%endfunction
+
+%function locLibRenderExitFcn(ctAPI)
+  %openfile tmpFileBuf
+  void exitFcn(int sig)
+  {
+    switch(sig){
+      case SIGINT:
+      ROS_WARN("Ctrl-C detected...");
+      break;
+
+      case SIGTERM:
+      ROS_WARN("Programm killed...");
+      break;
+
+      case SIGUSR1:   // Missing time slot
+      break;
+
+      default:
+      ROS_WARN("Programm received signal %d", sig);
+      break;
+    }
+
+    %<SLibRTMSetErrStat("\"stopping the model\"")>
+    %<ctAPI.sempostcall>(&baserateTaskSem);
+  }
+  %closefile tmpFileBuf
+  %return tmpFileBuf
+%endfunction
+
+%function locLibRenderBackgroundTask(ctAPI)
+  %openfile tmpFileBuf
+  void *backgroundTask(int *sig)
+  {
+    #ifndef EXTMODE_DISABLESIGNALMONITORING
+    while(runModel)
+    {
+      rt_UploadServerWork(%<NumSynchronousSampleTimes>);
+    }
+    #endif
+  }
+  %closefile tmpFileBuf
+  %return tmpFileBuf
+%endfunction
+
+%function libMaskAperiodicSignals(maskAllSignals, idx)
+  %openfile maskSigBuf
+  %foreach aehIdx = LibGetNumTriggers()
+    %assign evType = LibGetTriggerType(aehIdx)
+    %if ISEQUAL(evType, "PeriodicTrigger") || (!maskAllSignals && ISEQUAL(idx, aehIdx))
+      %continue
+    %endif
+    %assign targetObj = LibGetTriggerTargetObject(aehIdx)
+    %if !EXISTS("targetObj.SignalNumber")
+      %<LibReportError("Only Signal is allowed for aperiodic task.")>
+    %endif
+    %assign sigNumber = targetObj.SignalNumber
+    myAddBlockForThisEvent(SIGRTMIN + %<sigNumber[0]>);
+  %endforeach
+  %closefile maskSigBuf
+  %return maskSigBuf
+%endfunction
+
+%function locRenderAperiodicWrapperFunctions(ctAPI) void
+  %openfile tmpFileBuf
+  %foreach aehIdx = LibGetNumTriggers()
+    %assign evType = LibGetTriggerType(aehIdx)
+    %if ISEQUAL(evType, "PeriodicTrigger")
+      %continue
+    %endif
+    %assign targetObj = LibGetTriggerTargetObject(aehIdx)
+    %assign sigNumber = targetObj.SignalNumber
+    %assign aehName   = LibGetTriggerName(aehIdx)
+    %assign type      = LibGetTriggerHandlerType(aehIdx)
+    %assert ISEQUAL(type, "task") || ISEQUAL(type, "isr")
+    %if ISEQUAL(type, "task")
+      %foreach taskIdx = LibGetNumTriggerTasks(aehIdx)
+        void* %<aehName>_%<taskIdx>()
+        {
+          int sigNo = %<sigNumber[0]>;
+          %<libMaskAperiodicSignals(TLC_FALSE, aehIdx)>
+          myAddBlockForThisEvent(SIGRTMIN + sigNo);
+          while(runModel) {
+            myWaitForThisEvent(SIGRTMIN + sigNo);
+            %<LibCallTriggerTask(aehIdx, taskIdx)>
+          }
+          %<ctAPI.taskexitcall>((void *)0);
+          return NULL;
+        }
+      %endforeach
+    %else
+      %%<LibAddToCommonIncludes("<signal.h>")>
+      %%<LibAddToCommonIncludes("<errno.h>")>
+      %assign isrFuncName = "sigHandler_%<aehName>"
+      void %<isrFuncName>(int signo)
+      {
+        %<LibCallTriggerISR(aehIdx)>
+      }
+    %endif
+  %endforeach
+  %closefile tmpFileBuf
+  %<SLibCacheCodeToFile("mainSrc_fcn_defn",tmpFileBuf)>
+%endfunction
+
+%function locLibFcnEnableSignalHandler()
+  %openfile tmpBuf
+  %if (locLibGetNumberISRs() != 0)
+    // Enable event handlers
+  %endif
+  %foreach aehIdx = LibGetNumTriggers()
+    %assign evType = LibGetTriggerType(aehIdx)
+    %if ISEQUAL(evType, "PeriodicTrigger")
+      %continue
+    %endif
+    %assign type = LibGetTriggerHandlerType(aehIdx)
+    %if ISEQUAL(type, "isr")
+      %assign targetObj   = LibGetTriggerTargetObject(aehIdx)
+      %assign sigNumber   = targetObj.SignalNumber
+      %assign aehName     = LibGetTriggerName(aehIdx)
+      %assign isrFuncName = "sigHandler_%<aehName>"
+      %assign numISRStoBlock = 0
+      %foreach idx = LibGetNumTriggers()
+        %assign evType = LibGetTriggerType(idx)
+        %if ISEQUAL(evType, "PeriodicTrigger") || ISEQUAL(idx, aehIdx)
+          %continue
+        %endif
+        %assign type = LibGetTriggerHandlerType(idx)
+        %if ISEQUAL(type, "isr")
+          %assign targetObjForMask = LibGetTriggerTargetObject(idx)
+          %assign sigNumberForMask = targetObjForMask.SignalNumber
+          eventsToBlock[%<numISRStoBlock>] = SIGRTMIN + %<sigNumberForMask[0]>;
+          %assign numISRStoBlock = numISRStoBlock + 1
+        %endif
+      %endforeach
+      myAddHandlerForThisEvent(SIGRTMIN + %<sigNumber[0]>, eventsToBlock, %<numISRStoBlock>, %<isrFuncName>);
+    %endif
+  %endforeach
+  %closefile tmpBuf
+  %return tmpBuf
+%endfunction
+
+%function locLibDisableSignalHandler()
+  %openfile tmpBuf
+  %if (locLibGetNumberISRs() != 0)
+    // Disable event handlers
+  %endif
+  %foreach aehIdx = LibGetNumTriggers()
+    %assign evType = LibGetTriggerType(aehIdx)
+    %if ISEQUAL(evType, "PeriodicTrigger")
+      %continue
+    %endif
+    %assign type = LibGetTriggerHandlerType(aehIdx)
+    %if ISEQUAL(type, "isr")
+      %assign targetObj = LibGetTriggerTargetObject(aehIdx)
+      %assign sigNumber = targetObj.SignalNumber
+      myRestoreDefaultHandlerForThisEvent(SIGRTMIN + %<sigNumber[0]>);
+    %endif
+  %endforeach
+  %closefile tmpBuf
+  %return tmpBuf
+%endfunction
+
+%function locLibRenderOverrunDetectionDefn(ctAPI)
+    %openfile tmpFileBuf 
+    int testForRateOverrun(int rateID)
+    {   
+        if (pthread_mutex_trylock(&rateTaskFcnRunningMutex[rateID]) == 0)
+        {
+            pthread_mutex_unlock(&rateTaskFcnRunningMutex[rateID]);
+            return 0;
+        }      
+        else
+        {
+            %<::ROSDetectOverrunFcn>(rateID);
+            return 1;
+        }
+    }
+    %closefile tmpFileBuf
+    %return tmpFileBuf
+%endfunction
+
+%function locLibRenderMainFcn(ctAPI)
+  %openfile tmpBuf
+  %assign buildDir = FEVAL("rtwprivate", "rtwattic", "getBuildDir")
+  %assign filesep = FEVAL("filesep")
+  %assign mainFname = "ert_main"
+  %assign isSingleTasking = RootSystemIsSingleRate || SLibSingleTasking()
+  %assign numSubrateTasks = locFcnGetNumberSubrateTasks()
+  %assign numAperiodicTasks = SLibGetNumAperiodicTasks()
+  %assign baseRatePriority = locLibFcnGetBaseRatePriority()
+  %assign HARDWAREINITIALIZATIONFCNS = FEVAL("codertarget.targethardware.getTargetHardwareInitializationCall", CompiledModel.Name)
+  %assign CUSTOMINITIALIZATIONFCNS = FEVAL("codertarget.resourcemanager.getarr", "", "CustomCode", "CustomCodeInitFcn", CompiledModel.Name)
+  %assign BLOCKINITIALIZATIONFCNS = FEVAL("codertarget.resourcemanager.get", "", "BlockInit", "BlockInitFcn", CompiledModel.Name)
+  %if (!ExportFunctionsMode)
+    int main(int argc, char **argv)
+    {
+      %assign coreAffinityRequired = LibIsCoreAffinityRequired()
+      %assign mainSrc = "%<buildDir>" + "%<filesep>" + "%<mainFname>" + ".c"
+      %% This file is not needed for SIL and should not be compiled on the host - so mark in "SkipForSil" group in buildInfo
+      %if !FEVAL("rtw.connectivity.Utils.buildInfoAddSrcFileToSilSkipGroup", ::CompiledModel.Name, mainSrc)
+        %<SLibReportErrorWithId("RTW:tlc:SILModifyBuildInfo")>
+      %endif
+      %<locLibRenderPriorities(numAperiodicTasks, numSubrateTasks, baseRatePriority)>
+
+      %assign arraySize = SIZE(HARDWAREINITIALIZATIONFCNS)
+      %assign numTgtInitFcns = arraySize[1]
+      %foreach idx = numTgtInitFcns
+        %<HARDWAREINITIALIZATIONFCNS[idx]>;
+      %endforeach
+
+      %if !ISEQUAL(CUSTOMINITIALIZATIONFCNS, 0)
+        %<CUSTOMINITIALIZATIONFCNS[0]>;
+      %endif
+
+      printf("** Starting the model \"%s\" **\n", "%<::CompiledModel.Name>");
+      fflush(stdout);
+      %<SLibRTMSetErrStat(0)>
+      %if ExtMode
+        rtExtModeParseArgs(argc, (const char_T **)argv, NULL);
+      %endif
+
+      %if LibIsDeploymentDiagram()
+        %foreach aehIdx = LibGetNumTriggers()
+          %assign evType = LibGetTriggerType(aehIdx)
+          %if ISEQUAL(evType, "PeriodicTrigger")
+            %continue
+          %endif
+          %assign type = LibGetTriggerHandlerType(aehIdx)
+          %if ISEQUAL(type, "task")
+            %assign targetObj = LibGetTriggerTargetObject(aehIdx)
+            %assign sigNumber = targetObj.SignalNumber
+            myAddBlockForThisEvent(SIGRTMIN+%<sigNumber[0]>);
+          %endif
+        %endforeach
+        %<locLibFcnEnableSignalHandler()>
+      %endif
+
+      %<SLibRtwModelInitialize("status", 1)>
+
+      %if !ISEQUAL(BLOCKINITIALIZATIONFCNS, 0)
+        %assign arraySize = SIZE(BLOCKINITIALIZATIONFCNS)
+        %assign numBlkInitFcns = arraySize[1]
+        %foreach idx = numBlkInitFcns
+          %<BLOCKINITIALIZATIONFCNS[idx]>;
+        %endforeach
+      %endif
+
+      %if (numAperiodicTasks > 0)
+        %openfile tmpFileBuf
+        void* (*pAsyncTasks[%<SLibGetNumAperiodicTasks()>])(void* arg);
+        %closefile tmpFileBuf
+        %<SLibCacheCodeToFile("mainSrc_data_defn", tmpFileBuf)>
+        // Assign asynchronously triggered task functions
+        %assign idx = 0
+        %foreach aehIdx = LibGetNumTriggers()
+          %assign evType = LibGetTriggerType(aehIdx)
+          %if ISEQUAL(evType, "PeriodicTrigger")
+            %continue
+          %endif
+          %assign type = LibGetTriggerHandlerType(aehIdx)
+          %if ISEQUAL(type, "task")
+            %assign aehName = LibGetTriggerName(aehIdx)
+            %foreach taskIdx = LibGetNumTriggerTasks(aehIdx)
+              pAsyncTasks[%<idx>] = %<aehName>_%<taskIdx>;
+              %assign idx = idx + 1
+            %endforeach
+          %endif
+        %endforeach
+      %endif
+
+      %% New code for ROS external clocking
+      ROS_myRTOSInit(%<FcnGetPeriodFromTID(0)>, %<numSubrateTasks>);
+
+      // Wait for stop semaphore
+      %<ctAPI.semwaitcall>(&stopSem);
+      return 0;
+    }
+  %endif
+
+  %%-----------------
+  %% ROS
+
+  // ---------------------------- 
+  // RTOS-specific declarations   
+  // ---------------------------- 
+  typedef struct {
+    double period;
+  } baseRateInfo_t;
+
+  extern pthread_attr_t attr;
+  extern baseRateInfo_t info;
+  extern struct sched_param sp;
+
+  // MW_NUM_SUBRATES is set to 0 if we are in single-tasking mode or number of subrates are 0 
+  #define MW_SP_SCHED_FIFO   ((MW_NUMBER_SUBRATES > 0) || !defined(MW_SCHED_OTHER))
+  #ifdef MW_RTOS_DEBUG
+  #define MW_DEBUG_LOG(str)  printf(str); fflush(stdout)
+  #else
+  #define MW_DEBUG_LOG(str)
+  #endif
+
+
+  %if ISEQUAL(::IsTimeNotificationEnabled, 1)
+    static ros::Publisher publisherDone;
+  %endif
+  static volatile bool modelRuns;
+  // Global variables to be accessed from the model
+  uint32_t _clock_msg_sec;
+  uint32_t _clock_msg_nsec;
+
+  // ---------------------------- 
+  // Internally visible functions 
+  // ---------------------------- 
+
+  static void setThreadPriority(const int priority, pthread_attr_t *attr, struct sched_param *sp)
+  {
+    #if MW_SP_SCHED_FIFO
+    int status;
+
+    sp->sched_priority = priority;
+    status = pthread_attr_setschedparam(attr, sp);
+    CHECK_STATUS(status, 0, "pthread_attr_setschedparam");
+    #endif
+  }
+
+  static void publishDone(bool status)
+  {
+    static std_msgs::String msg;
+    if(status == false){     // Publish name of the model name
+    msg.data = "-%<CompiledModel.Name>";
+  }else{
+    msg.data = "+%<CompiledModel.Name>";
+  }
+  %if ISEQUAL(::IsTimeNotificationEnabled, 1)
+  publisherDone.publish(msg);
+  %endif
+
+  if(status == true){
+    modelRuns = false;
+  }
+}
+
+static void SubscriberCB(const rosgraph_msgs::Clock &msg)
+{
+  static bool termFlag = false;
+  static bool waitingFlag = false;
+  static int stateFlag = 1;
+  const uint32_t baseRateNanoSec = (uint32_t)(MW_BASERATE_PERIOD * 1E9);
+  static uint64_t nextTimeSlot = baseRateNanoSec;
+  uint64_t longTime;
+
+  if( (1 == stateFlag) && (0U != msg.clock.nsec) ){
+    ROS_INFO("Waiting for time synchronization at time %u.000000000", msg.clock.sec + 1U);
+  }
+
+  %% Protects execution in case that we have to terminate
+  if(false != termFlag){
+    return;
+  }
+
+  longTime = ((uint64_t)msg.clock.sec * 1000000000ULL) + (uint64_t)msg.clock.nsec;
+
+  // Check if time fits into model steps
+  if( (0 == stateFlag) && (true == waitingFlag) ){
+    if (longTime > nextTimeSlot){
+      fflush(stdout);
+      ROS_FATAL("The clock missed time slot at %f for the model step. Actual clock = %.6f\n", nextTimeSlot/1E9, (double)longTime/1E9);
+      fflush(stderr);
+      exitFcn(SIGUSR1);
+      termFlag = true;
+      return;
+    }
+  }
+
+  // Store into global variable published clock topic
+  _clock_msg_sec = msg.clock.sec;
+  _clock_msg_nsec = msg.clock.nsec;
+
+  // Starting the model code at time of "nsec" at 0ns
+  if(false == waitingFlag){
+    if(0U == msg.clock.nsec){
+      waitingFlag = true;
+      ROS_INFO("It's %.6f, here we go ...", (double)longTime/1E9);
+      modelRuns = true;
+      %<ctAPI.sempostcall>(&baserateTaskSem); // Launch for first time
+      nextTimeSlot = longTime + baseRateNanoSec;
+    }
+    else{
+      // Check if there was not termination in the meantime
+      runModel = %<SLibRTMGetErrStat()>;
+      if(runModel == false){
+        termFlag = true;
+      }
+      else {
+        %if ISEQUAL(::IsTimeNotificationEnabled, 1)
+          // Publish "we are done", because there is nothing to do in this time slot
+          publishDone(false);
+        %endif
+      }
+    }
+  }
+  else{
+    if( (msg.clock.nsec % baseRateNanoSec) == 0U){
+      %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+      testForRateOverrun(0);
+      %endif
+      modelRuns = true;
+      %<ctAPI.sempostcall>(&baserateTaskSem);
+      nextTimeSlot += baseRateNanoSec;
+    }
+    else{
+      %if ISEQUAL(::IsTimeNotificationEnabled, 1)
+        // Publish "we are done", because there is nothing to do in this time slot
+        publishDone(false);
+      %endif
+    }
+  }
+
+  if(stateFlag > 0){
+    stateFlag--;
+  }
+}
+
+void *ROSschedulerTask(void *arg)
+{
+  %%baseRateInfo_t info = *((baseRateInfo_t *)arg);
+  MW_DEBUG_LOG("ROS schedulerTask entered\n");
+
+  std::string sClockTopic = "/clock";
+
+  ros::NodeHandle n;
+
+  %if ISEQUAL(::IsTimeNotificationEnabled, 1)
+    publisherDone = n.advertise<std_msgs::String>("%<::TimeNotificationTopic>", 10);
+  %endif
+
+  ros::Subscriber sub = n.subscribe(sClockTopic, 10, &SubscriberCB);
+  if(sub == NULL)
+  {
+    ROS_INFO("Error: cannot subscribe the '%s'", sClockTopic.c_str());
+    return NULL;
+  }
+
+  ros::spin();
+  return NULL;
+}
+
+
+void ROS_myRTOSInit(double baseRatePeriod, int numSubrates)
+{
+  int i;
+  int status;
+  size_t stackSize;
+  unsigned long cpuMask = 0x1;
+  unsigned int len = sizeof(cpuMask);
+
+  if (!MW_IS_CONCURRENT)
+  {
+    // All threads created by this process will run on a single CPU 
+    status = sched_setaffinity(0, len, (cpu_set_t *) &cpuMask);
+    CHECK_STATUS(status, 0, "sched_setaffinity");
+  }
+
+  #if MW_SP_SCHED_FIFO && !defined (_POSIX_THREAD_PRIORITY_SCHEDULING)
+  fprintf(stderr, "Priority scheduling is NOT supported by your system.\n");
+  fprintf(stderr, "The generated code will not run correctly because your\n");
+  fprintf(stderr, "model contains multiple rates and uses multi-tasking\n");
+  fprintf(stderr, "code generation mode. You can only run the generated code\n");
+  fprintf(stderr, "in single-tasking mode in your system. Open\n");
+  fprintf(stderr, "Simulation -> Configuration Parameters -> Solver dialog\n");
+  fprintf(stderr, "and set \"Tasking mode for periodic sample times\" parameter to SingleTasking.\n");
+  fprintf(stderr, "Re-build the Simulink model with the new settings and try executing the generated code again.\n");
+  fflush(stderr);
+  exit(EXIT_FAILURE);
+  #endif
+
+  #if MW_SP_SCHED_FIFO
+  // Need root privileges for real-time scheduling 
+  {
+    uid_t euid = geteuid();
+    if (euid != 0) {
+      fprintf(stderr, "You must have root privileges to run the generated code because\n");
+      fprintf(stderr, "generated code requires SCHED_FIFO scheduling class to run correctly.\n");
+      fprintf(stderr, "Try running the executable with the following command: sudo ./<executable name>\n");
+      fflush(stderr);
+      exit(EXIT_FAILURE);
+    }
+  }
+  #endif
+
+  status = sem_init(&baserateTaskSem, 0, 0);
+  CHECK_STATUS(status, 0, "sem_init:baserateTaskSemSem");
+  status = sem_init(&stopSem, 0, 0);
+  CHECK_STATUS(status, 0, "sem_init:stopSem");
+  status = sem_init(&termSem, 0, 0);
+  CHECK_STATUS(status, 0, "sem_init:termSem");
+
+  #if MW_SP_SCHED_FIFO
+  // Set scheduling policy of the main thread to SCHED_FIFO 
+  sp.sched_priority = sched_get_priority_max(SCHED_FIFO);
+  status = sched_setscheduler(0, SCHED_FIFO, &sp);
+  CHECK_STATUS(status, 0, "sched_setscheduler");
+  #endif
+
+  // Create threads executing the Simulink model 
+  pthread_attr_init(&attr);
+  status = pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED);
+  CHECK_STATUS(status, 0, "pthread_attr_setinheritsched");
+  #if MW_SP_SCHED_FIFO
+  status = pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
+  #else
+  status = pthread_attr_setschedpolicy(&attr, SCHED_OTHER);
+  #endif
+  CHECK_STATUS(status, 0, "pthread_attr_setschedpolicy");
+  status = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+  CHECK_STATUS(status, 0, "pthread_attr_setdetachstate");
+
+  // Set thread stack size if necessary 
+  status = pthread_attr_getstacksize(&attr, &stackSize);
+  CHECK_STATUS(status, 0, "pthread_attr_getstacksize");
+  if (stackSize < STACK_SIZE) {
+    // Make sure that stackSize is a multiple of 8 
+    stackSize = (STACK_SIZE + 7) & (~0x7);
+    pthread_attr_setstacksize(&attr, stackSize);
+    CHECK_STATUS(status, 0, "pthread_attr_setstacksize");
+  }
+
+  signal(SIGTERM, exitFcn);     // kill 
+  signal(SIGHUP, exitFcn);      // kill -HUP 
+  signal(SIGINT, exitFcn);      // Interrupt from keyboard Ctr-C 
+  signal(SIGQUIT, exitFcn);     // Quit from keyboard 
+
+  #ifdef MW_HAS_MULTIPLE_RATES
+  MW_DEBUG_LOG("**creating subrate task threads**\n");
+  for (i = 0; i < MW_NUMBER_SUBRATES; i++) {
+    taskId[i] = i;
+    status = sem_init(&subrateTaskSem[i], 0, 0);
+    CHECK_STATUS(status, 0, "sem_init");
+    setThreadPriority(subratePriority[i], &attr, &sp);
+    status = pthread_create(&subRateThread[i], &attr, &subrateTask, (void *)&taskId[i]);
+    CHECK_STATUS(status, 0, "pthread_create");
+
+    #ifdef COREAFFINITYREQUIRED
+    if (coreAffinity[i] >= 0) {
+      cpu_set_t cpuset;
+      CPU_ZERO(&cpuset);
+      CPU_SET(coreAffinity[i], &cpuset);
+      ret = pthread_setaffinity_np(subRateThread[i], sizeof(cpu_set_t), &cpuset);
+      CHECK_STATUS(ret, "pthread_setaffinity_np");
+    }
+    #endif
+  }
+  #endif
+
+  MW_DEBUG_LOG("**creating the base rate task thread**\n");
+  setThreadPriority(MW_BASERATE_PRIORITY, &attr, &sp);
+  status = pthread_create(&baseRateThread, &attr, &baseRateTask, NULL);
+  CHECK_STATUS(status, 0, "pthread_create");
+
+  MW_DEBUG_LOG("**creating the terminate thread**\n");
+  setThreadPriority(MW_BASERATE_PRIORITY, &attr, &sp);
+  status = pthread_create(&terminateThread, &attr, &terminateTask, NULL);
+  CHECK_STATUS(status, 0, "pthread_create");
+
+  MW_DEBUG_LOG("**creating the scheduler thread**\n");
+  setThreadPriority(MW_BASERATE_PRIORITY, &attr, &sp);
+
+  info.period = MW_BASERATE_PERIOD;
+  status = pthread_create(&schedulerThread, &attr, &ROSschedulerTask, (void *) &info);
+  CHECK_STATUS(status, 0, "pthread_create");
+
+  #ifdef MW_HAS_APERIODIC_TASKS
+  MW_DEBUG_LOG("**creating asynchronously triggered task threads**\n");
+  sp.sched_priority = MW_BASERATE_PRIORITY - 1;
+
+  for (i = 0; i < MW_NUMBER_APERIODIC_TASKS; i++) {
+    status = pthread_create(&asyncThread[i], &attr, (void *) pAsyncTasks[i], NULL);
+    CHECK_STATUS(status, 0, "pthread_create");
+  }
+  #endif
+
+  #ifdef MW_NEEDS_BACKGROUND_TASK
+  MW_DEBUG_LOG("**creating the background thread**\n");
+  status = pthread_attr_setschedpolicy(&attr, SCHED_OTHER);
+  CHECK_STATUS(status, 0, "pthread_attr_setschedpolicy");
+  setThreadPriority(0, &attr, &sp);
+  status = pthread_create(&backgroundThread, &attr, &backgroundTask, NULL);
+  CHECK_STATUS(status, 0, "pthread_create");
+  #endif
+
+  pthread_attr_destroy(&attr);
+  fflush(stdout);
+}
+%%---------------------
+%closefile tmpBuf
+%return tmpBuf
+%endfunction
+
+%function CTLibCreateMainBody() void
+  %assign ctAPI = libGetCoderTargetAPIData()
+  %assign systemStackSize = FEVAL("get_param", CompiledModel.Name, "MaxStackSize")
+  %assign rootSystem = System[NumSystems-1]
+  %assign reqInsts = LibGetSystemField(rootSystem, "ReqRootPrmHdrDataInsts")
+  %assign numSubrateTasks = locFcnGetNumberSubrateTasks()
+  %assign numAperiodicTasks = SLibGetNumAperiodicTasks()
+  %assign isSingleTasking = RootSystemIsSingleRate || SLibSingleTasking()
+  %assign numISRs = locLibGetNumberISRs()
+  %assign ExtModeInBackground = TLC_FALSE
+  %if LibIsDeploymentDiagram()
+    %<locRenderAperiodicWrapperFunctions(ctAPI)>
+  %endif
+  %openfile tmpFileBuf
+  volatile boolean_T runModel = true;
+  %<ctAPI.semdatatype> stopSem;
+  %<ctAPI.semdatatype> termSem;
+  %<ctAPI.semdatatype> baserateTaskSem;
+  %if locGetSupportsAsyncBlkInsertion()
+    void *csInstance;
+  %endif
+  %if (!isSingleTasking) || (LibIsDeploymentDiagram())
+    %<ctAPI.semdatatype> subrateTaskSem[%<numSubrateTasks>];
+    int taskId[%<numSubrateTasks>];
+    %if (numAperiodicTasks > 0)
+      %<ctAPI.taskdatatype> asyncThread[%<numAperiodicTasks>];
+    %endif
+  %endif
+  %<ctAPI.taskdatatype> terminateThread;
+  %<ctAPI.taskdatatype> schedulerThread;
+  %<ctAPI.taskdatatype> baseRateThread;
+
+  %if (ExtMode == 1)
+    %assign ExtModeInBackground = locIsExtModeInBackground()
+    %if ExtModeInBackground
+      %<ctAPI.taskdatatype> backgroundThread;
+    %endif
+  %endif
+
+  unsigned long threadJoinStatus[8];
+  int terminatingmodel = 0;
+  %if (!isSingleTasking) || (LibIsDeploymentDiagram())
+    %<ctAPI.taskdatatype> subRateThread[%<numSubrateTasks>];
+  %endif
+
+  %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+    pthread_mutex_t rateTaskFcnRunningMutex[%<numSubrateTasks+1>];
+  %endif
+
+  %if (numSubrateTasks > 0)
+        int subratePriority[%<numSubrateTasks>];
+  %endif
+
+  %if locLibIsCoreAffinityRequired()
+    int coreAffinity[%<numSubrateTasks>];
+  %endif
+  %if (numISRs > 0)
+    int eventsToBlock[%<locLibGetNumberISRs()>];
+  %endif
+  %closefile tmpFileBuf
+  %<SLibCacheCodeToFile("mainSrc_data_defn", tmpFileBuf)>
+  %openfile tmpFileBuf
+  %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+    int testForRateOverrun(int rateID);
+  %endif
+  %closefile tmpFileBuf
+  %<SLibCacheCodeToFile("mainSrc_userTop", tmpFileBuf)>
+  %openfile tmpFileBuf
+  %<locLibRenderExitFcn(ctAPI)>
+  %<locLibRenderTerminateTask(ctAPI, numSubrateTasks)>
+  %if (ExtMode == 1)
+    %if ExtModeInBackground
+      %<locLibRenderBackgroundTask(ctAPI)>
+    %endif
+  %endif
+  %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+    %<locLibRenderOverrunDetectionDefn(ctAPI)>
+  %endif
+  %<locLibRenderMainFcn(ctAPI)>
+  %closefile tmpFileBuf
+  %%
+  %<SLibCacheCodeToFile("mainSrc_fcn_defn", tmpFileBuf)>
+  %<locLibRenderMWCustomRTOSHeader(ctAPI, ExtModeInBackground)>
+%endfunction
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ROS_codertarget_multiratemultitaskingOS.tlc
+%function SLibGetTid(tid) Output
+  %<tid>
+%endfunction
+
+%function renderSubrateTask(ctAPI, tid01Eq) Output
+  void *subrateTask(void *arg)
+  {
+    int tid = *((int *) arg);
+    int subRateId;
+    %if !LibIsDeploymentDiagram()
+      %% If there is a continuous rate as well tid01Eq is equal to 1. In that
+      %% case, although tid starts from index 0 (as passed by RTOS initialize
+      %% function) the subRateId should start from index 2. If tid01Eq is equal
+      %% to 0, the subRateId should start from index 1.
+      %if (tid01Eq==1)
+        subRateId = tid + 2;
+      %else
+        subRateId = tid + 1;
+      %endif
+    %else
+      %<libMaskAperiodicSignals(TLC_TRUE, 0)>
+      subRateId = tid;
+    %endif
+    while(runModel)
+    {
+      %<ctAPI.semwaitcall>(&subrateTaskSem[tid]);
+      if (terminatingmodel)
+      break;
+      #ifdef MW_RTOS_DEBUG
+      printf(" -subrate task %d semaphore received\n", subRateId);
+      #endif
+      %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+        pthread_mutex_lock(&rateTaskFcnRunningMutex[tid]);
+      %endif
+      %<SLibCallMdlStepMultiTaskingSubRate("subRateId")>
+      %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+        pthread_mutex_unlock(&rateTaskFcnRunningMutex[tid]);
+      %endif
+    }
+    %<ctAPI.taskexitcall>((void *)0);
+  }
+%endfunction
+
+%function renderBaserateTask(ctAPI, numSubrateTasks, tid01Eq) Output
+  %assign supportsToAsyncBlkInsertion = locGetSupportsAsyncBlkInsertion()
+  // Base rate task 
+  void *baseRateTask(void *arg)
+  {
+	%if ((FcnNumST() - tid01Eq) >= 2) || LibIsDeploymentDiagram()
+      %assign indexVar = "i"
+    %else
+      %assign indexVar = ""
+    %endif
+    %<SLibGetVarDeclrMultiTasking("", indexVar, numSubrateTasks)>
+    %if LibIsDeploymentDiagram()
+      %% Declare list of sample time indexes for tasks
+      %assign commentStr = ""
+      %assign initStr         = ""
+      %assign comma           = ""
+      %foreach ehIdx = LibGetNumTriggers()
+        %assign evType = LibGetTriggerType(ehIdx)
+        %if ISEQUAL(evType, "AperiodicTrigger")
+          %continue
+        %endif
+        %foreach taskIdx = LibGetNumTriggerTasks(ehIdx)
+          %assign stId = LibGetTriggerTaskSampleTimeIndex(ehIdx, taskIdx)
+          %assign initStr = initStr +"%<comma>%<stId>"
+          %assign commentStr = commentStr + "%<comma>%<LibGetSampleTimePeriodAndOffset(stId, 0)>"
+          %assign comma = ","
+        %endforeach
+      %endforeach
+      int_T taskTIDs[%<numSubrateTasks>] = {%<initStr>}; // %<commentStr> 
+      %<libMaskAperiodicSignals(TLC_TRUE, 0)>
+    %endif
+
+    runModel = %<SLibRTMGetErrStat()>;
+    while (runModel)
+    {
+      %if supportsToAsyncBlkInsertion
+        TgtConnPreStep(0);
+      %endif
+        %<ctAPI.semwaitcall>(&baserateTaskSem);
+      %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+        pthread_mutex_lock(&rateTaskFcnRunningMutex[0]);
+      %endif
+        #ifdef MW_RTOS_DEBUG
+        ROS_DEBUG("*base rate task semaphore received\n");
+        #endif
+	%if (numSubrateTasks > 1) || (LibIsDeploymentDiagram())
+        %if (LibIsDeploymentDiagram())
+          for (i = 0; i <%<numSubrateTasks>; i++)
+          {
+            %if !RootSystemIsSingleRate
+              if (%<SLibTidRunsThisStep("taskTIDs[i]")>)
+            %endif
+            {
+              %<ctAPI.sempostcall>(&subrateTaskSem[%<SLibGetTid("i")>]);
+        %else
+              for (i = %<SLibGetTid(1)>; i <= %<numSubrateTasks>; i++)
+              {
+            %if (tid01Eq==1)
+                  if (%<SLibTidRunsThisStep("i + 1")>)
+            %else
+                  if (%<SLibTidRunsThisStep("i")>)
+            %endif
+                {
+                  %<ctAPI.sempostcall>(&subrateTaskSem[%<SLibGetTid("i - 1")>]);
+        %endif
+              }
+            }
+	%else
+        %if (tid01Eq==1)
+              if (%<SLibTidRunsThisStep("2")>)
+        %else
+              if (%<SLibTidRunsThisStep("1")>)
+        %endif
+            {
+        %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+                testForRateOverrun(1);
+        %endif
+              %<ctAPI.sempostcall>(&subrateTaskSem[0]);
+            }
+    %endif
+        %if LibIsDeploymentDiagram()
+            %<LibDeploymentCallAdvanceTaskCounters()>
+        %else
+            %<SLibCallMdlStepMultiTaskingBaseRate(1)>
+        %endif
+        %if supportsToAsyncBlkInsertion
+            TgtConnPostStep(0);
+        %endif
+        %if ExtMode
+            rtExtModeCheckEndTrigger();
+        %endif
+          runModel = %<SLibRTMGetErrStat()>;
+        }
+        %<ctAPI.sempostcall>(&termSem);
+        %<ctAPI.taskexitcall>((void *)0);
+      }
+    %endfunction
+
+    %function FcnMultiRateMultitaskingWithoutOS() void
+      %% Create an array of semaphores
+      %assign tid01Eq = FixedStepOpts.TID01EQ
+      %if LibIsDeploymentDiagram()
+        %assign numSubrateTasks = libFcnGetNumberMdsTasks()
+      %else
+        %assign numSubrateTasks = FcnNumST() - tid01Eq - 1
+      %endif
+      %openfile tmpFcnBuf
+      %if (ExportFunctionsMode)
+        #define rtmGetStopRequested(rtm) ((void*) 0)
+        void %<CompiledModel.Name>_step()
+        {
+        }
+      %endif
+      %assign ctAPI = libGetCoderTargetAPIData()
+      %<renderSubrateTask(ctAPI, tid01Eq)>
+      %<renderBaserateTask(ctAPI, numSubrateTasks, tid01Eq)>
+      %closefile tmpFcnBuf
+      %return tmpFcnBuf
+    %endfunction
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% ROS_codertarget_multiratesingletaskingOS.tlc
+    %function renderBaserateTaskST(ctAPI) Output
+      %assign supportsToAsyncBlkInsertion = locGetSupportsAsyncBlkInsertion()
+      // Base rate task 
+      void *baseRateTask(void *arg)
+      {
+        runModel = %<SLibRTMGetErrStat()>;
+        while (runModel)
+        {
+          %if supportsToAsyncBlkInsertion
+            TgtConnPreStep(0);
+          %endif
+            %<ctAPI.semwaitcall>(&baserateTaskSem);
+          %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+            pthread_mutex_lock(&rateTaskFcnRunningMutex[0]);
+          %endif
+          runModel = %<SLibRTMGetErrStat()>;
+          if(runModel)
+          {
+            %<SLibCallMdlStepSingleTasking(1)>
+          }
+          else 
+          {
+            publishDone(true);
+          }
+          %if supportsToAsyncBlkInsertion
+            TgtConnPostStep(0);
+          %endif
+          %if ExtMode
+            rtExtModeCheckEndTrigger();
+          %endif
+          %if ISEQUAL(::ROSDetectTaskOverruns, TLC_TRUE)
+            pthread_mutex_unlock(&rateTaskFcnRunningMutex[0]);
+          %endif
+        } %% while (runModel)
+        %<ctAPI.sempostcall>(&termSem);
+        %<ctAPI.taskexitcall>((void *)0);
+      }
+    %endfunction
+
+    %function FcnMultiRateSingletaskingWithoutOS() void
+      %assign ctAPI = libGetCoderTargetAPIData()
+      %openfile tmpFcnBuf
+      %if LibIsDeploymentDiagram()
+        %assign tmpBuf = FcnMultiRateMultitaskingWithoutOS()
+        %<tmpBuf>
+      %else
+        %if (ExportFunctionsMode)
+          #define rtmGetStopRequested(rtm) ((void*) 0)
+          void %<CompiledModel.Name>_step()
+          {
+          }
+        %endif
+        %<renderBaserateTaskST(ctAPI)>
+      %endif
+      %closefile tmpFcnBuf
+      %return tmpFcnBuf
+    %endfunction
+
+    %%---------------------------------------
+    %% ROS_codertarget_singleratesingletasking
+    %%selectfile NULL_FILE
+    %function FcnSingleRateWithoutOS() void
+      %%
+      %% We generate exactly the same code for Multi Rate - Single tasking
+      %% and Single Rate - Single tasking cases. The only difference is
+      %% the argument passed to the model step function. In Single Rate models
+      %% model step function must be called with and argument of "0" for ERT.
+      %% This is already handled within SLibCallMdlStepSingleTasking()
+      %% so there is no need for a separate function to generate Single Rate -
+      %% single tasking code. We merely call Multi Rate - Single Tasking
+      %% scheduler here (a code generation software restriction).
+      %%
+      %assign tmpFcnBuf = FcnMultiRateSingletaskingWithoutOS()
+      %return tmpFcnBuf
+    %endfunction
+
+
+    %%-------------------------------------------------------------------------
+    %% codertarget_utils.tlc
+    %function SLibRTMSetErrStat(msg) Output
+      %if GenerateClassInterface
+        %if RealTimeModelAccessed
+          %if !SuppressErrorStatus
+            rtmSetErrorStatus(%<CPPObjectName>.getRTM(), %<msg>);
+          %endif
+        %endif
+      %else
+        %if !SuppressErrorStatus
+          %<RTMSetErrStat(msg)>;
+        %endif
+      %endif
+    %endfunction
+
+    %function SLibRTMGetErrStat() Output
+      %if GenerateClassInterface
+        %assign stopCheck = "(rtmGetErrorStatus(%<CPPObjectName>.getRTM()) == %<SLibGetNullDefinitionFromTfl()>)"
+        %if RTMStopReqAccessed()
+          %assign stopCheck = stopCheck + " && !rtmGetStopRequested(%<CPPObjectName>.getRTM())"
+        %endif
+      %else
+        %assign stopCheck = "(%<RTMGetErrStat()> == %<SLibGetNullDefinitionFromTfl()>)"
+        %if RTMStopReqAccessed()
+          %assign stopCheck = stopCheck + " && !%<RTMGetStopRequested()>"
+        %endif
+      %endif
+      %return stopCheck
+    %endfunction
+    %%---------------------------------------------------------------------------
+
+    %if ISEQUAL(::ISCODERTARGET, 1)
+      %if GenerateSampleERTMain
+        %assign CompiledModel.GenerateSampleERTMain = TLC_FALSE
+      %endif
+      %if (CompiledModel.ModelReferenceTargetType == "NONE")
+        %<SLibCreateMain("ert_main")>
+      %endif
+    %endif

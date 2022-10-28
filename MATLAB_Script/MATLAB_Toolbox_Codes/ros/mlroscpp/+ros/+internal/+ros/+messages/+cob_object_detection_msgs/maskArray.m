@@ -1,0 +1,45 @@
+function [data, info] = maskArray
+%MaskArray gives an empty data for cob_object_detection_msgs/MaskArray
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'cob_object_detection_msgs/MaskArray';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Masks, info.Masks] = ros.internal.ros.messages.cob_object_detection_msgs.mask;
+info.Masks.MLdataType = 'struct';
+info.Masks.MaxLen = NaN;
+info.Masks.MinLen = 0;
+data.Masks = data.Masks([],1);
+info.MessageType = 'cob_object_detection_msgs/MaskArray';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,25);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'masks';
+info.MatPath{8} = 'masks.roi';
+info.MatPath{9} = 'masks.roi.x';
+info.MatPath{10} = 'masks.roi.y';
+info.MatPath{11} = 'masks.roi.width';
+info.MatPath{12} = 'masks.roi.height';
+info.MatPath{13} = 'masks.mask';
+info.MatPath{14} = 'masks.mask.header';
+info.MatPath{15} = 'masks.mask.header.seq';
+info.MatPath{16} = 'masks.mask.header.stamp';
+info.MatPath{17} = 'masks.mask.header.stamp.sec';
+info.MatPath{18} = 'masks.mask.header.stamp.nsec';
+info.MatPath{19} = 'masks.mask.header.frame_id';
+info.MatPath{20} = 'masks.mask.height';
+info.MatPath{21} = 'masks.mask.width';
+info.MatPath{22} = 'masks.mask.encoding';
+info.MatPath{23} = 'masks.mask.is_bigendian';
+info.MatPath{24} = 'masks.mask.step';
+info.MatPath{25} = 'masks.mask.data';

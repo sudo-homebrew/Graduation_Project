@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 The MathWorks, Inc. -->
+<!--THIS FILE CONTRIBUTES TO THE MATLAB APPS GALLERY WHICH IS CAREFULLY CURATED-->
+<!--ADDITIONS AND CHANGES MUST GO THROUGH A DESIGN REVIEW PROCESS WITH SENIOR MANGEMENT-->
+<!--THIS PROCESS IS MANAGED BY THE MATLAB DESKTOP TEAM. CONSULT THE TOOLSTRIP GUIDELINES TO GET STARTED-->
+<toolset id="trackingscenario_toolset" message_catalog="fusion:desktop">
+    <tool id="trackingScenarioDesigner">
+        <icon filename="tracking_scenario_designer_app_16.png" path="+fusion/+internal/+scenarioApp/icons"  id="trackingScenarioDesignerApp"/>
+        <icon filename="tracking_scenario_designer_app_24.png" path="+fusion/+internal/+scenarioApp/icons" />
+        <callback>trackingScenarioDesigner</callback>
+        <parent_tool id="signal_products" toolset_id="apps_toolset" />
+    </tool>
+</toolset>

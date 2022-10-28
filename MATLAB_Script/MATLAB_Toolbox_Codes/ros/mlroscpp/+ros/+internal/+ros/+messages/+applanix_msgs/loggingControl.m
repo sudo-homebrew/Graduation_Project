@@ -1,0 +1,42 @@
+function [data, info] = loggingControl
+%LoggingControl gives an empty data for applanix_msgs/LoggingControl
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'applanix_msgs/LoggingControl';
+[data.Transaction, info.Transaction] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.GroupsCount, info.GroupsCount] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.Groups, info.Groups] = ros.internal.ros.messages.applanix_msgs.outputGroup;
+info.Groups.MLdataType = 'struct';
+info.Groups.MaxLen = NaN;
+info.Groups.MinLen = 0;
+data.Groups = data.Groups([],1);
+[data.Rate, info.Rate] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.AUTOLOGDISABLED, info.AUTOLOGDISABLED] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.AUTOLOGENABLED, info.AUTOLOGENABLED] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.Autolog, info.Autolog] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.DISKLOGGINGSTOP, info.DISKLOGGINGSTOP] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.DISKLOGGINGSTART, info.DISKLOGGINGSTART] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.DiskLogging, info.DiskLogging] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.FilenameKernel, info.FilenameKernel] = ros.internal.ros.messages.ros.default_type('uint8',32);
+[data.Reserved, info.Reserved] = ros.internal.ros.messages.ros.default_type('uint8',32);
+info.MessageType = 'applanix_msgs/LoggingControl';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,13);
+info.MatPath{1} = 'transaction';
+info.MatPath{2} = 'groups_count';
+info.MatPath{3} = 'groups';
+info.MatPath{4} = 'groups.group';
+info.MatPath{5} = 'rate';
+info.MatPath{6} = 'AUTOLOG_DISABLED';
+info.MatPath{7} = 'AUTOLOG_ENABLED';
+info.MatPath{8} = 'autolog';
+info.MatPath{9} = 'DISK_LOGGING_STOP';
+info.MatPath{10} = 'DISK_LOGGING_START';
+info.MatPath{11} = 'disk_logging';
+info.MatPath{12} = 'filename_kernel';
+info.MatPath{13} = 'reserved';

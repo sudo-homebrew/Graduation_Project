@@ -1,0 +1,455 @@
+{
+    "rosaction":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'list'}"}
+                 ],
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'info','type'}"},
+                     {"name":"action_name", "kind":"required", "type":"choices=rosaction('list')"}
+                 ]
+             ]
+            }
+        ]
+    },
+    "rosactionclient":
+    {
+        "inputs":
+        [
+            {"name":"action_name", "kind":"required", "type":[["char"], ["char", "choices=rosaction('list')"]]},
+            {"name":"action_type", "kind":"ordered", "type":[["char"], ["choices=rostype.getActionList"]]},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "rosactionserver":
+    {
+        "inputs":
+        [
+            {"name":"action_name", "kind":"required", "type":"char"},
+            {"name":"action_type", "kind":"required", "type":[["char"], ["choices=rostype.getActionList"]]},
+            {"name":"ExecuteGoalFcn", "kind":"namevalue", "type":"function_handle"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "rosbag":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'info'}"},
+                     {"name":"file", "kind":"required", "type":[["file=*.bag"], ["matlabpathfile=*.bag"]]}
+                 ],
+                 [
+                     {"name":"file", "kind":"required", "type":[["file=*.bag"], ["matlabpathfile=*.bag"]]}
+                 ]
+             ]
+            }
+        ]
+    },
+    "rosbagreader":
+    {
+        "inputs":
+        [
+            {"name":"file", "kind":"required", "type":[["file=*.bag"], ["matlabpathfile=*.bag"]]}
+        ]
+    },
+    "rosduration":
+    {
+        "inputs":
+        [
+            {"name":"secs", "kind":"required", "type":"numeric"},
+            {"name":"nsecs", "kind":"ordered", "type":"numeric"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "rosinit":
+    {
+        "inputs":
+        [
+            {"name":"master_ip", "kind":"ordered", "type":"char"},
+            {"name":"master_port", "kind":"ordered", "type":"numeric"},
+            {"name":"NodeHost", "kind":"namevalue", "type":"char"},
+            {"name":"NodeName", "kind":"namevalue", "type":"char"}
+        ]
+    },
+    "rosmessage":
+    {
+        "inputs":
+        [
+            {"name":"msg_type", "kind":"required", "type":"choices=rostype.getMessageList"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "rosmsg":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'list'}"}
+                 ],
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'show','md5'}"},
+                     {"name":"msg_type", "kind":"required", "type":"choices=rostype.getMessageList"}
+                 ]
+             ]
+            }
+        ]
+    },
+    "rosnode":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'list'}"}
+                 ],
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'ping','info'}"},
+                     {"name":"msg_type", "kind":"required", "type":"choices=rosnode('list')"}
+                 ]
+             ]
+            }
+        ]
+    },
+    "rosparam":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'list'}"},
+                     {"name":"param_namespace", "kind":"ordered", "type":"choices=unique(cellfun(@(x) strrep(fileparts(x), '\\', '/'), rosparam('list'), 'UniformOutput', false))"}
+                 ],
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'get','set','delete'}"},
+                     {"name":"param_name", "kind":"required", "type":[["char"], ["choices=rosparam('list')"]]}
+                 ]
+             ]
+            }
+        ]
+    },
+    "rospublisher":
+    {
+        "inputs":
+        [
+            {"name":"topic_name", "kind":"required", "type":[["char"], ["char", "choices=rostopic('list')"]]},
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"msg_type", "kind":"ordered", "type":[["char"], ["choices=rostype.getMessageList"]]},
+                     {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"},
+                     {"name":"IsLatching", "kind":"namevalue", "type":[["logical", "scalar"], ["numeric", "scalar"]]}
+                 ],
+                 [
+                     {"name":"msg", "kind":"required", "type":[["ros.Message"],["struct"]]}
+                 ]
+             ]
+            }
+
+        ]
+    },
+    "rosservice":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'list'}"}
+                 ],
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'info','type','uri'}"},
+                     {"name":"service_name", "kind":"required", "type":"choices=subsref(rosservice('list'), substruct('()',{':', 1}))"}
+                 ]
+             ]
+            }
+        ]
+    },
+    "rossubscriber":
+    {
+        "inputs":
+        [
+            {"name":"topic_name", "kind":"required", "type":[["char"], ["char", "choices=rostopic('list')"]]},
+            {"name":"msg_type", "kind":"ordered", "type":[["char"], ["choices=rostype.getMessageList"]]},
+            {"name":"callback", "kind":"ordered", "type":"function_handle"},
+            {"name":"BufferSize", "kind":"namevalue", "type":"numeric"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "rossvcclient":
+    {
+        "inputs":
+        [
+            {"name":"svc_name", "kind":"required", "type":[["char"], ["char", "choices=subsref(rosservice('list'), substruct('()',{':', 1}))"]]},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"},
+            {"name":"Timeout", "kind":"namevalue", "type":"numeric"}
+        ]
+    },
+    "rossvcserver":
+    {
+        "inputs":
+        [
+            {"name":"svc_name", "kind":"required", "type":"char"},
+            {"name":"svc_type", "kind":"required", "type":"choices=rostype.getServiceList"},
+            {"name":"callback", "kind":"ordered", "type":"function_handle"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "rostf":
+    {
+        "inputs":
+        [
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "rostime":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'now'}"},
+                     {"name":"is_system", "kind":"ordered", "type":"choices={'system'}"},
+                     {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+                 ],
+                 [
+                     {"name":"secs", "kind":"required", "type":"numeric"},
+                     {"name":"nsecs", "kind":"ordered", "type":"numeric"},
+                     {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+                 ]
+             ]
+            }
+        ]
+    },
+    "rostopic":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'list'}"}
+                 ],
+                 [
+                     {"name":"op", "kind":"required", "type":"choices={'info','echo'}"},
+                     {"name":"topic_name", "kind":"required", "type":"choices=rostopic('list')"}
+                 ]
+             ]
+            }
+        ]
+    },
+
+    "ros.Bag.parse":
+    {
+        "inputs":
+        [
+            {"name":"file", "kind":"required", "type":[["file=*.bag"], ["matlabpathfile=*.bag"]]}
+        ]
+    },
+    "ros.BagSelection.readMessages":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"ros.BagSelection"},
+            {"name":"rows", "kind":"ordered", "type":"numeric"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "ros.BagSelection.select":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"ros.BagSelection"},
+            {"name":"Time", "kind":"namevalue", "type":"numeric"},
+            {"name":"Topic", "kind":"namevalue", "type":"char"},
+            {"name":"MessageType", "kind":"namevalue", "type":"char"}
+        ]
+    },
+    "rosbagwriter":
+    {
+        "inputs":
+        [
+            {"name":"file", "kind":"required", "type":"char"},
+            {"name":"Compression", "kind":"namevalue", "type":"choices={'uncompressed','bz2','lz4'}"},
+            {"name":"ChunkSize", "kind":"namevalue", "type":"numeric"}
+        ]
+    },
+    "rosbagwriter.write":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"rosbagwriter"},
+            {"name":"topic", "kind":"required", "type":"char"},
+            {"name":"timeStamp", "kind":"ordered"},
+            {"name":"rosMessage", "kind":"ordered"}
+        ]
+    },
+    "ros.Node":
+    {
+        "inputs":
+        [
+            {"name":"node_name", "kind":"required", "type":"char"},
+            {"name":"master_ip", "kind":"ordered", "type":"char"},
+            {"name":"master_port", "kind":"ordered", "type":"numeric"},
+            {"name":"NodeHost", "kind":"namevalue", "type":"char"}
+        ]
+    },
+    "ros.ParameterTree.del":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"ros.ParameterTree"},
+            {"name":"param_name", "kind":"required", "type":"choices=rosparam('list')"}
+        ]
+    },
+
+    "ros.ParameterTree.get":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"ros.ParameterTree"},
+            {"name":"param_name", "kind":"required", "type":"choices=rosparam('list')"}
+        ]
+    },
+
+    "ros.ParameterTree.set":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"ros.ParameterTree"},
+            {"name":"param_name", "kind":"required", "type":[["char"], ["choices=rosparam('list')"]]}
+        ]
+    },
+
+    "ros.Publisher":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["double"], ["ros.Node"]]},
+            {"name":"topic_name", "kind":"required", "type":[["char"],["char", "choices=rostopic('list')"]]},
+            {"name":"msg_type", "kind":"ordered", "type":[["char"],["choices=rostype.getMessageList"]]},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"},
+            {"name":"IsLatching", "kind":"namevalue", "type":[["logical", "scalar"], ["numeric", "scalar"]]}
+        ]
+    },
+    "ros.ServiceClient":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["double"], ["ros.Node"]]},
+            {"name":"svc_name", "kind":"required", "type":[["char"], ["char", "choices=subsref(rosservice('list'), substruct('()',{':', 1}))"]]},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"},
+            {"name":"Timeout", "kind":"namevalue", "type":"numeric"}
+        ]
+    },
+    "ros.ServiceClient.call":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"ros.ServiceClient"},
+            {"name":"request_msg", "kind":"ordered"},
+            {"name":"Timeout", "kind":"namevalue", "type":"numeric"}
+        ]
+    },
+    "ros.ServiceServer":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["double"], ["ros.Node"]]},
+            {"name":"svc_name", "kind":"required", "type":"char"},
+            {"name":"svc_type", "kind":"required", "type":"choices=rostype.getServiceList"},
+            {"name":"callback", "kind":"ordered", "type":"function_handle"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "ros.SimpleActionClient":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["double"], ["ros.Node"]]},
+            {"name":"action_name", "kind":"required", "type":[["char"], ["char", "choices=rosaction('list')"]]},
+            {"name":"action_type", "kind":"ordered", "type":[["char"], ["choices=rostype.getActionList"]]},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "ros.SimpleActionServer":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["double"], ["ros.Node"]]},
+            {"name":"action_name", "kind":"required", "type":"char"},
+            {"name":"action_type", "kind":"required", "type":[["char"], ["choices=rostype.getActionList"]]},
+            {"name":"ExecuteGoalFcn", "kind":"namevalue", "type":"function_handle"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "ros.Subscriber":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["double"], ["ros.Node"]]},
+            {"name":"topic_name", "kind":"required", "type":[["char"], ["char", "choices=rostopic('list')"]]},
+            {"name":"msg_type", "kind":"ordered", "type":[["char"], ["choices=rostype.getMessageList"]]},
+            {"name":"callback", "kind":"ordered", "type":"function_handle"},
+            {"name":"BufferSize", "kind":"namevalue", "type":"numeric"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "ros.TransformationTree":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["double"], ["ros.Node"]]},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','object'}"}
+        ]
+    },
+    "velodyneROSMessageReader":
+    {
+        "inputs":
+        [
+            {"name":"velodyneMessages", "kind":"required", "type":[["cell"],["struct"],["ros.msggen.velodyne_msgs.VelodyneScan"]]},
+            {"name":"deviceModel", "kind":"required", "type":"choices={'VLP16', 'VLP32C', 'HDL32E', 'HDL64E'}"},
+            {"name":"CalibrationFile","kind":"namevalue","type":["file=*.xml"]}
+        ]
+    },
+    "velodyneROSMessageReader.hasFrame":
+    {
+        "inputs":
+        [
+            {"name":"veloReader", "kind":"required", "type":"velodyneROSMessageReader"}
+        ]
+    },
+    "velodyneROSMessageReader.readFrame":
+    {
+        "inputs":
+        [
+            {"name":"veloReader", "kind":"required", "type":"velodyneROSMessageReader"},
+            {
+                "mutuallyExclusiveGroup":
+                [
+                    {"name":"frameNumber", "kind":"ordered", "type":[["positive","integer","scalar","numeric"]]},
+                    {"name":"frameTime", "kind":"ordered", "type":["duration","scalar"]}
+                ]
+            }
+        ]
+    },
+    "rosgenmsg":
+    {
+        "inputs":
+        [
+            {"name":"folder_path", "kind":"required", "type":["char", "folder"]},
+            {"name":"BuildConfiguration", "kind":"namevalue", "type":"choices={'fasterbuilds', 'fasterruns'}"}
+        ]
+    }
+}

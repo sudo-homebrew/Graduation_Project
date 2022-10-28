@@ -1,0 +1,456 @@
+{% if (false) %}
+// Copyright 2019-2022 The MathWorks, Inc.
+{% endif %}
+{% var slCoderVer = ver('simulinkcoder') %}
+//
+// File ros2nodeinterface.cpp
+//
+// Code generated for Simulink model '{%ModelName%}'.
+//
+// Model version                  : {% get_param(ModelName,'ModelVersion') %}
+// Simulink Coder version         : {% [slCoderVer.Version, ' ', slCoderVer.Release, ' ', slCoderVer.Date] %}
+// C/C++ source code generated on : {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %}
+//
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4244)
+#pragma warning(disable : 4265)
+#pragma warning(disable : 4458)
+#pragma warning(disable : 4100)
+{% if ExtmodeInfo.ExtmodeSim %link with Ws2_32.lib to bring in socket library %}
+#pragma comment(lib, "Ws2_32.lib")
+{% endif %}
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+#pragma GCC diagnostic ignored "-Wredundant-decls"
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wshadow"
+#endif //_MSC_VER
+#include "rclcpp/rclcpp.hpp"
+#include "{%ModelName%}.h"
+#include "ros2nodeinterface.h"
+
+#include <thread>
+#include <chrono>
+#include <utility>
+
+const std::string SLROSNodeName("{%ModelName%}");
+
+namespace ros2 {
+namespace matlab {
+
+NodeInterface::NodeInterface()
+    : mNode()
+    , mExec()
+    , mBaseRateSem()
+    , mBaseRateThread()
+    , mSchedulerThread()
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+    , mSubRate{%num2str(SampleTimes(i).TID)%}Sem()
+    , mSubRate{%num2str(SampleTimes(i).TID)%}Thread()
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if ExtmodeInfo.ExtmodeSim && ExtmodeInfo.RunInBackground %}
+    , mExtModeThread()
+{% endif %}
+    , mStopSem()
+    , mRunModel(true){
+  }
+
+NodeInterface::~NodeInterface() {
+    terminate();
+  }
+
+void NodeInterface::initialize(int argc, char * const argv[]) {
+    try {
+        //initialize ros2
+        std::vector<char *> args(argv, argv + argc);
+        rclcpp::init(static_cast<int>(args.size()), args.data());
+
+        //create the Node specified in Model
+        std::string NodeName("{%ModelName%}");
+        mNode = std::make_shared<rclcpp::Node>(NodeName);
+        mExec = std::make_shared<rclcpp::executors::MultiThreadedExecutor>();
+        mExec->add_node(mNode);
+
+		{% if ExtmodeInfo.ExtmodeSim %}
+		{
+			char* extmodeArg[] = {"-port","{%ExtmodeInfo.Port%}","-blocking","1","-verbose","0"};
+			rtExtModeParseArgs(6, (const char_T **)extmodeArg, NULL);
+		}
+		{% endif %}
+		
+        //initialize the model which will initialize the publishers and subscribers
+		rtmSetErrorStatus({%ModelRTMVarName%}, (NULL));
+        {%ModelName%}_initialize();
+
+		{% if ExtmodeInfo.ExtmodeSim %}
+		/* External mode */
+		rtSetTFinalForExtMode(&rtmGetTFinal({%ModelRTMVarName%}));
+		rtExtModeCheckInit({%num2str(numel(SampleTimes))%});
+		{
+			boolean_T rtmStopReq = false;
+			rtExtModeWaitForStartPkt({%ModelRTMVarName%}->extModeInfo, {%num2str(numel(SampleTimes))%},
+				&rtmStopReq);
+			if (rtmStopReq) {
+				rtmSetStopRequested({%ModelRTMVarName%}, true);
+			}
+		}
+		rtERTExtModeStartMsg();
+		{% if ExtmodeInfo.RunInBackground %}
+		mExtModeThread = std::make_shared<std::thread>(&NodeInterface::extmodeBackgroundTask, this);
+		{% endif %}
+		{% endif %}
+
+        //create the threads for the rates in the Model
+        mBaseRateThread = std::make_shared<std::thread>(&NodeInterface::baseRateTask, this);
+        {% if ~isSingleTasking %}
+        {% for i = numel(SampleTimes) %}
+        {% if SampleTimes(i).TID ~= 0 %}
+            mSubRate{%num2str(SampleTimes(i).TID)%}Thread = std::make_shared<std::thread>(&NodeInterface::subRate{%num2str(SampleTimes(i).TID)%}Task, this);
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+		mSchedulerThread = std::make_shared<std::thread>(&NodeInterface::schedulerThreadCallback, this);
+    }
+    catch (std::exception& ex) {
+        std::cout << ex.what() << std::endl;
+        throw ex;
+    }
+    catch (...) {
+        std::cout << "Unknown exception" << std::endl;
+        throw;
+    }
+}
+
+int NodeInterface::run() {
+  if (mExec) {
+    mExec->spin();
+  }
+  mRunModel = false;
+  return 0;
+}
+
+boolean_T NodeInterface::getStopRequestedFlag(void) {
+    #ifndef rtmGetStopRequested
+    return (!(rtmGetErrorStatus({%ModelRTMVarName%}) 
+        == (NULL)));
+    #else
+    return (!(rtmGetErrorStatus({%ModelRTMVarName%}) 
+        == (NULL)) || rtmGetStopRequested({%ModelRTMVarName%}));
+    #endif
+}
+void NodeInterface::stop(void) {
+  if (mExec.get()) {
+    mExec->cancel();
+    if (mNode) {
+      mExec->remove_node(mNode);
+    }
+    while (mExec.use_count() > 1);
+  }
+}
+
+void NodeInterface::terminate(void) {
+    if (mBaseRateThread.get()) {
+        mBaseRateSem.notify();
+        mBaseRateThread->join();
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+        mSubRate{%num2str(SampleTimes(i).TID)%}Sem.notify();
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+        mSubRate{%num2str(SampleTimes(i).TID)%}Thread->join();
+        mSubRate{%num2str(SampleTimes(i).TID)%}Thread.reset();
+{% endif %}
+{% endfor %}
+{% endif %}
+        mRunModel = false;
+        mBaseRateThread.reset();
+        if (mSchedulerThread.get()) {
+            mSchedulerThread->join();
+            mSchedulerThread.reset();
+        }
+    {% if strcmp('on',IncludeMdlTermFcn) %}
+        {%ModelName%}_terminate();
+    {% endif %}
+    {% if ExtmodeInfo.ExtmodeSim %}
+        rtExtModeShutdown({%num2str(numel(SampleTimes))%});
+    {% endif %}
+{% var keys = Publishers.keys %}
+{% for i = numel(keys) %}
+        // Release publisher {% keys{i} %}
+        m{%Publishers(keys{i}).BlockID%}.reset();
+{% endfor %}
+{% var keys = Subscribers.keys %}
+{% for i = numel(keys) %}
+        // Release subscriber {% keys{i} %}
+        m{%Subscribers(keys{i}).BlockID%}.reset();
+{% endfor %}
+{% var keys = ServiceCallers.keys %}
+{% for i = numel(keys) %}
+        // Release servicecaller {% keys{i} %}
+        m{%ServiceCallers(keys{i}).BlockID%}.reset();
+{% endfor %}
+        mExec.reset();
+        mNode.reset();
+        rclcpp::shutdown();
+    }
+}
+
+// Scheduler thread that does the timer
+void NodeInterface::schedulerThreadCallback(void)
+{
+  while (mRunModel) {
+        std::this_thread::sleep_for(std::chrono::nanoseconds({%SampleTimeNsecs%}));
+        mBaseRateSem.notify();
+    }
+}
+
+//Model specific
+{% if isSingleTasking %}
+void NodeInterface::baseRateTask(void) {
+  mRunModel = (rtmGetErrorStatus({%ModelRTMVarName%}) ==
+              (NULL));
+  while (mRunModel) {
+    mBaseRateSem.wait();
+    if (!mRunModel) break;
+	{% if ExtmodeInfo.ExtmodeSim %}
+	/* External mode */
+    {
+      boolean_T rtmStopReq = false;
+      rtExtModePauseIfNeeded({%ModelRTMVarName%}->extModeInfo, {%num2str(numel(SampleTimes))%},
+        &rtmStopReq);
+      if (rtmStopReq) {
+        rtmSetStopRequested({%ModelRTMVarName%}, true);
+      }
+
+      if (rtmGetStopRequested({%ModelRTMVarName%}) == true) {
+        rtmSetErrorStatus({%ModelRTMVarName%}, "Simulation finished");
+		mRunModel = false;
+        break;
+      }
+    }
+	{% endif %}
+	{% if ExtmodeInfo.ExtmodeSim && ~ExtmodeInfo.RunInBackground %}
+    /* External mode */
+    {
+      boolean_T rtmStopReq = false;
+      rtExtModeOneStep({%ModelRTMVarName%}->extModeInfo, {%num2str(numel(SampleTimes))%},
+                       &rtmStopReq);
+      if (rtmStopReq) {
+        rtmSetStopRequested({%ModelRTMVarName%}, true);
+      }
+    }
+	{% endif %}
+    {%ModelName%}_step();
+    {% if ExtmodeInfo.ExtmodeSim %}
+    rtExtModeCheckEndTrigger();
+    {% endif %}
+    mRunModel = !NodeInterface::getStopRequestedFlag();
+  }
+  NodeInterface::stop();
+}
+{% endif %}
+
+{% if ~isSingleTasking %}
+void NodeInterface::baseRateTask(void) {
+  mRunModel = (rtmGetErrorStatus({%ModelRTMVarName%}) ==
+              (NULL));
+  while (mRunModel) {
+    mBaseRateSem.wait();
+    if (!mRunModel) break;
+    {% for i = numel(SampleTimes) %}
+    {% if SampleTimes(i).TID ~= 0 %}
+        //Check if subrate {%num2str(SampleTimes(i).TID)%} should be unblocked
+        if (rtmStepTask({%ModelRTMVarName%}, {%num2str(SampleTimes(i).TID)%})) {
+          mSubRate{%num2str(SampleTimes(i).TID)%}Sem.notify();
+        }
+    {% endif %}
+    {% endfor %}
+	{% if ExtmodeInfo.ExtmodeSim %}
+	/* External mode */
+    {
+      boolean_T rtmStopReq = false;
+      rtExtModePauseIfNeeded({%ModelRTMVarName%}->extModeInfo, {%num2str(numel(SampleTimes))%},
+        &rtmStopReq);
+      if (rtmStopReq) {
+        rtmSetStopRequested({%ModelRTMVarName%}, true);
+      }
+
+      if (rtmGetStopRequested({%ModelRTMVarName%}) == true) {
+        rtmSetErrorStatus({%ModelRTMVarName%}, "Simulation finished");
+		mRunModel = false;
+        break;
+      }
+    }
+	{% endif %}	
+    {% if ~HasExplicitPartitions %}
+    {%ModelName%}_step0();
+    {% endif %}
+	{% if ExtmodeInfo.ExtmodeSim && ~ExtmodeInfo.RunInBackground %}
+    /* External mode */
+    {
+      boolean_T rtmStopReq = false;
+      rtExtModeOneStep({%ModelRTMVarName%}->extModeInfo, {%num2str(numel(SampleTimes))%},
+                       &rtmStopReq);
+      if (rtmStopReq) {
+        rtmSetStopRequested({%ModelRTMVarName%}, true);
+      }
+    }
+	{% endif %}		
+    {% if ExtmodeInfo.ExtmodeSim %}
+    rtExtModeCheckEndTrigger();
+    {% endif %}
+    mRunModel &= !NodeInterface::getStopRequestedFlag(); //If RunModel and not stop requested
+  }
+  NodeInterface::stop();
+}
+{% endif %}
+
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+void NodeInterface::subRate{%num2str(SampleTimes(i).TID)%}Task(void) {
+  while (mRunModel) {
+    mSubRate{%num2str(SampleTimes(i).TID)%}Sem.wait();
+    if (!mRunModel) break;
+    {% if ~HasExplicitPartitions %}
+    {%ModelName%}_step{%num2str(SampleTimes(i).TID)%}();
+    {% endif %}
+    {% if HasExplicitPartitions %}
+    {%ModelName%}_step({%num2str(SampleTimes(i).TID) - 1%});
+    {% endif %}
+  }
+}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if ExtmodeInfo.ExtmodeSim && ExtmodeInfo.RunInBackground %}
+void NodeInterface::extmodeBackgroundTask(void)
+{
+  while (mRunModel) {
+    /* External mode */
+    {
+      boolean_T rtmStopReq = false;
+      rtExtModeOneStep({%ModelRTMVarName%}->extModeInfo, {%num2str(numel(SampleTimes))%},
+                       &rtmStopReq);
+      if (rtmStopReq) {
+        rtmSetStopRequested({%ModelRTMVarName%}, true);
+      }
+    }
+  }
+}
+{% endif %}
+{% var keys = Publishers.keys %}
+{% for i = numel(keys) %}
+// {% keys{i} %}
+void NodeInterface::create_{%Publishers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+  m{%Publishers(keys{i}).BlockID%} = mNode->create_publisher<{%Publishers(keys{i}).msgInfo.msgCppClassName%}>(topicName, ros2::matlab::getQOSSettingsFromRMW(qosProfile));
+}
+void NodeInterface::publish_{%Publishers(keys{i}).BlockID%}(const {%Publishers(keys{i}).BusName%}* inBus) {
+  auto msg = std::make_unique<{%Publishers(keys{i}).msgInfo.msgCppClassName%}>();
+  convertFromBus(*msg, inBus);
+  m{%Publishers(keys{i}).BlockID%}->publish(std::move(msg));
+}
+{% endfor %}
+
+{% var keys = Subscribers.keys %}
+{% for i = numel(keys) %}
+// {% keys{i} %}
+void NodeInterface::create_{%Subscribers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+    auto callback = [this]({%Subscribers(keys{i}).msgInfo.msgCppClassName%}::SharedPtr msg) {
+        std::lock_guard<std::mutex> lockMsg(mtx_{%Subscribers(keys{i}).BlockID%});
+        mLatestMsg_{%Subscribers(keys{i}).BlockID%} = msg;
+    };
+    m{%Subscribers(keys{i}).BlockID%} = mNode->create_subscription<{%Subscribers(keys{i}).msgInfo.msgCppClassName%}>(topicName, ros2::matlab::getQOSSettingsFromRMW(qosProfile), callback);
+}
+bool NodeInterface::getLatestMessage_{%Subscribers(keys{i}).BlockID%}({%Subscribers(keys{i}).BusName%}* outBus) {
+    if (mLatestMsg_{%Subscribers(keys{i}).BlockID%}.get()) {
+        std::lock_guard<std::mutex> lockMsg(mtx_{%Subscribers(keys{i}).BlockID%});
+        convertToBus(outBus, *mLatestMsg_{%Subscribers(keys{i}).BlockID%});
+        mLatestMsg_{%Subscribers(keys{i}).BlockID%}.reset();
+        return true;
+    }
+    return false;
+}
+{% endfor %}
+
+{% var keys = ServiceCallers.keys %}
+{% for i = numel(keys) %}
+// {% keys{i} %}
+void NodeInterface::create_{%ServiceCallers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+    m{%ServiceCallers(keys{i}).BlockID%} = mNode->create_client<{%ServiceCallers(keys{i}).msgInfo.msgBaseCppClassName%}>(topicName, qosProfile);
+}
+bool NodeInterface::waitForServer_{%ServiceCallers(keys{i}).BlockID%}(const double connectionTimeout){
+    return m{%ServiceCallers(keys{i}).BlockID%}->wait_for_service(std::chrono::duration<double>(connectionTimeout));
+}
+uint8_T NodeInterface::call_{%ServiceCallers(keys{i}).BlockID%}(const {%ServiceCallers(keys{i}).InputBusName%}* inBus, {%ServiceCallers(keys{i}).OutputBusName%}* outBus){
+    auto msg = std::make_shared<{%ServiceCallers(keys{i}).msgInfo.msgBaseCppClassName%}::Request>();
+    convertFromBus(*msg, inBus);
+    auto result = m{%ServiceCallers(keys{i}).BlockID%}->async_send_request(std::move(msg));
+    // Wait for result
+    std::future_status status = result.wait_for(std::chrono::seconds((int)1e9));
+    if (status != std::future_status::ready) {
+        return 2;
+    }
+    convertToBus(outBus, *result.get().get());
+    return 0;
+}
+{% endfor %}
+
+{% var keys = Publishers.keys %}
+{% for i = numel(keys) %}
+// Helper for {% keys{i} %}
+void create_{%Publishers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+  ros2::matlab::getNodeInterface()->create_{%Publishers(keys{i}).BlockID%}(topicName, qosProfile);
+}
+void publish_{%Publishers(keys{i}).BlockID%}(const {%Publishers(keys{i}).BusName%}* inBus) {
+  ros2::matlab::getNodeInterface()->publish_{%Publishers(keys{i}).BlockID%}(inBus);
+}
+{% endfor %}
+{% var keys = Subscribers.keys %}
+{% for i = numel(keys) %}
+// Helper for {% keys{i} %}
+void create_{%Subscribers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+  ros2::matlab::getNodeInterface()->create_{%Subscribers(keys{i}).BlockID%}(topicName, qosProfile);
+}
+bool getLatestMessage_{%Subscribers(keys{i}).BlockID%}({%Subscribers(keys{i}).BusName%}* outBus) {
+  return ros2::matlab::getNodeInterface()->getLatestMessage_{%Subscribers(keys{i}).BlockID%}(outBus);
+}
+{% endfor %}
+{% var keys = ServiceCallers.keys %}
+{% for i = numel(keys) %}
+// Helper for {% keys{i} %}
+void create_{%ServiceCallers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+  ros2::matlab::getNodeInterface()->create_{%ServiceCallers(keys{i}).BlockID%}(topicName, qosProfile);
+}
+bool waitForServer_{%ServiceCallers(keys{i}).BlockID%}(const double connectionTimeout){
+    return ros2::matlab::getNodeInterface()->waitForServer_{%ServiceCallers(keys{i}).BlockID%}(connectionTimeout);
+}
+uint8_T call_{%ServiceCallers(keys{i}).BlockID%}(const {%ServiceCallers(keys{i}).InputBusName%}* inBus, {%ServiceCallers(keys{i}).OutputBusName%}* outBus){
+    return ros2::matlab::getNodeInterface()->call_{%ServiceCallers(keys{i}).BlockID%}(inBus, outBus);
+}
+{% endfor %}
+}//namespace matlab
+}//namespace ros2
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#else
+#pragma GCC diagnostic pop
+#endif //_MSC_VER

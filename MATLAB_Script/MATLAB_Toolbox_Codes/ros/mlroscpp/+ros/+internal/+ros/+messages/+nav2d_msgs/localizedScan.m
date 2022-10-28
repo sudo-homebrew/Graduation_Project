@@ -1,0 +1,41 @@
+function [data, info] = localizedScan
+%LocalizedScan gives an empty data for nav2d_msgs/LocalizedScan
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'nav2d_msgs/LocalizedScan';
+[data.RobotId, info.RobotId] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.LaserType, info.LaserType] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.X, info.X] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Y, info.Y] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Yaw, info.Yaw] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Scan, info.Scan] = ros.internal.ros.messages.sensor_msgs.laserScan;
+info.Scan.MLdataType = 'struct';
+info.MessageType = 'nav2d_msgs/LocalizedScan';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,21);
+info.MatPath{1} = 'robot_id';
+info.MatPath{2} = 'laser_type';
+info.MatPath{3} = 'x';
+info.MatPath{4} = 'y';
+info.MatPath{5} = 'yaw';
+info.MatPath{6} = 'scan';
+info.MatPath{7} = 'scan.header';
+info.MatPath{8} = 'scan.header.seq';
+info.MatPath{9} = 'scan.header.stamp';
+info.MatPath{10} = 'scan.header.stamp.sec';
+info.MatPath{11} = 'scan.header.stamp.nsec';
+info.MatPath{12} = 'scan.header.frame_id';
+info.MatPath{13} = 'scan.angle_min';
+info.MatPath{14} = 'scan.angle_max';
+info.MatPath{15} = 'scan.angle_increment';
+info.MatPath{16} = 'scan.time_increment';
+info.MatPath{17} = 'scan.scan_time';
+info.MatPath{18} = 'scan.range_min';
+info.MatPath{19} = 'scan.range_max';
+info.MatPath{20} = 'scan.ranges';
+info.MatPath{21} = 'scan.intensities';

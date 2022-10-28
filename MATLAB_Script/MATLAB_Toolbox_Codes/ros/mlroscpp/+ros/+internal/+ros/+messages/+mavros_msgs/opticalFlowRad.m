@@ -1,0 +1,41 @@
+function [data, info] = opticalFlowRad
+%OpticalFlowRad gives an empty data for mavros_msgs/OpticalFlowRad
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'mavros_msgs/OpticalFlowRad';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.IntegrationTimeUs, info.IntegrationTimeUs] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.IntegratedX, info.IntegratedX] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.IntegratedY, info.IntegratedY] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.IntegratedXgyro, info.IntegratedXgyro] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.IntegratedYgyro, info.IntegratedYgyro] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.IntegratedZgyro, info.IntegratedZgyro] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Temperature, info.Temperature] = ros.internal.ros.messages.ros.default_type('int16',1);
+[data.Quality, info.Quality] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.TimeDeltaDistanceUs, info.TimeDeltaDistanceUs] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.Distance, info.Distance] = ros.internal.ros.messages.ros.default_type('single',1);
+info.MessageType = 'mavros_msgs/OpticalFlowRad';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,16);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'integration_time_us';
+info.MatPath{8} = 'integrated_x';
+info.MatPath{9} = 'integrated_y';
+info.MatPath{10} = 'integrated_xgyro';
+info.MatPath{11} = 'integrated_ygyro';
+info.MatPath{12} = 'integrated_zgyro';
+info.MatPath{13} = 'temperature';
+info.MatPath{14} = 'quality';
+info.MatPath{15} = 'time_delta_distance_us';
+info.MatPath{16} = 'distance';

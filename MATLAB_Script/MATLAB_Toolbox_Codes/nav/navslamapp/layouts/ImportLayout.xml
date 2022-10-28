@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 The MathWorks, Inc. -->
+<Tiling>
+  <Tiles Columns="3" Count="3" EliminateEmpties="yes" Rows="1">
+    <Column Weight="0.172"/>
+    <Column Weight="0.3936"/>
+    <Column Weight="0.4344"/>
+    <Row Weight="1"/>
+    <Tile Height="1" Width="1" X="0" Y="0"/>
+    <Tile Height="1" Width="1" X="1" Y="0"/>
+    <Tile Height="1" Width="1" X="2" Y="0"/>
+  </Tiles>
+  <Occupancy>
+    <Occupant InFront="yes" Name="FigName1" Tile="0"/>
+    <Occupant InFront="yes" Name="FigName2" Tile="1"/>
+    <Occupant InFront="yes" Name="FigName3" Tile="2"/>
+  </Occupancy>
+</Tiling>

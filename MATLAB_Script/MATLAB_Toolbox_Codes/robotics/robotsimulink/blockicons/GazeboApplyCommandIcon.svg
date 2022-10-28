@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{font-size:16.18px;}.cls-1,.cls-5{fill:#333;}.cls-1,.cls-7{font-family:Helvetica;}.cls-2{fill:none;stroke:gray;stroke-width:2px;}.cls-2,.cls-6{stroke-miterlimit:10;}.cls-3,.cls-7{fill:gray;}.cls-4,.cls-6{fill:#fff;}.cls-6{stroke:#333;}.cls-7{font-size:10px;}</style>
+   </defs>
+   <title>Gazebo Apply Command_042619</title>
+   <text class="cls-1" transform="translate(46.67 72.72)">Gazebo</text>
+   <line class="cls-2" x1="75" x2="75" y1="54.8" y2="36.83"/>
+   <polygon class="cls-3" points="78.49 53.78 75 59.83 71.51 53.78 78.49 53.78"/>
+   <rect class="cls-4" height="31" rx="4.5" width="31" x="59.5" y="5.78"/>
+   <path class="cls-5"
+         d="M86,6.28a4,4,0,0,1,4,4v22a4,4,0,0,1-4,4H64a4,4,0,0,1-4-4v-22a4,4,0,0,1,4-4H86m0-1H64a5,5,0,0,0-5,5v22a5,5,0,0,0,5,5H86a5,5,0,0,0,5-5v-22a5,5,0,0,0-5-5Z"/>
+   <polyline class="cls-6" points="64.02 16.03 80.92 16.03 80.92 23.48"/>
+   <rect class="cls-4" height="9.02" width="9.02" x="76.46" y="23.63"/>
+   <path class="cls-5" d="M85,24.13v8H77v-8h8m1-1H76v10H86v-10Z"/>
+   <polygon class="cls-4" points="67.47 10.28 77.32 16.03 67.47 21.78 67.47 10.28"/>
+   <path class="cls-5"
+         d="M68,11.15,76.33,16,68,20.91V11.15M67,9.41V22.65L78.31,16,67,9.41Z"/>
+   <text class="cls-7" transform="translate(78.91 48.83)">cmd</text>
+</svg>

@@ -1,0 +1,41 @@
+function [data, info] = navdata_hdvideo_stream
+%navdata_hdvideo_stream gives an empty data for ardrone_autonomy/navdata_hdvideo_stream
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'ardrone_autonomy/navdata_hdvideo_stream';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.DroneTime, info.DroneTime] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Tag, info.Tag] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.Size, info.Size] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.HdvideoState, info.HdvideoState] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.StorageFifoNbPackets, info.StorageFifoNbPackets] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.StorageFifoSize, info.StorageFifoSize] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.UsbkeySize, info.UsbkeySize] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.UsbkeyFreespace, info.UsbkeyFreespace] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.FrameNumber, info.FrameNumber] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.UsbkeyRemainingTime, info.UsbkeyRemainingTime] = ros.internal.ros.messages.ros.default_type('uint32',1);
+info.MessageType = 'ardrone_autonomy/navdata_hdvideo_stream';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,16);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'drone_time';
+info.MatPath{8} = 'tag';
+info.MatPath{9} = 'size';
+info.MatPath{10} = 'hdvideo_state';
+info.MatPath{11} = 'storage_fifo_nb_packets';
+info.MatPath{12} = 'storage_fifo_size';
+info.MatPath{13} = 'usbkey_size';
+info.MatPath{14} = 'usbkey_freespace';
+info.MatPath{15} = 'frame_number';
+info.MatPath{16} = 'usbkey_remaining_time';

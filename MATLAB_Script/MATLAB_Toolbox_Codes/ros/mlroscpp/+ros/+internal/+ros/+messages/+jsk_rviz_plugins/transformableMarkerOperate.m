@@ -1,0 +1,45 @@
+function [data, info] = transformableMarkerOperate
+%TransformableMarkerOperate gives an empty data for jsk_rviz_plugins/TransformableMarkerOperate
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'jsk_rviz_plugins/TransformableMarkerOperate';
+[data.BOX, info.BOX] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.CYLINDER, info.CYLINDER] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.TORUS, info.TORUS] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.MESHRESOURCE, info.MESHRESOURCE] = ros.internal.ros.messages.ros.default_type('uint8',1, 3);
+[data.INSERT, info.INSERT] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.ERASE, info.ERASE] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.ERASEALL, info.ERASEALL] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.ERASEFOCUS, info.ERASEFOCUS] = ros.internal.ros.messages.ros.default_type('uint8',1, 3);
+[data.COPY, info.COPY] = ros.internal.ros.messages.ros.default_type('uint8',1, 4);
+[data.Type, info.Type] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Action, info.Action] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.FrameId, info.FrameId] = ros.internal.ros.messages.ros.char('string',0);
+[data.Name, info.Name] = ros.internal.ros.messages.ros.char('string',0);
+[data.Description, info.Description] = ros.internal.ros.messages.ros.char('string',0);
+[data.MeshResource, info.MeshResource] = ros.internal.ros.messages.ros.char('string',0);
+[data.MeshUseEmbeddedMaterials, info.MeshUseEmbeddedMaterials] = ros.internal.ros.messages.ros.default_type('logical',1);
+info.MessageType = 'jsk_rviz_plugins/TransformableMarkerOperate';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,16);
+info.MatPath{1} = 'BOX';
+info.MatPath{2} = 'CYLINDER';
+info.MatPath{3} = 'TORUS';
+info.MatPath{4} = 'MESH_RESOURCE';
+info.MatPath{5} = 'INSERT';
+info.MatPath{6} = 'ERASE';
+info.MatPath{7} = 'ERASEALL';
+info.MatPath{8} = 'ERASEFOCUS';
+info.MatPath{9} = 'COPY';
+info.MatPath{10} = 'type';
+info.MatPath{11} = 'action';
+info.MatPath{12} = 'frame_id';
+info.MatPath{13} = 'name';
+info.MatPath{14} = 'description';
+info.MatPath{15} = 'mesh_resource';
+info.MatPath{16} = 'mesh_use_embedded_materials';

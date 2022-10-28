@@ -1,0 +1,46 @@
+function [data, info] = controllersStatistics
+%ControllersStatistics gives an empty data for controller_manager_msgs/ControllersStatistics
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'controller_manager_msgs/ControllersStatistics';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Controller, info.Controller] = ros.internal.ros.messages.controller_manager_msgs.controllerStatistics;
+info.Controller.MLdataType = 'struct';
+info.Controller.MaxLen = NaN;
+info.Controller.MinLen = 0;
+data.Controller = data.Controller([],1);
+info.MessageType = 'controller_manager_msgs/ControllersStatistics';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,26);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'controller';
+info.MatPath{8} = 'controller.name';
+info.MatPath{9} = 'controller.type';
+info.MatPath{10} = 'controller.timestamp';
+info.MatPath{11} = 'controller.timestamp.sec';
+info.MatPath{12} = 'controller.timestamp.nsec';
+info.MatPath{13} = 'controller.running';
+info.MatPath{14} = 'controller.max_time';
+info.MatPath{15} = 'controller.max_time.sec';
+info.MatPath{16} = 'controller.max_time.nsec';
+info.MatPath{17} = 'controller.mean_time';
+info.MatPath{18} = 'controller.mean_time.sec';
+info.MatPath{19} = 'controller.mean_time.nsec';
+info.MatPath{20} = 'controller.variance_time';
+info.MatPath{21} = 'controller.variance_time.sec';
+info.MatPath{22} = 'controller.variance_time.nsec';
+info.MatPath{23} = 'controller.num_control_loop_overruns';
+info.MatPath{24} = 'controller.time_last_control_loop_overrun';
+info.MatPath{25} = 'controller.time_last_control_loop_overrun.sec';
+info.MatPath{26} = 'controller.time_last_control_loop_overrun.nsec';

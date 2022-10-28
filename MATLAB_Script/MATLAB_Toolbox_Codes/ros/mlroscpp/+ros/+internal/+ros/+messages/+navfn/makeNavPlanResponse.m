@@ -1,0 +1,39 @@
+function [data, info] = makeNavPlanResponse
+%MakeNavPlan gives an empty data for navfn/MakeNavPlanResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'navfn/MakeNavPlanResponse';
+[data.PlanFound, info.PlanFound] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.ErrorMessage, info.ErrorMessage] = ros.internal.ros.messages.ros.char('string',0);
+[data.Path, info.Path] = ros.internal.ros.messages.geometry_msgs.poseStamped;
+info.Path.MLdataType = 'struct';
+info.Path.MaxLen = NaN;
+info.Path.MinLen = 0;
+data.Path = data.Path([],1);
+info.MessageType = 'navfn/MakeNavPlanResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,19);
+info.MatPath{1} = 'plan_found';
+info.MatPath{2} = 'error_message';
+info.MatPath{3} = 'path';
+info.MatPath{4} = 'path.header';
+info.MatPath{5} = 'path.header.seq';
+info.MatPath{6} = 'path.header.stamp';
+info.MatPath{7} = 'path.header.stamp.sec';
+info.MatPath{8} = 'path.header.stamp.nsec';
+info.MatPath{9} = 'path.header.frame_id';
+info.MatPath{10} = 'path.pose';
+info.MatPath{11} = 'path.pose.position';
+info.MatPath{12} = 'path.pose.position.x';
+info.MatPath{13} = 'path.pose.position.y';
+info.MatPath{14} = 'path.pose.position.z';
+info.MatPath{15} = 'path.pose.orientation';
+info.MatPath{16} = 'path.pose.orientation.x';
+info.MatPath{17} = 'path.pose.orientation.y';
+info.MatPath{18} = 'path.pose.orientation.z';
+info.MatPath{19} = 'path.pose.orientation.w';

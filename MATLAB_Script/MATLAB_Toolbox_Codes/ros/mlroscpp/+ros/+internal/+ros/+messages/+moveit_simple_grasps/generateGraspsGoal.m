@@ -1,0 +1,43 @@
+function [data, info] = generateGraspsGoal
+%GenerateGraspsGoal gives an empty data for moveit_simple_grasps/GenerateGraspsGoal
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'moveit_simple_grasps/GenerateGraspsGoal';
+[data.Pose, info.Pose] = ros.internal.ros.messages.geometry_msgs.pose;
+info.Pose.MLdataType = 'struct';
+[data.Width, info.Width] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Options, info.Options] = ros.internal.ros.messages.moveit_simple_grasps.graspGeneratorOptions;
+info.Options.MLdataType = 'struct';
+info.Options.MaxLen = NaN;
+info.Options.MinLen = 0;
+data.Options = data.Options([],1);
+info.MessageType = 'moveit_simple_grasps/GenerateGraspsGoal';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,22);
+info.MatPath{1} = 'pose';
+info.MatPath{2} = 'pose.position';
+info.MatPath{3} = 'pose.position.x';
+info.MatPath{4} = 'pose.position.y';
+info.MatPath{5} = 'pose.position.z';
+info.MatPath{6} = 'pose.orientation';
+info.MatPath{7} = 'pose.orientation.x';
+info.MatPath{8} = 'pose.orientation.y';
+info.MatPath{9} = 'pose.orientation.z';
+info.MatPath{10} = 'pose.orientation.w';
+info.MatPath{11} = 'width';
+info.MatPath{12} = 'options';
+info.MatPath{13} = 'options.grasp_axis';
+info.MatPath{14} = 'options.GRASP_AXIS_X';
+info.MatPath{15} = 'options.GRASP_AXIS_Y';
+info.MatPath{16} = 'options.GRASP_AXIS_Z';
+info.MatPath{17} = 'options.grasp_direction';
+info.MatPath{18} = 'options.GRASP_DIRECTION_UP';
+info.MatPath{19} = 'options.GRASP_DIRECTION_DOWN';
+info.MatPath{20} = 'options.grasp_rotation';
+info.MatPath{21} = 'options.GRASP_ROTATION_HALF';
+info.MatPath{22} = 'options.GRASP_ROTATION_FULL';

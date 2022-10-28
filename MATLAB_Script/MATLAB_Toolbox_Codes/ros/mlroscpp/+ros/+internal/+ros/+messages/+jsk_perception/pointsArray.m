@@ -1,0 +1,45 @@
+function [data, info] = pointsArray
+%PointsArray gives an empty data for jsk_perception/PointsArray
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'jsk_perception/PointsArray';
+[data.CloudList, info.CloudList] = ros.internal.ros.messages.sensor_msgs.pointCloud2;
+info.CloudList.MLdataType = 'struct';
+info.CloudList.MaxLen = NaN;
+info.CloudList.MinLen = 0;
+data.CloudList = data.CloudList([],1);
+info.MessageType = 'jsk_perception/PointsArray';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,27);
+info.MatPath{1} = 'cloud_list';
+info.MatPath{2} = 'cloud_list.header';
+info.MatPath{3} = 'cloud_list.header.seq';
+info.MatPath{4} = 'cloud_list.header.stamp';
+info.MatPath{5} = 'cloud_list.header.stamp.sec';
+info.MatPath{6} = 'cloud_list.header.stamp.nsec';
+info.MatPath{7} = 'cloud_list.header.frame_id';
+info.MatPath{8} = 'cloud_list.height';
+info.MatPath{9} = 'cloud_list.width';
+info.MatPath{10} = 'cloud_list.fields';
+info.MatPath{11} = 'cloud_list.fields.INT8';
+info.MatPath{12} = 'cloud_list.fields.UINT8';
+info.MatPath{13} = 'cloud_list.fields.INT16';
+info.MatPath{14} = 'cloud_list.fields.UINT16';
+info.MatPath{15} = 'cloud_list.fields.INT32';
+info.MatPath{16} = 'cloud_list.fields.UINT32';
+info.MatPath{17} = 'cloud_list.fields.FLOAT32';
+info.MatPath{18} = 'cloud_list.fields.FLOAT64';
+info.MatPath{19} = 'cloud_list.fields.name';
+info.MatPath{20} = 'cloud_list.fields.offset';
+info.MatPath{21} = 'cloud_list.fields.datatype';
+info.MatPath{22} = 'cloud_list.fields.count';
+info.MatPath{23} = 'cloud_list.is_bigendian';
+info.MatPath{24} = 'cloud_list.point_step';
+info.MatPath{25} = 'cloud_list.row_step';
+info.MatPath{26} = 'cloud_list.data';
+info.MatPath{27} = 'cloud_list.is_dense';

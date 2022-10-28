@@ -1,0 +1,114 @@
+{
+    "gnssSensor":
+    {
+        "inputs":
+        [
+            {"name":"ReferenceFrame","kind":"namevalue","type":"choices={'NED','ENU'}"},
+            {"kind":"varargin","type":["gnssSensor"]}
+        ]
+    },
+    "wheelEncoderUnicycle":
+    {
+        "inputs":
+        [
+            {"kind":"varargin","type":["wheelEncoderUnicycle"]}
+        ]
+    },
+    "wheelEncoderBicycle":
+    {
+        "inputs":
+        [
+            {"kind":"varargin","type":["wheelEncoderBicycle"]}
+        ]
+    },
+    "wheelEncoderDifferentialDrive":
+    {
+        "inputs":
+        [
+            {"kind":"varargin","type":["wheelEncoderDifferentialDrive"]}
+        ]
+    },
+    "wheelEncoderAckermann":
+    {
+        "inputs":
+        [
+            {"kind":"varargin","type":["wheelEncoderAckermann"]}
+        ]
+    },
+    "wheelEncoderOdometryUnicycle":
+    {
+        "inputs":
+        [
+            {"kind":"varargin","type":["wheelEncoderOdometryUnicycle"]}
+        ]
+    },
+    "wheelEncoderOdometryBicycle":
+    {
+        "inputs":
+        [
+            {"kind":"varargin","type":["wheelEncoderOdometryBicycle"]}
+        ]
+    },
+    "wheelEncoderOdometryDifferentialDrive":
+    {
+        "inputs":
+        [
+            {"kind":"varargin","type":["wheelEncoderOdometryDifferentialDrive"]}
+        ]
+    },
+    "wheelEncoderOdometryAckermann":
+    {
+        "inputs":
+        [
+            {"kind":"varargin","type":["wheelEncoderOdometryAckermann"]}
+        ]
+    },
+    "gnssconstellation":
+    {
+        "inputs":
+        [
+            {"name":"t", "kind":"required","type":["datetime", "scalar"]},
+            {"name":"RINEXData", "kind":"namevalue","type":["timetable"]}
+        ]
+    },
+    "lookangles":
+    {
+        "inputs":
+        [
+            {"name":"recPos", "kind":"required","type":["numeric"]},
+            {"name":"satPos", "kind":"required","type":["numeric"]},
+            {"name":"maskAngle", "kind":"optional","type":["numeric", "scalar"]}
+        ]
+    },
+    "pseudoranges":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup": [
+                [
+                    {"name":"recPos", "kind":"required","type":["numeric"]},
+                    {"name":"satPos", "kind":"required","type":["numeric"]},
+                    {"name":"recVel", "kind":"required","type":["numeric"]},
+                    {"name":"satVel", "kind":"required","type":["numeric"]},
+                    {"name":"RangeAccuracy","kind":"namevalue","type":["numeric", "scalar"]},
+                    {"name":"RangeRateAccuracy","kind":"namevalue","type":["numeric", "scalar"]}
+                ],
+                [
+                    {"name":"recPos", "kind":"required","type":["numeric"]},
+                    {"name":"satPos", "kind":"required","type":["numeric"]},
+                    {"name":"RangeAccuracy","kind":"namevalue","type":["numeric", "scalar"]}
+                ]
+            ]}
+        ]
+    },
+    "receiverposition":
+    {
+        "inputs":
+        [
+            {"name":"p", "kind":"required","type":["numeric"]},
+            {"name":"satPos", "kind":"required","type":["numeric"]},
+            {"name":"pdot", "kind":"optional","type":["numeric"]},
+            {"name":"satVel", "kind":"optional","type":["numeric"]}
+        ]
+    }        
+}

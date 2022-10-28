@@ -1,0 +1,10 @@
+# Simple version of the Invite service. This is used in pairing mode where
+# the service callback is able to retrieve the gateway name automatically and
+# relay the invitation along the usual invitation service.
+#
+# i.e. much easier for a user to call this to trigger an invite than to provide
+# the full service details
+# 
+bool cancel
+---
+bool result

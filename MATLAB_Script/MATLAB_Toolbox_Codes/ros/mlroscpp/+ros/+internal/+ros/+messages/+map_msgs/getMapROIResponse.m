@@ -1,0 +1,40 @@
+function [data, info] = getMapROIResponse
+%GetMapROI gives an empty data for map_msgs/GetMapROIResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'map_msgs/GetMapROIResponse';
+[data.SubMap, info.SubMap] = ros.internal.ros.messages.nav_msgs.occupancyGrid;
+info.SubMap.MLdataType = 'struct';
+info.MessageType = 'map_msgs/GetMapROIResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,25);
+info.MatPath{1} = 'sub_map';
+info.MatPath{2} = 'sub_map.header';
+info.MatPath{3} = 'sub_map.header.seq';
+info.MatPath{4} = 'sub_map.header.stamp';
+info.MatPath{5} = 'sub_map.header.stamp.sec';
+info.MatPath{6} = 'sub_map.header.stamp.nsec';
+info.MatPath{7} = 'sub_map.header.frame_id';
+info.MatPath{8} = 'sub_map.info';
+info.MatPath{9} = 'sub_map.info.map_load_time';
+info.MatPath{10} = 'sub_map.info.map_load_time.sec';
+info.MatPath{11} = 'sub_map.info.map_load_time.nsec';
+info.MatPath{12} = 'sub_map.info.resolution';
+info.MatPath{13} = 'sub_map.info.width';
+info.MatPath{14} = 'sub_map.info.height';
+info.MatPath{15} = 'sub_map.info.origin';
+info.MatPath{16} = 'sub_map.info.origin.position';
+info.MatPath{17} = 'sub_map.info.origin.position.x';
+info.MatPath{18} = 'sub_map.info.origin.position.y';
+info.MatPath{19} = 'sub_map.info.origin.position.z';
+info.MatPath{20} = 'sub_map.info.origin.orientation';
+info.MatPath{21} = 'sub_map.info.origin.orientation.x';
+info.MatPath{22} = 'sub_map.info.origin.orientation.y';
+info.MatPath{23} = 'sub_map.info.origin.orientation.z';
+info.MatPath{24} = 'sub_map.info.origin.orientation.w';
+info.MatPath{25} = 'sub_map.data';

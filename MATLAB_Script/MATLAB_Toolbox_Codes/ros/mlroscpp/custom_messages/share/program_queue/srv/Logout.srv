@@ -1,0 +1,3 @@
+# Invalidate this login token. 
+uint64 token
+---

@@ -1,0 +1,118 @@
+{% if (false) %}
+// Copyright 2021-2022 The MathWorks, Inc.
+{% endif %}
+
+{% var slCoderVer = ver('simulinkcoder') %}
+//
+// Code generated for Simulink model '{%ModelName%}'.
+//
+// Model version                  : {% get_param(ModelName,'ModelVersion') %}
+// Simulink Coder version         : {% [slCoderVer.Version, ' ', slCoderVer.Release, ' ', slCoderVer.Date] %}
+// C/C++ source code generated on : {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %}
+//
+
+#include "{%ModelName%}_ctrlr_host.h"
+#include <pluginlib/class_list_macros.h>
+#include <ros/ros.h>
+
+// Model Includes
+#include "{%ModelName%}.h"
+
+extern ros::NodeHandle * SLROSNodePtr;
+namespace {%ProjectName%} {
+
+{% var inportIndices = arrayfun(@(y)isequal(y.PortType,'Inport'), JointInterfaces) %}
+{% var outportIndices = arrayfun(@(y)isequal(y.PortType,'Outport'), JointInterfaces) %}
+{% var inportRes = JointInterfaces(inportIndices) %}
+{% var outportRes = JointInterfaces(outportIndices) %}
+
+bool {%ClassName%}::init(hardware_interface::RobotHW* hw, ros::NodeHandle& nh)
+{
+  // Get joint interface handles
+  {% for k = numel(HardwareInterfaces) %}
+  hardware_interface::{%HardwareInterfaces(k).Type%} *{%HardwareInterfaces(k).VarName%} = hw->get<hardware_interface::{%HardwareInterfaces(k).Type%}>();
+  {% endfor %}
+
+  // Retrieve command handles from robot hardware interface
+  try
+  {
+    {% for k = numel(JointInterfaces) %}
+    ROS_INFO_STREAM_NAMED("init", "Retrieving '" << {% JointInterfaces(k).JointName %} << "' from interface");
+    joint_handle{% num2str(k-1) %}_ = {%JointInterfaces(k).HwInterfaceVarName%}->getHandle({% JointInterfaces(k).JointName %});
+    {% endfor %}
+  }
+  catch (hardware_interface::HardwareInterfaceException const& e)
+  {
+    ROS_ERROR_STREAM_NAMED("init", "Error retrieving joint: " << e.what());
+    return false;
+  }
+
+  // Assign global Simulink ROS Node handle
+  SLROSNodePtr = &nh;
+
+  // Initialize Simulink controller
+  {% InitFcn %};
+
+  // done
+  return true;
+}
+
+
+void {%ClassName%}::reset()
+{
+  // Set output velocity and effort interface commands to zero
+  // for other intefaces default output values depend on controller status
+  {% for k = numel(outportRes) %}
+      {% if isequal(outportRes(k).InterfaceType,'VelocityJointInterface') || isequal(outportRes(k).InterfaceType,'EffortJointInterface') %}
+  joint_handle{% num2str(k-1) %}_.setCommand(0.0);
+      {% endif %}
+  {% endfor %}
+}
+
+
+void {%ClassName%}::starting(const ros::Time& time)
+{
+  ROS_INFO_STREAM_NAMED("starting", "Starting at time " << time);
+  reset();
+}
+
+
+void {%ClassName%}::stopping(const ros::Time& time)
+{
+  ROS_INFO_STREAM_NAMED("stopping", "Stopping at time " << time);
+  reset();
+}
+
+
+void {%ClassName%}::update(const ros::Time& time, const ros::Duration& period)
+{
+
+  {% for k = numel(inportRes) %}
+      {% if 1==k %}
+  // Get model inputs from resources
+      {% endif %}
+  {%inportRes(k).FieldName%} = joint_handle{% num2str(k-1) %}_.getCommand();
+  {% endfor %}
+
+  // trigger Simulink tick/update
+  {% StepFcn %};
+
+  {% for k = numel(outportRes) %}
+      {% if 1==k %}
+  // Write model output to resources
+      {% endif %}
+  joint_handle{% num2str(k-1) %}_.setCommand({%outportRes(k).FieldName%});
+  {% endfor %}
+}
+
+} // ~namespace {%ProjectName%}
+
+
+PLUGINLIB_EXPORT_CLASS({%ProjectName%}::{%ClassName%}, controller_interface::ControllerBase)
+
+//
+// File trailer for generated code.
+//
+// [EOF]
+//
+

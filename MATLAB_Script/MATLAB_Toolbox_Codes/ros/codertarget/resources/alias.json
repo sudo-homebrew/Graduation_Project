@@ -1,0 +1,7 @@
+{
+  "Aliases": {
+    "NewName": "ros.codertarget.internal.DeviceParameters",
+    "OldNames": "robotics.codertarget.internal.DeviceParameters",
+    "WarnOnOldName": false
+  }
+}

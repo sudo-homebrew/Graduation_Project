@@ -1,0 +1,45 @@
+function [data, info] = jointMuscleValveControllerState
+%JointMuscleValveControllerState gives an empty data for sr_robot_msgs/JointMuscleValveControllerState
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'sr_robot_msgs/JointMuscleValveControllerState';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.SetValveMuscle0, info.SetValveMuscle0] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.SetValveMuscle1, info.SetValveMuscle1] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.SetDurationMuscle0, info.SetDurationMuscle0] = ros.internal.ros.messages.ros.default_type('uint64',1);
+[data.SetDurationMuscle1, info.SetDurationMuscle1] = ros.internal.ros.messages.ros.default_type('uint64',1);
+[data.CurrentValveMuscle0, info.CurrentValveMuscle0] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.CurrentValveMuscle1, info.CurrentValveMuscle1] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.CurrentDurationMuscle0, info.CurrentDurationMuscle0] = ros.internal.ros.messages.ros.default_type('uint64',1);
+[data.CurrentDurationMuscle1, info.CurrentDurationMuscle1] = ros.internal.ros.messages.ros.default_type('uint64',1);
+[data.PackedValve, info.PackedValve] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MusclePressure0, info.MusclePressure0] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.MusclePressure1, info.MusclePressure1] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.TimeStep, info.TimeStep] = ros.internal.ros.messages.ros.default_type('double',1);
+info.MessageType = 'sr_robot_msgs/JointMuscleValveControllerState';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,18);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'set_valve_muscle_0';
+info.MatPath{8} = 'set_valve_muscle_1';
+info.MatPath{9} = 'set_duration_muscle_0';
+info.MatPath{10} = 'set_duration_muscle_1';
+info.MatPath{11} = 'current_valve_muscle_0';
+info.MatPath{12} = 'current_valve_muscle_1';
+info.MatPath{13} = 'current_duration_muscle_0';
+info.MatPath{14} = 'current_duration_muscle_1';
+info.MatPath{15} = 'packed_valve';
+info.MatPath{16} = 'muscle_pressure_0';
+info.MatPath{17} = 'muscle_pressure_1';
+info.MatPath{18} = 'time_step';

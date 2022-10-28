@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{fill:#a6a6a6;}.cls-2{fill:#ccc;}.cls-10,.cls-3,.cls-9{fill:#404040;}.cls-4,.cls-5,.cls-6{fill:none;}.cls-4,.cls-5{stroke:#404040;stroke-linecap:round;}.cls-4{stroke-linejoin:round;}.cls-5,.cls-6,.cls-8{stroke-miterlimit:10;}.cls-6{stroke:#333;}.cls-7{fill:#333;}.cls-8{fill:#f2f2f2;stroke:#b3b3b3;}.cls-9{font-size:10px;font-family:LMRoman12-Bold, Latin Modern Roman;font-weight:700;}.cls-10{font-size:14px;font-family:LatinModernMath-Regular, Latin Modern Math;}</style>
+   </defs>
+   <title>Task Space Motion Control_042619</title>
+   <path class="cls-1"
+         d="M87.76,54.11l.8-1.91-4-1.68-2.92,6.93,4,1.67.8-1.92,4.93,2.08-.82,1.91-5,1.56L80.21,60.5a3,3,0,0,1-1.61-4l.9-2.12L76.61,53.2a4.46,4.46,0,0,1-4.87.9l-8.4-3.54-.43-.2L43.24,42.07a4.5,4.5,0,0,1,3.5-8.3L67.23,42.4c.16.08.32.15.48.25l7.52,3.16a4.48,4.48,0,0,1,2.76,4l2.91,1.23L81.8,49a3,3,0,0,1,4-1.61l5.33,2.24,2.4,4.69-.81,1.91Z"/>
+   <path class="cls-2"
+         d="M88.41,23.68l5.13-1.48-.57-2-5.14,1.47Zm6.06,1.75-5.14,1.48.58,2-4.15,1.19-2.07-7.22L93,20.21l-4.81-2.15-5.56,1.6a3,3,0,0,0-2.07,3.74l.64,2.22-3,.87a4.5,4.5,0,0,0-4.67-1.43l-8.11,2.33c-.08,0-.17,0-.26.05L43.9,33.52a4.22,4.22,0,0,0-1.19.45A4.45,4.45,0,0,0,41,35.7v0a4.37,4.37,0,0,0-.29.67l-.07.16a5.78,5.78,0,0,0-.12.57l-.06.32c0,.15,0,.31,0,.46s0,.29,0,.44.05.24.07.36,0,.29.08.44,0,.08,0,.12l0,.06a4.22,4.22,0,0,0,.35.78h0L58.68,70.94a7.76,7.76,0,0,0-1.38,4.43v9H73v-9a7.81,7.81,0,0,0-5.66-7.51L51.71,40.64l15.08-4.33a2.57,2.57,0,0,0,.38-.08l8.76-2.52A4.49,4.49,0,0,0,79.15,30l3-.87.63,2.22a3,3,0,0,0,3.74,2.07L92.1,31.8,95,27.43Z"/>
+   <circle class="cls-3" cx="65.1" cy="73.09" r="2.43"/>
+   <path class="cls-4" d="M62.54,67.76a5.81,5.81,0,1,1-3,7.64"/>
+   <polygon class="cls-3" points="64.03 69.56 59.58 69.04 62.25 65.44 64.03 69.56"/>
+   <circle class="cls-3" cx="45.03" cy="37.9" r="2.43"/>
+   <path class="cls-4" d="M47.22,43.29a5.81,5.81,0,1,1,3.34-7.5"/>
+   <polygon class="cls-3" points="45.8 41.44 50.23 42.14 47.41 45.63 45.8 41.44"/>
+   <path class="cls-4" d="M71.53,30.37a5.81,5.81,0,1,1-7.14-4.07"/>
+   <polygon class="cls-3" points="69.54 31.6 70.67 27.25 73.87 30.41 69.54 31.6"/>
+   <circle class="cls-3" cx="65.92" cy="31.91" r="2.43"/>
+   <path class="cls-5" d="M93.71,34.24a74.72,74.72,0,0,1-.21,12.62"/>
+   <polygon class="cls-3" points="91.8 46.16 93.2 49.35 95.27 46.54 91.8 46.16"/>
+   <polyline class="cls-6" points="85.31 45.18 79.7 58.02 91.74 63.28"/>
+   <polygon class="cls-7" points="82.99 44.88 86.6 42.22 87.1 46.68 82.99 44.88"/>
+   <polygon class="cls-7" points="90.24 65.07 94.7 64.57 92.03 60.96 90.24 65.07"/>
+   <polyline class="cls-6" points="81.05 18.26 84.8 31.77 97.46 28.25"/>
+   <polygon class="cls-7" points="79.07 19.49 80.19 15.15 83.39 18.3 79.07 19.49"/>
+   <polygon class="cls-7" points="97.42 30.59 100.57 27.39 96.22 26.27 97.42 30.59"/>
+   <rect class="cls-8" height="16.81" width="23.41" x="104.42" y="18.24"/>
+   <text class="cls-9" transform="translate(107.55 30.02)">T</text>
+   <text class="cls-10" transform="translate(115.37 32.68) scale(0.58)">ref</text>
+</svg>

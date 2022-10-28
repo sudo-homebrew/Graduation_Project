@@ -1,0 +1,291 @@
+{
+    "robotScenario":
+    {
+        "inputs":
+        [
+            {"name":"StopTime", "kind":"namevalue", "type":"numeric"},
+            {"name":"UpdateRate", "kind":"namevalue", "type":"numeric"},
+            {"name":"HistoryBufferSize", "kind":"namevalue", "type":"numeric"},
+            {"name":"ReferenceLocation", "kind":"namevalue", "type":"numeric"},
+            {"name":"MaxNumFrames", "kind":"namevalue", "type":"numeric"}
+        ],
+        "outputs":
+        [
+            {"name":"scenario", "kind":"positional", "type":"robotScenario"}
+        ]
+    },
+
+    "robotScenario.addInertialFrame":
+    {
+        "inputs":
+        [
+            {"name":"scenario", "kind":"required", "type":"robotScenario"},
+            {"name":"base", "kind":"required", "type":"choices=scenario.InertialFrames"},
+            {"name":"name", "kind":"required", "type":"string"},
+            {"mutuallyExclusiveGroup": [
+                [
+                    {"name":"position", "kind":"positional", "type":"numeric"},
+                    {"name":"orientation", "kind":"positional", "type":[["numeric"], ["quaternion"]]}
+                ],
+                [
+                    {"name":"transform", "kind":"positional", "type":"numeric"}
+                ]
+            ]}
+        ]
+    },
+
+    "robotScenario.addMesh":
+    {
+        "inputs":
+        [
+            {"name":"scenario", "kind":"required", "type":"robotScenario"},
+
+            {"mutuallyExclusiveGroup": [
+                [
+                    {"name":"type", "kind":"required", "type":"choices=uav.internal.scenario.Constants.RobotScenarioMeshShapeType"},
+                    {"name":"Position", "kind":"namevalue", "type":"numeric"},
+                    {"name":"Color", "kind":"namevalue", "type":"numeric"},
+                    {"name":"Size", "kind":"namevalue", "type":"numeric"},
+                    {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+                    {"name":"ReferenceFrame", "kind":"namevalue", "type":"choices=scenario.InertialFrames"}
+                ],
+                [
+                    {"name":"type", "kind":"required", "type":"choices={'Custom'}"},
+                    {"name":"Position", "kind":"namevalue", "type":"numeric"},
+                    {"name":"Color", "kind":"namevalue", "type":"numeric"},
+                    {"name":"Vertices", "kind":"namevalue", "type":"numeric"},
+                    {"name":"Faces", "kind":"namevalue", "type":"numeric"},
+                    {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+                    {"name":"ReferenceFrame", "kind":"namevalue", "type":"choices=scenario.InertialFrames"}
+                ]
+            ]}
+        ]
+    },
+
+    "robotScenario.binaryOccupancyMap":
+    {
+        "inputs":
+        [
+            {"name":"scenario", "kind":"required", "type":"robotScenario"},
+            {"name":"GridOriginInLocal", "kind":"namevalue", "type":"numeric"},
+            {"name":"MapSize", "kind":"namevalue", "type":"numeric"},
+            {"name":"HeightResolution", "kind":"namevalue", "type":"numeric"},
+            {"name":"MapHeightLimits", "kind":"namevalue", "type":"numeric"},
+            {"name":"MapResolution", "kind":"namevalue", "type":"numeric"}
+        ]
+    },
+
+    "robotScenario.setup":
+    {
+        "inputs":
+        [
+            {"name":"scenario", "kind":"required", "type":"robotScenario"}
+        ]
+    },
+
+    "robotScenario.advance":
+    {
+        "inputs":
+        [
+            {"name":"scenario", "kind":"required", "type":"robotScenario"}
+        ]
+    },
+
+    "robotScenario.restart":
+    {
+        "inputs":
+        [
+            {"name":"scenario", "kind":"required", "type":"robotScenario"}
+        ]
+    },
+
+    "robotScenario.show3D":
+    {
+        "inputs":
+        [
+            {"name":"scenario", "kind":"required", "type":"robotScenario"},
+            {"name":"Parent", "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"FastUpdate", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+            {"name":"View", "kind":"namevalue", "type":["choices=uav.internal.scenario.Constants.ViewPointType"]}
+        ]
+    },
+
+    "robotPlatform":
+    {
+        "inputs":
+        [
+            {"name":"name", "kind":"required", "type":"string"},
+            {"name":"scenario", "kind":"required", "type":"robotScenario"},
+            {"name":"ReferenceFrame", "kind":"namevalue", "type":"choices=scenario.InertialFrames"},
+            {"name":"StartTime", "kind":"namevalue", "type":"numeric"},
+            {"name":"BaseTrajectory", "kind":"namevalue", "type":"waypointTrajectory"},
+            {"name":"InitialBasePosition", "kind":"namevalue", "type":"numeric"},
+            {"name":"InitialBaseOrientation", "kind":"namevalue", "type":[["numeric"], ["quaternion"]]},
+            {"name":"InitialBaseVelocity", "kind":"namevalue", "type":"numeric"},
+            {"name":"InitialBaseAcceleration", "kind":"namevalue", "type":"numeric"},
+            {"name":"InitialBaseAngularVelocity", "kind":"namevalue", "type":"numeric"},
+            {"name":"RigidBodyTree", "kind":"namevalue", "type":"rigidBodyTree"},
+            {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]}
+        ],
+        "outputs":
+        [
+            {"name":"platform", "kind":"positional", "type":"robotPlatform"}
+        ]
+    },
+
+    "robotPlatform.updateMesh":
+    {
+        "inputs":
+        [
+            {"name":"platform", "kind":"required", "type":"robotPlatform"},
+            {"mutuallyExclusiveGroup": [
+                [
+                    {"name":"type", "kind":"required", "type":"choices={'GroundVehicle'}"},
+                    {
+                        "mutuallyExclusiveGroup": [
+                            [
+                                {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+                                {"name":"Color", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Scale", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Position", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Orientation", "kind":"namevalue", "type":"numeric"}
+                            ],
+                            [
+                                {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+                                {"name":"Color", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Scale", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Offset", "kind":"namevalue", "type":"numeric"}
+                            ]
+                        ]
+                    }
+                ],
+                [
+                    {"name":"type", "kind":"required", "type":"choices={'Cuboid'}"},
+                    {
+                        "mutuallyExclusiveGroup": [
+                            [
+                                {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+                                {"name":"Color", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Size", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Position", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Orientation", "kind":"namevalue", "type":"numeric"}
+                            ],
+                            [
+                                {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+                                {"name":"Color", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Size", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Offset", "kind":"namevalue", "type":"numeric"}
+                            ]
+                        ]
+                    }
+                ],
+                [
+                    {"name":"type", "kind":"required", "type":"choices={'Custom'}"},
+
+                    {
+                        "mutuallyExclusiveGroup": [
+                            [
+                                {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+                                {"name":"Position", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Orientation", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Color", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Vertices", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Faces", "kind":"namevalue", "type":"numeric"}
+                            ],
+                            [
+                                {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+                                {"name":"Offset", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Color", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Vertices", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Faces", "kind":"namevalue", "type":"numeric"}
+                            ]
+                        ]
+                    }
+                ],
+                [
+                    {"name":"type", "kind":"required", "type":"choices={'RigidBodyTree'}"},
+                    {
+                        "mutuallyExclusiveGroup": [
+                            [
+                                {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+                                {"name":"Object", "kind":"namevalue", "type":"rigidBodyTree"},
+                                {"name":"Position", "kind":"namevalue", "type":"numeric"},
+                                {"name":"Orientation", "kind":"namevalue", "type":"numeric"}
+                            ],
+                            [
+                                {"name":"IsBinaryOccupied", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+                                {"name":"Object", "kind":"namevalue", "type":"rigidBodyTree"},
+                                {"name":"Offset", "kind":"namevalue", "type":"numeric"}
+                            ]
+                        ]
+                    }
+                ]
+            ]}
+        ]
+    },
+
+    "robotPlatform.move":
+    {
+        "inputs":
+        [
+            {"name":"platform", "kind":"required", "type":"robotPlatform"},
+            {"name":"type", "kind":"required", "type":["choices=uav.internal.scenario.Constants.RobotPlatformBodyName"]},
+            {"name":"motion", "kind":"required", "type":"numeric"}
+        ]
+    },
+
+    "robotPlatform.read":
+    {
+        "inputs":
+        [
+            {"name":"platform", "kind":"required", "type":"robotPlatform"}
+        ]
+    },
+
+    "robotLidarPointCloudGenerator":
+    {
+        "inputs":
+        [
+            {"name":"UpdateRate", "kind":"namevalue", "type":"numeric"},
+            {"name":"MaxRange", "kind":"namevalue", "type":"numeric"},
+            {"name":"RangeAccuracy", "kind":"namevalue", "type":"numeric"},
+            {"name":"AzimuthResolution", "kind":"namevalue", "type":"numeric"},
+            {"name":"ElevationResolution", "kind":"namevalue", "type":"numeric"},
+            {"name":"AzimuthLimits", "kind":"namevalue", "type":"numeric"},
+            {"name":"ElevationLimits", "kind":"namevalue", "type":"numeric"},
+            {"name":"HasNoise", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]},
+            {"name":"HasOrganizedOutput", "kind":"namevalue", "type":[["logical"], ["choices={0,1}"]]}
+        ],
+        "outputs":
+        [
+            {"name":"sensor", "kind":"positional", "type":"robotLidarPointCloudGenerator"}
+        ]
+    },
+
+    "robotSensor":
+    {
+        "inputs":
+        [
+            {"name":"name", "kind":"required", "type":"string"},
+            {"name":"platform", "kind":"required", "type":"robotPlatform"},
+            {"name":"sensorModel", "kind":"required", "type":[["gpsSensor"],["insSensor"],["robotLidarPointCloudGenerator"]]},
+            {"name":"UpdateRate", "kind":"namevalue", "type":["numeric", "positive"]},
+            {"name":"MountingBodyName", "kind":"namevalue", "type":["choices=robotics.internal.scenario.rigidbody.getPlatformBodyList(platform)"]},
+            {"name":"MountingLocation", "kind":"namevalue", "type":"numeric"},
+            {"name":"MountingAngles", "kind":"namevalue", "type":"numeric"}
+        ],
+        "outputs":
+        [
+            {"name":"sensor", "kind":"positional", "type":"uavSensor"}
+        ]
+    },
+
+    "robotSensor.read":
+    {
+        "inputs":
+        [
+            {"name":"sensor", "kind":"required", "type":"robotSensor"}
+        ]
+    }
+
+}

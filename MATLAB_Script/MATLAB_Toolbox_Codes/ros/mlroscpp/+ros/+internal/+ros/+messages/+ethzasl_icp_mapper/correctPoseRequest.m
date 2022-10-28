@@ -1,0 +1,46 @@
+function [data, info] = correctPoseRequest
+%CorrectPose gives an empty data for ethzasl_icp_mapper/CorrectPoseRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'ethzasl_icp_mapper/CorrectPoseRequest';
+[data.Odom, info.Odom] = ros.internal.ros.messages.nav_msgs.odometry;
+info.Odom.MLdataType = 'struct';
+info.MessageType = 'ethzasl_icp_mapper/CorrectPoseRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,31);
+info.MatPath{1} = 'odom';
+info.MatPath{2} = 'odom.header';
+info.MatPath{3} = 'odom.header.seq';
+info.MatPath{4} = 'odom.header.stamp';
+info.MatPath{5} = 'odom.header.stamp.sec';
+info.MatPath{6} = 'odom.header.stamp.nsec';
+info.MatPath{7} = 'odom.header.frame_id';
+info.MatPath{8} = 'odom.child_frame_id';
+info.MatPath{9} = 'odom.pose';
+info.MatPath{10} = 'odom.pose.pose';
+info.MatPath{11} = 'odom.pose.pose.position';
+info.MatPath{12} = 'odom.pose.pose.position.x';
+info.MatPath{13} = 'odom.pose.pose.position.y';
+info.MatPath{14} = 'odom.pose.pose.position.z';
+info.MatPath{15} = 'odom.pose.pose.orientation';
+info.MatPath{16} = 'odom.pose.pose.orientation.x';
+info.MatPath{17} = 'odom.pose.pose.orientation.y';
+info.MatPath{18} = 'odom.pose.pose.orientation.z';
+info.MatPath{19} = 'odom.pose.pose.orientation.w';
+info.MatPath{20} = 'odom.pose.covariance';
+info.MatPath{21} = 'odom.twist';
+info.MatPath{22} = 'odom.twist.twist';
+info.MatPath{23} = 'odom.twist.twist.linear';
+info.MatPath{24} = 'odom.twist.twist.linear.x';
+info.MatPath{25} = 'odom.twist.twist.linear.y';
+info.MatPath{26} = 'odom.twist.twist.linear.z';
+info.MatPath{27} = 'odom.twist.twist.angular';
+info.MatPath{28} = 'odom.twist.twist.angular.x';
+info.MatPath{29} = 'odom.twist.twist.angular.y';
+info.MatPath{30} = 'odom.twist.twist.angular.z';
+info.MatPath{31} = 'odom.twist.covariance';

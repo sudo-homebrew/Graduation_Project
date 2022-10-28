@@ -1,0 +1,43 @@
+function [data, info] = jointControllerState
+%JointControllerState gives an empty data for control_msgs/JointControllerState
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'control_msgs/JointControllerState';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.SetPoint, info.SetPoint] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.ProcessValue, info.ProcessValue] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.ProcessValueDot, info.ProcessValueDot] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Error, info.Error] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.TimeStep, info.TimeStep] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Command, info.Command] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.P, info.P] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.I, info.I] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.D, info.D] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.IClamp, info.IClamp] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Antiwindup, info.Antiwindup] = ros.internal.ros.messages.ros.default_type('logical',1);
+info.MessageType = 'control_msgs/JointControllerState';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,17);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'set_point';
+info.MatPath{8} = 'process_value';
+info.MatPath{9} = 'process_value_dot';
+info.MatPath{10} = 'error';
+info.MatPath{11} = 'time_step';
+info.MatPath{12} = 'command';
+info.MatPath{13} = 'p';
+info.MatPath{14} = 'i';
+info.MatPath{15} = 'd';
+info.MatPath{16} = 'i_clamp';
+info.MatPath{17} = 'antiwindup';

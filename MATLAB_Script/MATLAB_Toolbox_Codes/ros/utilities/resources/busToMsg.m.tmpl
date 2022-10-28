@@ -1,0 +1,136 @@
+function rosmsgOut = {% matlab.lang.makeValidName(MsgName) %}(slBusIn, rosmsgOut)
+%#codegen
+
+%   Copyright 2021 The MathWorks, Inc.
+
+{% var msgFields = fieldnames(EmptyMsg) %}
+{% for j=numel(msgFields) %}
+    {% var reservedNameChecker = ros.slros.internal.bus.ReservedNamesChecker.getInstance %}
+    {% var reservedNames = reservedNameChecker.ExclusionList %}
+    {% var msgField = msgFields{j} %}
+    {% var busField = msgFields{j} %}
+    {% if ismember(msgField, reservedNames) %}
+          {% var busField = [msgFields{j},'_'] %}
+    {% endif %}
+    {% if ~isequal('MessageType', msgField) %}
+        {% var thisinfo = MsgInfo.(msgField) %}
+        {% if ~thisinfo.constant %}
+            {% if isequal('struct',thisinfo.MLdataType) %}
+                {% var thismsgtype = strsplit(eval(['MsgInfo.',(msgField),'.MessageType']),'/') %}
+                {% var thispkgname = thismsgtype{1} %}
+                {% var thismsgname = thismsgtype{2} %}
+                {% if (thisinfo.MaxLen > 1) || isnan(thisinfo.MaxLen) %}
+                    {% if (thisinfo.MinLen == 0) || (thisinfo.MinLen ~= thisinfo.MaxLen) %}
+                        {% var currLength = [busField,'_SL_Info.CurrentLength']  %}
+
+    {% if isequal(RosVersion,'ros') %}
+    rosmsgOut.{% msgField %} = ros.slroscpp.internal.bus.Util.newMessageFromSimulinkMsgType('{% eval(['MsgInfo.',(msgField),'.MessageType']) %}');
+    {% endif %}
+
+    for iter=1:slBusIn.{% currLength %}
+        rosmsgOut.{%msgField%}(iter) = bus_conv_fcns.{% RosVersion %}.busToMsg.{% thispkgname %}.{% thismsgname %}(slBusIn.{% busField %}(iter),rosmsgOut.{% msgField %}(1));
+    end
+    if slBusIn.{% currLength %} < numel(rosmsgOut.{% msgField %})
+    rosmsgOut.{%msgField%}(slBusIn.{% currLength %}+1:numel(rosmsgOut.{% msgField %})) = [];
+    end
+                    {% endif %}
+                    {% if (thisinfo.MinLen == thisinfo.MaxLen) %}
+                        {% var currLength = num2str(thisinfo.MaxLen)  %}
+    for iter=1:{% currLength %}
+        rosmsgOut.{%msgField%}(iter) = bus_conv_fcns.{% RosVersion %}.busToMsg.{% thispkgname %}.{% thismsgname %}(slBusIn.{% busField %}(iter),rosmsgOut.{% msgField %}(1));
+    end
+                    {% endif %}
+                {% endif %}
+                {% if (thisinfo.MaxLen == 1) && (thisinfo.MinLen == 1)  %}
+    rosmsgOut.{%msgField%} = bus_conv_fcns.{% RosVersion %}.busToMsg.{% thispkgname %}.{% thismsgname %}(slBusIn.{% busField %},rosmsgOut.{% msgField %}(1));
+                {% endif %}
+            {% endif %}
+            {% if ~isequal('struct',thisinfo.MLdataType) % nested primitive %}
+                    {% var castDataType = thisinfo.MLdataType %}
+                    {% if isequal('string',thisinfo.MLdataType) %}
+                        {% var castDataType = 'char' %}
+                        {% var isLower = isstrprop(msgField,'lower') %}
+                        {% var isUpper = isstrprop(msgField,'upper') %}
+                    {% endif %}
+                {% if (thisinfo.MaxLen > 1) || isnan(thisinfo.MaxLen) || isequal('string',thisinfo.MLdataType) %}
+                    {% if ((thisinfo.MinLen == 0) || (thisinfo.MinLen ~= thisinfo.MaxLen)) && ~isequal('string',thisinfo.MLdataType) && ~isequal('char',thisinfo.MLdataType) % bounded or varlen %}
+                        {% var currLength = [busField,'_SL_Info.CurrentLength']  %}
+    rosmsgOut.{% msgField %} = {% castDataType %}(slBusIn.{% busField %}(1:slBusIn.{% currLength %}));
+                    {% endif %}
+
+                    {% if ((thisinfo.MinLen == 0) || (thisinfo.MinLen ~= thisinfo.MaxLen)) && isequal('char',thisinfo.MLdataType) % bounded or varlen %}
+                        {% var currLength = [busField,'_SL_Info.CurrentLength']  %}
+    rosmsgOut.{% msgField %} = {% castDataType %}(slBusIn.{% busField %}(1:slBusIn.{% currLength %}));
+    %if slBusIn.{% currLength %} < {% num2str(thisinfo.MaxLen) %}
+    %    rosmsgOut.{%msgField%}(slBusIn.{% currLength %}+1:{% num2str(thisinfo.MaxLen) %}) = [];
+    %end
+                    {% endif %}
+
+                    {% if ((thisinfo.MinLen == 0) || (thisinfo.MinLen ~= thisinfo.MaxLen)) && isequal('string',thisinfo.MLdataType) % bounded or varlen string%}
+                        {% var currLength = [busField,'_SL_Info.CurrentLength']  %}
+    for iter=1:slBusIn.{% currLength %}
+                {% if isequal(isLower(1),1) %}
+        rosmsgOut.{%msgField%}{iter} = {% castDataType %}(slBusIn.{% busField %}(iter).data).';
+        {% var currStringLength = [busField,'(iter).data_SL_Info.CurrentLength']  %}
+        maxlen = length(slBusIn.{% busField %}(iter).data);
+        if slBusIn.{% currStringLength %} < maxlen
+        rosmsgOut.{%msgField%}{iter}(slBusIn.{% currStringLength %}+1:maxlen) = [];
+        end
+                {% endif %}
+
+                {% if isequal(isUpper(1),1) %}
+        rosmsgOut.{%msgField%}{iter} = {% castDataType %}(slBusIn.{% busField %}(iter).Data).';
+        {% var currStringLength = [busField,'(iter).Data_SL_Info.CurrentLength']  %}
+        maxlen = length(slBusIn.{% busField %}(iter).Data);
+        if slBusIn.{% currStringLength %} < maxlen
+        rosmsgOut.{%msgField%}{iter}(slBusIn.{% currStringLength %}+1:maxlen) = [];
+        end
+                {% endif %}
+    end
+    if slBusIn.{% currLength %} < numel(rosmsgOut.{%msgField%})
+        rosmsgOut.{%msgField%}(slBusIn.{% currLength %}+1:numel(rosmsgOut.{% msgField%})) = [];
+    end
+    rosmsgOut.{%msgField%} = rosmsgOut.{%msgField%}.';
+                    {% endif %}
+                    {% if ~isequal('string',thisinfo.MLdataType) && (thisinfo.MinLen == thisinfo.MaxLen) % static %}
+    rosmsgOut.{% msgField %} = {% castDataType %}(slBusIn.{% busField %});
+                    {% endif %}
+                    {% if isequal('string',thisinfo.MLdataType) && (ros.slros.internal.ROSUtil.isFixedSizeArray(MessageType,msgField,RosVersion) || (thisinfo.MaxLen > 1)) && (thisinfo.MinLen == thisinfo.MaxLen) % static %}
+    for iter=1:{% num2str(thisinfo.MinLen) %}
+    {% if isequal(isLower(1),1) %}
+    rosmsgOut.{% msgField %}{iter} = {% castDataType %}(slBusIn.{% busField %}(iter).data).';
+    {% var currStringLength = [busField,'(iter).data_SL_Info.CurrentLength']  %}
+    maxlen = length(slBusIn.{% busField %}(iter).data);
+    if slBusIn.{% currStringLength %} < maxlen
+    rosmsgOut.{%msgField%}{iter}(slBusIn.{% currStringLength %}+1:maxlen) = [];
+    end
+    {% endif %}
+    {% if isequal(isUpper(1),1) %}
+    rosmsgOut.{% msgField %}{iter} = {% castDataType %}(slBusIn.{% busField %}(iter).Data).';
+    {% var currStringLength = [busField,'(iter).Data_SL_Info.CurrentLength']  %}
+    maxlen = length(slBusIn.{% busField %}(iter).Data);
+    if slBusIn.{% currStringLength %} < maxlen
+    rosmsgOut.{%msgField%}{iter}(slBusIn.{% currStringLength %}+1:maxlen) = [];
+    end
+    {% endif %}
+    end
+    rosmsgOut.{%msgField%} = rosmsgOut.{%msgField%}.';
+                    {% endif %}
+                {% endif %}
+                {% if ( (thisinfo.MaxLen == 1) || (thisinfo.MaxLen == 1)) && ~isequal('string',thisinfo.MLdataType)  %}
+    rosmsgOut.{% msgField %} = {% castDataType %}(slBusIn.{% busField %});
+                {% endif %}                
+                {% if ( (thisinfo.MaxLen == 1) || (thisinfo.MaxLen == 1)) && isequal('string',thisinfo.MLdataType) && ~(ros.slros.internal.ROSUtil.isFixedSizeArray(MessageType,msgField,RosVersion)) %}
+                {% var currLength = [busField,'_SL_Info.CurrentLength']  %}
+    rosmsgOut.{% msgField %} = {% castDataType %}(slBusIn.{% busField %});
+    if slBusIn.{% currLength %} < numel(slBusIn.{% busField %})
+    rosmsgOut.{% msgField %}(slBusIn.{% currLength %}+1:numel(slBusIn.{% busField %})) = [];
+    end
+                {% endif %}
+
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+end
+

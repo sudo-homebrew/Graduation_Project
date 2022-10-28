@@ -1,0 +1,212 @@
+{% if (false) %}
+// Copyright 2019-2022 The MathWorks, Inc.
+{% endif %}
+{% var slCoderVer = ver('simulinkcoder') %}
+//
+// File ros2nodeinterface.h
+//
+// Code generated for Simulink model '{%ModelName%}'.
+//
+// Model version                  : {% get_param(ModelName,'ModelVersion') %}
+// Simulink Coder version         : {% [slCoderVer.Version, ' ', slCoderVer.Release, ' ', slCoderVer.Date] %}
+// C/C++ source code generated on : {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %}
+//
+
+#ifndef _ROS2_MATLAB_NODEINTERFACE_
+#define _ROS2_MATLAB_NODEINTERFACE_
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4265)
+#pragma warning(disable : 4458)
+#pragma warning(disable : 4100)
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+#pragma GCC diagnostic ignored "-Wredundant-decls"
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wshadow"
+#endif //_MSC_VER
+
+#include "rclcpp/rclcpp.hpp"
+
+class {%ModelClassName%};
+
+{% if AddRTWTypesHeader %}
+#include "rtwtypes.h"
+{% endif %}#include "{%ModelName%}_types.h"
+
+#include "slros_busmsg_conversion.h"
+{% for i = numel(msgIncludes) %}
+#include "{%msgIncludes{i}%}"
+{% endfor %}
+
+namespace ros2 {
+namespace matlab {
+  //Semaphore using std::CV and std::mutex
+  class Semaphore {
+  public:
+    std::mutex mMutex;
+    std::condition_variable mCV;
+    std::atomic_uint mCount;
+    //
+    Semaphore(int count = 0)
+      : mCount(count) {
+      }
+    //
+    inline void notify() {
+      std::unique_lock<std::mutex> lock(mMutex);
+      mCount++;
+      mCV.notify_all();
+    }
+    //
+    inline void wait() {
+      std::unique_lock<std::mutex> lock(mMutex);
+      while (mCount == 0) {
+        mCV.wait(lock);
+      }
+      if (mCount)
+        mCount--;
+    }
+  };
+  //NodeInterface
+  class NodeInterface {
+    NodeInterface(const NodeInterface& );
+    NodeInterface& operator=(const NodeInterface& );
+    //
+    rclcpp::Node::SharedPtr mNode;
+    std::shared_ptr<{%ModelClassName%}> mModel;
+    rclcpp::executors::MultiThreadedExecutor::SharedPtr mExec;
+    //
+    Semaphore mBaseRateSem;
+    std::shared_ptr<std::thread> mBaseRateThread;
+    std::shared_ptr<std::thread> mSchedulerThread;
+    //
+    {% if ~isSingleTasking %}
+    // MultiTasking: Rates: {%num2str(numel(SampleTimes))%}
+    {% for i = numel(SampleTimes) %}
+    {% if SampleTimes(i).TID ~= 0 %}
+    Semaphore mSubRate{%num2str(SampleTimes(i).TID)%}Sem;
+    std::shared_ptr<std::thread> mSubRate{%num2str(SampleTimes(i).TID)%}Thread;
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    //
+    Semaphore mStopSem;
+    volatile boolean_T mRunModel;
+    //
+    {% var keys = Publishers.keys %}
+    {% for i = numel(keys) %}
+    // {% keys{i} %}
+    rclcpp::Publisher<{%Publishers(keys{i}).msgInfo.msgCppClassName%}>::SharedPtr m{%Publishers(keys{i}).BlockID%};
+    {% endfor %}
+    //
+    {% var keys = Subscribers.keys %}
+    {% for i = numel(keys) %}
+    // {% keys{i} %}
+    rclcpp::Subscription<{%Subscribers(keys{i}).msgInfo.msgCppClassName%}>::SharedPtr m{%Subscribers(keys{i}).BlockID%};
+    {%Subscribers(keys{i}).msgInfo.msgCppClassName%}::SharedPtr mLatestMsg_{%Subscribers(keys{i}).BlockID%};
+    std::mutex mtx_{%Subscribers(keys{i}).BlockID%};
+    {% endfor %}
+    //
+    {% var keys = ServiceCallers.keys %}
+    {% for i = numel(keys) %}
+    // {% keys{i} %}
+    rclcpp::Client<{%ServiceCallers(keys{i}).msgInfo.msgBaseCppClassName%}>::SharedPtr m{%ServiceCallers(keys{i}).BlockID%};
+    {% endfor %}
+    
+  public:
+    NodeInterface();
+    ~NodeInterface();
+    //
+    void initialize(int argc, char * const argv[]);
+    int run();
+    void stop(void);
+    void terminate(void);
+    //
+    boolean_T getStopRequestedFlag(void);
+    void schedulerThreadCallback(void);
+    void baseRateTask(void);
+    {% if ~isSingleTasking %}
+    {% for i = numel(SampleTimes) %}
+    {% if (SampleTimes(i).TID ~= 0) %}
+    void subRate{%num2str(SampleTimes(i).TID)%}Task(void);
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% var keys = Publishers.keys %}
+    {% for i = numel(keys) %}
+    // {% keys{i} %}
+    void create_{%Publishers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile);
+    void publish_{%Publishers(keys{i}).BlockID%}(const {%Publishers(keys{i}).BusName%}* inBus);
+    {% endfor %}
+    {% var keys = Subscribers.keys %}
+    {% for i = numel(keys) %}
+    // {% keys{i} %}
+    void create_{%Subscribers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile);
+    bool getLatestMessage_{%Subscribers(keys{i}).BlockID%}({%Subscribers(keys{i}).BusName%}* outBus);
+    {% endfor %}
+    {% var keys = ServiceCallers.keys %}
+    {% for i = numel(keys) %}
+    // {% keys{i} %}
+    void create_{%ServiceCallers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile);
+    bool waitForServer_{%ServiceCallers(keys{i}).BlockID%}(const double connectionTimeout);
+    uint8_T call_{%ServiceCallers(keys{i}).BlockID%}(const {%ServiceCallers(keys{i}).InputBusName%}* inBus, {%ServiceCallers(keys{i}).OutputBusName%}* outBus);
+    {% endfor %}
+    //
+    rclcpp::Node::SharedPtr getNode() {
+      return mNode;
+    }
+    //
+    std::shared_ptr<{%ModelClassName%}> getModel() {
+      return mModel;
+    }
+  }; //class NodeInterface
+  //
+  std::shared_ptr<ros2::matlab::NodeInterface> getNodeInterface();
+  {% var keys = Publishers.keys %}
+  {% for i = numel(keys) %}
+  // Helper for {% keys{i} %}
+  void create_{%Publishers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile = rmw_qos_profile_default);
+  void publish_{%Publishers(keys{i}).BlockID%}(const {%Publishers(keys{i}).BusName%}* inBus);
+  {% endfor %}
+  {% var keys = Subscribers.keys %}
+  {% for i = numel(keys) %}
+  // Helper for {% keys{i} %}
+  void create_{%Subscribers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile = rmw_qos_profile_default);
+  bool getLatestMessage_{%Subscribers(keys{i}).BlockID%}({%Subscribers(keys{i}).BusName%}* outBus);
+  {% endfor %}
+  {% var keys = ServiceCallers.keys %}
+  {% for i = numel(keys) %}
+  // Helper for {% keys{i} %}
+  void create_{%ServiceCallers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile);
+  bool waitForServer_{%ServiceCallers(keys{i}).BlockID%}(const double connectionTimeout);
+  uint8_T call_{%ServiceCallers(keys{i}).BlockID%}(const {%ServiceCallers(keys{i}).InputBusName%}* inBus, {%ServiceCallers(keys{i}).OutputBusName%}* outBus);
+  {% endfor %}
+  // Get QoS Settings from RMW
+  inline rclcpp::QoS getQOSSettingsFromRMW(const rmw_qos_profile_t& qosProfile) {
+      rclcpp::QoS qos(rclcpp::QoSInitialization::from_rmw(qosProfile));
+      if (RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL == qosProfile.durability) {
+          qos.transient_local();
+      } else {
+          qos.durability_volatile();
+      }
+      if (RMW_QOS_POLICY_RELIABILITY_RELIABLE == qosProfile.reliability) {
+          qos.reliable();
+      } else {
+          qos.best_effort();
+      }
+      return qos;
+  }
+}//namespace matlab
+}//namespace ros2
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#else
+#pragma GCC diagnostic pop
+#endif //_MSC_VER
+#endif //_ROS2_MATLAB_ROS2CGEN_MULTIRATE_

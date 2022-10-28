@@ -1,0 +1,43 @@
+function [data, info] = geoPath
+%GeoPath gives an empty data for geographic_msgs/GeoPath
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'geographic_msgs/GeoPath';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Poses, info.Poses] = ros.internal.ros.messages.geographic_msgs.geoPoseStamped;
+info.Poses.MLdataType = 'struct';
+info.Poses.MaxLen = NaN;
+info.Poses.MinLen = 0;
+data.Poses = data.Poses([],1);
+info.MessageType = 'geographic_msgs/GeoPath';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,23);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'poses';
+info.MatPath{8} = 'poses.header';
+info.MatPath{9} = 'poses.header.seq';
+info.MatPath{10} = 'poses.header.stamp';
+info.MatPath{11} = 'poses.header.stamp.sec';
+info.MatPath{12} = 'poses.header.stamp.nsec';
+info.MatPath{13} = 'poses.header.frame_id';
+info.MatPath{14} = 'poses.pose';
+info.MatPath{15} = 'poses.pose.position';
+info.MatPath{16} = 'poses.pose.position.latitude';
+info.MatPath{17} = 'poses.pose.position.longitude';
+info.MatPath{18} = 'poses.pose.position.altitude';
+info.MatPath{19} = 'poses.pose.orientation';
+info.MatPath{20} = 'poses.pose.orientation.x';
+info.MatPath{21} = 'poses.pose.orientation.y';
+info.MatPath{22} = 'poses.pose.orientation.z';
+info.MatPath{23} = 'poses.pose.orientation.w';

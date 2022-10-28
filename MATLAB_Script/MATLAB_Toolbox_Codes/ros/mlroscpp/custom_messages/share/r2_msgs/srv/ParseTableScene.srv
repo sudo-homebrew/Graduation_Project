@@ -1,0 +1,4 @@
+bool cmd
+---
+bool table_found
+visualization_msgs/MarkerArray markers

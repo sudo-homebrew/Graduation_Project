@@ -1,0 +1,54 @@
+{% if (false) %}
+// Copyright 2019-2022 The MathWorks, Inc.
+{% endif %}
+{% var slCoderVer = ver('simulinkcoder') %}
+//
+// Code generated for Simulink model '{%ModelName%}'.
+//
+// Model version                  : {% get_param(ModelName,'ModelVersion') %}
+// Simulink Coder version         : {% [slCoderVer.Version, ' ', slCoderVer.Release, ' ', slCoderVer.Date] %}
+// C/C++ source code generated on : {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %}
+//
+
+#ifndef _SLROS2_COMMON_H_
+#define _SLROS2_COMMON_H_
+
+#include "{%ModelName%}_types.h"
+{% for k = numel(ModelRefHeaders) %}
+#include "{%ModelRefHeaders{k}%}"
+{% endfor %}
+
+#ifndef SET_QOS_VALUES
+#define SET_QOS_VALUES(qosStruct, hist, dep, dur, rel)  \
+    {                                                   \
+        qosStruct.history = hist;                       \
+        qosStruct.depth = dep;                          \
+        qosStruct.durability = dur;                     \
+        qosStruct.reliability = rel;                    \
+    }
+#endif
+
+namespace ros2 {
+    namespace matlab {
+        {% var keys = Publishers.keys %}
+        {% for i = numel(keys) %}
+        // {% keys{i} %}
+        extern void create_{%Publishers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile);
+        extern void publish_{%Publishers(keys{i}).BlockID%}(const {%Publishers(keys{i}).BusName%}* inBus);
+        {% endfor %}
+        {% var keys = Subscribers.keys %}
+        {% for i = numel(keys) %}
+        // {% keys{i} %}
+        extern void create_{%Subscribers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile);
+        extern bool getLatestMessage_{%Subscribers(keys{i}).BlockID%}({%Subscribers(keys{i}).BusName%}* outBus);
+        {% endfor %}
+        {% var keys = ServiceCallers.keys %}
+        {% for i = numel(keys) %}
+        // {% keys{i} %}
+        extern void create_{%ServiceCallers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile);
+        extern bool waitForServer_{%ServiceCallers(keys{i}).BlockID%}(const double connectionTimeout);
+        extern uint8_T call_{%ServiceCallers(keys{i}).BlockID%}(const {%ServiceCallers(keys{i}).InputBusName%}* inBus, {%ServiceCallers(keys{i}).OutputBusName%}* outBus);
+        {% endfor %}
+    }
+}
+#endif // _SLROS2_COMMON_H_

@@ -1,0 +1,44 @@
+function [data, info] = alvarMarker
+%AlvarMarker gives an empty data for ar_track_alvar/AlvarMarker
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'ar_track_alvar/AlvarMarker';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Id, info.Id] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.Confidence, info.Confidence] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.Pose, info.Pose] = ros.internal.ros.messages.geometry_msgs.poseStamped;
+info.Pose.MLdataType = 'struct';
+info.MessageType = 'ar_track_alvar/AlvarMarker';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,25);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'id';
+info.MatPath{8} = 'confidence';
+info.MatPath{9} = 'pose';
+info.MatPath{10} = 'pose.header';
+info.MatPath{11} = 'pose.header.seq';
+info.MatPath{12} = 'pose.header.stamp';
+info.MatPath{13} = 'pose.header.stamp.sec';
+info.MatPath{14} = 'pose.header.stamp.nsec';
+info.MatPath{15} = 'pose.header.frame_id';
+info.MatPath{16} = 'pose.pose';
+info.MatPath{17} = 'pose.pose.position';
+info.MatPath{18} = 'pose.pose.position.x';
+info.MatPath{19} = 'pose.pose.position.y';
+info.MatPath{20} = 'pose.pose.position.z';
+info.MatPath{21} = 'pose.pose.orientation';
+info.MatPath{22} = 'pose.pose.orientation.x';
+info.MatPath{23} = 'pose.pose.orientation.y';
+info.MatPath{24} = 'pose.pose.orientation.z';
+info.MatPath{25} = 'pose.pose.orientation.w';

@@ -1,0 +1,2 @@
+set(actionlib_tutorials_MESSAGE_FILES "msg/AveragingAction.msg;msg/AveragingActionGoal.msg;msg/AveragingActionResult.msg;msg/AveragingActionFeedback.msg;msg/AveragingGoal.msg;msg/AveragingResult.msg;msg/AveragingFeedback.msg;msg/FibonacciAction.msg;msg/FibonacciActionGoal.msg;msg/FibonacciActionResult.msg;msg/FibonacciActionFeedback.msg;msg/FibonacciGoal.msg;msg/FibonacciResult.msg;msg/FibonacciFeedback.msg")
+set(actionlib_tutorials_SERVICE_FILES "")

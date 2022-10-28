@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2014-2020 The MathWorks, Inc. -->
+<productinfo>
+  <name>Robot Operating System (ROS)</name>
+  <parametergroup>
+    <name>Package information</name>
+    <parameter Alignment="0" Callback="widgetChangedCallback" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="1" Entries="" Name="Maintainer name:" RowSpan="[0,0]" SaveValueAsString="true" Storage="Packaging.MaintainerName" Tag="ROSMaintainerName" Type="edit" Value="ROS User" Visible="1"/>
+    <parameter Alignment="0" Callback="widgetChangedCallback" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="1" Entries="" Name="Maintainer e-mail:" RowSpan="[0,0]" SaveValueAsString="true" Storage="Packaging.MaintainerEmail" Tag="ROSMaintainerEmail" Type="edit" Value="rosuser@test.com" Visible="1"/>
+    <parameter Alignment="0" Callback="widgetChangedCallback" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="1" Entries="" Name="License:" RowSpan="[0,0]" SaveValueAsString="true" Storage="Packaging.License" Tag="ROSLicense" Type="edit" Value="BSD" Visible="1"/>
+    <parameter Alignment="0" Callback="ros.codertarget.internal.onVersionChange" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Entries="" Name="Version:" RowSpan="[0,0]" SaveValueAsString="true" Storage="Packaging.Version" Tag="ROSVersion" Type="edit" Value="1.0.0" Visible="1"/>
+  </parametergroup>
+
+  <parametergroup>
+    <name>Device parameters</name>
+    <parameter Alignment="0" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="0" Entries="" Name="Device address:" RowSpan="[0,0]" SaveValueAsString="true" Storage="BoardParameters.DeviceAddress" Tag="ROSDeviceAddress" Type="edit" Value="ros.codertarget.internal.DeviceParameters.getDeviceAddress" ValueType="callback" Visible="ros.codertarget.internal.isRemoteBuild(hObj)"/>
+    <parameter Alignment="0" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="0" Entries="" Name="Username:" RowSpan="[0,0]" SaveValueAsString="true" Storage="BoardParameters.Username" Tag="ROSUsername" Type="edit" Value="ros.codertarget.internal.DeviceParameters.getUsername" ValueType="callback" Visible="ros.codertarget.internal.isRemoteBuild(hObj)"/>
+    <parameter Alignment="1" Callback="ros.codertarget.internal.openCredentialsDialog" Data="" DialogRefresh="0" DoNotStore="true" Enabled="1" Name="  Edit  " RowSpan="[0,0]" Tag="ROSEditDeviceInfo1" Type="pushbutton" Visible="ros.codertarget.internal.isRemoteBuild(hObj)" MinimumSize="[250 0]"/>
+  </parametergroup>
+
+  <parametergroup>
+    <name>Build options</name>
+    <parameter Alignment="0" Callback="widgetChangedCallback" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="1" Entries="None; Build and load; Build and run" Name="Build action:" RowSpan="[0,0]" SaveValueAsString="true" Storage="Runtime.BuildAction" Tag="ROSBuildAction" Type="combobox" Value="None" Visible="1"/>
+    <parameter Alignment="0" Callback="widgetChangedCallback" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="0" Entries="" Name="ROS folder:" RowSpan="[0,0]" SaveValueAsString="true" Storage="ROS.Install" Tag="ROSInstall" Type="edit" Value="ros.codertarget.internal.DeviceParameters.getROSInstallFolder" ValueType="callback" Visible="ros.codertarget.internal.isRemoteBuild(hObj)"/>
+    <parameter Alignment="0" Callback="widgetChangedCallback" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="0" Entries="" Name="Catkin workspace:" RowSpan="[0,0]" SaveValueAsString="true" Storage="ROS.CatkinWS" Tag="ROSCatkinWS" Type="edit" Value="ros.codertarget.internal.DeviceParameters.getCatkinWorkspace" ValueType="callback" Visible="ros.codertarget.internal.isRemoteBuild(hObj)"/>
+    <parameter Alignment="1" Callback="ros.codertarget.internal.openCredentialsDialog" Data="" DialogRefresh="0" DoNotStore="true" Enabled="1" Name="  Edit  " RowSpan="[0,0]" Tag="ROSEditDeviceInfo2" Type="pushbutton" Visible="ros.codertarget.internal.isRemoteBuild(hObj)" MinimumSize="[250 0]"/>
+    <parameter Alignment="0" Callback="widgetChangedCallback" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="1" Entries="" Name="Remote Build" RowSpan="[0,0]" SaveValueAsString="false" Storage="ROS.RemoteBuild" Tag="ROSRemoteBuild" Type="checkbox" Value="true" Visible="0"/>    
+    <parameter Alignment="1" Callback="widgetChangedCallback" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="1" Entries="" Name="Generate ros_control controller package" RowSpan="[0,0]" SaveValueAsString="false" Storage="ROS.GenerateROSControl" Tag="ROSControl" Type="checkbox" Value="false" Visible="1"/>    
+  </parametergroup>
+
+  <parametergroup>
+    <name>ROS time</name>
+    <parameter Alignment="0" Callback="ros.codertarget.internal.enableROSTimeStepping" ColSpan="[1,3]" Data="" DialogRefresh="1" DoNotStore="false" Enabled="1" Entries="" Name="Enable ROS time model stepping" RowSpan="[0,0]" SaveValueAsString="false" Storage="ROS.ROSTimeStepping" Tag="ROSTimeStepping" Type="checkbox" Value="false" Visible="1"/>
+    <parameter Alignment="0" Callback="widgetChangedCallback" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="ros.codertarget.internal.isROSTimeModelSteppingEnabled(hObj)" Entries="" Name="Enable notification after step" RowSpan="[0,0]" SaveValueAsString="false" Storage="ROS.ROSTimeNotification" Tag="ROSTimeNotification" Type="checkbox" Value="false" Visible="1"/>
+    <parameter Alignment="0" Callback="widgetChangedCallback" ColSpan="[1,3]" Data="" DialogRefresh="0" DoNotStore="false" Enabled="ros.codertarget.internal.isROSTimeModelSteppingEnabled(hObj)" Entries="" Name="Notification topic:" RowSpan="[0,0]" SaveValueAsString="true" Storage="ROS.StepNotify" Tag="ROSStepNotify" Type="edit" Value="/step_notify" ValueType="" Visible="1"/>
+  </parametergroup>
+</productinfo>

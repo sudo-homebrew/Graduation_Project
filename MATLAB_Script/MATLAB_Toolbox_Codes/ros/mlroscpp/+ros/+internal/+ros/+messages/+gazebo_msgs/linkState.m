@@ -1,0 +1,40 @@
+function [data, info] = linkState
+%LinkState gives an empty data for gazebo_msgs/LinkState
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'gazebo_msgs/LinkState';
+[data.LinkName, info.LinkName] = ros.internal.ros.messages.ros.char('string',0);
+[data.Pose, info.Pose] = ros.internal.ros.messages.geometry_msgs.pose;
+info.Pose.MLdataType = 'struct';
+[data.Twist, info.Twist] = ros.internal.ros.messages.geometry_msgs.twist;
+info.Twist.MLdataType = 'struct';
+[data.ReferenceFrame, info.ReferenceFrame] = ros.internal.ros.messages.ros.char('string',0);
+info.MessageType = 'gazebo_msgs/LinkState';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,21);
+info.MatPath{1} = 'link_name';
+info.MatPath{2} = 'pose';
+info.MatPath{3} = 'pose.position';
+info.MatPath{4} = 'pose.position.x';
+info.MatPath{5} = 'pose.position.y';
+info.MatPath{6} = 'pose.position.z';
+info.MatPath{7} = 'pose.orientation';
+info.MatPath{8} = 'pose.orientation.x';
+info.MatPath{9} = 'pose.orientation.y';
+info.MatPath{10} = 'pose.orientation.z';
+info.MatPath{11} = 'pose.orientation.w';
+info.MatPath{12} = 'twist';
+info.MatPath{13} = 'twist.linear';
+info.MatPath{14} = 'twist.linear.x';
+info.MatPath{15} = 'twist.linear.y';
+info.MatPath{16} = 'twist.linear.z';
+info.MatPath{17} = 'twist.angular';
+info.MatPath{18} = 'twist.angular.x';
+info.MatPath{19} = 'twist.angular.y';
+info.MatPath{20} = 'twist.angular.z';
+info.MatPath{21} = 'reference_frame';

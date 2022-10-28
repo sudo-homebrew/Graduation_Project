@@ -1,0 +1,795 @@
+{
+    "createPlanningTemplate":
+    {
+        "inputs":
+        [
+            {"name":"templateType", "kind":"optional", "type":"choices={'StateSpace','StateValidator'}"}
+        ]
+    },
+    "dynamicCapsuleList.addEgo":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"dynamicCapsuleList"},
+            {"name":"EgoStruct", "kind":"required", "type":["struct","@(S)all(isfield(S,{'ID','States','Geometry'}))"]}
+        ]
+    },
+    "dynamicCapsuleList.addObstacle":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"dynamicCapsuleList"},
+            {"name":"ObstacleStruct", "kind":"required", "type":["struct","@(S)all(isfield(S,{'ID','States','Geometry'}))"]}
+        ]
+    },
+    "dynamicCapsuleList3D.addEgo":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"dynamicCapsuleList3D"},
+            {"name":"EgoStruct", "kind":"required", "type":["struct","@(S)all(isfield(S,{'ID','States','Geometry'}))"]}
+        ]
+    },
+    "dynamicCapsuleList3D.addObstacle":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"dynamicCapsuleList3D"},
+            {"name":"ObstacleStruct", "kind":"required", "type":["struct","@(S)all(isfield(S,{'ID','States','Geometry'}))"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.removeEgo":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"ID", "kind":"required", "type":["numeric","integer"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.removeObstacle":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"ID", "kind":"required", "type":["numeric","integer"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.egoPose":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"ID", "kind":"required", "type":["numeric","integer"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.egoGeometry":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"ID", "kind":"required", "type":["numeric","integer"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.obstaclePose":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"ID", "kind":"required", "type":["numeric","integer"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.obstacleGeometry":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"ID", "kind":"required", "type":["numeric","integer"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.updateEgoPose":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"ID", "kind":"required", "type":["numeric","integer"]},
+            {"name":"PStruct", "kind":"required", "type":["struct","@(S)isfield(S,{'States'})"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.updateEgoGeometry":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"ID", "kind":"required", "type":["numeric","integer"]},
+            {"name":"GStruct", "kind":"required", "type":["struct","@(S)isfield(S,{'Geometry'})"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.updateObstaclePose":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"ID", "kind":"required", "type":["numeric","integer"]},
+            {"name":"PStruct", "kind":"required", "type":["struct","@(S)isfield(S,{'States'})"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.updateObstacleGeometry":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"ID", "kind":"required", "type":["numeric","integer"]},
+            {"name":"GStruct", "kind":"required", "type":["struct","@(S)isfield(S,{'Geometry'})"]}
+        ]
+    },
+    "nav.algs.internal.DynamicCapsuleListBase.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"nav.algs.internal.DynamicCapsuleListBase"},
+            {"name":"Parent", "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"FastUpdate", "kind":"namevalue", "type":"choices={0,1}"},
+            {"name":"TimeStep", "kind":"namevalue", "type":["numeric","integer","positive","<=obj.MaxNumSteps"]},
+            {"name":"ShowCollisions", "kind":"namevalue","type":"choices={0,1}"},
+            {"name":"EgoIDs", "kind":"namevalue","type":["numeric","integer"]},
+            {"name":"ObstacleIDs", "kind":"namevalue","type":["numeric","integer"]}
+        ]
+    },
+    "pathmetrics":
+    {
+        "inputs":
+        [
+            {"name":"NavPath", "kind":"required", "type":"navPath"},
+            {"name":"StateValidator", "kind":"optional", "type":[["validatorOccupancyMap"],["validatorVehicleCostmap"]]}
+        ]
+    },
+    "pathmetrics.smoothness":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"pathmetrics"},
+            {"name":"Type", "kind":"namevalue", "type":"choices={'sum','segments'}"}
+        ]
+    },
+    "pathmetrics.clearance":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"pathmetrics"},
+            {"name":"Type", "kind":"namevalue", "type":"choices={'min','states'}"}
+        ]
+    },
+    "pathmetrics.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"pathmetrics"},
+            {"name":"Parent", "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"Metrics", "kind":"namevalue", "type":"cellstr"}
+        ]
+    },
+    "plannerRRTStar":
+    {
+        "inputs":
+        [
+            {"name":"stateSpace", "kind":"required",  "type":[["nav.StateSpace"]]},
+            {"name":"stateValidator", "kind":"required",  "type":["nav.StateValidator"]}
+        ]
+    },
+    "plannerRRT":
+    {
+        "inputs":
+        [
+            {"name":"stateSpace", "kind":"required",  "type":["nav.StateSpace"]},
+            {"name":"stateValidator", "kind":"required",  "type":["nav.StateValidator"]}
+        ]
+    },
+    "plannerBiRRT":
+    {
+        "inputs":
+        [
+            {"name": "StateSpace", "kind":"required", "type":"nav.StateSpace"},
+            {"name": "StateValidator", "kind":"required", "type":"nav.StateValidator"}
+        ],
+        "outputs":
+        [
+            {"name": "planner", "type":"plannerBiRRT"}
+        ]
+    },
+    "plannerBiRRT.plan":
+    {
+        "inputs":
+        [
+            {"name": "obj", "kind":"required", "type":"plannerBiRRT"},
+            {"name": "startState", "kind":"required", "type":["double","row"]},
+            {"name": "goalState", "kind":"required", "type":["double","row"]}
+        ],
+        "outputs":
+        [
+            {"name": "path", "type":"navPath"},
+            {"name": "solnInfo", "type":"struct"}
+        ]
+    },
+    "plannerBiRRT.copy":
+    {
+        "inputs":
+        [
+            {"name": "planner1", "kind":"required", "type":"plannerBiRRT"}
+        ],
+        "outputs":
+        [
+            {"name": "planner2", "type":"plannerBiRRT"}
+        ]
+    },
+    "plannerHybridAStar":
+    {
+        "inputs":
+        [
+            {"name":"StateValidator",            "kind":"required",  "type":[["validatorOccupancyMap"],["validatorVehicleCostmap"]]},
+            {"name":"MinTurningRadius",          "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"MotionPrimitiveLength",     "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"NumMotionPrimitives",       "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"ForwardCost",               "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"ReverseCost",               "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"DirectionSwitchingCost",    "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"AnalyticExpansionInterval", "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"InterpolationDistance",     "kind":"namevalue", "type":[["single"], ["double"]]}
+        ]
+    },
+    "plannerHybridAStar.show":
+    {
+        "inputs":
+        [
+            {"name":"obj",       "kind":"required",  "type":"plannerHybridAStar"},
+            {"name":"Parent",    "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"Tree",      "kind":"namevalue", "type":["char", "choices={'on','off'}"],                   "default":"'on'"},
+            {"name":"Path",      "kind":"namevalue", "type":["char", "choices={'on','off'}"],                   "default":"'on'"},
+            {"name":"Positions", "kind":"namevalue", "type":["char", "choices={'Start','Goal','Both','None'}"], "default":"'Both'"}
+        ]
+    },
+    "referencePathFrenet":
+    {
+        "inputs":
+        [
+            {"name":"Waypoints", "kind":"required", "type":["numeric","2d","@(x)all(size(x)>=[2 2] & size(x)<=[inf,3])"]},
+            {"name":"MaxNumWaypoints", "kind":"namevalue", "type":["numeric","integer","@(x)x>=2"]},
+            {"name":"DiscretizationDistance", "kind":"namevalue", "type":["numeric","positive","scalar"]}
+        ]
+    },
+    "nav.algs.internal.FrenetReferencePath":
+    {
+        "inputs":
+        [
+            {"name":"Waypoints", "kind":"required", "type":["numeric","2d","@(x)all(size(x)>=[2 2] & size(x)<=[inf,3])"]},
+            {"name":"MaxNumWaypoints", "kind":"namevalue", "type":["numeric","integer","@(x)x>=2"]},
+            {"name":"DiscretizationDistance", "kind":"namevalue", "type":["numeric","positive","scalar"]}
+        ]
+    },
+    "nav.algs.internal.FrenetReferencePath.closestPoint":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"nav.algs.internal.FrenetReferencePath"},
+            {"name":"xyPts", "kind":"required", "type":["numeric","@(x)numel(size(x))==2 && size(x,2)>=2"]}
+        ]
+    },
+    "referencePathFrenet.closestPoint":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"referencePathFrenet"},
+            {"name":"xyPts", "kind":"required", "type":["numeric","@(x)numel(size(x))==2 && size(x,2)>=2"]},
+            {"name":"interval", "kind":"optional", "type":["numeric","row","numel=2","@(x)diff(x)>=0"]}
+        ]
+    },
+    "referencePathFrenet.closestPointsToSequence":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"referencePathFrenet"},
+            {"name":"xyPts", "kind":"required", "type":["numeric","@(x)numel(size(x))==2 && size(x,2)>=2"]},
+            {"name":"interval", "kind":"required", "type":["numeric","row","numel=2","@(x)diff(x)>=0"]}
+        ]
+    },
+    "referencePathFrenet.closestProjections":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"referencePathFrenet"},
+            {"name":"xyPts", "kind":"required", "type":["numeric","@(x)numel(size(x))==2 && size(x,2)>=2"]},
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"interval",  "kind":"optional", "type":["numeric","size=:,2","@(x)all(diff(x,[],2)>=0)"]},
+                     {"name":"numResult", "kind":"optional", "type":["numeric","integer","positive","scalar"]}
+                 ],
+                 [
+                     {"name":"numResult", "kind":"optional", "type":["numeric","integer","positive","scalar"]}
+                 ]
+             ]
+            }
+        ]
+    },
+    "referencePathFrenet.position":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"referencePathFrenet"},
+            {"name":"S", "kind":"required", "type":["numeric","vector","@(x)all(isfinite(x))"]}
+        ]
+    },
+
+    "referencePathFrenet.tangentAngle":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"referencePathFrenet"},
+            {"name":"S", "kind":"required", "type":["numeric","vector","@(x)all(isfinite(x))"]}
+        ]
+    },
+    "referencePathFrenet.curvature":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"referencePathFrenet"},
+            {"name":"S", "kind":"required", "type":["numeric","vector","@(x)all(isfinite(x))"]}
+        ]
+    },
+    "referencePathFrenet.changeInCurvature":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"referencePathFrenet"},
+            {"name":"S", "kind":"required", "type":["numeric","vector","@(x)all(isfinite(x))"]}
+        ]
+    },
+    "nav.algs.internal.FrenetReferencePath.interpolate":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"nav.algs.internal.FrenetReferencePath"},
+            {"name":"xyPts", "kind":"required", "type":["numeric","vector","@(x)all(isfinite(x))"]}
+        ]
+    },
+    "nav.algs.internal.FrenetReferencePath.frenet2global":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"nav.algs.internal.FrenetReferencePath"},
+            {"name":"frenetStates", "kind":"required", "type":["numeric","size=:,6"]},
+            {"name":"latTimeDerivs", "kind":"optional", "type":["numeric","@(x,frenetStates)isequal(size(x),[size(frenetStates,1) 3])","@(x)all(any(x(:,3) == [0 1],2))"]}
+        ]
+    },
+    "nav.algs.internal.FrenetReferencePath.global2frenet":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"nav.algs.internal.FrenetReferencePath"},
+            {"name":"globalStates", "kind":"required", "type":["numeric","size=:,6"]},
+            {"name":"sFrame", "kind":"optional", "type":["numeric","@(x,globalStates)isequal(numel(x),size(globalStates,1))"]}
+        ]
+    },
+    "nav.algs.internal.FrenetReferencePath.show":
+    {
+        "inputs":
+        [
+            {"name":"obj",   "kind":"required", "type":"nav.algs.internal.FrenetReferencePath"},
+            {"name":"Parent", "kind":"namevalue", "type":"matlab.graphics.axis.Axes"}
+        ]
+    },
+    "trajectoryGeneratorFrenet":
+    {
+        "inputs":
+        [
+            {"name":"Path", "kind":"required", "type":"nav.algs.internal.FrenetReferencePath"},
+            {"name":"TimeResolution", "kind":"namevalue", "type":["numeric","positive","scalar"]}
+        ]
+    },
+    "trajectoryGeneratorFrenet.connect":
+    {
+        "inputs":
+        [
+            {"name":"obj",    "kind":"required", "type":"trajectoryGeneratorFrenet"},
+            {"name":"iState", "kind":"required", "type":["numeric","size=:,6"]},
+            {"name":"tState", "kind":"required", "type":["numeric","size=:,6","@(x,iState)size(x,1)==1 || any([1 size(x,1)] == size(iState,1))"]},
+            {"name":"time",   "kind":"required", "type":[["numeric","positive","scalar"],["numeric","@(x)all(x>0)","@(x,iState,tState)all(any([1 numel(x)] == [size(iState,1);size(tState,1)],2))"]]}
+        ]
+    },
+    "trajectoryGeneratorFrenet.createParallelState":
+    {
+        "inputs":
+        [
+            {"name":"obj",    "kind":"required", "type":"trajectoryGeneratorFrenet"},
+            {"name":"S",      "kind":"required", "type":["numeric","size=:,1"]},
+            {"name":"L",      "kind":"required", "type":["numeric","@(L,S)isequal(size(L),size(S))"]},
+            {"name":"v",      "kind":"required", "type":["numeric","@(v,S)isequal(size(v),size(S))"]},
+            {"name":"a",      "kind":"required", "type":["numeric","@(a,S)isequal(size(a),size(S))"]},
+            {"name":"invertHeading", "kind":"optional", "type":["logical","@(L,S)isequal(size(L),size(S))","@(L)all(mod(L,1)==0)"]}
+        ]
+    },
+    "trajectoryOptimalFrenet":
+    {
+        "inputs":
+        [
+            {"name":"refPath", "kind":"required", "type": "double"},
+            {"name":"stateValidator", "kind":"required", "type":"validatorOccupancyMap"},
+            {"name":"Time", "kind":"namevalue", "type": "double"},
+            {"name":"ArcLength", "kind":"namevalue", "type": "double"},
+            {"name":"Deviation", "kind":"namevalue", "type": "double"},
+            {"name":"LateralSmoothness", "kind":"namevalue", "type": "double"},
+            {"name":"LongitudinalSmoothness", "kind":"namevalue", "type": "double"},
+            {"name":"MaxCurvature", "kind":"namevalue", "type": "double"},
+            {"name":"MaxAcceleration", "kind":"namevalue", "type": "double"},
+            {"name":"CostFunction", "kind":"namevalue", "type": "function_handle"},
+            {"name":"TimeResolution", "kind":"namevalue", "type": "double"},
+            {"name":"NumSegments", "kind":"namevalue", "type": "double"},
+            {"name":"DeviationOffset", "kind":"namevalue", "type": "double"}
+        ]
+    },
+    "trajectoryOptimalFrenet.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"trajectoryOptimalFrenet"},
+            {"name":"Parent", "kind":"namevalue", "type": "matlab.graphics.axis.Axes"},
+            {"name":"Trajectory", "kind":"namevalue", "type":"choices={'all','optimal'}"},
+            {"name":"ReferencePath", "kind":"namevalue", "type":"choices={'on','off'}"},
+            {"name":"TrajectoryColor", "kind":"namevalue", "type":"choices={'none','velocity','acceleration','cost'}"}
+        ]
+    },
+    "validatorOccupancyMap":
+    {
+        "inputs":
+        [
+            {"name":"stateSpace", "kind":"required",  "type":"nav.StateSpace"},
+            {"name":"XYIndices",  "kind":"namevalue", "type":"double"},
+            {"name":"Map",        "kind":"namevalue", "type":[["robotics.BinaryOccupancyGrid"],["robotics.OccupancyGrid"]]}
+        ]
+    },
+    "validatorVehicleCostmap":
+    {
+        "inputs":
+        [
+            {"name":"stateSpace", "kind":"required",  "type":"nav.StateSpace"},
+            {"name":"XYIndices",  "kind":"namevalue", "type":["double", "2d"]},
+            {"name":"ThetaIndex", "kind":"namevalue", "type":["double", "scalar"]},
+            {"name":"Map",        "kind":"namevalue", "type":["vehicleCostmap"]}
+        ]
+    },
+    "validatorOccupancyMap3D":
+    {
+        "inputs":
+        [
+            {"name":"stateSpace",           "kind":"required",  "type":"nav.StateSpace"},
+            {"name":"XYZIndices",           "kind":"namevalue", "type":"double"},
+            {"name":"Map",                  "kind":"namevalue", "type":["occupancyMap3D"]},
+            {"name":"ValidationDistance",   "kind":"namevalue", "type":"double"}
+        ]
+    },
+    "mapClutter":
+    {
+        "inputs":
+        [
+            {"name": "numObst",         "kind":"positional",   "type":[ "numeric", "integer", "scalar", "positive", "real" ]},
+
+            {
+                "name": "shapes",
+                "kind":"positional",
+                "type":
+                [
+                    ["cellstr", "vector", "@(S)numel(S)<=3"],
+                    ["string", "vector"],
+                    ["string", "scalar"]
+                ]
+            },
+
+            {
+                "name": "MapSize",
+                "kind":"namevalue",
+                "type":[ "numeric", "size=1,2", "positive", "real" ]
+            },
+            {
+                "name": "MapResolution",
+                "kind":"namevalue",
+                "type":[ "numeric", "scalar", "positive", "real" ]
+            }
+        ]
+    },
+    "plannerAStarGrid":
+    {
+        "inputs":
+        [
+            {"name":"Map", "kind":"optional", "type":[["binaryOccupancyMap"],["occupancyMap"]]},
+            {"name":"GCost", "kind":"namevalue", "type":["char", "choices={'Euclidean','Manhattan','Chebyshev','EuclideanSquared'}"], "default":"'Euclidean'"},
+            {"name":"HCost", "kind":"namevalue", "type":["char", "choices={'Euclidean','Manhattan','Chebyshev','EuclideanSquared'}"], "default":"'Euclidean'"},
+            {"name":"GCostFcn", "kind":"namevalue", "type": "function_handle"},
+            {"name":"HCostFcn", "kind":"namevalue", "type": "function_handle"}
+        ]
+    },
+    "plannerAStarGrid.plan":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"plannerAStarGrid"},
+            {"name":"start", "kind":"required", "type":["double","2d"]},
+            {"name":"goal", "kind":"required", "type":["double","2d"]},
+            {"name":"frame", "kind":"optional", "type":["char", "choices={'grid','world'}"], "default":"'grid'"}
+        ]
+    },
+    "plannerAStarGrid.show":
+    {
+        "inputs":
+        [
+            {"name":"obj",       "kind":"required",  "type":"plannerAStarGrid"},
+            {"name":"Parent",    "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"ExploredNodes",      "kind":"namevalue", "type":["char", "choices={'on','off'}"]}
+        ]
+    },
+    "mapMaze":
+    {
+        "inputs":
+        [
+            {"name": "passageWidth", "kind":"positional", "type":[ "numeric", "integer", "scalar", "positive"]},
+            {"name": "wallThickness", "kind":"positional", "type":[ "numeric", "integer", "scalar", "positive"]},
+            {
+                "name": "MapSize",
+                "kind":"namevalue",
+                "type":[ "numeric", "size=1,2", "positive", "real" ]
+            },
+            {
+                "name": "MapResolution",
+                "kind":"namevalue",
+                "type":[ "numeric", "scalar", "positive", "real" ]
+            }
+        ]
+    },
+    "plannerControlRRT":
+    {
+        "inputs":
+        [
+            {"name":"statePropagator", "kind":"required",  "type":["nav.StatePropagator"]},
+            {"name":"ContinueAfterGoalReached", "kind":"namevalue",  "type":["choices={0,1}"], "default":"0"},
+            {"name":"GoalBias", "kind":"namevalue",  "type":["numeric","scalar",">=0","<=1"]},
+            {"name":"GoalReachedFcn", "kind":"namevalue",  "type":["function_handle","@(fh)isequal(nargin(fh),3)"]},
+            {"name":"MaxPlanningTime", "kind":"namevalue",  "type":["numeric","scalar",">0"]},
+            {"name":"MaxNumTreeNode", "kind":"namevalue",  "type":["numeric","scalar","integer","positive","@(x)isfinite(x)"]},
+            {"name":"MaxNumIteration", "kind":"namevalue",  "type":["numeric","scalar","integer","positive","@(x)isfinite(x)"]},
+            {"name":"NumGoalExtension", "kind":"namevalue",  "type":["numeric","scalar","integer",">=0","@(x)isfinite(x)"]}
+        ]
+    },
+    "plannerControlRRT.plan":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required",  "type":"plannerControlRRT"},
+            {"name":"Start", "kind":"required",  "type":["numeric","@(x,obj)isequal(size(x),[1 obj.StatePropagator.StateSpace.NumStateVariables])"]},
+            {"name":"Goal", "kind":"required",  "type":[["numeric","@(x,obj)isequal(size(x),[1 obj.StatePropagator.StateSpace.NumStateVariables])"],["function_handle","@(fh,obj)isequal(size(fh()),[1 obj.StatePropagator.StateSpace.NumStateVariables])"]]}
+        ]
+    },
+    "navPathControl":
+    {
+        "inputs":
+        [
+            {"name":"propagator", "kind":"required",  "type":["nav.StatePropagator"]}
+        ]
+    },
+    "navPathControl":
+    {
+        "inputs":
+        [
+            {"name":"propagator", "kind":"required",  "type":["nav.StatePropagator"]},
+            {"name":"q", "kind":"required",  "type":["numeric","@(x,propagator)isequal(size(x,2),propagator.StateSpace.NumStateVariables)"]},
+            {"name":"u", "kind":"required",  "type":["numeric","@(x,propagator,q)isequal(size(x),[max(0,size(q,1)-1) propagator.NumControlOutput])"]},
+            {"name":"qTgt", "kind":"required",  "type":["numeric","@(x,q,u)isequal(size(x),[size(u,1) size(q,2)])"]},
+            {"name":"dur", "kind":"required",  "type":["numeric","@(x,u)isequal(size(x),[size(u,1) 1])"]}
+        ]
+    },
+    "navPathControl.append":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required",  "type":["navPathControl"]},
+            {"name":"q", "kind":"required",  "type":["numeric","@(x,obj)isequal(size(x,2),obj.StatePropagator.StateSpace.NumStateVariables)"]},
+            {"name":"u", "kind":"required",  "type":["numeric","@(x,obj,q)isequal(size(x),[max(0,size(q,1)-double(obj.NumStates==0)) obj.StatePropagator.NumControlOutput])"]},
+            {"name":"qTgt", "kind":"required",  "type":["numeric","@(x,q,u)isequal(size(x),[size(u,1) size(q,2)])"]},
+            {"name":"dur", "kind":"required",  "type":["numeric","@(x,u)isequal(size(x),[size(u,1) 1])"]}
+        ]
+    },
+    "mobileRobotPropagator":
+    {
+        "inputs":
+        [
+            {"name":"ControlStepSize", "kind":"namevalue", "type":["numeric","scalar",">0","@(x)isfinite(x)"]},
+            {"name":"GoalDistance", "kind":"namevalue", "type":["numeric","scalar",">=0","@(x)isfinite(x)"]},
+            {"name":"MaxControlSteps", "kind":"namevalue", "type":["numeric","integer",">0","@(x)isfinite(x)"]},
+            {"name":"KinematicModel", "kind":"namevalue", "type":"choices={'ackermann','bicycle'}", "default":"'bicycle'"},
+            {"name":"DistanceEstimator", "kind":"namevalue", "type":"choices={'dubins','euclidean','reedsshepp'}", "default":"'euclidean'"},
+            {"name":"Integrator", "kind":"namevalue", "type":"choices={'euler','rungekutta4'}", "default":"'rungekutta4'"},
+            {"name":"ControlPolicy", "kind":"namevalue", "type":"choices={'arcpursuit','linearpursuit','randomsamples',}", "default":"'linearpursuit'"},
+            {"name":"Environment", "kind":"namevalue", "type":[["occupancyMap"],["binaryOccupancyMap"],["vehicleCostmap"]]}
+        ]
+    },
+    "nav.StatePropagator.distance":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":["nav.StatePropagator"]},
+            {"name":"q1", "kind":"required", "type":["numeric","@(x,obj)isequal(size(x,2),obj.StateSpace.NumStateVariables)"]},
+            {"name":"q2", "kind":"required", "type":["numeric","@(x,q1)isequal(size(x,2),size(q1,2))&any([size(x,1)==[1 size(q1,1)] size(q1,1)==1])"]}
+        ]
+    },
+    "nav.StatePropagator.propagate":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":["nav.StatePropagator"]},
+            {"name":"q0", "kind":"required", "type":["numeric","row","@(x,obj)numel(x)==obj.StateSpace.NumStateVariables"]},
+            {"name":"u0", "kind":"required", "type":["numeric","row","@(x,obj)numel(x)==obj.NumControlOutput"]},
+            {"name":"qTgt", "kind":"required", "type":["numeric","@(x,obj)numel(x)==obj.StateSpace.NumStateVariables"]},
+            {"name":"steps", "kind":"required", "type":["numeric","scalar","integer",">0"]}
+        ]
+    },
+    "nav.StatePropagator.propagateWhileValid":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":["nav.StatePropagator"]},
+            {"name":"q0", "kind":"required", "type":["numeric","row","@(x,obj)numel(x)==obj.StateSpace.NumStateVariables"]},
+            {"name":"u0", "kind":"required", "type":["numeric","row","@(x,obj)numel(x)==obj.NumControlOutput"]},
+            {"name":"qTgt", "kind":"required", "type":["numeric","@(x,obj)numel(x)==obj.StateSpace.NumStateVariables"]},
+            {"name":"steps", "kind":"required", "type":["numeric","scalar","integer",">0"]}
+        ]
+    },
+    "nav.StatePropagator.sampleControl":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":["nav.StatePropagator"]},
+            {"name":"q0", "kind":"required", "type":["numeric","row","@(x,obj)numel(x)==obj.StateSpace.NumStateVariables"]},
+            {"name":"u0", "kind":"required", "type":["numeric","row","@(x,obj)numel(x)==obj.NumControlOutput"]},
+            {"name":"qTgt", "kind":"required", "type":["numeric","@(x,obj)numel(x)==obj.StateSpace.NumStateVariables"]}
+        ]
+    },
+    "mobileRobotPropagator.targetReached":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":["nav.StatePropagator"]},
+            {"name":"q1", "kind":"required", "type":["numeric","@(x,obj)isequal(size(x,2),obj.StateSpace.NumStateVariables)"]},
+            {"name":"q2", "kind":"required", "type":["numeric","@(x,q1)isequal(size(x,2),size(q1,2))&any([size(x,1)==[1 size(q1,1)] size(q1,1)==1])"]},
+            {"name":"u1", "kind":"required", "type":["numeric","@(x,obj,q1)isequal(size(x,2),obj.NumControlOutput) & size(x,1)==size(q1,1)"]}
+        ]
+    },
+    "ekfSLAM":
+    {
+        "inputs":
+        [
+            {"name":"State",                 "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"StateCovariance",       "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"StateTransitionFcn",    "kind":"namevalue", "type":"function_handle"},
+            {"name":"MaxNumLandmark",        "kind":"namevalue", "type":[["single"], ["double"], ["scalar"], ["integer"], ["positive"]]},
+            {"name":"ProcessNoise",          "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"MeasurementFcn",        "kind":"namevalue", "type":"function_handle"},
+            {"name":"InverseMeasurementFcn", "kind":"namevalue", "type":"function_handle"},
+            {"name":"DataAssociationFcn",    "kind":"namevalue", "type":"function_handle"},
+            {"name":"MaxAssociationRange",   "kind":"namevalue", "type":[["single"], ["double"]]},
+            {"name":"MaxNumPoseStored",      "kind":"namevalue", "type":[["single"], ["double"], ["scalar"], ["integer"], ["positive"]]}
+        ]
+    },
+    "nav.algs.internal.ekfSLAM.EKF.predict":
+    {
+        "inputs":
+        [
+            {"name":"obj",          "kind":"required", "type":"ekfSLAM"},
+            {"name":"controlInput", "kind":"required", "type":["single", "double"]}
+        ]
+    },
+    "ekfSLAM.correct":
+    {
+        "inputs":
+        [
+            {"name":"obj",          "kind":"required", "type":"ekfSLAM"}
+        ]
+    },
+    "ekfSLAM.poseHistory":
+    {
+        "inputs":
+        [
+            {"name":"obj",          "kind":"required", "type":"ekfSLAM"}
+        ]
+    },
+    "ekfSLAM.landmarkInfo":
+    {
+        "inputs":
+        [
+            {"name":"obj",          "kind":"required", "type":"ekfSLAM"},
+            {"name":"landmarkInfo", "kind":"required", "type":[["single", "double", "integer", "positive"], ["single", "size=:,1"], ["single", "size=:,2"], ["double","size=:,1"], ["double","size=:,2"]]}
+        ]
+    },
+    "ekfSLAM.removeLandmark":
+    {
+        "inputs":
+        [
+            {"name":"obj",          "kind":"required", "type":"ekfSLAM"},
+            {"name":"landmarkInfo", "kind":"required", "type":[["single", "double", "integer", "positive"], ["single", "size=:,1"], ["single", "size=:,2"], ["double","size=:,1"], ["double","size=:,2"]]}
+        ]
+    },
+    "plannerPRM":
+    {
+        "inputs":
+        [
+            {"name":"StateSpace", "kind":"required", "type":"nav.StateSpace"},
+            {"name":"StateValidator", "kind":"required", "type":"nav.StateValidator"},
+            {"name":"MaxConnectionDistance", "kind":"namevalue", "type":["numeric","positive","scalar"]},
+            {"name":"MaxNumNodes", "kind":"namevalue", "type":["numeric","positive","scalar"]}
+        ]
+    },
+    "plannerPRM.plan":
+    {
+        "inputs":
+        [
+            {"name": "obj", "kind":"required", "type":"plannerPRM"},
+            {"name": "startState", "kind":"required", "type":["double","row"]},
+            {"name": "goalState", "kind":"required", "type":["double","row"]}
+        ],
+        "outputs":
+        [
+            {"name": "path", "type":"navPath"},
+            {"name": "solnInfo", "type":"struct"}
+        ]
+    },
+    "optimizePath":
+    {
+        "inputs":
+        [
+            {"name": "inputPath", "kind":"required", "type":[[ "numeric", "real", "ncols=3" ], [ "numeric", "real", "ncols=2"]]},
+            {"name": "map",       "kind":"optional", "type":[["binaryOccupancyMap"], ["occupancyMap"], ["vehicleCostmap"]]},
+            {"name": "options",   "kind":"optional", "type":"optimizePathOptions"}
+        ]
+    },
+    "plannerBenchmark":
+    {
+        "inputs":
+        [
+            {"name":"Environment", "kind":"required", "type":[["validatorOccupancyMap"],["occupancyMap"],["binaryOccupancyMap"]]},
+            {"name":"Start", "kind":"required", "type":["double","row","@(x) (numel(x) == 2 || numel(x) == 3)"]},
+            {"name":"Goal", "kind":"required", "type":["double","row", "@(x) (numel(x) == 2 || numel(x) == 3)"]}
+        ]
+    },
+    "plannerBenchmark.addPlanner":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"plannerBenchmark"},
+            {"name":"planFcn", "kind":"required", "type":"function_handle"},
+            {"name":"initializationFcn", "kind":"ordered", "type":"function_handle"},
+            {"name":"PlannerName", "kind":"namevalue", "type":["char", "string"]},
+            {"name":"NumPlanOutput", "kind":"namevalue", "type":["numeric","integer","positive","scalar"]}
+        ]
+    },
+    "plannerBenchmark.runPlanner":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"plannerBenchmark"},
+            {"name":"RunCount", "kind":"ordered", "type":["numeric","integer","positive","scalar"]},
+            {"name":"Verbose", "kind":"namevalue", "type":["char", "choices={'on','off'}"], "default":"'on'"}
+        ]
+    },
+    "plannerBenchmark.metric":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"plannerBenchmark"},
+            {"name":"metricName", "kind":"ordered", "type":["char", "choices={'clearance','executionTime','initializationTime','isPathValid','pathLength','smoothness'}"]}
+        ]
+    },
+    "plannerBenchmark.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"plannerBenchmark"},
+            {"name":"metricName", "kind":"ordered", "type":["char", "choices={'clearance','executionTime','initializationTime','isPathValid','pathLength','smoothness'}"]}
+        ]
+    }
+}

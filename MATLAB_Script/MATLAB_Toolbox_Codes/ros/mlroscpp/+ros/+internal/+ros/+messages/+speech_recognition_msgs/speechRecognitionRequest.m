@@ -1,0 +1,39 @@
+function [data, info] = speechRecognitionRequest
+%SpeechRecognition gives an empty data for speech_recognition_msgs/SpeechRecognitionRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'speech_recognition_msgs/SpeechRecognitionRequest';
+[data.Vocabulary, info.Vocabulary] = ros.internal.ros.messages.speech_recognition_msgs.vocabulary;
+info.Vocabulary.MLdataType = 'struct';
+[data.Grammar, info.Grammar] = ros.internal.ros.messages.speech_recognition_msgs.grammar;
+info.Grammar.MLdataType = 'struct';
+[data.GrammarName, info.GrammarName] = ros.internal.ros.messages.ros.char('string',0);
+[data.Duration, info.Duration] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Quiet, info.Quiet] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.Threshold, info.Threshold] = ros.internal.ros.messages.ros.default_type('single',1);
+info.MessageType = 'speech_recognition_msgs/SpeechRecognitionRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,18);
+info.MatPath{1} = 'vocabulary';
+info.MatPath{2} = 'vocabulary.name';
+info.MatPath{3} = 'vocabulary.words';
+info.MatPath{4} = 'vocabulary.phonemes';
+info.MatPath{5} = 'grammar';
+info.MatPath{6} = 'grammar.name';
+info.MatPath{7} = 'grammar.rules';
+info.MatPath{8} = 'grammar.rules.symbol';
+info.MatPath{9} = 'grammar.rules.definition';
+info.MatPath{10} = 'grammar.categories';
+info.MatPath{11} = 'grammar.vocabularies';
+info.MatPath{12} = 'grammar.vocabularies.name';
+info.MatPath{13} = 'grammar.vocabularies.words';
+info.MatPath{14} = 'grammar.vocabularies.phonemes';
+info.MatPath{15} = 'grammar_name';
+info.MatPath{16} = 'duration';
+info.MatPath{17} = 'quiet';
+info.MatPath{18} = 'threshold';

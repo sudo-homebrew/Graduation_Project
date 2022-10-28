@@ -1,0 +1,36 @@
+// Copyright 2020-2021 The MathWorks, Inc.
+// Common copy functions for {%MessageType%}
+
+#include "boost/date_time.hpp"
+#include "boost/shared_array.hpp"
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4244)
+#pragma warning(disable : 4265)
+#pragma warning(disable : 4458)
+#pragma warning(disable : 4100)
+#pragma warning(disable : 4127)
+#pragma warning(disable : 4267)
+#pragma warning(disable : 4068)
+#pragma warning(disable : 4245)
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+#pragma GCC diagnostic ignored "-Wredundant-decls"
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wshadow"
+#endif //_MSC_VER
+
+
+#include "ros/ros.h"
+#include "{%msgInfo.includeHeader%}"
+#include "actionlib/client/simple_action_client.h"
+#include "actionlib/server/simple_action_server.h"
+#include "visibility_control.h"
+#include "ROSPubSubTemplates.hpp"
+#include "ROSActionTemplates.hpp"

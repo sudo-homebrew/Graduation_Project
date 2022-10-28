@@ -1,0 +1,53 @@
+function [data, info] = loadMapResponse
+%LoadMap gives an empty data for nav_msgs/LoadMapResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+%#codegen
+data = struct();
+data.MessageType = 'nav_msgs/LoadMapResponse';
+[data.RESULTSUCCESS, info.RESULTSUCCESS] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.RESULTMAPDOESNOTEXIST, info.RESULTMAPDOESNOTEXIST] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.RESULTINVALIDMAPDATA, info.RESULTINVALIDMAPDATA] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.RESULTINVALIDMAPMETADATA, info.RESULTINVALIDMAPMETADATA] = ros.internal.ros.messages.ros.default_type('uint8',1, 3);
+[data.RESULTUNDEFINEDFAILURE, info.RESULTUNDEFINEDFAILURE] = ros.internal.ros.messages.ros.default_type('uint8',1, 255);
+[data.Map, info.Map] = ros.internal.ros.messages.nav_msgs.occupancyGrid;
+info.Map.MLdataType = 'struct';
+[data.Result, info.Result] = ros.internal.ros.messages.ros.default_type('uint8',1);
+info.MessageType = 'nav_msgs/LoadMapResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,31);
+info.MatPath{1} = 'RESULT_SUCCESS';
+info.MatPath{2} = 'RESULT_MAP_DOES_NOT_EXIST';
+info.MatPath{3} = 'RESULT_INVALID_MAP_DATA';
+info.MatPath{4} = 'RESULT_INVALID_MAP_METADATA';
+info.MatPath{5} = 'RESULT_UNDEFINED_FAILURE';
+info.MatPath{6} = 'map';
+info.MatPath{7} = 'map.header';
+info.MatPath{8} = 'map.header.seq';
+info.MatPath{9} = 'map.header.stamp';
+info.MatPath{10} = 'map.header.stamp.sec';
+info.MatPath{11} = 'map.header.stamp.nsec';
+info.MatPath{12} = 'map.header.frame_id';
+info.MatPath{13} = 'map.info';
+info.MatPath{14} = 'map.info.map_load_time';
+info.MatPath{15} = 'map.info.map_load_time.sec';
+info.MatPath{16} = 'map.info.map_load_time.nsec';
+info.MatPath{17} = 'map.info.resolution';
+info.MatPath{18} = 'map.info.width';
+info.MatPath{19} = 'map.info.height';
+info.MatPath{20} = 'map.info.origin';
+info.MatPath{21} = 'map.info.origin.position';
+info.MatPath{22} = 'map.info.origin.position.x';
+info.MatPath{23} = 'map.info.origin.position.y';
+info.MatPath{24} = 'map.info.origin.position.z';
+info.MatPath{25} = 'map.info.origin.orientation';
+info.MatPath{26} = 'map.info.origin.orientation.x';
+info.MatPath{27} = 'map.info.origin.orientation.y';
+info.MatPath{28} = 'map.info.origin.orientation.z';
+info.MatPath{29} = 'map.info.origin.orientation.w';
+info.MatPath{30} = 'map.data';
+info.MatPath{31} = 'result';

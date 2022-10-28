@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 The MathWorks, Inc. -->
+<!-- THIS FILE CONTRIBUTES TO THE MATLAB APPS GALLERY WHICH IS CAREFULLY CURATED -->
+<!-- ADDITIONS AND CHANGES MUST GO THROUGH A DESIGN REVIEW PROCESS WITH SENIOR MANGEMENT -->
+<!-- THIS PROCESS IS MANAGED BY THE MATLAB DESKTOP TEAM. CONSULT THE TOOLSTRIP GUIDELINES TO GET STARTED -->
+<toolset id="robotics_toolset" message_catalog="robotics:desktop">
+    <tool id="inverseKinematicsDesigner">
+        <icon filename="ikdesigner_24.png" path="resources" />
+        <callback>inverseKinematicsDesigner()</callback>
+        <parent_tool id="autonomous_products" toolset_id="apps_toolset" />
+    </tool>
+</toolset>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>{%PackageName%}</name>
+  {% if ~isempty(Version) %}
+  <version>{%Version%}</version>
+  {% endif %}
+  {%if ~isempty(Description) %}
+  <description>{%Description%}</description>
+  {% endif %}
+  {% if ~isempty(MaintainerEmail)&&~isempty(MaintainerName) %}
+  <maintainer email="{%MaintainerEmail%}">{%MaintainerName%}</maintainer>
+  {% endif %}
+  {% if ~isempty(License) %}
+  <license>{%License%}</license>
+  {% endif %}
+
+  <buildtool_depend>ament_cmake_ros</buildtool_depend>
+  {% if ~isempty(MessageFiles) || ~isempty(ServiceFiles) %}
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+  {% endif %}
+
+{% for i = numel(Dependencies) %}
+  <depend>{% Dependencies{i} %}</depend>
+{% endfor %}
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  {% if ~isempty(MessageFiles) || ~isempty(ServiceFiles) %}
+  <member_of_group>rosidl_interface_packages</member_of_group>
+  {% endif %}
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+
+<!-- Generated on {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %} -->
+
+{% if (false) %}
+<!-- Copyright 2019-2022 The MathWorks, Inc. -->
+{% endif %}

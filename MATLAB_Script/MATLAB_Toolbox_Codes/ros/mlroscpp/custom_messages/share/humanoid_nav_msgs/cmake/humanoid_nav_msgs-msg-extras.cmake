@@ -1,0 +1,2 @@
+set(humanoid_nav_msgs_MESSAGE_FILES "msg/StepTarget.msg;msg/ExecFootstepsAction.msg;msg/ExecFootstepsActionGoal.msg;msg/ExecFootstepsActionResult.msg;msg/ExecFootstepsActionFeedback.msg;msg/ExecFootstepsGoal.msg;msg/ExecFootstepsResult.msg;msg/ExecFootstepsFeedback.msg")
+set(humanoid_nav_msgs_SERVICE_FILES "srv/ClipFootstep.srv;srv/PlanFootsteps.srv;srv/PlanFootstepsBetweenFeet.srv;srv/StepTargetService.srv")

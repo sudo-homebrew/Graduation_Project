@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2014-2021 The MathWorks, Inc. -->
+<productinfo version="2.0">
+  <name>Robot Operating System (ROS)</name>
+  <targetinitializationcall>void slros_node_init(int argc, char** argv); slros_node_init(argc, argv)</targetinitializationcall>
+  <compileflags> </compileflags>
+  <assemblyflags> </assemblyflags>
+  <linkflags> </linkflags>
+  <enableoneclick>true</enableoneclick>
+  <externalmodeinfo closefcn="ros.codertarget.internal.onExternalModeClose(hObj)" preconnectfcn="ros.codertarget.internal.onExternalModePreConnect(hObj)">
+    <sourcefile>$(MATLAB_ROOT)/rtw/c/src/ext_mode/common/rtiostream_interface.c</sourcefile>
+    <sourcefile>$(MATLAB_ROOT)/toolbox/ros/codertarget/src/rtiostream_tcpip.c</sourcefile>
+    <transport type="tcp/ip" name="tcpip">
+      <iointerfacename>TCP/IP</iointerfacename>
+      <verbose value="0" visible="false"/>
+      <port value ="17725" visible="true"/>
+      <ipaddress value ="ros.codertarget.internal.getExtmodeDeviceAddress(hCS)" visible="false"/>
+    </transport>
+    <task inbackground="true" inforeground="true" default="background" visible="true"/>
+
+    <!-- Always use the "Nonreusable function" code interface packaging in external mode -->
+    <modelparameter name="CodeInterfacePackaging" value="Nonreusable function"/>
+
+    <!-- Always use "Build and run" as build action in external mode -->
+    <codertargetparameter name="Runtime.BuildAction" value="Build and run"/>
+  </externalmodeinfo>
+  <includepath>$(TARGET_ROOT)/include</includepath>
+  <define>ROS_PROJECT</define>
+  <define>MW_SCHED_OTHER</define>
+  <token Name="_SUPPORTS_CPP_CODEGEN_" Value="true"/>
+  <onhardwareselecthook>ros.codertarget.internal.onHardwareSelect</onhardwareselecthook>
+  <onhardwaredeselecthook>ros.codertarget.internal.onHardwareDeselect</onhardwaredeselecthook>
+  <onaftercodegenhook>ros.codertarget.internal.onAfterCodeGen</onaftercodegenhook>
+  <onbuildentryhook>ros.codertarget.internal.onBuildEntryHook</onbuildentryhook>
+  <oncodegenentryhook>ros.codertarget.internal.onCodegenEntryHook</oncodegenentryhook>
+  <rtos>Linux</rtos>
+
+  <!-- Enable overrun detection -->
+  <detectoverrun>true</detectoverrun>
+  <detectoverrunfcn>reportOverrun</detectoverrunfcn>
+</productinfo>

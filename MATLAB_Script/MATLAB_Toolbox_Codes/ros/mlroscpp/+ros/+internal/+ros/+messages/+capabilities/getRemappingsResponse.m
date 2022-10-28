@@ -1,0 +1,45 @@
+function [data, info] = getRemappingsResponse
+%GetRemappings gives an empty data for capabilities/GetRemappingsResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'capabilities/GetRemappingsResponse';
+[data.Topics, info.Topics] = ros.internal.ros.messages.capabilities.remapping;
+info.Topics.MLdataType = 'struct';
+info.Topics.MaxLen = NaN;
+info.Topics.MinLen = 0;
+data.Topics = data.Topics([],1);
+[data.Services, info.Services] = ros.internal.ros.messages.capabilities.remapping;
+info.Services.MLdataType = 'struct';
+info.Services.MaxLen = NaN;
+info.Services.MinLen = 0;
+data.Services = data.Services([],1);
+[data.Actions, info.Actions] = ros.internal.ros.messages.capabilities.remapping;
+info.Actions.MLdataType = 'struct';
+info.Actions.MaxLen = NaN;
+info.Actions.MinLen = 0;
+data.Actions = data.Actions([],1);
+[data.Parameters, info.Parameters] = ros.internal.ros.messages.capabilities.remapping;
+info.Parameters.MLdataType = 'struct';
+info.Parameters.MaxLen = NaN;
+info.Parameters.MinLen = 0;
+data.Parameters = data.Parameters([],1);
+info.MessageType = 'capabilities/GetRemappingsResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,12);
+info.MatPath{1} = 'topics';
+info.MatPath{2} = 'topics.key';
+info.MatPath{3} = 'topics.value';
+info.MatPath{4} = 'services';
+info.MatPath{5} = 'services.key';
+info.MatPath{6} = 'services.value';
+info.MatPath{7} = 'actions';
+info.MatPath{8} = 'actions.key';
+info.MatPath{9} = 'actions.value';
+info.MatPath{10} = 'parameters';
+info.MatPath{11} = 'parameters.key';
+info.MatPath{12} = 'parameters.value';

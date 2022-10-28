@@ -1,0 +1,9 @@
+# Lock the serial port.
+
+# Number of seconds to lock the port.
+float32 timeout
+
+---
+
+# Socket identifier for further communications.
+int32   socket

@@ -1,0 +1,19 @@
+{
+    "manipulatorCollisionBodyValidator":
+    {
+        "inputs":
+        [
+            {"name":"stateSpace", "kind":"required", "type":"manipulatorStateSpace"},
+            {"name":"Environment", "kind":"namevalue", "type":"cell"},
+            {"name":"ValidationDistance", "kind":"namevalue", "type":["numeric", "positive", "scalar"]},
+            {"name":"IgnoreSelfCollision", "kind":"namevalue", "type":["logical", "scalar"]}
+        ]
+    },
+    "manipulatorStateSpace":
+    {
+        "inputs":
+        [
+            {"name":"robot", "kind":"required", "type":"rigidBodyTree"}
+        ]
+    }
+}

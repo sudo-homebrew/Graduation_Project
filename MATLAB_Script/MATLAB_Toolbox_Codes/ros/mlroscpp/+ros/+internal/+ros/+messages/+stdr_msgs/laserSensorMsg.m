@@ -1,0 +1,39 @@
+function [data, info] = laserSensorMsg
+%LaserSensorMsg gives an empty data for stdr_msgs/LaserSensorMsg
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'stdr_msgs/LaserSensorMsg';
+[data.MaxAngle, info.MaxAngle] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.MinAngle, info.MinAngle] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.MaxRange, info.MaxRange] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.MinRange, info.MinRange] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.NumRays, info.NumRays] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Noise, info.Noise] = ros.internal.ros.messages.stdr_msgs.noise;
+info.Noise.MLdataType = 'struct';
+[data.Frequency, info.Frequency] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.FrameId, info.FrameId] = ros.internal.ros.messages.ros.char('string',0);
+[data.Pose, info.Pose] = ros.internal.ros.messages.geometry_msgs.pose2D;
+info.Pose.MLdataType = 'struct';
+info.MessageType = 'stdr_msgs/LaserSensorMsg';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'maxAngle';
+info.MatPath{2} = 'minAngle';
+info.MatPath{3} = 'maxRange';
+info.MatPath{4} = 'minRange';
+info.MatPath{5} = 'numRays';
+info.MatPath{6} = 'noise';
+info.MatPath{7} = 'noise.noise';
+info.MatPath{8} = 'noise.noiseMean';
+info.MatPath{9} = 'noise.noiseStd';
+info.MatPath{10} = 'frequency';
+info.MatPath{11} = 'frame_id';
+info.MatPath{12} = 'pose';
+info.MatPath{13} = 'pose.x';
+info.MatPath{14} = 'pose.y';
+info.MatPath{15} = 'pose.theta';

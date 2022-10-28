@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{fill:#b3b3b3;}.cls-2{fill:#737373;}.cls-3{fill:#a6a6a6;}.cls-4,.cls-5,.cls-7{fill:none;stroke-linecap:round;}.cls-4,.cls-8{stroke:#b3b3b3;}.cls-4,.cls-5,.cls-8{stroke-miterlimit:10;}.cls-4,.cls-5{stroke-width:9px;}.cls-5{stroke:#ccc;}.cls-6,.cls-9{fill:#404040;}.cls-7{stroke:#404040;stroke-linejoin:round;}.cls-8{fill:#f2f2f2;}.cls-9{font-size:10px;font-family:LMRoman12-Bold, Latin Modern Roman;font-weight:700;}.cls-10{font-family:LatinModernMath-Regular, Latin Modern Math;font-weight:400;}</style>
+   </defs>
+   <title>Velocity Product Torque_042619</title>
+   <path class="cls-1"
+         d="M96.33,26.44l-4,3.39H86.52a3,3,0,0,1-3-3V24.5H80V20.87h3.52v-2.3a3,3,0,0,1,3-3H92.3l4,3.39H86.68v7.51Z"/>
+   <rect class="cls-2" height="2.08" width="5.34" x="90.99" y="24.37"/>
+   <rect class="cls-2" height="2.08" width="5.34" x="90.99" y="18.93"/>
+   <path class="cls-3"
+         d="M65.47,52.37h0a7.82,7.82,0,0,1,7.82,7.82v9a0,0,0,0,1,0,0H57.65a0,0,0,0,1,0,0v-9A7.82,7.82,0,0,1,65.47,52.37Z"/>
+   <line class="cls-4" x1="67.53" x2="45.29" y1="22.69" y2="22.69"/>
+   <line class="cls-5" x1="45.29" x2="65.45" y1="22.69" y2="57.91"/>
+   <line class="cls-5" x1="67.11" x2="76.23" y1="22.71" y2="22.71"/>
+   <circle class="cls-6" cx="65.45" cy="57.91" r="2.43"/>
+   <path class="cls-7" d="M62.88,52.58a5.81,5.81,0,1,1-3,7.63"/>
+   <polygon class="cls-6" points="64.38 54.38 59.92 53.86 62.6 50.26 64.38 54.38"/>
+   <circle class="cls-6" cx="67.11" cy="22.71" r="2.43"/>
+   <path class="cls-7" d="M72.92,22.78a5.81,5.81,0,1,1-5.74-5.87"/>
+   <polygon class="cls-6" points="70.67 23.41 72.96 19.55 75.16 23.47 70.67 23.41"/>
+   <circle class="cls-6" cx="45.37" cy="22.71" r="2.43"/>
+   <path class="cls-7" d="M47.56,28.11a5.81,5.81,0,1,1,3.35-7.5"/>
+   <polygon class="cls-6" points="46.15 26.25 50.58 26.95 47.76 30.44 46.15 26.25"/>
+   <rect class="cls-8" height="16.81" width="41.41" x="101.07" y="14.23"/>
+   <text class="cls-9" transform="translate(103.52 26.02)">C<tspan class="cls-10" x="8.13" y="0">(</tspan>
+      <tspan x="12.02" y="0">q</tspan>
+      <tspan class="cls-10" x="17.96" y="0">,</tspan>
+      <tspan x="20.74" y="0">q</tspan>
+      <tspan class="cls-10" x="26.68" y="0">)</tspan>
+      <tspan x="30.57" y="0">q</tspan>
+   </text>
+   <path class="cls-6" d="M127.66,20.14a.44.44,0,1,1-.43-.43A.44.44,0,0,1,127.66,20.14Z"/>
+   <path class="cls-6" d="M137.44,20.14a.43.43,0,1,1-.43-.43A.43.43,0,0,1,137.44,20.14Z"/>
+</svg>

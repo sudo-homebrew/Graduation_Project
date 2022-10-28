@@ -1,0 +1,41 @@
+function [data, info] = lookAtActionGoal
+%LookAtActionGoal gives an empty data for cob_lookat_action/LookAtActionGoal
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'cob_lookat_action/LookAtActionGoal';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.GoalId, info.GoalId] = ros.internal.ros.messages.actionlib_msgs.goalID;
+info.GoalId.MLdataType = 'struct';
+[data.Goal, info.Goal] = ros.internal.ros.messages.cob_lookat_action.lookAtGoal;
+info.Goal.MLdataType = 'struct';
+info.MessageType = 'cob_lookat_action/LookAtActionGoal';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,22);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'goal_id';
+info.MatPath{8} = 'goal_id.stamp';
+info.MatPath{9} = 'goal_id.stamp.sec';
+info.MatPath{10} = 'goal_id.stamp.nsec';
+info.MatPath{11} = 'goal_id.id';
+info.MatPath{12} = 'goal';
+info.MatPath{13} = 'goal.target_frame';
+info.MatPath{14} = 'goal.pointing_frame';
+info.MatPath{15} = 'goal.X_POSITIVE';
+info.MatPath{16} = 'goal.Y_POSITIVE';
+info.MatPath{17} = 'goal.Z_POSITIVE';
+info.MatPath{18} = 'goal.X_NEGATIVE';
+info.MatPath{19} = 'goal.Y_NEGATIVE';
+info.MatPath{20} = 'goal.Z_NEGATIVE';
+info.MatPath{21} = 'goal.pointing_axis_type';
+info.MatPath{22} = 'goal.base_active';

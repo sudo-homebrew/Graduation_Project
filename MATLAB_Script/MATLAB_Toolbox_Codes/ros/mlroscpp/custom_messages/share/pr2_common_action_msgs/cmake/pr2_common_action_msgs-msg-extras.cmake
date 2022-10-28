@@ -1,0 +1,2 @@
+set(pr2_common_action_msgs_MESSAGE_FILES "msg/ArmMoveIKAction.msg;msg/ArmMoveIKActionGoal.msg;msg/ArmMoveIKActionResult.msg;msg/ArmMoveIKActionFeedback.msg;msg/ArmMoveIKGoal.msg;msg/ArmMoveIKResult.msg;msg/ArmMoveIKFeedback.msg;msg/TuckArmsAction.msg;msg/TuckArmsActionGoal.msg;msg/TuckArmsActionResult.msg;msg/TuckArmsActionFeedback.msg;msg/TuckArmsGoal.msg;msg/TuckArmsResult.msg;msg/TuckArmsFeedback.msg")
+set(pr2_common_action_msgs_SERVICE_FILES "")

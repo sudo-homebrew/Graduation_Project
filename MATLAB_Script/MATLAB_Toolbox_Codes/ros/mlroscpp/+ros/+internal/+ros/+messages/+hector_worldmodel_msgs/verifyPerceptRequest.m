@@ -1,0 +1,40 @@
+function [data, info] = verifyPerceptRequest
+%VerifyPercept gives an empty data for hector_worldmodel_msgs/VerifyPerceptRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'hector_worldmodel_msgs/VerifyPerceptRequest';
+[data.Percept, info.Percept] = ros.internal.ros.messages.hector_worldmodel_msgs.posePercept;
+info.Percept.MLdataType = 'struct';
+info.MessageType = 'hector_worldmodel_msgs/VerifyPerceptRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,25);
+info.MatPath{1} = 'percept';
+info.MatPath{2} = 'percept.header';
+info.MatPath{3} = 'percept.header.seq';
+info.MatPath{4} = 'percept.header.stamp';
+info.MatPath{5} = 'percept.header.stamp.sec';
+info.MatPath{6} = 'percept.header.stamp.nsec';
+info.MatPath{7} = 'percept.header.frame_id';
+info.MatPath{8} = 'percept.pose';
+info.MatPath{9} = 'percept.pose.pose';
+info.MatPath{10} = 'percept.pose.pose.position';
+info.MatPath{11} = 'percept.pose.pose.position.x';
+info.MatPath{12} = 'percept.pose.pose.position.y';
+info.MatPath{13} = 'percept.pose.pose.position.z';
+info.MatPath{14} = 'percept.pose.pose.orientation';
+info.MatPath{15} = 'percept.pose.pose.orientation.x';
+info.MatPath{16} = 'percept.pose.pose.orientation.y';
+info.MatPath{17} = 'percept.pose.pose.orientation.z';
+info.MatPath{18} = 'percept.pose.pose.orientation.w';
+info.MatPath{19} = 'percept.pose.covariance';
+info.MatPath{20} = 'percept.info';
+info.MatPath{21} = 'percept.info.class_id';
+info.MatPath{22} = 'percept.info.class_support';
+info.MatPath{23} = 'percept.info.object_id';
+info.MatPath{24} = 'percept.info.object_support';
+info.MatPath{25} = 'percept.info.name';

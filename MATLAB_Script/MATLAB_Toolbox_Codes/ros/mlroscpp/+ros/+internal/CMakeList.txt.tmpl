@@ -1,0 +1,370 @@
+cmake_minimum_required(VERSION 3.9)
+project({%PackageName%})
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
+# Set CMAKE_BUILD_TYPE
+set(CMAKE_BUILD_TYPE {%BuildType%})
+
+# Default to C99
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
+endif()
+
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
+{% if ~isempty(PkgConfigModules) %}
+find_package(PkgConfig REQUIRED)
+    {% for i=numel(PkgConfigModules) %}
+pkg_check_modules({% upper(matlab.lang.makeValidName(PkgConfigModules{i})) %} REQUIRED {% PkgConfigModules{i} %})
+    {% endfor %}
+{% endif %}
+
+{% if ispc %}
+# For Windows, MSVC compiler disable boost autolinking
+add_definitions( -DBOOST_ALL_NO_LIB )
+# And force all boost libraries to link dynamically
+add_definitions( -DBOOST_ALL_DYN_LINK )
+{% endif %}
+
+if(ALIAS_ROS1_CLASS_LOADER)
+    add_definitions(-Dclass_loader=ros1_class_loader)
+endif()
+
+
+## Find catkin macros and libraries
+## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
+## is used, also find other catkin packages
+
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  std_msgs
+{% if ~isempty(MessageFiles) || ~isempty(ServiceFiles) || ~isempty(ActionFiles)%}
+  message_generation
+{% endif %}
+
+{% var allDeps = setdiff([MsgDependencies Dependencies BuildDependencies], {'roscpp','std_msgs'}) %}
+
+{% for i = numel(allDeps) %}
+  {% allDeps{i} %}
+{% endfor %}
+
+)
+
+{% if ~isempty(MessageFiles) || ~isempty(ServiceFiles) || ~isempty(ActionFiles)%}
+## System dependencies are found with CMake''s conventions
+
+################################################
+## Declare ROS messages, services and actions ##
+################################################
+{% endif %}
+
+{% if ~isempty(MessageFiles) %}
+add_message_files(
+    FILES
+    {% for i = numel(MessageFiles) %}
+    {% MessageFiles{i} %}
+    {% endfor %}
+)
+{% endif %}
+{% if ~isempty(ServiceFiles) %}
+add_service_files(
+    FILES
+{% for i = numel(ServiceFiles) %}
+    {% ServiceFiles{i} %}
+{% endfor %}
+)
+{% endif %}
+
+{% if ~isempty(ActionFiles) %}
+add_action_files(
+    FILES
+{% for i = numel(ActionFiles) %}
+    {% ActionFiles{i} %}
+{% endfor %}
+)
+{% endif %}
+
+
+{% if ~isempty(MessageFiles) || ~isempty(ServiceFiles) || ~isempty(ActionFiles)%}
+## Generate added messages, services and actions with any dependencies listed here
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  {% if ~isempty(MsgDependencies) %}   
+  {% for i = numel(MsgDependencies) %}
+  {% MsgDependencies{i} %}
+  {% endfor %}
+  {% endif %}
+)
+{% endif %}
+
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## INCLUDE_DIRS: uncomment this if you package contains header files
+## LIBRARIES: libraries you create in this project that dependent projects also need
+## CATKIN_DEPENDS: catkin_packages dependent projects also need
+## DEPENDS: system dependencies of this project that dependent projects also need
+catkin_package(
+  CATKIN_DEPENDS
+{% if ~isempty(MessageFiles) || ~isempty(ServiceFiles) || ~isempty(ActionFiles)%}
+  message_runtime
+  {%for i = numel(RunDependencies) %}
+  {% RunDependencies{i} %}
+  {% endfor %}
+{% endif %}
+{% for i = numel(Dependencies) %}
+  {% Dependencies{i} %}
+{% endfor %}
+)
+
+###########
+## Build ##
+###########
+
+## Specify additional locations of header files
+## Your package locations should be listed before other locations
+# include_directories(include)
+include_directories(
+  include
+  ${PROJECT_SOURCE_DIR}
+  ${Boost_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
+{% if ~isempty(IncludeDirectories) %}
+{% for i = numel(IncludeDirectories) %}
+{% if ispc %}
+  "{% strrep(IncludeDirectories{i},'\','/') %}"
+{% endif %}
+{% if ~ispc %}
+ "{% IncludeDirectories{i} %}"
+{% endif %}
+{% endfor %}
+{% endif %}
+  "include/{%PackageName%}"
+)
+
+set (CMAKE_SKIP_BUILD_RPATH false)
+set (CMAKE_BUILD_WITH_INSTALL_RPATH true)
+set (CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+set (CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+## Get list of .c files in project source directory
+file(GLOB ${PROJECT_NAME}_C_SOURCES RELATIVE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/*.c)
+## Get list of .cpp files in project source directory
+file(GLOB ${PROJECT_NAME}_CPP_SOURCES RELATIVE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/*.cpp)
+
+{% for k = numel(ImportedLibraries) %}
+add_library(coder_custom_lib_{% num2str(k) %} UNKNOWN IMPORTED)
+set_property(TARGET coder_custom_lib_{% num2str(k) %} PROPERTY IMPORTED_LOCATION "${PROJECT_SOURCE_DIR}/{%ImportedLibraries{k}%}")
+{% endfor %}
+
+{% if ~isempty(LibraryDirectories) %}
+{% for i = numel(LibraryDirectories) %}
+{% if ispc %}
+## Specify library folders
+link_directories("{% strrep(LibraryDirectories{i},'\','/') %}")
+{% endif %}
+{% if ~ispc %}
+link_directories("{% LibraryDirectories{i} %}")
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if ~isempty(CppLibraryName) %}
+# Declare library
+add_library(
+    {% CppLibraryName %} 
+    {% if ~isempty(CppLibraryName) %}
+    {% LibFormat %}
+    {% endif %}
+    {% for j = numel(LibSourceFiles) %}
+    {% LibSourceFiles{j} %}
+    {% endfor %}
+)
+target_include_directories({%CppLibraryName%} PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+#target_compile_options({%CppLibraryName%} PUBLIC $<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>: -Wall -Wextra -Wpedantic>)
+endif()
+
+{% if ~isempty(CppFlags) %}
+target_compile_options({%CppLibraryName%} PUBLIC
+  $<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:
+  {% CppFlags %}>
+{%if any(contains(LibSourceFiles,'.cu')) %}
+  $<$<COMPILE_LANGUAGE:CUDA>:
+  -Xcompiler=
+  {% CppFlags %}>
+{% endif %}
+  )
+{% endif %}
+
+{%if ~isempty(LibSourceFiles) %}
+{%if any(contains(LibSourceFiles,'.cu')) %}
+{% ros.internal.gpucoder.getCMakeListOptions(CppLibraryName, 'ROS1', CUDAFlags) %}
+{% endif %}
+{% endif %}
+
+{% if ~isempty(Libraries) %}
+target_link_libraries( {%CppLibraryName%}
+{% for i = numel(Libraries) %}
+{% if ispc %}
+	"{% strrep(Libraries{i},'\','/') %}"
+{% endif %}
+{% if ~ispc %}
+	"{% Libraries{i} %}"
+{% endif %}
+{% endfor %}
+{% for k = numel(ImportedLibraries) %}
+    coder_custom_lib_{% num2str(k) %}
+{% endfor %}
+{% if ~isempty(LinkerFlags) %}
+    {% LinkerFlags %}
+{% endfor %}
+	${Boost_LIBRARIES}
+	${CMAKE_DL_LIBS}
+
+	)
+{% endif %}
+
+## Add cmake target dependencies of the executable/library
+## as an example, message headers may need to be generated before nodes
+add_dependencies(
+  {%CppLibraryName%}
+  {% if ~isempty(MessageFiles) || ~isempty(ServiceFiles) || ~isempty(ActionFiles) %}
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  {% endif %}
+  ${catkin_EXPORTED_TARGETS}
+)
+
+
+# Causes the visibility macros to use dllexport rather than dllimport,
+# which is appropriate when building the dll but not consuming it.
+target_compile_definitions({%CppLibraryName%} PRIVATE "{%upper(PackageName)%}_BUILDING_LIBRARY")
+
+install(
+  DIRECTORY include/
+  DESTINATION include
+)
+install(
+  TARGETS {%CppLibraryName%}
+  EXPORT export_${PROJECT_NAME}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+
+
+{% if ros.codertarget.internal.Util.isROSControlEnabled(CppLibraryName) %}
+install(FILES controllers.xml
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+{% endif %}
+
+{% endif %}
+
+{% if ~isempty(CppNodeName) %}
+# Declare executable - Node
+add_executable({%CppNodeName%}
+{% for j = numel(SourceFiles) %}
+  {% SourceFiles{j} %}
+{% endfor %}
+)
+
+{%if ~isempty(SourceFiles) %}
+{%if any(contains(SourceFiles,'.cu')) %}
+  # Declare CUDA Bins
+  {% if ~isempty(OtherFiles) %}
+  set(CUDA_BINS 
+  {% for j = numel(OtherFiles) %}
+  {% OtherFiles{j} %}
+  {% endfor %}
+  )
+  {% endif %}
+
+{% ros.internal.gpucoder.getCMakeListOptions(CppNodeName, 'ROS1', CUDAFlags) %}
+{% endif %}
+{% endif %}
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+#target_compile_options({%CppNodeName%} PUBLIC  $<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>: -Wall -Wextra -Wpedantic >)
+endif()
+
+{% if ~isempty(CppFlags) %}
+target_compile_options({%CppNodeName%} PUBLIC 
+  $<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:
+  {% CppFlags %}>
+{%if any(contains(SourceFiles,'.cu')) %}
+  $<$<COMPILE_LANGUAGE:CUDA>:
+  -Xcompiler=
+  {% CppFlags %}>
+{% endif %}
+  )
+{% endif %}
+
+## Add cmake target dependencies of the executable/library
+## as an example, message headers may need to be generated before nodes
+add_dependencies(
+  {%CppNodeName%}
+  {% if ~isempty(MessageFiles) || ~isempty(ServiceFiles) || ~isempty(ActionFiles) %}
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  {% endif %}
+  ${catkin_EXPORTED_TARGETS}
+)
+
+
+target_include_directories({%CppNodeName%} PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+
+## Specify libraries to link a library or executable target against
+target_link_libraries(
+  {%CppNodeName%} 
+{% if ~isempty(CppLibraryName) || ~isempty(Libraries) %}
+{% if ~isempty(CppLibraryName) %}
+    {%CppLibraryName%}
+{% endif %}
+{% for i = numel(Libraries) %}
+	{% Libraries{i} %}
+{% endfor %}
+{% endif %}
+{% for k = numel(ImportedLibraries) %}
+    coder_custom_lib_{% num2str(k) %}
+{% endfor %}
+{% if ~isempty(LinkerFlags) %}
+    {% LinkerFlags %}
+{% endfor %}
+    ${catkin_LIBRARIES}
+    ${Boost_LIBRARIES}
+    ${CMAKE_DL_LIBS}
+)
+
+
+install(TARGETS {%CppNodeName%}
+  EXPORT export_${PROJECT_NAME}
+  DESTINATION lib/${PROJECT_NAME})
+{% endif %}
+
+{% if ~isempty(MATLABFiles) || ~isempty(MsgClassFiles) %}
+install (DIRECTORY m/ DESTINATION m/ FILES_MATCHING PATTERN "*.m")
+{% endif %}
+
+foreach(file_i ${CUDA_BINS})
+add_custom_command(
+                   TARGET {%CppNodeName%}
+                   POST_BUILD
+                   COMMAND ${CMAKE_COMMAND}
+                   ARGS -E copy ${PROJECT_SOURCE_DIR}/src/${file_i} ${CATKIN_DEVEL_PREFIX}/{%CppNodeName%}_ert_rtw/${file_i}
+				   )
+endforeach(file_i)
+
+# Generated on {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %}
+
+{% if (false) %}
+# Copyright 2019-2022 The MathWorks, Inc.
+{% endif %}
+

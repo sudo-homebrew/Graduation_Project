@@ -1,0 +1,16 @@
+# Send data to serial port.
+
+# Either 0 (connectionless) or an unexpired socket identifier
+# from an earlier communication.
+uint32  socket
+
+# Data to be sent.
+uint8[] data
+
+# Number of seconds to keep the port locked after this communication.
+float32 timeout
+
+---
+
+# Socket identifier for further communications.
+uint32  socket

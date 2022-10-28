@@ -1,0 +1,842 @@
+classdef(Sealed, StrictDefaults) irSensor < fusion.internal.remotesensors.ScanningSensor & ...
+                fusion.internal.remotesensors.mixin.DisplayUtils & ...
+                radarfusion.internal.scenario.mixin.DetectionSensor & ...
+                scenario.internal.mixin.Perturbable
+    
+%irSensor Infrared (IR) detections generator
+%   sensor = irSensor(sensorIndex) returns a statistical model to simulate
+%   detections for an infrared sensor.
+%
+%   sensor = irSensor(sensorIndex, scanConfig) configures the IR sensor to
+%   use a predefined scan configuration, scanConfig. scanConfig can be one
+%   of 'No scanning' | 'Raster' | 'Rotator' | 'Sector'.
+%
+%   sensor = irSensor(..., 'Name', value) returns an irSensor object by
+%   specifying its properties as name-value pair arguments. Unspecified
+%   properties have default values. See the list of properties below.
+%
+%   Step method syntax:
+%   
+%   DETS = step(SENSOR, TARGETS, TIME) generates detections from the
+%   L-element array of structs, TARGETS, at the current simulation time,
+%   TIME. TIME is a scalar value in seconds. DETS is an M-element cell
+%   array of objectDetection objects. The sensor generates detections at
+%   the rate defined by the UpdateRate property. The detections are
+%   returned in the sensor's spherical coordinate frame as [az;el]. When
+%   HasElevation is false, only azimuth is reported.
+%
+%   TARGETS is a struct array of platform structures. The fields are listed
+%   <a href="matlab:help fusion.internal.interfaces.DataStructures/platformStruct">here</a>.
+%
+%   The MeasurementParameters property of the returned objectDetection
+%   objects is set to an array of measurement parameter structures. The
+%   fields are listed <a href="matlab:help fusion.internal.interfaces.DataStructures/measurementParametersStruct">here</a>.
+%   When these transformations are applied in order, the reported
+%   measurements will be transformed to the top-level frame. When HasINS is
+%   true, the top-level frame is the scenario coordinate frame, otherwise
+%   it is the coordinate frame of the platform on which the sensor is
+%   mounted.
+%
+%   The ObjectAttributes property for each detection is set to a struct
+%   with the following fields:
+%       TargetIndex     Unique identifier of the platform which generated
+%                       the detection. For false alarms, this value is
+%                       negative.
+%
+%       SNR             Signal-to-noise ratio of the detection in decibels.
+%
+%   DETS = step(SENSOR, TARGETS, INS, TIME) includes pose information for
+%   the sensor's platform provided by the INS input with the reported
+%   detections. This input is enabled when the HasINS property is set to
+%   true. The INS information can be used by tracking and fusion algorithms
+%   to estimate the target positions in the NED frame. INS is a struct with
+%   the following fields:
+%
+%        Position      Position of the GPS receiver in the local NED
+%                      coordinate system specified as a real finite 1-by-3 
+%                      array in meters.
+% 
+%        Velocity      Velocity of the GPS receiver in the local NED 
+%                      coordinate system specified as a real finite 1-by-3 
+%                      array in meters per second.
+%
+%       Orientation    Orientation of the INS with respect to the local NED
+%                      coordinate system specified as a scalar quaternion
+%                      or a 3-by-3 real-valued orthonormal frame rotation
+%                      matrix. Defines the frame rotation from the local
+%                      NED coordinate system to the current INS body
+%                      coordinate system. This is also referred to as a
+%                      "parent to child" rotation.
+%
+%   [..., NUMDETS, CONFIG] = step(...) optionally returns the number of
+%   valid detections in the cell array DETS and the configuration of the
+%   sensor at the current simulation time, CONFIG. The fields of the sensor
+%   configuration structure are listed <a href="matlab:help fusion.internal.interfaces.DataStructures/sensorConfigStruct">here</a>.
+%
+%   When the irSensor's MaxNumDetectionsSource property is set to 'Auto',
+%   NUMDETS is always set to the length of DETS. When
+%   MaxNumDetectionsSource is set to 'Property', DETS is always a cell
+%   array with length determined by the value of the MaxNumDetections
+%   property. In this case, the first NUMDETS elements of DETS hold valid
+%   detections and the remaining elements of DETS are set to a default
+%   value.
+%   
+%   Detections can only be reported by irSensor at time intervals given by
+%   the reciprocal of the UpdateRate property. The IsValidTime flag on the
+%   CONFIG structure is set to false when detection updates are requested
+%   at times that are not aligned with the configured update rate.
+%
+%   irSensor can also be used to generate detections using targets
+%   generated by <a
+%   href="matlab:help('trackingScenario')">trackingScenario</a>.
+%
+%   irSensor properties:
+%     SensorIndex               - Unique identifier of sensor
+%     UpdateRate                - Sensor update rate
+%     ScanMode                  - Scan mode used by sensor
+%     MountingLocation          - Sensor's mounting location on platform
+%     MountingAngles            - Sensor's mounting angles on platform
+%     FieldOfView               - Angular field of view for a sensor dwell
+%                                 (read-only)
+%     MaxMechanicalScanRate     - Maximum mechanical scan rate
+%     MechanicalScanLimits      - Mechanical scan limits
+%     MechanicalAngle           - Mechanical antenna angle (read-only)
+%     LookAngle                 - Look angle of sensor (read-only)
+%     LensDiameter              - Diameter of the circular lens
+%     FocalLength               - Focal length of the circular lens
+%     NumDetectors              - Number of detectors
+%     CutoffFrequency           - Cutoff frequency of the modulation
+%                                 transfer function
+%     DetectorArea              - Area of the single detector element 
+%     Detectivity               - Material detectivity of a detector
+%                                 element
+%     NoiseEquivalentBandwidth  - Noise equivalent bandwidth of the sensor
+%     FalseAlarmRate            - Rate at which false alarms are reported
+%     AzimuthResolution         - Azimuthal resolution (read-only)
+%     ElevationResolution       - Elevation resolution (read-only)
+%     AzimuthBiasFraction       - Fractional azimuthal bias component
+%     ElevationBiasFraction     - Fractional elevation bias component
+%     HasElevation              - Elevation scanning and measurements
+%     HasAngularSize            - Enable angular size measurement
+%     HasINS                    - Enable input of platform's pose
+%     HasNoise                  - Add noise to measurements
+%     HasFalseAlarms            - Enable false detections
+%     HasOcclusion              - Enable occlusion of extended objects
+%     MinClassificationArea     - Minimum image size for classification
+%     MaxAllowedOcclusion       - Maximum allowed occlusion for detector
+%     MaxNumDetectionsSource    - Source of maximum number of detections
+%     MaxNumDetections          - Maximum number of reported detections
+%
+%   irSensor methods:
+%     step            - Generate infrared detections from targets
+%     perturbations   - Define perturbations to the irSensor
+%     perturb         - Apply perturbations to the irSensor
+%     release         - Allow property value and input characteristics changes
+%     clone           - Create irSensor object with same property values
+%     isLocked        - Locked status (logical)
+%     reset           - Reset states of irSensor object
+%     <a href="matlab:help coverageConfig">coverageConfig</a>  - Report the irSensor object scanning coverage configuration
+%
+%   % Example: Detect a target with an IR sensor.
+%
+%   % Create a target.
+%   tgt = struct( ...
+%       'PlatformID', 1, ...
+%       'Position', [10e3 0 0], ...
+%       'Speed', 900*1e3/3600);
+%
+%   % Create an IR sensor.
+%   sensor = irSensor(1);
+%
+%   % Generate detection from target.
+%   time = 0;
+%   [dets, numDets, config] = sensor(tgt, time)
+%
+%   See also: fusionRadarSensor, trackingScenario.
+
+%   Copyright 2018-2021 The MathWorks, Inc.
+
+%#codegen
+
+    % Public, non-tunable properties
+    properties(Nontunable)
+        %CutoffFrequency Cutoff frequency of the modulation transfer function (MTF)
+        %   Specify the cutoff frequency corresponding to the modulation
+        %   transfer function (MTF) of the infrared sensing system as a
+        %   scalar value in Hz. The cutoff frequency determines the
+        %   standard deviation of the sensor's angular measurements when
+        %   the ScanMode property is set to a scanning mode. Increasing the
+        %   MTF cutoff frequency decreases the standard deviation of the
+        %   angular measurements. When the ScanMode property is set to 'No
+        %   scanning', the standard deviation of the sensor's angular
+        %   measurements is determined only by the sensor's angular
+        %   resolution.
+        %
+        %   Default: 20e3
+        CutoffFrequency = 20e3
+        
+        %LensDiameter Diameter of sensor's circular lens
+        %   Diameter of the sensor's circular lens in meters.
+        %
+        %   Default: 8e-2
+        LensDiameter = 8e-2
+        
+        %FocalLength Focal length of sensor's circular lens
+        %   FocalLength is a scalar.  f = F * s, where F is the focal
+        %   length in millimeters, and s is the number of pixels per
+        %   millimeter. Thus, f is in pixels.
+        %
+        %   Default: 800
+        FocalLength = 800
+        
+        %NumDetectors Number of detectors
+        %   Number of infrared detectors in the sensor's imaging plane as a
+        %   2-element vector. The first element defines the number of rows
+        %   in the imaging plane and the second element defines the number
+        %   of columns in the imaging plane. The number of rows corresponds
+        %   to the sensor's elevation resolution and the number of columns
+        %   corresponds to the sensor's azimuth resolution.
+        %
+        %   Default: [1000 1000]
+        NumDetectors = [1000 1000]
+    end
+    
+    properties(Nontunable)
+        %DetectorArea Area of a single infrared detector element
+        %   Area of a single infrared detector element (pixel) in
+        %   square-meters.
+        %
+        %   Default: 1.44e-6
+        DetectorArea = 1.44e-6
+        
+        %FalseAlarmRate  Rate at which false alarms are reported
+        %   Specify a scalar value on the interval [1e-7 1e-3] defining the
+        %   probability of reporting a false detection within each
+        %   resolution cell of the sensor. Resolution cells are determined
+        %   from the AzimuthResolution and when enabled the
+        %   ElevationResolution properties.
+        %
+        %   Default: 1e-6
+        FalseAlarmRate = 1e-6
+        
+        %NoiseEquivalentBandwidth Noise equivalent bandwidth of the sensor
+        %   Specify the noise equivalent bandwidth of the sensor as a
+        %   scalar value in Hz.
+        %
+        %   Default: 30
+        NoiseEquivalentBandwidth = 30
+        
+        %Detectivity Specific detectivity of the detector material
+        %   Specify the detectivity of the material used to fabricate the
+        %   detectors as a scalar value in units of cm-sqrt(Hz)/W.
+        %
+        %   Default: 1.2e10
+        Detectivity = 1.2e10
+    end
+    
+    % Resolution properties
+    properties(Dependent)
+        %AzimuthResolution  Azimuthal resolution (deg)
+        %   A read-only property defining the azimuthal resolution of the
+        %   sensor. The sensor's azimuthal resolution defines the minimum
+        %   separation in azimuth angle at which the sensor can distinguish
+        %   two targets. The azimuth resolution is derived from the focal
+        %   length of the lens and the number of columns in the detector's
+        %   imaging plane. Defined in degrees.
+        AzimuthResolution
+
+        %ElevationResolution  Elevation resolution (deg)
+        %   A read-only property defining the elevation resolution of the
+        %   sensor. The sensor's elevation resolution defines the minimum
+        %   separation in elevation angle at which the sensor can
+        %   distinguish two targets. The elevation resolution is derived
+        %   from the focal length of the lens and the number of rows in the
+        %   detector's imaging plane.  This property only applies when you
+        %   set HasElevation property to true. Defined in degrees.
+        ElevationResolution
+    end
+    
+    % Bias properties
+    properties(Nontunable)
+        %AzimuthBiasFraction  Fractional azimuthal bias component
+        %   Specify a nonnegative scalar defining the azimuthal bias
+        %   component of the sensor as a fraction of the sensor's azimuthal
+        %   resolution defined by the AzimuthResolution property value.
+        %   This value sets a lower bound on the azimuthal accuracy of the
+        %   sensor. This property only applies for modes where the sensor
+        %   is scanning.
+        %
+        %   Default: 0.1
+        AzimuthBiasFraction = 0.1
+        
+        %ElevationBiasFraction  Fractional elevation bias component
+        %   Specify a nonnegative scalar defining the elevation bias
+        %   component of the radar as a fraction of the radar's elevation
+        %   resolution defined by the ElevationResolution property value.
+        %   This value sets a lower bound on the elevation accuracy of the
+        %   radar. This property only applies when you set HasElevation
+        %   property to true and the sensor is scanning.
+        %
+        %   Default: 0.1
+        ElevationBiasFraction = 0.1
+        
+        %MinClassificationArea  Minimum image size for classification
+        %   Set MinClassificationArea to the minimum area (in square
+        %   pixels) of the bounding box defined by the azimuth and
+        %   elevation extent required to properly classify the object. If
+        %   the reported area is less than the minimum, then the reported
+        %   ClassID is set to zero in the returned objectDetection.
+        %   Otherwise, the ClassID is taken from the corresponding target
+        %   in the input TARGETS struct.
+        %
+        %   Default: 100
+        MinClassificationArea = 100
+        
+        %MaxAllowedOcclusion  Maximum allowed occlusion for detector
+        %   Specify a real scalar on the interval [0,1) defining the maximum
+        %   occlusion of an object that can still be detected by the camera.
+        %   Represented as the fraction of the object's total surface area
+        %   invisible to the camera.
+        %  
+        %   Default: 0.5
+        MaxAllowedOcclusion = 0.5
+    end
+    
+    properties(Nontunable)
+        %HasFalseAlarms  Enable false detections
+        %   Set this property to true to include false alarms in the
+        %   reported detections. Set this property to false to report only
+        %   true detections.
+        %
+        %   Default: true
+        HasFalseAlarms (1, 1) logical = true
+        
+        %HasOcclusion  Enable occlusion of extended objects
+        %   Set this property to true to model occlusion of objects by the
+        %   spatial extent of other objects in the scenario. Set this
+        %   property to false to disable occlusion of objects. Setting this
+        %   property to false will also disable the merging of objects
+        %   sharing a common sensor resolution cell. This ensures that
+        %   every object in the scenario has an opportunity to generate a
+        %   detection.
+        %
+        %   Default: true
+        HasOcclusion (1, 1) logical = true
+        
+        %HasAngularSize  Enable angular size reporting
+        %   Set this property to true to additionally return azimuth 
+        %   and elevation size in the reported detections.  Set this
+        %   property to false to only report only azimuth and elevation 
+        %   locations without their angular extent.
+        %
+        %   Default: false
+        HasAngularSize (1, 1) logical = false
+    end
+    
+    properties(Nontunable)
+        %ScanMode  Scan mode used by sensor
+        %   Specify the scan mode used by the sensor as one of 'No
+        %   scanning' | 'Mechanical'. When set to 'No scanning', no
+        %   scanning is performed by the sensor. When set to 'Mechanical',
+        %   the sensor scans mechanically across the azimuth and elevation
+        %   limits specified by the MechanicalScanLimits property.
+        %
+        %   In all scan modes except 'No scanning', the scan positions step
+        %   by the sensor's field of view between dwells.
+        %
+        %   Default: 'Mechanical'
+        ScanMode = 'Mechanical'
+    end
+    properties(Constant, Hidden)
+        ScanModeSet = matlab.system.StringSet({'No scanning','Mechanical'});
+    end
+    
+    properties(Hidden, Constant)
+        DetectionCoordinates = 'Sensor spherical'
+    end
+    
+    properties(Constant, Access = private)
+        %PointSpreadFactor Attenuation of SNR due to point spread function
+        %   Assumes targets projection onto the imaging plane illuminates
+        %   several pixels and that this illumination can be approximated
+        %   as a bivariate Gaussian shape with a standard deviation of 1.5
+        %   pixels along both the image and row dimensions of the imaging
+        %   plane
+        PointSpreadFactordB = fusion.internal.UnitConversions.pow2db(2*pi*1.5^2)
+    end
+    
+    % -------------------
+    % Setters and getters
+    % -------------------
+    methods(Access = protected)
+        function val = getFieldOfViewImpl(obj)
+            nEl = obj.NumDetectors(1);
+            nAz = obj.NumDetectors(2);
+            f = obj.FocalLength;
+            
+            fovAz = 2*atand(nAz/(2*f));
+            fovEl = 2*atand(nEl/(2*f));
+            val = [fovAz;fovEl];
+        end
+    end
+    
+    methods
+        function set.CutoffFrequency(obj, val)
+            obj.checkScalarRealPositiveFinite(val, mfilename, 'CutoffFrequency');
+            obj.CutoffFrequency = val;
+        end
+        
+        function set.FocalLength(obj, val)
+            obj.checkScalarRealPositiveFinite(val, mfilename, 'FocalLength');
+            obj.FocalLength = val;
+        end
+        
+        function set.LensDiameter(obj, val)
+            obj.checkScalarRealPositiveFinite(val, mfilename, 'LensDiameter');
+            obj.LensDiameter = val;
+        end
+        
+        function set.NumDetectors(obj, val)
+            obj.checkVectorPositiveIndex(val, mfilename, 'NumDetectors',2);
+            obj.NumDetectors = val;
+        end
+        
+        function set.DetectorArea(obj, val)
+            obj.checkScalarRealPositiveFinite(val, mfilename, 'DetectorArea');
+            obj.DetectorArea = val;
+        end
+        
+        function set.NoiseEquivalentBandwidth(obj, val)
+            obj.checkScalarRealPositiveFinite(val, mfilename, 'NoiseEquivalentBandwidth');
+            obj.NoiseEquivalentBandwidth = val;
+        end
+        
+        function set.Detectivity(obj, val)
+            obj.checkScalarRealPositiveFinite(val, mfilename, 'Detectivity');
+            obj.Detectivity = val;
+        end
+        
+        function set.AzimuthResolution(obj,~)
+            cond = ~obj.pIsSettingConfig;
+            coder.internal.errorIf(cond,'MATLAB:class:SetProhibited','AzimuthResolution',class(obj));
+        end
+        function val = get.AzimuthResolution(obj)
+            fov = obj.FieldOfView(1);
+            val = fov/obj.NumDetectors(2);
+        end
+        
+        function set.ElevationResolution(obj,~)
+            cond = ~obj.pIsSettingConfig;
+            coder.internal.errorIf(cond,'MATLAB:class:SetProhibited','ElevationResolution',class(obj));
+        end
+        function val = get.ElevationResolution(obj)
+            fov = obj.FieldOfView(2);
+            val = fov/obj.NumDetectors(1);
+        end
+        
+        function set.FalseAlarmRate(obj, val)
+            validateattributes(val, ...
+                {'double'}, {'scalar','real','>=',1e-7,'<=',1e-3}, ...
+                mfilename, 'FalseAlarmRate');
+            obj.FalseAlarmRate = val;
+        end
+        
+        function set.MaxAllowedOcclusion(obj, val)
+            validateattributes(val, ...
+                {'double'}, {'scalar','real','nonnegative','<',1}, ...
+                mfilename, 'MaxAllowedOcclusion');
+            obj.MaxAllowedOcclusion = val;
+        end
+    end
+    
+    % -----------
+    % Constructor
+    % -----------
+    methods
+        function obj = irSensor(varargin)
+            % Support name-value pair arguments when constructing object
+            obj@fusion.internal.remotesensors.ScanningSensor(varargin{:});
+            obj@radarfusion.internal.scenario.mixin.DetectionSensor('irEmission');
+            obj.pIsFieldOfViewReadOnly = true;
+            obj.pCanMeasureRange = false;
+            obj.pCanMeasureRangeRate = false;
+            obj.pCanOcclude = true;
+            obj.pCanMaxAllowOcclusion = true;
+        end
+    end
+
+    % --------------
+    % Implementation
+    % --------------
+    methods(Hidden)
+        function flag = isDetectionGenerator(~)
+            % Returns true if device returns detections
+            flag = true;
+        end
+    end
+    
+    methods(Access = protected)
+        
+         function setupImpl(obj,varargin)
+             obj.pHasOcclusion = obj.HasOcclusion;
+             obj.pCanMeasureAngularSize = obj.HasAngularSize;
+             obj.pMaxAllowedOcclusion = obj.MaxAllowedOcclusion;
+
+             setupImpl@fusion.internal.remotesensors.ScanningSensor(obj,varargin{:});
+        end
+
+        function [detections, numDets, config] = stepImpl(obj, varargin)
+
+            [targets, ~, ins, time] = parseSensorInput(obj, varargin{:});
+            
+            [detections, numDets] = initializeDetections(obj);
+            
+            % Update sensor's scan position
+            stepImpl@fusion.internal.remotesensors.ScanningSensor(obj, time);
+            
+            numTgts = numel(targets);
+            isValidTime = isValidUpdateTime(obj, time);
+            if isValidTime && numTgts>0
+                targets = assembleTargets(obj, targets);
+                
+                tgtSensor = generatePointTargets(obj, targets);
+                tgtTruth = computeTruth(obj, tgtSensor);
+                tgtTruth = addViewedSize(obj, targets, tgtTruth, 'irSignature', 'IR');
+                
+                % Compute SNR for each target
+                sensorToPlatformCosine = sph2cart(deg2rad(tgtTruth.Azimuth),deg2rad(tgtTruth.Elevation),1);
+                
+                % Noise equivalent power
+                %   - Dimensional analysis:
+                %       sqrt(m^2 * Hz) / (cm*sqrt(Hz) * (1 m / 100 cm) / W)
+                %       = W
+                %   - Divide "Detectivity" by 1e2 to convert from
+                %   cm-sqrt(Hz)/W to m-sqrt(Hz)/W
+                NEP = sqrt(obj.DetectorArea*obj.NoiseEquivalentBandwidth)/ ...
+                    (obj.Detectivity/1e2);
+                
+                % Effective optical (lens) area
+                opticsArea = obj.LensDiameter^2/4;
+                effArea = opticsArea*sensorToPlatformCosine;
+                
+                % SNR
+                tgtTruth.SNRdB = fusion.internal.UnitConversions.pow2db(effArea./(NEP.*pi.*tgtTruth.Range.^2)) + ...
+                    tgtTruth.SizedB - obj.PointSpreadFactordB;
+                tgtTruth.SNR = fusion.internal.UnitConversions.db2pow(tgtTruth.SNRdB);
+                
+                [meas, covs, snrdB, tgtIDs] = generateDetections(obj, tgtTruth);
+                [measFA, covsFA, snrdBFA, tgtIDsFA] = addFalseAlarms(obj, meas, covs, snrdB, tgtIDs);
+                
+                % Number of detections that will be reported by the sensor
+                numDets = length(tgtIDsFA);
+                if strcmp(obj.MaxNumDetectionsSource, 'Property')
+                    numDets = min(numDets, obj.MaxNumDetections);
+                end
+                
+                % If detections are generated, then transform into the correct
+                % coordinate frame and assemble into objectDetection objects
+                if numDets>0
+                    % If the output size is variable (auto), then allocate
+                    % space for output, otherwise, it has already been
+                    % allocated in the call above to |initializeDetections|
+                    if strcmp(obj.MaxNumDetectionsSource, 'Auto')
+                        detections = repmat(defaultOutput(obj), numDets,1);
+                    end
+                    
+                    % Order detections from largest SNR to weakest
+                    [~,iSrt] = sort(snrdBFA, 'descend');
+                    measFA = measFA(:,iSrt);
+                    covsFA = covsFA(:,:,iSrt);
+                    snrdBFA = snrdBFA(iSrt);
+                    tgtIDsFA = tgtIDsFA(iSrt);
+                    
+                    % Limit number of reported detections to maximum number
+                    % that can be reported by the sensor
+                    measFA = measFA(:,1:numDets);
+                    covsFA = covsFA(:,:,1:numDets);
+                    tgtIDsFA = tgtIDsFA(1:numDets);
+                    snrdBFA = snrdBFA(1:numDets);
+                    
+                    % Transform detections to requested coordinate frame
+                    
+                    % Only the spherical frame can be reported by an
+                    % infrared sensor
+                    measCoords = measFA;
+                    covsCoords = covsFA;
+                    
+                    objClassIDs = classifyByExtent(obj,targets,tgtIDsFA,measCoords,obj.MinClassificationArea);
+                    
+                    % Assemble detections into objectDetection objects
+                    attribs = {'TargetIndex', tgtIDsFA, 'SNR', snrdBFA};
+                    detsAssigned = assembleDetections(obj, ins, time, measCoords, covsCoords, ...
+                        obj.HasElevation, false, false, attribs);
+                    for m = 1:numDets
+                        detections{m} = detsAssigned{m};
+                        detections{m}.ObjectClassID = objClassIDs(m);
+                    end
+                    detections = reshape(detections,[],1);
+                end
+                
+                % Latch current step time
+                obj.pHasFirstUpdate = true;
+                obj.pTimeLastUpdate = time;
+            end
+            
+            scanDone = isValidTime && isScanDone(obj.pScanner);
+            transforms = configTransforms(obj, ins, obj.HasElevation, false, false);
+            config = systemConfig(obj, isValidTime, scanDone, transforms);
+        end
+
+        function flag = isInputSizeMutableImpl(~, ~)
+            flag = true;
+        end
+        
+        function flag = isInputComplexityMutableImpl(~, ~)
+            flag = true;
+        end
+
+    end
+    
+    % -----------------
+    % Sensor definition
+    % -----------------
+    methods(Access = protected)
+        function len = getMeasurementLength(obj)
+            % Length of measurement property for objectDetection objects
+            % returned by the sensor
+            len = getNumMeasDims(obj);
+        end
+        
+        function num = getNumMeasDims(obj)
+            % Number of dimensions measured by sensor
+            
+            num = 1; % Always has azimuth
+            if obj.HasElevation
+                num = num+1;
+            end
+            
+            if obj.HasAngularSize
+                num = 2*num;
+            end
+        end
+    end
+    
+    % --------------------
+    % Detection definition
+    % --------------------
+    methods(Access = protected)
+        function [det, numDets, isValidTime] = defaultOutput(obj)
+            
+            len = getMeasurementLength(obj);
+            attribs = defaultObjectAttributes(obj);
+            ins = struct(...
+                'Position',zeros(1,3),...
+                'Velocity',zeros(1,3),...
+                'Orientation',eye(3));
+            hasRg = false;
+            hasRR = false;
+            det = assembleDetections(obj, ins, zeros(1), zeros(len,1), zeros(len),...
+                obj.HasElevation, hasRg, hasRR, attribs);
+            numDets = zeros(1);
+            isValidTime = false;
+        end
+        
+        function attribs = defaultObjectAttributes(~)
+            attribs = {'TargetIndex', zeros(1), 'SNR', zeros(1)};
+        end
+    end
+    
+    % ----------------------
+    % Measurement statistics
+    % ----------------------
+    methods(Access = protected)
+        function sigma = getAzimuthSigma(obj, snr)
+            % SNR dependent azimuth standard deviation
+            % SNR is linear (not in decibels)
+            
+            % Reference:
+            % M. C. Dudzik, Electro-Optical Systems Design, Analysis, and
+            % Testing: Vol. 4 (p, 43)
+            
+            if strcmpi(obj.ScanMode, 'No scanning')
+                % Eqn (1.122) for staring (noise is just the resolution of a "pixel")
+                fn = 1/sqrt(12);
+            else
+                % Eqn (1.125) applies for scanning (noise is a function of SNR)
+                fn = getAngularResolutionScale(obj)./sqrt(snr)/obj.AzimuthResolution;
+            end
+            fb = obj.AzimuthBiasFraction;
+            sigma = obj.AzimuthResolution*sqrt(fn.^2+fb.^2);
+        end
+        
+        function sigma = getElevationSigma(obj, snr)
+            % SNR dependent elevation standard deviation
+            % SNR is linear (not in decibels)
+            
+            % Reference:
+            % M. C. Dudzik, Electro-Optical Systems Design, Analysis, and
+            % Testing: Vol. 4 (p, 43)
+            
+            if strcmpi(obj.ScanMode, 'No scanning')
+                % Eqn (1.122) for staring (noise is just the resolution of a "pixel")
+                fn = 1/sqrt(12);
+            else
+                % Eqn (1.125) applies for scanning (noise is a function of SNR)
+                fn = getAngularResolutionScale(obj)./sqrt(snr)/obj.ElevationResolution;
+            end
+            fb = obj.ElevationBiasFraction;
+            sigma = obj.ElevationResolution*sqrt(fn.^2+fb.^2);
+        end
+    end
+    methods(Access = private)
+        function val = getAngularResolutionScale(obj)
+            % Reference:
+            % M. C. Dudzik, Electro-Optical Systems Design, Analysis, and
+            % Testing: Vol. 4 (p, 43)
+            
+            % Eqn (1.125) applies for scanning (noise is a function of SNR)
+            fc = obj.CutoffFrequency;
+            val = 3.704/(2*pi*fc);
+        end
+    end
+    
+    % -------------
+    % Save and load
+    % -------------
+    methods(Access = protected)
+        function loadObjectImpl(obj,s,wasLocked)
+            % Set properties in object obj to values in structure s
+
+            % Set perturbation related properties
+            loadPerts(obj,s);
+
+            % Set public properties and states
+            loadObjectImpl@fusion.internal.remotesensors.ScanningSensor(obj,s,wasLocked);
+        end
+
+        function s = saveObjectImpl(obj)
+            % Set properties in structure s to values in object obj
+
+            % Set public properties and states
+            s = saveObjectImpl@fusion.internal.remotesensors.ScanningSensor(obj);
+            
+            % Set perturbation related properties
+            s = savePerts(obj, s);
+        end
+    end
+
+    % ----------------
+    % Display settings
+    % ----------------
+    
+    % General
+    methods(Access = protected)
+        function flag = isInactivePropertyImpl(obj, prop)
+            % Return false if property is visible based on object 
+            % configuration, for the command line and System block dialog
+            if obj.pIsSettingConfig
+                flag = false;
+                return
+            end
+            
+            flag = isInactivePropertyImpl@fusion.internal.remotesensors.ScanningSensor(obj, prop);
+            if flag
+                return
+            end
+            
+            if ~any(obj.HasElevation) && ...
+                    any(strcmp(prop,{'ElevationResolution','ElevationBiasFraction'}))
+                flag = true;
+            end
+            
+            if strcmp(prop,'DetectionCoordinates')
+                flag = true;
+            end
+            
+            if ~obj.HasOcclusion && strcmp(prop,'MaxAllowedOcclusion')
+                flag = true;
+            end
+            
+            if strcmp(prop,'CutoffFrequency') && strcmp(obj.ScanMode,'No scanning')
+                flag = true;
+            end
+        end
+    end
+    
+    % MATLAB specific
+    methods(Access = protected)
+        function shortGroups = getPropertyGroups(obj)
+            longGroups = getPropertyGroupsLongImpl(obj);
+            shortGroups = longGroups(1:4);
+            
+            % Only keep Pd and FAR
+            detGroup = shortGroups(4);
+            detList = detGroup.PropertyList(1:3);
+            detGroup = matlab.mixin.util.PropertyGroup(detList);
+            shortGroups(4) = detGroup;
+        end
+    
+        function groups = getPropertyGroupsLongImpl(obj)
+            groups = irSensor.getPropertyGroupsImpl();
+            groups = obj.convertSystemToMixinGroup(groups);
+        end
+    end
+    
+    % Simulink specific
+    methods(Access = protected, Static)
+        function groups = getPropertyGroupsImpl
+            % Define property section(s) for System block dialog
+            scanningGroups = getPropertyGroupsImpl@fusion.internal.remotesensors.ScanningSensor();
+            
+            mainGroup = scanningGroups(1);
+            mntGroup = scanningGroups(2);
+            limitGroup = scanningGroups(3);
+            hasGroup = scanningGroups(4);
+            detFmtGroup = scanningGroups(5);
+
+            pList = {'LensDiameter','FocalLength','NumDetectors','MinClassificationArea', ...
+                'MaxAllowedOcclusion','CutoffFrequency', 'DetectorArea', ...
+                'Detectivity','NoiseEquivalentBandwidth','FalseAlarmRate'};
+            sensitivityGroup = matlab.system.display.Section('PropertyList',pList);
+            
+            pList = {'AzimuthResolution','ElevationResolution'};
+            resolutionGroup = matlab.system.display.Section('PropertyList',pList);
+            
+            pList = {'AzimuthBiasFraction','ElevationBiasFraction'};
+            biasGroup = matlab.system.display.Section('PropertyList',pList);
+            
+            pList = {'HasElevation','HasAngularSize'};
+            pList = [pList,setdiff(hasGroup.PropertyList,pList),{'HasFalseAlarms','HasOcclusion'}];
+            hasGroup = matlab.system.display.Section('PropertyList',pList);
+            
+            groups = [mainGroup,mntGroup,limitGroup,sensitivityGroup,resolutionGroup,...
+                biasGroup,hasGroup,detFmtGroup];
+        end
+    end
+    
+    % -------------
+    % Perturbations
+    % -------------
+    methods(Access = protected)
+        function perts = defaultPerturbations(~)
+            perturbableProps = {"FocalLength", "MinClassificationArea",...
+                "CutoffFrequency", "DetectorArea", "Detectivity", ...
+                "NoiseEquivalentBandwidth", "FalseAlarmRate", ...
+                "AzimuthBiasFraction", "ElevationBiasFraction"}; %#ok<CLARRSTR>
+            perts = struct(...
+                'Property', perturbableProps, ...
+                'Type', "None", ...
+                'Value', {{NaN, NaN}}...
+                );
+        end
+    end
+
+    % --------
+    % Simulink
+    % --------
+    methods(Static, Hidden)    
+        function flag = isAllowedInSystemBlock
+            flag = false;
+        end
+    end
+end

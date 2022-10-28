@@ -1,0 +1,45 @@
+function [data, info] = getLinkPropertiesResponse
+%GetLinkProperties gives an empty data for gazebo_msgs/GetLinkPropertiesResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'gazebo_msgs/GetLinkPropertiesResponse';
+[data.Com, info.Com] = ros.internal.ros.messages.geometry_msgs.pose;
+info.Com.MLdataType = 'struct';
+[data.GravityMode, info.GravityMode] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.Mass, info.Mass] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Ixx, info.Ixx] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Ixy, info.Ixy] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Ixz, info.Ixz] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Iyy, info.Iyy] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Iyz, info.Iyz] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Izz, info.Izz] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Success, info.Success] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.StatusMessage, info.StatusMessage] = ros.internal.ros.messages.ros.char('string',0);
+info.MessageType = 'gazebo_msgs/GetLinkPropertiesResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,20);
+info.MatPath{1} = 'com';
+info.MatPath{2} = 'com.position';
+info.MatPath{3} = 'com.position.x';
+info.MatPath{4} = 'com.position.y';
+info.MatPath{5} = 'com.position.z';
+info.MatPath{6} = 'com.orientation';
+info.MatPath{7} = 'com.orientation.x';
+info.MatPath{8} = 'com.orientation.y';
+info.MatPath{9} = 'com.orientation.z';
+info.MatPath{10} = 'com.orientation.w';
+info.MatPath{11} = 'gravity_mode';
+info.MatPath{12} = 'mass';
+info.MatPath{13} = 'ixx';
+info.MatPath{14} = 'ixy';
+info.MatPath{15} = 'ixz';
+info.MatPath{16} = 'iyy';
+info.MatPath{17} = 'iyz';
+info.MatPath{18} = 'izz';
+info.MatPath{19} = 'success';
+info.MatPath{20} = 'status_message';

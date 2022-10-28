@@ -1,0 +1,45 @@
+function [data, info] = robotState
+%RobotState gives an empty data for iai_kinematics_msgs/RobotState
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'iai_kinematics_msgs/RobotState';
+[data.JointState, info.JointState] = ros.internal.ros.messages.sensor_msgs.jointState;
+info.JointState.MLdataType = 'struct';
+[data.MultiDofJointState, info.MultiDofJointState] = ros.internal.ros.messages.iai_kinematics_msgs.multiDOFJointState;
+info.MultiDofJointState.MLdataType = 'struct';
+info.MessageType = 'iai_kinematics_msgs/RobotState';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,28);
+info.MatPath{1} = 'joint_state';
+info.MatPath{2} = 'joint_state.header';
+info.MatPath{3} = 'joint_state.header.seq';
+info.MatPath{4} = 'joint_state.header.stamp';
+info.MatPath{5} = 'joint_state.header.stamp.sec';
+info.MatPath{6} = 'joint_state.header.stamp.nsec';
+info.MatPath{7} = 'joint_state.header.frame_id';
+info.MatPath{8} = 'joint_state.name';
+info.MatPath{9} = 'joint_state.position';
+info.MatPath{10} = 'joint_state.velocity';
+info.MatPath{11} = 'joint_state.effort';
+info.MatPath{12} = 'multi_dof_joint_state';
+info.MatPath{13} = 'multi_dof_joint_state.stamp';
+info.MatPath{14} = 'multi_dof_joint_state.stamp.sec';
+info.MatPath{15} = 'multi_dof_joint_state.stamp.nsec';
+info.MatPath{16} = 'multi_dof_joint_state.joint_names';
+info.MatPath{17} = 'multi_dof_joint_state.frame_ids';
+info.MatPath{18} = 'multi_dof_joint_state.child_frame_ids';
+info.MatPath{19} = 'multi_dof_joint_state.poses';
+info.MatPath{20} = 'multi_dof_joint_state.poses.position';
+info.MatPath{21} = 'multi_dof_joint_state.poses.position.x';
+info.MatPath{22} = 'multi_dof_joint_state.poses.position.y';
+info.MatPath{23} = 'multi_dof_joint_state.poses.position.z';
+info.MatPath{24} = 'multi_dof_joint_state.poses.orientation';
+info.MatPath{25} = 'multi_dof_joint_state.poses.orientation.x';
+info.MatPath{26} = 'multi_dof_joint_state.poses.orientation.y';
+info.MatPath{27} = 'multi_dof_joint_state.poses.orientation.z';
+info.MatPath{28} = 'multi_dof_joint_state.poses.orientation.w';

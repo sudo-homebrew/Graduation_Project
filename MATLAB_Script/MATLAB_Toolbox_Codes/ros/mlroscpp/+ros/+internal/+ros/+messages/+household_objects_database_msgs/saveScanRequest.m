@@ -1,0 +1,40 @@
+function [data, info] = saveScanRequest
+%SaveScan gives an empty data for household_objects_database_msgs/SaveScanRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'household_objects_database_msgs/SaveScanRequest';
+[data.ScaledModelId, info.ScaledModelId] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.GroundTruthPose, info.GroundTruthPose] = ros.internal.ros.messages.geometry_msgs.poseStamped;
+info.GroundTruthPose.MLdataType = 'struct';
+[data.BagfileLocation, info.BagfileLocation] = ros.internal.ros.messages.ros.char('string',0);
+[data.ScanSource, info.ScanSource] = ros.internal.ros.messages.ros.char('string',0);
+[data.CloudTopic, info.CloudTopic] = ros.internal.ros.messages.ros.char('string',0);
+info.MessageType = 'household_objects_database_msgs/SaveScanRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,21);
+info.MatPath{1} = 'scaled_model_id';
+info.MatPath{2} = 'ground_truth_pose';
+info.MatPath{3} = 'ground_truth_pose.header';
+info.MatPath{4} = 'ground_truth_pose.header.seq';
+info.MatPath{5} = 'ground_truth_pose.header.stamp';
+info.MatPath{6} = 'ground_truth_pose.header.stamp.sec';
+info.MatPath{7} = 'ground_truth_pose.header.stamp.nsec';
+info.MatPath{8} = 'ground_truth_pose.header.frame_id';
+info.MatPath{9} = 'ground_truth_pose.pose';
+info.MatPath{10} = 'ground_truth_pose.pose.position';
+info.MatPath{11} = 'ground_truth_pose.pose.position.x';
+info.MatPath{12} = 'ground_truth_pose.pose.position.y';
+info.MatPath{13} = 'ground_truth_pose.pose.position.z';
+info.MatPath{14} = 'ground_truth_pose.pose.orientation';
+info.MatPath{15} = 'ground_truth_pose.pose.orientation.x';
+info.MatPath{16} = 'ground_truth_pose.pose.orientation.y';
+info.MatPath{17} = 'ground_truth_pose.pose.orientation.z';
+info.MatPath{18} = 'ground_truth_pose.pose.orientation.w';
+info.MatPath{19} = 'bagfile_location';
+info.MatPath{20} = 'scan_source';
+info.MatPath{21} = 'cloud_topic';

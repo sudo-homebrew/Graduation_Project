@@ -1,0 +1,46 @@
+function [data, info] = elevatorStatus
+%ElevatorStatus gives an empty data for robotnik_msgs/ElevatorStatus
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'robotnik_msgs/ElevatorStatus';
+[data.RAISING, info.RAISING] = ros.internal.ros.messages.ros.char('string',0);
+[data.RAISING, info.RAISING] = ros.internal.ros.messages.ros.char('string',1,'raising');
+[data.LOWERING, info.LOWERING] = ros.internal.ros.messages.ros.char('string',0);
+[data.LOWERING, info.LOWERING] = ros.internal.ros.messages.ros.char('string',1,'lowering');
+[data.IDLE, info.IDLE] = ros.internal.ros.messages.ros.char('string',0);
+[data.IDLE, info.IDLE] = ros.internal.ros.messages.ros.char('string',1,'idle');
+[data.ERRORGIO, info.ERRORGIO] = ros.internal.ros.messages.ros.char('string',0);
+[data.ERRORGIO, info.ERRORGIO] = ros.internal.ros.messages.ros.char('string',1,'error_getting_io');
+[data.ERRORSIO, info.ERRORSIO] = ros.internal.ros.messages.ros.char('string',0);
+[data.ERRORSIO, info.ERRORSIO] = ros.internal.ros.messages.ros.char('string',1,'error_setting_io');
+[data.ERRORTIMEOUT, info.ERRORTIMEOUT] = ros.internal.ros.messages.ros.char('string',0);
+[data.ERRORTIMEOUT, info.ERRORTIMEOUT] = ros.internal.ros.messages.ros.char('string',1,'error_timeout_in_action');
+[data.UP, info.UP] = ros.internal.ros.messages.ros.char('string',0);
+[data.UP, info.UP] = ros.internal.ros.messages.ros.char('string',1,'up');
+[data.DOWN, info.DOWN] = ros.internal.ros.messages.ros.char('string',0);
+[data.DOWN, info.DOWN] = ros.internal.ros.messages.ros.char('string',1,'down');
+[data.UNKNOWN, info.UNKNOWN] = ros.internal.ros.messages.ros.char('string',0);
+[data.UNKNOWN, info.UNKNOWN] = ros.internal.ros.messages.ros.char('string',1,'unknown');
+[data.State, info.State] = ros.internal.ros.messages.ros.char('string',0);
+[data.Position, info.Position] = ros.internal.ros.messages.ros.char('string',0);
+[data.Height, info.Height] = ros.internal.ros.messages.ros.default_type('single',1);
+info.MessageType = 'robotnik_msgs/ElevatorStatus';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,12);
+info.MatPath{1} = 'RAISING';
+info.MatPath{2} = 'LOWERING';
+info.MatPath{3} = 'IDLE';
+info.MatPath{4} = 'ERROR_G_IO';
+info.MatPath{5} = 'ERROR_S_IO';
+info.MatPath{6} = 'ERROR_TIMEOUT';
+info.MatPath{7} = 'UP';
+info.MatPath{8} = 'DOWN';
+info.MatPath{9} = 'UNKNOWN';
+info.MatPath{10} = 'state';
+info.MatPath{11} = 'position';
+info.MatPath{12} = 'height';

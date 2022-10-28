@@ -1,0 +1,40 @@
+function [data, info] = rttestResults
+%RttestResults gives an empty data for pendulum_msgs/RttestResults
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'pendulum_msgs/RttestResults';
+[data.stamp, info.stamp] = ros.internal.ros2.messages.builtin_interfaces.time;
+info.stamp.MLdataType = 'struct';
+[data.command, info.command] = ros.internal.ros2.messages.pendulum_msgs.jointCommand;
+info.command.MLdataType = 'struct';
+[data.state, info.state] = ros.internal.ros2.messages.pendulum_msgs.jointState;
+info.state.MLdataType = 'struct';
+[data.cur_latency, info.cur_latency] = ros.internal.ros2.messages.ros2.default_type('uint64',1,0);
+[data.mean_latency, info.mean_latency] = ros.internal.ros2.messages.ros2.default_type('double',1,0);
+[data.min_latency, info.min_latency] = ros.internal.ros2.messages.ros2.default_type('uint64',1,0);
+[data.max_latency, info.max_latency] = ros.internal.ros2.messages.ros2.default_type('uint64',1,0);
+[data.minor_pagefaults, info.minor_pagefaults] = ros.internal.ros2.messages.ros2.default_type('uint64',1,0);
+[data.major_pagefaults, info.major_pagefaults] = ros.internal.ros2.messages.ros2.default_type('uint64',1,0);
+info.MessageType = 'pendulum_msgs/RttestResults';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'stamp';
+info.MatPath{2} = 'stamp.sec';
+info.MatPath{3} = 'stamp.nanosec';
+info.MatPath{4} = 'command';
+info.MatPath{5} = 'command.position';
+info.MatPath{6} = 'state';
+info.MatPath{7} = 'state.position';
+info.MatPath{8} = 'state.velocity';
+info.MatPath{9} = 'state.effort';
+info.MatPath{10} = 'cur_latency';
+info.MatPath{11} = 'mean_latency';
+info.MatPath{12} = 'min_latency';
+info.MatPath{13} = 'max_latency';
+info.MatPath{14} = 'minor_pagefaults';
+info.MatPath{15} = 'major_pagefaults';

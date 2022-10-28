@@ -1,0 +1,53 @@
+{% if (false) %}
+// Copyright 2021-2022 The MathWorks, Inc.
+{% endif %}
+
+{% var mlCoderVer = ver('matlabcoder') %}
+//
+// File main.cpp
+//
+// Code generated for MATLAB function '{%ModelName%}'.
+//
+// MATLAB Coder version         : {% [mlCoderVer.Version, ' ', mlCoderVer.Release, ' ', mlCoderVer.Date] %}
+// C/C++ source code generated on : {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %}
+//
+
+#include <thread>
+#include <vector>
+#include "rclcpp/rclcpp.hpp"
+#include "{%ModelName%}.h"
+rclcpp::Node::SharedPtr gNodePtr;
+rclcpp::executors::MultiThreadedExecutor::SharedPtr gMultiExec;
+bool threadTerminating = false;
+
+void threadFunction(void)
+{
+    try {
+        {%ModelName%}();
+    } catch (std::runtime_error e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    } catch (...) {
+        std::cout << "Caught unknown exception, terminating the program." << std::endl;
+    }
+    gMultiExec->cancel();
+    gMultiExec->remove_node(gNodePtr);
+    threadTerminating = true;
+    rclcpp::shutdown();
+}
+
+int main(int argc, char * const argv[])
+{
+    std::vector<char *> args(argv, argv + argc);
+    char log_disable_rosout[] = "__log_disable_rosout:=true";
+    args.push_back(log_disable_rosout);
+    rclcpp::init(static_cast<int>(args.size()), args.data());
+    gNodePtr = std::make_shared<rclcpp::Node>("{%NodeName%}","{%Namespace%}");
+    gMultiExec = std::make_shared<rclcpp::executors::MultiThreadedExecutor>();
+    gMultiExec->add_node(gNodePtr);
+    std::thread threadObj(threadFunction);
+    gMultiExec->spin();
+    if (threadTerminating) {
+    threadObj.join();
+    }
+    return 0;
+}

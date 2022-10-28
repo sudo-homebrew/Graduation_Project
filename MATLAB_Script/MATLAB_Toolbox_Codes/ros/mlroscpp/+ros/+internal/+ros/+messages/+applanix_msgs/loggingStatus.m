@@ -1,0 +1,39 @@
+function [data, info] = loggingStatus
+%LoggingStatus gives an empty data for applanix_msgs/LoggingStatus
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'applanix_msgs/LoggingStatus';
+[data.Td, info.Td] = ros.internal.ros.messages.applanix_msgs.timeDistance;
+info.Td.MLdataType = 'struct';
+[data.DiskKbRemaining, info.DiskKbRemaining] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.DiskKbLogged, info.DiskKbLogged] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.DiskTimeRemaining, info.DiskTimeRemaining] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.DiskKbTotal, info.DiskKbTotal] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.STATESTANDBY, info.STATESTANDBY] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.STATELOGGING, info.STATELOGGING] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.STATEBUFFERING, info.STATEBUFFERING] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.STATEINVALID, info.STATEINVALID] = ros.internal.ros.messages.ros.default_type('uint8',1, 255);
+[data.State, info.State] = ros.internal.ros.messages.ros.default_type('uint8',1);
+info.MessageType = 'applanix_msgs/LoggingStatus';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'td';
+info.MatPath{2} = 'td.time1';
+info.MatPath{3} = 'td.time2';
+info.MatPath{4} = 'td.distance';
+info.MatPath{5} = 'td.time_types';
+info.MatPath{6} = 'td.distance_type';
+info.MatPath{7} = 'disk_kb_remaining';
+info.MatPath{8} = 'disk_kb_logged';
+info.MatPath{9} = 'disk_time_remaining';
+info.MatPath{10} = 'disk_kb_total';
+info.MatPath{11} = 'STATE_STANDBY';
+info.MatPath{12} = 'STATE_LOGGING';
+info.MatPath{13} = 'STATE_BUFFERING';
+info.MatPath{14} = 'STATE_INVALID';
+info.MatPath{15} = 'state';

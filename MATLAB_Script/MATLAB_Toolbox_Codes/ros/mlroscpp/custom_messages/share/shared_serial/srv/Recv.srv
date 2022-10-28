@@ -1,0 +1,22 @@
+# Receive data from serial port.
+
+# Either 0 (connectionless) or an unexpired socket identifier
+# from an earlier communication.
+uint32  socket
+
+# Number of bytes to receive.
+uint32  length
+
+# Number of seconds to wait for data.
+float32 recv_timeout
+
+# Number of seconds to keep the port locked after this communication.
+float32 sock_timeout
+
+---
+
+# Socket identifier for further communications.
+uint32  socket
+
+# Received data.
+uint8[] data

@@ -1,0 +1,47 @@
+function [data, info] = rC
+%RC gives an empty data for hector_uav_msgs/RC
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'hector_uav_msgs/RC';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.ROLL, info.ROLL] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.PITCH, info.PITCH] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.YAW, info.YAW] = ros.internal.ros.messages.ros.default_type('uint8',1, 3);
+[data.STEER, info.STEER] = ros.internal.ros.messages.ros.default_type('uint8',1, 4);
+[data.HEIGHT, info.HEIGHT] = ros.internal.ros.messages.ros.default_type('uint8',1, 5);
+[data.THRUST, info.THRUST] = ros.internal.ros.messages.ros.default_type('uint8',1, 6);
+[data.BRAKE, info.BRAKE] = ros.internal.ros.messages.ros.default_type('uint8',1, 7);
+[data.Status, info.Status] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.Valid, info.Valid] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.Axis, info.Axis] = ros.internal.ros.messages.ros.default_type('single',NaN);
+[data.AxisFunction, info.AxisFunction] = ros.internal.ros.messages.ros.default_type('uint8',NaN);
+[data.Swit, info.Swit] = ros.internal.ros.messages.ros.default_type('int8',NaN);
+[data.SwitFunction, info.SwitFunction] = ros.internal.ros.messages.ros.default_type('uint8',NaN);
+info.MessageType = 'hector_uav_msgs/RC';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,19);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'ROLL';
+info.MatPath{8} = 'PITCH';
+info.MatPath{9} = 'YAW';
+info.MatPath{10} = 'STEER';
+info.MatPath{11} = 'HEIGHT';
+info.MatPath{12} = 'THRUST';
+info.MatPath{13} = 'BRAKE';
+info.MatPath{14} = 'status';
+info.MatPath{15} = 'valid';
+info.MatPath{16} = 'axis';
+info.MatPath{17} = 'axis_function';
+info.MatPath{18} = 'swit';
+info.MatPath{19} = 'swit_function';

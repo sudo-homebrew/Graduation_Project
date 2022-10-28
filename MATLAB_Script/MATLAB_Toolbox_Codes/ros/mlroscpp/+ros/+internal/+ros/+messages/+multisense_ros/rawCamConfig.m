@@ -1,0 +1,43 @@
+function [data, info] = rawCamConfig
+%RawCamConfig gives an empty data for multisense_ros/RawCamConfig
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'multisense_ros/RawCamConfig';
+[data.Width, info.Width] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.Height, info.Height] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.FramesPerSecond, info.FramesPerSecond] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Gain, info.Gain] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.ExposureTime, info.ExposureTime] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.Fx, info.Fx] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Fy, info.Fy] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Cx, info.Cx] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Cy, info.Cy] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Tx, info.Tx] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Ty, info.Ty] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Tz, info.Tz] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Roll, info.Roll] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Pitch, info.Pitch] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Yaw, info.Yaw] = ros.internal.ros.messages.ros.default_type('single',1);
+info.MessageType = 'multisense_ros/RawCamConfig';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'width';
+info.MatPath{2} = 'height';
+info.MatPath{3} = 'frames_per_second';
+info.MatPath{4} = 'gain';
+info.MatPath{5} = 'exposure_time';
+info.MatPath{6} = 'fx';
+info.MatPath{7} = 'fy';
+info.MatPath{8} = 'cx';
+info.MatPath{9} = 'cy';
+info.MatPath{10} = 'tx';
+info.MatPath{11} = 'ty';
+info.MatPath{12} = 'tz';
+info.MatPath{13} = 'roll';
+info.MatPath{14} = 'pitch';
+info.MatPath{15} = 'yaw';

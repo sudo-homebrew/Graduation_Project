@@ -1,0 +1,39 @@
+function [data, info] = detectWallResponse
+%DetectWall gives an empty data for stereo_wall_detection/DetectWallResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'stereo_wall_detection/DetectWallResponse';
+[data.WallPoint, info.WallPoint] = ros.internal.ros.messages.geometry_msgs.pointStamped;
+info.WallPoint.MLdataType = 'struct';
+[data.WallNorm, info.WallNorm] = ros.internal.ros.messages.geometry_msgs.vector3Stamped;
+info.WallNorm.MLdataType = 'struct';
+info.MessageType = 'stereo_wall_detection/DetectWallResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,22);
+info.MatPath{1} = 'wall_point';
+info.MatPath{2} = 'wall_point.header';
+info.MatPath{3} = 'wall_point.header.seq';
+info.MatPath{4} = 'wall_point.header.stamp';
+info.MatPath{5} = 'wall_point.header.stamp.sec';
+info.MatPath{6} = 'wall_point.header.stamp.nsec';
+info.MatPath{7} = 'wall_point.header.frame_id';
+info.MatPath{8} = 'wall_point.point';
+info.MatPath{9} = 'wall_point.point.x';
+info.MatPath{10} = 'wall_point.point.y';
+info.MatPath{11} = 'wall_point.point.z';
+info.MatPath{12} = 'wall_norm';
+info.MatPath{13} = 'wall_norm.header';
+info.MatPath{14} = 'wall_norm.header.seq';
+info.MatPath{15} = 'wall_norm.header.stamp';
+info.MatPath{16} = 'wall_norm.header.stamp.sec';
+info.MatPath{17} = 'wall_norm.header.stamp.nsec';
+info.MatPath{18} = 'wall_norm.header.frame_id';
+info.MatPath{19} = 'wall_norm.vector';
+info.MatPath{20} = 'wall_norm.vector.x';
+info.MatPath{21} = 'wall_norm.vector.y';
+info.MatPath{22} = 'wall_norm.vector.z';

@@ -1,0 +1,13 @@
+function invalidServiceTypes = getServiceTypesWithCppKeyword
+%getServiceTypesWithCppKeyword returns service types which has
+%   C++ keyword.
+
+%   Copyright 2020 The MathWorks, Inc.
+
+invalidServiceTypes = {'app_manager/StartApp', 'multimaster_msgs_fkie/ListDescription', ...
+    'rocon_interaction_msgs/GetInteraction', 'rocon_interaction_msgs/GetInteractions', ...
+    'rocon_interaction_msgs/RequestInteraction', 'rocon_interaction_msgs/SetInteractions', ...
+    'rosapi/GetParam', 'rosbridge_library/TestArrayRequest', 'rosbridge_library/TestMultipleRequestFields', ...
+    'rosbridge_library/TestMultipleResponseFields'};
+    
+end

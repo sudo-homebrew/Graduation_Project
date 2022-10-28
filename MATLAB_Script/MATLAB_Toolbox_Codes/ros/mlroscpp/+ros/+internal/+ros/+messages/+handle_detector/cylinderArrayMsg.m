@@ -1,0 +1,47 @@
+function [data, info] = cylinderArrayMsg
+%CylinderArrayMsg gives an empty data for handle_detector/CylinderArrayMsg
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'handle_detector/CylinderArrayMsg';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Cylinders, info.Cylinders] = ros.internal.ros.messages.handle_detector.cylinderMsg;
+info.Cylinders.MLdataType = 'struct';
+info.Cylinders.MaxLen = NaN;
+info.Cylinders.MinLen = 0;
+data.Cylinders = data.Cylinders([],1);
+info.MessageType = 'handle_detector/CylinderArrayMsg';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,27);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'cylinders';
+info.MatPath{8} = 'cylinders.pose';
+info.MatPath{9} = 'cylinders.pose.position';
+info.MatPath{10} = 'cylinders.pose.position.x';
+info.MatPath{11} = 'cylinders.pose.position.y';
+info.MatPath{12} = 'cylinders.pose.position.z';
+info.MatPath{13} = 'cylinders.pose.orientation';
+info.MatPath{14} = 'cylinders.pose.orientation.x';
+info.MatPath{15} = 'cylinders.pose.orientation.y';
+info.MatPath{16} = 'cylinders.pose.orientation.z';
+info.MatPath{17} = 'cylinders.pose.orientation.w';
+info.MatPath{18} = 'cylinders.radius';
+info.MatPath{19} = 'cylinders.extent';
+info.MatPath{20} = 'cylinders.axis';
+info.MatPath{21} = 'cylinders.axis.x';
+info.MatPath{22} = 'cylinders.axis.y';
+info.MatPath{23} = 'cylinders.axis.z';
+info.MatPath{24} = 'cylinders.normal';
+info.MatPath{25} = 'cylinders.normal.x';
+info.MatPath{26} = 'cylinders.normal.y';
+info.MatPath{27} = 'cylinders.normal.z';

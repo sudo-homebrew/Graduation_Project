@@ -1,0 +1,44 @@
+function [data, info] = imageAndPoints
+%ImageAndPoints gives an empty data for visp_camera_calibration/ImageAndPoints
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'visp_camera_calibration/ImageAndPoints';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Image, info.Image] = ros.internal.ros.messages.sensor_msgs.image;
+info.Image.MLdataType = 'struct';
+[data.Points, info.Points] = ros.internal.ros.messages.visp_camera_calibration.imagePoint;
+info.Points.MLdataType = 'struct';
+info.Points.MaxLen = NaN;
+info.Points.MinLen = 0;
+data.Points = data.Points([],1);
+info.MessageType = 'visp_camera_calibration/ImageAndPoints';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,22);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'image';
+info.MatPath{8} = 'image.header';
+info.MatPath{9} = 'image.header.seq';
+info.MatPath{10} = 'image.header.stamp';
+info.MatPath{11} = 'image.header.stamp.sec';
+info.MatPath{12} = 'image.header.stamp.nsec';
+info.MatPath{13} = 'image.header.frame_id';
+info.MatPath{14} = 'image.height';
+info.MatPath{15} = 'image.width';
+info.MatPath{16} = 'image.encoding';
+info.MatPath{17} = 'image.is_bigendian';
+info.MatPath{18} = 'image.step';
+info.MatPath{19} = 'image.data';
+info.MatPath{20} = 'points';
+info.MatPath{21} = 'points.x';
+info.MatPath{22} = 'points.y';

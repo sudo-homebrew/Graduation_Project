@@ -1,0 +1,39 @@
+function [data, info] = navdata_vision_perf
+%navdata_vision_perf gives an empty data for ardrone_autonomy/navdata_vision_perf
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'ardrone_autonomy/navdata_vision_perf';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.DroneTime, info.DroneTime] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Tag, info.Tag] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.Size, info.Size] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.TimeCorners, info.TimeCorners] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.TimeCompute, info.TimeCompute] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.TimeTracking, info.TimeTracking] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.TimeTrans, info.TimeTrans] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.TimeUpdate, info.TimeUpdate] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.TimeCustom, info.TimeCustom] = ros.internal.ros.messages.ros.default_type('single',NaN);
+info.MessageType = 'ardrone_autonomy/navdata_vision_perf';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'drone_time';
+info.MatPath{8} = 'tag';
+info.MatPath{9} = 'size';
+info.MatPath{10} = 'time_corners';
+info.MatPath{11} = 'time_compute';
+info.MatPath{12} = 'time_tracking';
+info.MatPath{13} = 'time_trans';
+info.MatPath{14} = 'time_update';
+info.MatPath{15} = 'time_custom';

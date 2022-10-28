@@ -1,0 +1,42 @@
+function [data, info] = getBoundedMapResponse
+%GetBoundedMap gives an empty data for ethzasl_icp_mapper/GetBoundedMapResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'ethzasl_icp_mapper/GetBoundedMapResponse';
+[data.BoundedMap, info.BoundedMap] = ros.internal.ros.messages.sensor_msgs.pointCloud2;
+info.BoundedMap.MLdataType = 'struct';
+info.MessageType = 'ethzasl_icp_mapper/GetBoundedMapResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,27);
+info.MatPath{1} = 'boundedMap';
+info.MatPath{2} = 'boundedMap.header';
+info.MatPath{3} = 'boundedMap.header.seq';
+info.MatPath{4} = 'boundedMap.header.stamp';
+info.MatPath{5} = 'boundedMap.header.stamp.sec';
+info.MatPath{6} = 'boundedMap.header.stamp.nsec';
+info.MatPath{7} = 'boundedMap.header.frame_id';
+info.MatPath{8} = 'boundedMap.height';
+info.MatPath{9} = 'boundedMap.width';
+info.MatPath{10} = 'boundedMap.fields';
+info.MatPath{11} = 'boundedMap.fields.INT8';
+info.MatPath{12} = 'boundedMap.fields.UINT8';
+info.MatPath{13} = 'boundedMap.fields.INT16';
+info.MatPath{14} = 'boundedMap.fields.UINT16';
+info.MatPath{15} = 'boundedMap.fields.INT32';
+info.MatPath{16} = 'boundedMap.fields.UINT32';
+info.MatPath{17} = 'boundedMap.fields.FLOAT32';
+info.MatPath{18} = 'boundedMap.fields.FLOAT64';
+info.MatPath{19} = 'boundedMap.fields.name';
+info.MatPath{20} = 'boundedMap.fields.offset';
+info.MatPath{21} = 'boundedMap.fields.datatype';
+info.MatPath{22} = 'boundedMap.fields.count';
+info.MatPath{23} = 'boundedMap.is_bigendian';
+info.MatPath{24} = 'boundedMap.point_step';
+info.MatPath{25} = 'boundedMap.row_step';
+info.MatPath{26} = 'boundedMap.data';
+info.MatPath{27} = 'boundedMap.is_dense';

@@ -1,0 +1,6 @@
+# In this file I define the service which sends an order to move in
+# cycle beteween given positions
+
+float64 pose_top #position in radians
+float64 pose_bottom #position in radians
+---

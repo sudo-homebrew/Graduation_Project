@@ -1,0 +1,301 @@
+{% if (false) %}
+/* Copyright 2020-2022 The MathWorks, Inc. */
+{% endif %}
+
+{% var mlCoderVer = ver('matlabcoder') %}
+//
+// File mlroscpp_msgconvert_utils.h
+//
+// Code generated for MATLAB function '{%NodeName%}'.
+//
+// MATLAB Coder version         : {% [mlCoderVer.Version, ' ', mlCoderVer.Release, ' ', mlCoderVer.Date] %}
+// C/C++ source code generated on : {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %}
+
+
+#ifndef _MLROSCPP_MSGCONVERT_UTILS_H_
+#define _MLROSCPP_MSGCONVERT_UTILS_H_
+
+#include "{%NodeName%}_types.h"
+#include <algorithm>
+
+/**
+ * Convert data in a ROS C++ array message property to an array of struct property.
+ *
+ * This is a template specialization that requires the "structPtr" input to
+ * be passed as a reference to an array. If "structPtr" points to a scalar,
+ * see the other template specialization.
+ *
+ * @param[in] msgProp Array property in roscpp message
+ * @param[in,out] structPtr Array property in Simulink bus
+ * @param[in] idx Index in array to convert
+ */
+template <typename type, typename MsgType, size_t N>
+inline void convertToStructInNested(const MsgType& msgProp, type (&structPtr)[N], int idx) {
+    {% if strcmp(ROSVer,'ros') %}
+        msg2struct(&structPtr[idx],&msgProp[idx]);
+    {% endif %}
+    {% if strcmp(ROSVer,'ros2') %}
+        msg2struct(&structPtr[idx],msgProp[idx]);
+    {% endif %}
+}
+
+/**
+ * Convert data in a ROS C++ array message property to a scalar struct property.
+ *
+ * This is a template specialization that requires the "structPtr" input to
+ * be passed as a reference to a scalar value. If "structPtr" points to an array,
+ * see the other template specialization.
+ *
+ * @param[in] msgProp Array property in roscpp message
+ * @param[in,out] structPtr Scalar property in Simulink bus
+ * @param[in] idx Index in array to convert
+ */
+template <typename type, typename MsgType>
+inline void convertToStructInNested(const MsgType& msgProp, type& structPtr, int idx) {
+    {% if strcmp(ROSVer,'ros') %}
+        msg2struct(&structPtr,&msgProp[idx]);
+    {% endif %}
+    {% if strcmp(ROSVer,'ros2') %}
+        msg2struct(&structPtr,msgProp[idx]);
+    {% endif %}
+}
+
+/**
+ * Convert data in an array of struct property to a ROS C++ array message property
+ *
+ * This is a template specialization that requires the "structPtr" input to
+ * be passed as a reference to an array. If "structPtr" points to a scalar,
+ * see the other template specialization.
+ *
+ * @param[in] structPtr Array property in Simulink bus
+ * @param[in,out] msgProp Array property in roscpp message
+ * @param[in] idx Index in array to convert
+ */
+template <typename type, typename MsgType, size_t N>
+inline void convertFromStructInNested(const type(&structPtr)[N], MsgType& msgProp, int idx) {
+    {% if strcmp(ROSVer,'ros') %}
+        struct2msg(&msgProp[idx],&structPtr[idx]);
+    {% endif %}
+    {% if strcmp(ROSVer,'ros2') %}
+        struct2msg(msgProp[idx],&structPtr[idx]);
+    {% endif %}
+}
+
+/**
+ * Convert data in a scalar struct property to an ROS C++ array message property
+ *
+ * This is a template specialization that requires the "structPtr" input to
+ * be passed as a reference to a scalar value. If "structPtr" points to an array,
+ * see the other template specialization.
+ *
+ * @param[in] structPtr Scalar property in Simulink bus
+ * @param[in,out] msgProp Array property in roscpp message
+ * @param[in] idx Index in array to convert
+ */
+template <typename type, typename MsgType>
+inline void convertFromStructInNested(const type& structPtr, MsgType& msgProp, int idx) {
+    {% if strcmp(ROSVer,'ros') %}
+        struct2msg(&msgProp[idx],&structPtr);
+    {% endif %}
+    {% if strcmp(ROSVer,'ros2') %}
+        struct2msg(msgProp[idx],&structPtr);
+    {% endif %}
+}
+
+
+/**
+ * Copy data from an scalar in ROS C++ message property to a primitive scalar 
+ * For e.g., std::array<double, 1> msgPtr --> double structPtr [1]
+ *
+ * @param[in] msgPtr Array property in ROS C++ message
+ * @param[in,out] structPtr primitive array in MATLAB passed by reference
+ */
+template <typename MsgType, typename type>
+void convertToStructPrimitiveArray(type &structPtr, const MsgType& msgPtr) {
+    std::copy(msgPtr.begin(), msgPtr.end(), &structPtr);
+}
+
+/**
+ * Copy data from an array in ROS C++ message property to a primitive array
+ * For e.g., mwboost::array<double, 100> msgPtr --> double structPtr [100]
+ *
+ * @param[in] msgPtr Array property in ROS C++ message
+ * @param[in,out] structPtr primitive array in MATLAB passed by reference
+ */
+template <typename MsgType, typename type, int N>
+void convertToStructPrimitiveArray(type (&structPtr)[N], const MsgType& msgPtr) {
+    std::copy(msgPtr.begin(), msgPtr.end(), std::begin(structPtr));
+}
+
+/**
+ * Copy data from a primitive scalar in MATLAB to a scalar in ROS C++ message 
+ * property. For e.g., double structPtr[1] --> std::array<double, 1> msgPtr
+ *
+ * @param[in] structPtr primitive array in MATLAB passed by reference
+ * @param[in,out] msgPtr Array property in ROS C++ message
+ */
+template <typename MsgType, typename type>
+void convertFromStructPrimitiveArray(MsgType& msgPtr, const type &structPtr) {
+    size_t numItems = msgPtr.size();
+    std::copy(&structPtr, &structPtr + numItems, msgPtr.begin());
+}
+
+/**
+ * Copy data from a primitive array in MATLAB to an array in ROS C++ message 
+ * property. For e.g., double structPtr[100] --> std::array/vector<double, 100> msgPtr
+ *
+ * @param[in] structPtr primitive array in MATLAB passed by reference
+ * @param[in,out] msgPtr Array property in ROS C++ message
+ */
+template <typename MsgType, typename type, int N>
+void convertFromStructPrimitiveArray(MsgType& msgPtr, const type (&structPtr)[N]) {
+    std::copy(std::begin(structPtr), std::end(structPtr), msgPtr.begin());
+}
+
+/**
+ * Copy data from a ROS C++ scalar nested message property to
+ * to scalar nested MATLAB struct message type
+ *
+ * @param[in] msgPtr array property in ROS C++ message (of type std::vector)
+ * @param[in,out] structPtr coder::array property in MATLAB Structure 
+ */
+template <typename MsgType, typename type>
+void convertToStructNestedArray(type &structPtr, const MsgType& msgPtr) {
+    std::size_t  len = msgPtr.size();
+    for (std::size_t k = 0; k < len; k++) {
+        convertToStructInNested(msgPtr,structPtr,k);
+    }
+}
+
+/**
+ * 
+ * Copy data from a MATLAB struct array property to an array
+ * ROS C++ message property 
+ *
+ * @param[in] structPtr coder::array property in MATLAB Structure 
+ * @param[in,out] msgPtr array property in ROS C++ message (of type std::vector)
+ */
+template <typename MsgType, typename type>
+void convertFromStructNestedArray(MsgType& msgPtr, const type &structPtr) {
+    std::size_t len = msgPtr.size();
+    for (std::size_t k = 0; k < len; k++) {
+        convertFromStructInNested(structPtr,msgPtr,k);
+    }    
+}
+
+
+{% if HasCoderArray %}
+/**
+ * Copy data from an array ROS C++ message property to a coder::array MATLAB struct property.
+ *
+ * @param[in] msgPtr Array property in ROS C++ message
+ * @param[in,out] structPtr coder::array property in MATLAB Structure passed by reference
+ */
+template <typename MsgType, typename type, int size>
+void convertToStructPrimitiveArray(coder::array<type, size> &structPtr, const MsgType& msgPtr) {
+    structPtr.set_size(1, msgPtr.size());
+    std::copy(msgPtr.begin(), msgPtr.end(), structPtr.begin());
+}
+/**
+ * Template specialization for coder::array<Type, 1> size
+ * Copy data from an array ROS C++ message property to a coder::array MATLAB struct property.
+ *
+ * @param[in] msgPtr Array property in ROS C++ message
+ * @param[in,out] structPtr coder::array property in MATLAB Structure passed by reference
+ */
+template <typename MsgType, typename type>
+void convertToStructPrimitiveArray(coder::array<type, 1> &structPtr, const MsgType& msgPtr) {
+    structPtr.set_size(msgPtr.size());
+    std::copy(msgPtr.begin(), msgPtr.end(), structPtr.begin());
+}
+
+
+/**
+ * Copy data from coder::array MATLAB struct property to an array ROS C++ message property.
+ *
+ * @param[in] coder::array property in MATLAB Structure passed by reference
+ * @param[in,out] msgPtr Array property in ROS C++ message 
+ */
+template <typename MsgType, typename type, int size>
+void convertFromStructPrimitiveArray(MsgType& msgPtr, const coder::array<type, size> &structPtr) {
+    msgPtr.resize(structPtr.numel());
+    std::copy(structPtr.begin(), structPtr.end(), msgPtr.begin());
+}
+
+/**
+ * Utility function to convert strings in a string array from a roscpp
+ * message to coder::array MATLAB structure member. 
+ *
+ * @param[in] msgPtr String array property in ROS C++ message
+ * @param[in,out] structPtr coder::array property in MATLAB Structure 
+ */
+template <typename MsgType, typename type, int size>
+void convertToStructStringArray(coder::array<type, size> &structPtr, const MsgType& msgPtr) {
+    std::size_t numStrings = msgPtr.size();
+    structPtr.set_size(1, numStrings);
+    for (std::size_t k=0; k < numStrings; k++) {
+        convertToStructPrimitiveArray(structPtr[k], msgPtr[k]);
+    }
+}
+
+/**
+ * Utility function to convert strings in a coder::array MATLAB structure 
+ * member to string array in a ROS C++ message.
+ *
+ * @param[in] structPtr coder::array property in MATLAB Structure  
+ * @param[in,out] msgPtr String array property in ROS C++ message
+ */
+template <typename MsgType, typename type, int size>
+void convertFromStructStringArray(MsgType& msgPtr, const coder::array<type, size> &structPtr) {
+    std::size_t numStrings = structPtr.numel();  
+    msgPtr.resize(numStrings);
+    for (std::size_t k=0; k < numStrings; k++) {
+        convertFromStructPrimitiveArray(msgPtr[k],structPtr[k]);
+    }
+}
+
+
+/**
+ * Convert a single property (nested array of messages) from a ROS C++ 
+ * message to coder::array of nested message type.
+ *
+ * @param[in] msgPtr array property in ROS C++ message (of type std::vector)
+ * @param[in,out] structPtr coder::array property in MATLAB Structure 
+ */
+template <typename MsgType, typename type, int size>
+void convertToStructNestedArray(coder::array<type, size> &structPtr, const MsgType& msgPtr) {
+    std::size_t  len = msgPtr.size();
+    structPtr.set_size(len);
+    for (std::size_t k = 0; k < len; k++) {
+    {% if strcmp(ROSVer,'ros') %}
+        msg2struct(&structPtr[k],&msgPtr[k]);
+    {% endif %}
+    {% if strcmp(ROSVer,'ros2') %}
+        msg2struct(&structPtr[k],msgPtr[k]);
+    {% endif %}
+    }
+}
+
+/**
+ * Convert a single property (nested array of messages) from a coder::array
+ * of nested message type to ROS C++ message.
+ *
+ * @param[in] structPtr coder::array property in MATLAB Structure 
+ * @param[in,out] msgPtr array property in ROS C++ message (of type std::vector)
+ */
+template <typename MsgType, typename type, int size>
+void convertFromStructNestedArray(MsgType& msgPtr, const coder::array<type, size> &structPtr) {
+    std::size_t len = structPtr.numel();
+    msgPtr.resize(len);
+    for (std::size_t k = 0; k < len; k++) {
+    {% if strcmp(ROSVer,'ros') %}
+        struct2msg(&msgPtr[k],&structPtr[k]);
+    {% endif %}
+    {% if strcmp(ROSVer,'ros2') %}
+        struct2msg(msgPtr[k],&structPtr[k]);
+    {% endif %}
+    }    
+}
+{% endif %}
+
+#endif

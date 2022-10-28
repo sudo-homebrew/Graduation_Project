@@ -1,0 +1,2 @@
+set(capabilities_MESSAGE_FILES "msg/Capability.msg;msg/CapabilityEvent.msg;msg/CapabilitySpec.msg;msg/Remapping.msg;msg/RunningCapability.msg")
+set(capabilities_SERVICE_FILES "srv/EstablishBond.srv;srv/FreeCapability.srv;srv/GetCapabilitySpec.srv;srv/GetCapabilitySpecs.srv;srv/GetInterfaces.srv;srv/GetNodeletManagerName.srv;srv/GetProviders.srv;srv/GetRemappings.srv;srv/GetRunningCapabilities.srv;srv/GetSemanticInterfaces.srv;srv/StartCapability.srv;srv/StopCapability.srv;srv/UseCapability.srv")

@@ -1,0 +1,7 @@
+# The serialized program as it is saved to a file
+string code
+---
+# The return code
+int8 ret
+# Any program output
+string output

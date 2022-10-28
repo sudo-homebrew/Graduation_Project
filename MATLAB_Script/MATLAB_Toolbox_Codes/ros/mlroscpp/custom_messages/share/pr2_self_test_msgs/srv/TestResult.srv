@@ -1,0 +1,12 @@
+# TestResult is sent to PR2 qualification system with data from tests
+byte RESULT_PASS = 0
+byte RESULT_FAIL = 1
+byte RESULT_HUMAN_REQUIRED = 2
+
+string html_result # HTML string with data
+string text_summary # Summary of test data
+byte result # Pass/fail. "Human required" means the computer needs input
+Plot[] plots # Any plots for data or debugging
+TestParam[] params # All parameters set during the test
+TestValue[] values # All recorded test values
+---

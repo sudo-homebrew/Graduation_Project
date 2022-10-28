@@ -1,0 +1,17 @@
+function [template] = importGazeboCustomMessageBlkTemplate(MessageType)
+%This function is for internal use only. It may be removed in the future.
+% DO NOT EDIT!
+%importGazeboCustomMessageBlkTemplate returns simulink message template 
+% based on the MessageType
+%
+%Copyright 2019 The MathWorks, Inc.
+
+template = [];
+switch MessageType
+    {% msgInfo.TemplateSwitchCase %}
+	otherwise
+	    disp("Invalid Message Field");        
+end
+
+end
+

@@ -1,0 +1,43 @@
+function [data, info] = debugValue
+%DebugValue gives an empty data for mavros_msgs/DebugValue
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'mavros_msgs/DebugValue';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Index, info.Index] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Name, info.Name] = ros.internal.ros.messages.ros.char('string',0);
+[data.ValueFloat, info.ValueFloat] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.ValueInt, info.ValueInt] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Data, info.Data] = ros.internal.ros.messages.ros.default_type('single',NaN);
+[data.Type, info.Type] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.TYPEDEBUG, info.TYPEDEBUG] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.TYPEDEBUGVECT, info.TYPEDEBUGVECT] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.TYPEDEBUGARRAY, info.TYPEDEBUGARRAY] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.TYPENAMEDVALUEFLOAT, info.TYPENAMEDVALUEFLOAT] = ros.internal.ros.messages.ros.default_type('uint8',1, 3);
+[data.TYPENAMEDVALUEINT, info.TYPENAMEDVALUEINT] = ros.internal.ros.messages.ros.default_type('uint8',1, 4);
+info.MessageType = 'mavros_msgs/DebugValue';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,17);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'index';
+info.MatPath{8} = 'name';
+info.MatPath{9} = 'value_float';
+info.MatPath{10} = 'value_int';
+info.MatPath{11} = 'data';
+info.MatPath{12} = 'type';
+info.MatPath{13} = 'TYPE_DEBUG';
+info.MatPath{14} = 'TYPE_DEBUG_VECT';
+info.MatPath{15} = 'TYPE_DEBUG_ARRAY';
+info.MatPath{16} = 'TYPE_NAMED_VALUE_FLOAT';
+info.MatPath{17} = 'TYPE_NAMED_VALUE_INT';

@@ -1,0 +1,39 @@
+function [data, info] = laserScan
+%LaserScan gives an empty data for sensor_msgs/LaserScan
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'sensor_msgs/LaserScan';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.AngleMin, info.AngleMin] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AngleMax, info.AngleMax] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AngleIncrement, info.AngleIncrement] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.TimeIncrement, info.TimeIncrement] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.ScanTime, info.ScanTime] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.RangeMin, info.RangeMin] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.RangeMax, info.RangeMax] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Ranges, info.Ranges] = ros.internal.ros.messages.ros.default_type('single',NaN);
+[data.Intensities, info.Intensities] = ros.internal.ros.messages.ros.default_type('single',NaN);
+info.MessageType = 'sensor_msgs/LaserScan';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'angle_min';
+info.MatPath{8} = 'angle_max';
+info.MatPath{9} = 'angle_increment';
+info.MatPath{10} = 'time_increment';
+info.MatPath{11} = 'scan_time';
+info.MatPath{12} = 'range_min';
+info.MatPath{13} = 'range_max';
+info.MatPath{14} = 'ranges';
+info.MatPath{15} = 'intensities';

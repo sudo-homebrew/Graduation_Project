@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="60"
+     id="Layer_1"
+     version="1.1"
+     width="110">
+   <defs>
+      <style>.cls-1{fill:#fff;}.cls-2,.cls-4{fill:none;stroke-linecap:round;stroke-linejoin:round;}.cls-2{stroke:#b8b8b8;}.cls-3{fill:#b8b8b8;}.cls-4{stroke:#595959;}</style>
+   </defs>
+   <title>sublibrary_031519</title>
+   <circle class="cls-1" cx="87.62" cy="8.75" r="2.93"/>
+   <path d="M87.62,6.32a2.43,2.43,0,1,1-2.43,2.43,2.43,2.43,0,0,1,2.43-2.43m0-1a3.43,3.43,0,1,0,3.43,3.43,3.44,3.44,0,0,0-3.43-3.43Z"/>
+   <path class="cls-2" d="M13,30.68s2.27-11.92,19-9.53c16.12,2.3,36.29,16.18,51.94-6.79"/>
+   <polygon class="cls-3" points="85.39 16.11 85.62 11.63 81.62 13.66 85.39 16.11"/>
+   <line class="cls-4" x1="61" x2="63.29" y1="7.61" y2="13.34"/>
+   <line class="cls-4" x1="65.01" x2="59.28" y1="9.33" y2="11.62"/>
+   <line class="cls-4" x1="74.33" x2="72.38" y1="29.82" y2="35.68"/>
+   <line class="cls-4" x1="76.28" x2="70.42" y1="33.73" y2="31.78"/>
+   <line class="cls-4" x1="48.06" x2="44.11" y1="15.55" y2="20.3"/>
+   <line class="cls-4" x1="48.46" x2="43.72" y1="19.9" y2="15.95"/>
+   <line class="cls-4" x1="16.53" x2="18.82" y1="5.71" y2="11.44"/>
+   <line class="cls-4" x1="20.55" x2="14.81" y1="7.43" y2="9.72"/>
+   <line class="cls-4" x1="28.83" x2="26.17" y1="7.51" y2="13.08"/>
+   <line class="cls-4" x1="30.29" x2="24.72" y1="11.63" y2="8.97"/>
+   <line class="cls-4" x1="28.67" x2="25.7" y1="26.36" y2="31.78"/>
+   <line class="cls-4" x1="29.89" x2="24.48" y1="30.55" y2="27.58"/>
+   <circle class="cls-1" cx="12.95" cy="30.68" r="2.93"/>
+   <path d="M13,28.24a2.43,2.43,0,1,1-2.43,2.43A2.43,2.43,0,0,1,13,28.24m0-1a3.43,3.43,0,1,0,3.43,3.43A3.44,3.44,0,0,0,13,27.24Z"/>
+</svg>

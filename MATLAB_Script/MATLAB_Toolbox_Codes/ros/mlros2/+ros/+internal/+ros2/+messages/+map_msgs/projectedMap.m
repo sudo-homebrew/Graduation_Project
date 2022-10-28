@@ -1,0 +1,43 @@
+function [data, info] = projectedMap
+%ProjectedMap gives an empty data for map_msgs/ProjectedMap
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'map_msgs/ProjectedMap';
+[data.map, info.map] = ros.internal.ros2.messages.nav_msgs.occupancyGrid;
+info.map.MLdataType = 'struct';
+[data.min_z, info.min_z] = ros.internal.ros2.messages.ros2.default_type('double',1,0);
+[data.max_z, info.max_z] = ros.internal.ros2.messages.ros2.default_type('double',1,0);
+info.MessageType = 'map_msgs/ProjectedMap';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,26);
+info.MatPath{1} = 'map';
+info.MatPath{2} = 'map.header';
+info.MatPath{3} = 'map.header.stamp';
+info.MatPath{4} = 'map.header.stamp.sec';
+info.MatPath{5} = 'map.header.stamp.nanosec';
+info.MatPath{6} = 'map.header.frame_id';
+info.MatPath{7} = 'map.info';
+info.MatPath{8} = 'map.info.map_load_time';
+info.MatPath{9} = 'map.info.map_load_time.sec';
+info.MatPath{10} = 'map.info.map_load_time.nanosec';
+info.MatPath{11} = 'map.info.resolution';
+info.MatPath{12} = 'map.info.width';
+info.MatPath{13} = 'map.info.height';
+info.MatPath{14} = 'map.info.origin';
+info.MatPath{15} = 'map.info.origin.position';
+info.MatPath{16} = 'map.info.origin.position.x';
+info.MatPath{17} = 'map.info.origin.position.y';
+info.MatPath{18} = 'map.info.origin.position.z';
+info.MatPath{19} = 'map.info.origin.orientation';
+info.MatPath{20} = 'map.info.origin.orientation.x';
+info.MatPath{21} = 'map.info.origin.orientation.y';
+info.MatPath{22} = 'map.info.origin.orientation.z';
+info.MatPath{23} = 'map.info.origin.orientation.w';
+info.MatPath{24} = 'map.data';
+info.MatPath{25} = 'min_z';
+info.MatPath{26} = 'max_z';

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{fill:#b3b3b3;}.cls-2{fill:#737373;}.cls-3{fill:#a6a6a6;}.cls-4,.cls-5,.cls-7{fill:none;stroke-linecap:round;}.cls-4,.cls-8{stroke:#b3b3b3;}.cls-4,.cls-5,.cls-8{stroke-miterlimit:10;}.cls-4,.cls-5{stroke-width:9px;}.cls-5{stroke:#ccc;}.cls-6,.cls-9{fill:#404040;}.cls-7{stroke:#404040;stroke-linejoin:round;}.cls-8{fill:#f2f2f2;}.cls-9{font-size:10px;font-family:LMRoman12-Bold, Latin Modern Roman;font-weight:700;}</style>
+   </defs>
+   <title>Inverse Dynamics_042619</title>
+   <path class="cls-1"
+         d="M95.62,30.45l-4,3.38H85.81a3,3,0,0,1-3-3V28.5H79.26V24.87h3.52v-2.3a3,3,0,0,1,3-3h5.78l4,3.38H86v7.52Z"/>
+   <rect class="cls-2" height="2.08" width="5.34" x="90.28" y="28.37"/>
+   <rect class="cls-2" height="2.08" width="5.34" x="90.28" y="22.93"/>
+   <path class="cls-3"
+         d="M64.76,56.37h0a7.82,7.82,0,0,1,7.82,7.82v9a0,0,0,0,1,0,0H56.94a0,0,0,0,1,0,0v-9a7.82,7.82,0,0,1,7.82-7.82Z"/>
+   <line class="cls-4" x1="66.82" x2="44.58" y1="26.69" y2="26.69"/>
+   <line class="cls-5" x1="44.58" x2="64.74" y1="26.69" y2="61.91"/>
+   <line class="cls-5" x1="66.4" x2="75.52" y1="26.72" y2="26.72"/>
+   <circle class="cls-6" cx="64.74" cy="61.91" r="2.43"/>
+   <path class="cls-7" d="M62.17,56.58a5.81,5.81,0,1,1-3,7.64"/>
+   <polygon class="cls-6" points="63.67 58.38 59.21 57.86 61.89 54.26 63.67 58.38"/>
+   <circle class="cls-6" cx="66.4" cy="26.72" r="2.43"/>
+   <path class="cls-7" d="M72.21,26.79a5.81,5.81,0,1,1-5.74-5.88"/>
+   <polygon class="cls-6" points="69.96 27.42 72.25 23.56 74.45 27.47 69.96 27.42"/>
+   <circle class="cls-6" cx="44.66" cy="26.72" r="2.43"/>
+   <path class="cls-7" d="M46.85,32.11a5.81,5.81,0,1,1,3.35-7.5"/>
+   <polygon class="cls-6" points="45.44 30.25 49.87 30.96 47.05 34.44 45.44 30.25"/>
+   <rect class="cls-8" height="16.81" width="15.41" x="100.35" y="18.23"/>
+   <text class="cls-9" transform="translate(104.14 30.02)">T</text>
+</svg>

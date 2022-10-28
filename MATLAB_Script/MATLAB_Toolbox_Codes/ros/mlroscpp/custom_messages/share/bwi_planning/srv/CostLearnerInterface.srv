@@ -1,0 +1,8 @@
+# The only information currently provided is for learning navigation costs
+string location
+string door_from
+string door_to
+float32 cost
+---
+bool success
+string status

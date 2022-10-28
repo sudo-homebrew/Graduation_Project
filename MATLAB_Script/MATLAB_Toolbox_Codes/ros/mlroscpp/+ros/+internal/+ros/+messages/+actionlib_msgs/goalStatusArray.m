@@ -1,0 +1,44 @@
+function [data, info] = goalStatusArray
+%GoalStatusArray gives an empty data for actionlib_msgs/GoalStatusArray
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'actionlib_msgs/GoalStatusArray';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.StatusList, info.StatusList] = ros.internal.ros.messages.actionlib_msgs.goalStatus;
+info.StatusList.MLdataType = 'struct';
+info.StatusList.MaxLen = NaN;
+info.StatusList.MinLen = 0;
+data.StatusList = data.StatusList([],1);
+info.MessageType = 'actionlib_msgs/GoalStatusArray';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,24);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'status_list';
+info.MatPath{8} = 'status_list.goal_id';
+info.MatPath{9} = 'status_list.goal_id.stamp';
+info.MatPath{10} = 'status_list.goal_id.stamp.sec';
+info.MatPath{11} = 'status_list.goal_id.stamp.nsec';
+info.MatPath{12} = 'status_list.goal_id.id';
+info.MatPath{13} = 'status_list.status';
+info.MatPath{14} = 'status_list.PENDING';
+info.MatPath{15} = 'status_list.ACTIVE';
+info.MatPath{16} = 'status_list.PREEMPTED';
+info.MatPath{17} = 'status_list.SUCCEEDED';
+info.MatPath{18} = 'status_list.ABORTED';
+info.MatPath{19} = 'status_list.REJECTED';
+info.MatPath{20} = 'status_list.PREEMPTING';
+info.MatPath{21} = 'status_list.RECALLING';
+info.MatPath{22} = 'status_list.RECALLED';
+info.MatPath{23} = 'status_list.LOST';
+info.MatPath{24} = 'status_list.text';

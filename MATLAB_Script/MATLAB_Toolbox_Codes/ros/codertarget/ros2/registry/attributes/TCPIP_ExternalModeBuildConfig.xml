@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<productinfo version="3.0">
+  <name>TCP/IP</name>
+  <buildconfigurationinfo AssemblyFlags="" CPPCompileFlags="" CPPLinkFlags="" CompileFlags="" LinkFlags="">
+    <Name>TCP/IP</Name>
+    <SourceFiles>$(MATLAB_ROOT)/rtw/c/src/ext_mode/common/rtiostream_interface.c</SourceFiles>
+    <SourceFiles>$(MATLAB_ROOT)/rtw/c/src/ext_mode/common/ext_svr.c</SourceFiles>
+    <SourceFiles>$(MATLAB_ROOT)/toolbox/coder/rtiostream/src/rtiostreamtcpip/rtiostream_tcpip.c</SourceFiles>
+    <SupportedOperatingSystems>all</SupportedOperatingSystems>
+    <SupportedToolchains>all</SupportedToolchains>
+  </buildconfigurationinfo>
+</productinfo>

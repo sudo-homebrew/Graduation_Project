@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 The MathWorks, Inc. -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="https://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     width="110"
+     height="60"
+     viewBox="35 -10 100 100" 
+     version="1.1">
+   <defs>
+      <style>.a{fill:#7c7c7c;}.b{fill:#bcbbbb;}.c,.d,.e{fill:none;stroke-miterlimit:10;stroke-width:3px;}.c{stroke:#959da0;}.d{stroke:#b6b9ba;}.e{stroke:#e2e2e2;}.f,.h{fill:#fff;}.f{stroke:#333;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.6px;}.g{fill:#333;}.i{isolation:isolate;font-size:18.5px;font-family:Helvetica;}</style>
+   </defs>
+   <ellipse class="a" cx="76.34" cy="53.99" rx="11.23" ry="1.83"/>
+   <rect class="a" height="14.43" width="22.46" x="65.11" y="39.73"/>
+   <ellipse class="b" cx="76.34" cy="39.85" rx="11.23" ry="1.83"/>
+   <path class="c" d="M77.08,65.35A20.72,20.72,0,0,1,56.36,44.63"/>
+   <path class="d" d="M77.08,72.16A27.53,27.53,0,0,1,49.55,44.63"/>
+   <path class="e" d="M77.08,77.62C58.26,77.62,43,62.85,43,44.63"/>
+   <path class="c" d="M96.71,48.92A20.72,20.72,0,0,0,76,28.2"/>
+   <path class="d" d="M103.53,48.92A27.54,27.54,0,0,0,76,21.39"/>
+   <path class="e" d="M109,48.92c0-18.81-14.76-34.06-33-34.06"/>
+   <circle class="f" cx="89.43" cy="56.3" r="9.7"/>
+   <ellipse class="f" cx="89.43" cy="56.4" rx="7.2" ry="4.1"/>
+   <circle class="g" cx="89.43" cy="55.8" r="3.6"/>
+   <circle class="h" cx="90.73" cy="54.3" r="0.9"/>
+   <circle class="h" cx="92.03" cy="55.6" r="0.4"/>
+   <text class="i" transform="translate(55.9 6.44)">ROS</text>
+</svg>

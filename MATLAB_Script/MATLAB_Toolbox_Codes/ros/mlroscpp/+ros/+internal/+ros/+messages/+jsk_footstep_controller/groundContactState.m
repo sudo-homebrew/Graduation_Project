@@ -1,0 +1,41 @@
+function [data, info] = groundContactState
+%GroundContactState gives an empty data for jsk_footstep_controller/GroundContactState
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'jsk_footstep_controller/GroundContactState';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.CONTACTBOTHGROUND, info.CONTACTBOTHGROUND] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.CONTACTAIR, info.CONTACTAIR] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.CONTACTLLEGGROUND, info.CONTACTLLEGGROUND] = ros.internal.ros.messages.ros.default_type('uint8',1, 3);
+[data.CONTACTRLEGGROUND, info.CONTACTRLEGGROUND] = ros.internal.ros.messages.ros.default_type('uint8',1, 4);
+[data.CONTACTUNSTABLE, info.CONTACTUNSTABLE] = ros.internal.ros.messages.ros.default_type('uint8',1, 5);
+[data.ContactState, info.ContactState] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.ErrorPitchAngle, info.ErrorPitchAngle] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.ErrorRollAngle, info.ErrorRollAngle] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.ErrorYawAngle, info.ErrorYawAngle] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.ErrorZ, info.ErrorZ] = ros.internal.ros.messages.ros.default_type('double',1);
+info.MessageType = 'jsk_footstep_controller/GroundContactState';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,16);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'CONTACT_BOTH_GROUND';
+info.MatPath{8} = 'CONTACT_AIR';
+info.MatPath{9} = 'CONTACT_LLEG_GROUND';
+info.MatPath{10} = 'CONTACT_RLEG_GROUND';
+info.MatPath{11} = 'CONTACT_UNSTABLE';
+info.MatPath{12} = 'contact_state';
+info.MatPath{13} = 'error_pitch_angle';
+info.MatPath{14} = 'error_roll_angle';
+info.MatPath{15} = 'error_yaw_angle';
+info.MatPath{16} = 'error_z';

@@ -1,0 +1,41 @@
+function [data, info] = calibrationPattern
+%CalibrationPattern gives an empty data for calibration_msgs/CalibrationPattern
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'calibration_msgs/CalibrationPattern';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.ObjectPoints, info.ObjectPoints] = ros.internal.ros.messages.geometry_msgs.point;
+info.ObjectPoints.MLdataType = 'struct';
+info.ObjectPoints.MaxLen = NaN;
+info.ObjectPoints.MinLen = 0;
+data.ObjectPoints = data.ObjectPoints([],1);
+[data.ImagePoints, info.ImagePoints] = ros.internal.ros.messages.geometry_msgs.point;
+info.ImagePoints.MLdataType = 'struct';
+info.ImagePoints.MaxLen = NaN;
+info.ImagePoints.MinLen = 0;
+data.ImagePoints = data.ImagePoints([],1);
+[data.Success, info.Success] = ros.internal.ros.messages.ros.default_type('uint8',1);
+info.MessageType = 'calibration_msgs/CalibrationPattern';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'object_points';
+info.MatPath{8} = 'object_points.x';
+info.MatPath{9} = 'object_points.y';
+info.MatPath{10} = 'object_points.z';
+info.MatPath{11} = 'image_points';
+info.MatPath{12} = 'image_points.x';
+info.MatPath{13} = 'image_points.y';
+info.MatPath{14} = 'image_points.z';
+info.MatPath{15} = 'success';
