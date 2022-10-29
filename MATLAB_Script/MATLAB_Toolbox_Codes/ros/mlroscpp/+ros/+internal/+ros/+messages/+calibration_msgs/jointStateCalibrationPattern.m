@@ -1,0 +1,46 @@
+function [data, info] = jointStateCalibrationPattern
+%JointStateCalibrationPattern gives an empty data for calibration_msgs/JointStateCalibrationPattern
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'calibration_msgs/JointStateCalibrationPattern';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.ObjectPoints, info.ObjectPoints] = ros.internal.ros.messages.geometry_msgs.point;
+info.ObjectPoints.MLdataType = 'struct';
+info.ObjectPoints.MaxLen = NaN;
+info.ObjectPoints.MinLen = 0;
+data.ObjectPoints = data.ObjectPoints([],1);
+[data.JointPoints, info.JointPoints] = ros.internal.ros.messages.sensor_msgs.jointState;
+info.JointPoints.MLdataType = 'struct';
+info.JointPoints.MaxLen = NaN;
+info.JointPoints.MinLen = 0;
+data.JointPoints = data.JointPoints([],1);
+info.MessageType = 'calibration_msgs/JointStateCalibrationPattern';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,21);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'object_points';
+info.MatPath{8} = 'object_points.x';
+info.MatPath{9} = 'object_points.y';
+info.MatPath{10} = 'object_points.z';
+info.MatPath{11} = 'joint_points';
+info.MatPath{12} = 'joint_points.header';
+info.MatPath{13} = 'joint_points.header.seq';
+info.MatPath{14} = 'joint_points.header.stamp';
+info.MatPath{15} = 'joint_points.header.stamp.sec';
+info.MatPath{16} = 'joint_points.header.stamp.nsec';
+info.MatPath{17} = 'joint_points.header.frame_id';
+info.MatPath{18} = 'joint_points.name';
+info.MatPath{19} = 'joint_points.position';
+info.MatPath{20} = 'joint_points.velocity';
+info.MatPath{21} = 'joint_points.effort';

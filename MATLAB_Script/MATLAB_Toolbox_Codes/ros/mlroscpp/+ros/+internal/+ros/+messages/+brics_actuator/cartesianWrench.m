@@ -1,0 +1,42 @@
+function [data, info] = cartesianWrench
+%CartesianWrench gives an empty data for brics_actuator/CartesianWrench
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'brics_actuator/CartesianWrench';
+[data.TimeStamp, info.TimeStamp] = ros.internal.ros.messages.ros.time;
+info.TimeStamp.MLdataType = 'struct';
+[data.PoisonStamp, info.PoisonStamp] = ros.internal.ros.messages.brics_actuator.poison;
+info.PoisonStamp.MLdataType = 'struct';
+[data.BaseFrameUri, info.BaseFrameUri] = ros.internal.ros.messages.ros.char('string',0);
+[data.TargetFrameUri, info.TargetFrameUri] = ros.internal.ros.messages.ros.char('string',0);
+[data.Force, info.Force] = ros.internal.ros.messages.brics_actuator.cartesianVector;
+info.Force.MLdataType = 'struct';
+[data.Torque, info.Torque] = ros.internal.ros.messages.brics_actuator.cartesianVector;
+info.Torque.MLdataType = 'struct';
+info.MessageType = 'brics_actuator/CartesianWrench';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,19);
+info.MatPath{1} = 'timeStamp';
+info.MatPath{2} = 'timeStamp.sec';
+info.MatPath{3} = 'timeStamp.nsec';
+info.MatPath{4} = 'poisonStamp';
+info.MatPath{5} = 'poisonStamp.originator';
+info.MatPath{6} = 'poisonStamp.description';
+info.MatPath{7} = 'poisonStamp.qos';
+info.MatPath{8} = 'base_frame_uri';
+info.MatPath{9} = 'target_frame_uri';
+info.MatPath{10} = 'force';
+info.MatPath{11} = 'force.unit';
+info.MatPath{12} = 'force.x';
+info.MatPath{13} = 'force.y';
+info.MatPath{14} = 'force.z';
+info.MatPath{15} = 'torque';
+info.MatPath{16} = 'torque.unit';
+info.MatPath{17} = 'torque.x';
+info.MatPath{18} = 'torque.y';
+info.MatPath{19} = 'torque.z';

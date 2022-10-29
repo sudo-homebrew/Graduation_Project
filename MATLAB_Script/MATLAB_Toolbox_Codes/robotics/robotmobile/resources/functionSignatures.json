@@ -1,0 +1,57 @@
+{
+"ackermannKinematics":
+{
+   "inputs":
+   [
+        {"name":"WheelBase", "kind":"namevalue", "type":["numeric", "scalar", "positive"]},
+        {"name":"VehicleSpeedRange", "kind":"namevalue", "type":["numeric", "vector", "positive"]}
+   ]
+},
+    "ackermannKinematics.derivative": 
+{
+    "inputs":
+    [
+        {"name":"obj", "kind":"required", "type":"ackermannKinematics"},
+        {"name":"state", "kind":"required", "type":["numeric", "vector", "numel=4"]},
+        {"name":"cmds", "kind":"required", "type":["numeric", "vector", "numel=2"]}
+    ]
+},
+    "differentialDriveKinematics": 
+{
+    "inputs":
+    [
+        {"name":"WheelRadius", "kind":"namevalue","type":["numeric", "scalar", "positive"]},
+        {"name":"WheelSpeedRange", "kind":"namevalue", "type":["numeric", "vector", "positive"]},
+        {"name":"TrackWidth", "kind":"namevalue","type":["numeric", "scalar", "positive"]},
+        {"name":"VehicleInputs", "kind":"namevalue", "type":"choices={'WheelSpeeds','VehicleSpeedHeadingRate'}"}
+    ]
+},
+    "differentialDriveKinematics.derivative": 
+{
+    "inputs":
+    [
+        {"name":"obj", "kind":"required", "type":"differentialDriveKinematics"},
+        {"name":"state", "kind":"required", "type":["numeric", "vector", "numel=3"]},
+        {"name":"cmds", "kind":"required", "type":["numeric", "vector", "numel=2"]}
+    ]
+},
+    "unicycleKinematics": 
+{
+    "inputs":
+    [
+        {"name":"WheelRadius", "kind":"namevalue","type":["numeric", "scalar", "positive"]},
+        {"name":"WheelSpeedRange", "kind":"namevalue", "type":["numeric", "scalar", "positive"]},
+        {"name":"VehicleInputs", "kind":"namevalue", "type":"choices={'WheelSpeedHeadingRate','VehicleSpeedHeadingRate'}"}
+    ]
+},
+    "unicycleKinematics.derivative": 
+{
+    "inputs":
+    [
+        {"name":"obj", "kind":"required", "type":"unicycleKinematics"},
+        {"name":"state", "kind":"required", "type":["numeric", "vector", "numel=3"]},
+        {"name":"cmds", "kind":"required", "type":["numeric", "vector", "numel=2"]}
+    ]
+}
+
+}

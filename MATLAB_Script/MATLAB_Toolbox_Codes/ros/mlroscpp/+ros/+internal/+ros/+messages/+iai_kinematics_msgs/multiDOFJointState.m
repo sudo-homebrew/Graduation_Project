@@ -1,0 +1,39 @@
+function [data, info] = multiDOFJointState
+%MultiDOFJointState gives an empty data for iai_kinematics_msgs/MultiDOFJointState
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'iai_kinematics_msgs/MultiDOFJointState';
+[data.Stamp, info.Stamp] = ros.internal.ros.messages.ros.time;
+info.Stamp.MLdataType = 'struct';
+[data.JointNames, info.JointNames] = ros.internal.ros.messages.ros.char('string',NaN);
+[data.FrameIds, info.FrameIds] = ros.internal.ros.messages.ros.char('string',NaN);
+[data.ChildFrameIds, info.ChildFrameIds] = ros.internal.ros.messages.ros.char('string',NaN);
+[data.Poses, info.Poses] = ros.internal.ros.messages.geometry_msgs.pose;
+info.Poses.MLdataType = 'struct';
+info.Poses.MaxLen = NaN;
+info.Poses.MinLen = 0;
+data.Poses = data.Poses([],1);
+info.MessageType = 'iai_kinematics_msgs/MultiDOFJointState';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,16);
+info.MatPath{1} = 'stamp';
+info.MatPath{2} = 'stamp.sec';
+info.MatPath{3} = 'stamp.nsec';
+info.MatPath{4} = 'joint_names';
+info.MatPath{5} = 'frame_ids';
+info.MatPath{6} = 'child_frame_ids';
+info.MatPath{7} = 'poses';
+info.MatPath{8} = 'poses.position';
+info.MatPath{9} = 'poses.position.x';
+info.MatPath{10} = 'poses.position.y';
+info.MatPath{11} = 'poses.position.z';
+info.MatPath{12} = 'poses.orientation';
+info.MatPath{13} = 'poses.orientation.x';
+info.MatPath{14} = 'poses.orientation.y';
+info.MatPath{15} = 'poses.orientation.z';
+info.MatPath{16} = 'poses.orientation.w';

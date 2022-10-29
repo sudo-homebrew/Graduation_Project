@@ -1,0 +1,47 @@
+function [data, info] = iMUData
+%IMUData gives an empty data for applanix_msgs/IMUData
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'applanix_msgs/IMUData';
+[data.Td, info.Td] = ros.internal.ros.messages.applanix_msgs.timeDistance;
+info.Td.MLdataType = 'struct';
+[data.DeltaVelocityX, info.DeltaVelocityX] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.DeltaVelocityY, info.DeltaVelocityY] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.DeltaVelocityZ, info.DeltaVelocityZ] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.DeltaAccelX, info.DeltaAccelX] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.DeltaAccelY, info.DeltaAccelY] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.DeltaAccelZ, info.DeltaAccelZ] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.STATUS1BADFRAME, info.STATUS1BADFRAME] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.STATUS2BADFRAMES, info.STATUS2BADFRAMES] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.STATUS3BADFRAMES, info.STATUS3BADFRAMES] = ros.internal.ros.messages.ros.default_type('uint8',1, 4);
+[data.DataStatus, info.DataStatus] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.ImuType, info.ImuType] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.ImuDataRate, info.ImuDataRate] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.ImuStatus, info.ImuStatus] = ros.internal.ros.messages.ros.default_type('uint16',1);
+info.MessageType = 'applanix_msgs/IMUData';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,19);
+info.MatPath{1} = 'td';
+info.MatPath{2} = 'td.time1';
+info.MatPath{3} = 'td.time2';
+info.MatPath{4} = 'td.distance';
+info.MatPath{5} = 'td.time_types';
+info.MatPath{6} = 'td.distance_type';
+info.MatPath{7} = 'delta_velocity_x';
+info.MatPath{8} = 'delta_velocity_y';
+info.MatPath{9} = 'delta_velocity_z';
+info.MatPath{10} = 'delta_accel_x';
+info.MatPath{11} = 'delta_accel_y';
+info.MatPath{12} = 'delta_accel_z';
+info.MatPath{13} = 'STATUS_1_BAD_FRAME';
+info.MatPath{14} = 'STATUS_2_BAD_FRAMES';
+info.MatPath{15} = 'STATUS_3_BAD_FRAMES';
+info.MatPath{16} = 'data_status';
+info.MatPath{17} = 'imu_type';
+info.MatPath{18} = 'imu_data_rate';
+info.MatPath{19} = 'imu_status';

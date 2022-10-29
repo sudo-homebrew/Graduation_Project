@@ -1,0 +1,43 @@
+function [data, info] = connectionStatistics
+%ConnectionStatistics gives an empty data for gateway_msgs/ConnectionStatistics
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'gateway_msgs/ConnectionStatistics';
+[data.WIRED, info.WIRED] = ros.internal.ros.messages.ros.default_type('int8',1, 1);
+[data.WIRELESS, info.WIRELESS] = ros.internal.ros.messages.ros.default_type('int8',1, 2);
+[data.MAXTTL, info.MAXTTL] = ros.internal.ros.messages.ros.default_type('int32',1, 86400);
+[data.GatewayAvailable, info.GatewayAvailable] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.TimeSinceLastSeen, info.TimeSinceLastSeen] = ros.internal.ros.messages.ros.default_type('int64',1);
+[data.PingLatencyMin, info.PingLatencyMin] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.PingLatencyMax, info.PingLatencyMax] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.PingLatencyAvg, info.PingLatencyAvg] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.PingLatencyMdev, info.PingLatencyMdev] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.NetworkInfoAvailable, info.NetworkInfoAvailable] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.NetworkType, info.NetworkType] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.WirelessBitrate, info.WirelessBitrate] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.WirelessLinkQuality, info.WirelessLinkQuality] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.WirelessSignalLevel, info.WirelessSignalLevel] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.WirelessNoiseLevel, info.WirelessNoiseLevel] = ros.internal.ros.messages.ros.default_type('single',1);
+info.MessageType = 'gateway_msgs/ConnectionStatistics';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'WIRED';
+info.MatPath{2} = 'WIRELESS';
+info.MatPath{3} = 'MAX_TTL';
+info.MatPath{4} = 'gateway_available';
+info.MatPath{5} = 'time_since_last_seen';
+info.MatPath{6} = 'ping_latency_min';
+info.MatPath{7} = 'ping_latency_max';
+info.MatPath{8} = 'ping_latency_avg';
+info.MatPath{9} = 'ping_latency_mdev';
+info.MatPath{10} = 'network_info_available';
+info.MatPath{11} = 'network_type';
+info.MatPath{12} = 'wireless_bitrate';
+info.MatPath{13} = 'wireless_link_quality';
+info.MatPath{14} = 'wireless_signal_level';
+info.MatPath{15} = 'wireless_noise_level';

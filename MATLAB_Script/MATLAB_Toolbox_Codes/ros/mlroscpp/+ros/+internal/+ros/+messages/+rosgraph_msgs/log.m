@@ -1,0 +1,45 @@
+function [data, info] = log
+%Log gives an empty data for rosgraph_msgs/Log
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'rosgraph_msgs/Log';
+[data.DEBUG, info.DEBUG] = ros.internal.ros.messages.ros.default_type('int8',1, 1);
+[data.INFO, info.INFO] = ros.internal.ros.messages.ros.default_type('int8',1, 2);
+[data.WARN, info.WARN] = ros.internal.ros.messages.ros.default_type('int8',1, 4);
+[data.ERROR, info.ERROR] = ros.internal.ros.messages.ros.default_type('int8',1, 8);
+[data.FATAL, info.FATAL] = ros.internal.ros.messages.ros.default_type('int8',1, 16);
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Level, info.Level] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.Name, info.Name] = ros.internal.ros.messages.ros.char('string',0);
+[data.Msg, info.Msg] = ros.internal.ros.messages.ros.char('string',0);
+[data.File, info.File] = ros.internal.ros.messages.ros.char('string',0);
+[data.Function, info.Function] = ros.internal.ros.messages.ros.char('string',0);
+[data.Line, info.Line] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.Topics, info.Topics] = ros.internal.ros.messages.ros.char('string',NaN);
+info.MessageType = 'rosgraph_msgs/Log';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,18);
+info.MatPath{1} = 'DEBUG';
+info.MatPath{2} = 'INFO';
+info.MatPath{3} = 'WARN';
+info.MatPath{4} = 'ERROR';
+info.MatPath{5} = 'FATAL';
+info.MatPath{6} = 'header';
+info.MatPath{7} = 'header.seq';
+info.MatPath{8} = 'header.stamp';
+info.MatPath{9} = 'header.stamp.sec';
+info.MatPath{10} = 'header.stamp.nsec';
+info.MatPath{11} = 'header.frame_id';
+info.MatPath{12} = 'level';
+info.MatPath{13} = 'name';
+info.MatPath{14} = 'msg';
+info.MatPath{15} = 'file';
+info.MatPath{16} = 'function';
+info.MatPath{17} = 'line';
+info.MatPath{18} = 'topics';

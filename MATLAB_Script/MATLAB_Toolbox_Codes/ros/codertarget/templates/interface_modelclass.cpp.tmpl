@@ -1,0 +1,515 @@
+{% if (false) %}
+// Copyright 2019-2022 The MathWorks, Inc.
+{% endif %}
+
+{% var slCoderVer = ver('simulinkcoder') %}
+//
+// File rosnodeinterface.cpp
+//
+// Code generated for Simulink model '{%ModelName%}'.
+//
+// Model version                  : {% get_param(ModelName,'ModelVersion') %}
+// Simulink Coder version         : {% [slCoderVer.Version, ' ', slCoderVer.Release, ' ', slCoderVer.Date] %}
+// C/C++ source code generated on : {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %}
+//
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4244)
+#pragma warning(disable : 4265)
+#pragma warning(disable : 4458)
+#pragma warning(disable : 4100)
+{% if ExtmodeInfo.ExtmodeSim %link with Ws2_32.lib to bring in socket library %}
+#pragma comment(lib, "Ws2_32.lib")
+{% endif %}
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+#pragma GCC diagnostic ignored "-Wredundant-decls"
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wshadow"
+#endif //_MSC_VER
+
+#include "{%ModelName%}.h"
+#include "rosnodeinterface.h"
+#include <thread>
+#include <chrono>
+#include <utility>
+
+{% if ~isempty(ConstructorArgDefns) %}
+{% ConstructorArgDefns %}
+{% endif %}
+
+{% if (ROS.ROSTimeStepping) %}
+//
+// Forward declare the ROS Time stepping and notification related
+// functions and global flags/variables
+//
+
+// Flag to determine that model should continue to run
+static volatile bool modelRuns;
+static uint32_t _clock_msg_sec;
+static uint32_t _clock_msg_nsec;
+// Counter to determine the number of overruns
+static int numOverruns;
+// Function to publish notification of step call
+static void publishDone(bool status);
+
+{% if (ROS.ROSTimeNotification) %}
+// Publisher object to publish notification on the step
+static ros::Publisher pubStepNotify;
+{% endif %}
+{% endif %}
+
+{% if HasExplicitPartitions %}
+extern void {%ModelName%}_step({%ModelClassName%}& classObj, int tid);
+{% endif %}
+namespace ros {
+namespace matlab {
+NodeInterface::NodeInterface()
+    : mNode()
+    , mModel()
+    , mBaseRateSem()
+    , mBaseRateThread()
+    , mSchedulerThread()
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+    , mSubRate{%num2str(SampleTimes(i).TID)%}Sem()
+    , mSubRate{%num2str(SampleTimes(i).TID)%}Thread()
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if ExtmodeInfo.ExtmodeSim && ExtmodeInfo.RunInBackground %}
+    , mExtModeThread()
+{% endif %}
+    , mStopSem()
+    , mRunModel(true){
+  }
+
+NodeInterface::~NodeInterface() {
+    terminate();
+  }
+
+void NodeInterface::initialize(int argc, char ** argv) {
+    try {
+        mNode = std::make_shared<ros::NodeHandle>();
+        ROS_INFO("** Starting the model \"{%ModelName%}\" **\n");
+		{% if ExtmodeInfo.ExtmodeSim %}
+		{
+			char* extmodeArg[] = {"-port","{%ExtmodeInfo.Port%}","-blocking","1","-verbose","0"};
+			rtExtModeParseArgs(6, (const char_T **)extmodeArg, NULL);
+		}
+		{% endif %}
+		
+        //initialize the model which will initialize the publishers and subscribers
+        mModel = std::make_shared<{%ModelClassName%}>(
+        {% if ~isempty(ConstructorArgs) %}
+        {% ConstructorArgs %}
+        {% endif %}
+        );
+		rtmSetErrorStatus(mModel->getRTM(), (NULL));
+        mModel->initialize();
+
+		{% if ExtmodeInfo.ExtmodeSim %}
+		/* External mode */
+		rtSetTFinalForExtMode(&rtmGetTFinal(mModel->getRTM()));
+		rtExtModeCheckInit({%num2str(numel(SampleTimes))%});
+		{
+			boolean_T rtmStopReq = false;
+			rtExtModeWaitForStartPkt(mModel->getRTM()->extModeInfo, {%num2str(numel(SampleTimes))%},
+				&rtmStopReq);
+			if (rtmStopReq) {
+				rtmSetStopRequested(mModel->getRTM(), true);
+			}
+		}
+		rtERTExtModeStartMsg();
+		{% if ExtmodeInfo.RunInBackground %}
+		mExtModeThread = std::make_shared<std::thread>(&NodeInterface::extmodeBackgroundTask, this);
+		{% endif %}
+		{% endif %}
+
+        // create the threads for the rates in the Model
+        mBaseRateThread = std::make_shared<std::thread>(&NodeInterface::baseRateTask, this);
+        {% if ~isSingleTasking %}
+        {% for i = numel(SampleTimes) %}
+        {% if SampleTimes(i).TID ~= 0 %}
+            mSubRate{%num2str(SampleTimes(i).TID)%}Thread = std::make_shared<std::thread>(&NodeInterface::subRate{%num2str(SampleTimes(i).TID)%}Task, this);
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        
+        // create scheduler thread
+		mSchedulerThread = std::make_shared<std::thread>(&NodeInterface::schedulerThread, this);
+    }
+    catch (std::exception& ex) {
+        std::cout << ex.what() << std::endl;
+        throw ex;
+    }
+}
+
+int NodeInterface::run() {
+{% if ~(ROS.ROSTimeStepping) %}
+  ros::spin();
+{% endif %}
+{% if (ROS.ROSTimeStepping) %}
+  // Wait for ROSTime scheduler to finish
+  mStopSem.wait();
+{% endif %}
+  mRunModel = false;
+  return 0;
+}
+
+boolean_T NodeInterface::getStopRequestedFlag(void) {
+    #ifndef rtmGetStopRequested
+    return (!(rtmGetErrorStatus(mModel->getRTM())
+        == (NULL)));
+    #else
+    return (!(rtmGetErrorStatus(mModel->getRTM())
+        == (NULL)) || rtmGetStopRequested(mModel->getRTM()));
+    #endif
+}
+
+void NodeInterface::terminate(void) {
+    if (mBaseRateThread.get()) {
+        mBaseRateSem.notify();
+        mBaseRateThread->join();
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+        mSubRate{%num2str(SampleTimes(i).TID)%}Sem.notify();
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+        mSubRate{%num2str(SampleTimes(i).TID)%}Thread->join();
+        mSubRate{%num2str(SampleTimes(i).TID)%}Thread.reset();
+{% endif %}
+{% endfor %}
+{% endif %}
+        mRunModel = false;
+        mBaseRateThread.reset();
+        if (mSchedulerThread.get()) {
+            mSchedulerThread->join();
+            mSchedulerThread.reset();
+        }
+    {% if strcmp('on',IncludeMdlTermFcn) %}
+        if (mModel.get()) {
+            mModel->terminate();
+        }
+    {% endif %}
+    {% if ExtmodeInfo.ExtmodeSim %}
+        rtExtModeShutdown({%num2str(numel(SampleTimes))%});
+    {% endif %}
+        mNode.reset();
+    }
+}
+
+{% if (ROS.ROSTimeStepping) %}
+
+//
+// Notify step function
+//
+static void publishDone(bool status) {
+  {% if (ROS.ROSTimeNotification) %}
+  static std_msgs::String msg;
+  // Publish model name
+  if(status == false){    
+    msg.data = "-{%ModelName%}";
+  } else {
+    msg.data = "+{%ModelName%}";
+  }
+  pubStepNotify.publish(msg);
+  {% endif %}
+
+  if(status == true){
+    modelRuns = false;
+  }
+}
+
+//
+// ROS Clock topic subscriber callback to run the base rate task
+//
+void NodeInterface::rosClockSubscriberCallback(const rosgraph_msgs::Clock &msg)
+{
+  static bool termFlag = false;
+  static bool waitingFlag = false;
+  static int stateFlag = 1;
+  const uint64_t baseRateNanoSec = {%SampleTimeNsecs%};
+  static uint64_t nextTimeSlot = baseRateNanoSec;
+  const uint64_t longTime = msg.clock.toNSec();
+
+  if ((1 == stateFlag) && (0U != msg.clock.nsec) ) {
+    ROS_INFO("Waiting for time synchronization at time %u.000000000",
+             msg.clock.sec + 1U);
+  }
+  if (false != termFlag) {
+    return;
+  }
+
+  // Check if time fits into model steps
+  if ((0 == stateFlag) && (true == waitingFlag) ) {
+    if (longTime > nextTimeSlot) {
+      fflush(stdout);
+      ROS_FATAL("The clock missed time slot at %f for the model step. Actual clock = %.6f\n",
+                nextTimeSlot/1E9, (double)longTime/1E9);
+      fflush(stderr);
+      mRunModel = false;
+      mBaseRateSem.notify();
+      termFlag = true;
+      return;
+    }
+  }
+
+  // Store into global variable published by clock topic
+  _clock_msg_sec = msg.clock.sec;
+  _clock_msg_nsec = msg.clock.nsec;
+
+  // Starting the model code at time of "nsec" at 0ns
+  if (false == waitingFlag) {
+    if (0U == msg.clock.nsec) {
+      waitingFlag = true;
+      ROS_INFO("** Unblocking base-rate at %.6f", (double)longTime/1E9);
+      modelRuns = true;
+      mBaseRateSem.notify();     // Launch for first time
+      nextTimeSlot = longTime + baseRateNanoSec;
+    } else {
+      // Check if there was no termination in the meantime
+      mRunModel = (rtmGetErrorStatus(mModel->getRTM()) == (NULL));
+      if (mRunModel == false) {
+        termFlag = true;
+      }
+       else {
+          // Publish "done", because there is nothing to do in this time slot
+          publishDone(false);
+      }
+    }
+  } else {
+    if ((msg.clock.nsec % baseRateNanoSec) == 0U) {
+      // Overrun check
+      if (false != modelRuns) {
+        numOverruns++;
+        ROS_ERROR("Overrun %d", numOverruns);
+      }
+      modelRuns = true;
+      mBaseRateSem.notify();
+      nextTimeSlot += baseRateNanoSec;
+    }
+    else {
+          // Publish "done", because there is nothing to do in this time slot
+          publishDone(false);
+      }
+  }
+
+  if (stateFlag > 0) {
+    stateFlag--;
+  }
+}
+
+//
+// Scheduler Task using ROS Time published by "/clock" topic to run base-rate
+//
+void NodeInterface::schedulerThread(void)
+{
+#ifdef MW_DEBUG_LOG
+  ROS_INFO("ROS schedulerTask entered\n");
+#endif
+  std::string sClockTopic = "/clock";
+  ros::NodeHandle n;
+
+{% if (ROS.ROSTimeNotification) %}
+  pubStepNotify = n.advertise<std_msgs::String>("{% ROS.StepNotify %}", 10);
+{% endif %}
+  ros::Subscriber sub = n.subscribe(sClockTopic, 10, &ros::matlab::NodeInterface::rosClockSubscriberCallback, this);
+  if (sub == NULL) {
+    ROS_INFO("Error: cannot subscribe the '%s'", sClockTopic.c_str());
+	return;
+  }
+  ros::spin();
+  // Unblock main thread and terminate
+  mStopSem.notify();
+  return;
+}
+{% endif %}
+{% if ~(ROS.ROSTimeStepping) %}
+//
+// Scheduler Task using ROS Wall clock timer to run base-rate
+//
+void NodeInterface::schedulerThread(void)
+{
+  while (mRunModel) {
+        std::this_thread::sleep_for(std::chrono::nanoseconds({%SampleTimeNsecs%}));
+        mBaseRateSem.notify();
+    }
+}
+{% endif %}
+
+{% if isSingleTasking %}
+// Base-rate task
+void NodeInterface::baseRateTask(void) {
+  mRunModel = (rtmGetErrorStatus(mModel->getRTM()) ==
+              (NULL));
+  while (mRunModel) {
+    mBaseRateSem.wait();
+#ifdef MW_DEBUG_LOG
+    ROS_INFO("** Base rate task semaphore received\n");
+#endif
+    if (!mRunModel) break;
+	{% if ExtmodeInfo.ExtmodeSim %}
+	/* External mode */
+    {
+      boolean_T rtmStopReq = false;
+      rtExtModePauseIfNeeded(mModel->getRTM()->extModeInfo, {%num2str(numel(SampleTimes))%},
+        &rtmStopReq);
+      if (rtmStopReq) {
+        rtmSetStopRequested(mModel->getRTM(), true);
+      }
+
+      if (rtmGetStopRequested(mModel->getRTM()) == true) {
+        rtmSetErrorStatus(mModel->getRTM(), "Simulation finished");
+		mRunModel = false;
+        break;
+      }
+    }
+	{% endif %}
+	{% if ExtmodeInfo.ExtmodeSim && ~ExtmodeInfo.RunInBackground %}
+    /* External mode */
+    {
+      boolean_T rtmStopReq = false;
+      rtExtModeOneStep(mModel->getRTM()->extModeInfo, {%num2str(numel(SampleTimes))%},
+                       &rtmStopReq);
+      if (rtmStopReq) {
+        rtmSetStopRequested(mModel->getRTM(), true);
+      }
+    }
+	{% endif %}
+    mModel->step();
+    {% if (ROS.ROSTimeStepping) %}
+    publishDone(true);
+    {% endif %}
+
+    {% if ExtmodeInfo.ExtmodeSim %}
+    rtExtModeCheckEndTrigger();
+    {% endif %}
+    mRunModel = !NodeInterface::getStopRequestedFlag();
+  }
+  // Shutdown the ROS node
+  ros::shutdown();
+}
+{% endif %}
+
+{% if ~isSingleTasking %}
+// Base-rate task for multi-tasking model
+void NodeInterface::baseRateTask(void) {
+  mRunModel = (rtmGetErrorStatus(mModel->getRTM()) ==
+              (NULL));
+  while (mRunModel) {
+    mBaseRateSem.wait();
+#ifdef MW_DEBUG_LOG
+    ROS_INFO("** Base rate task semaphore received\n");
+#endif
+    if (!mRunModel) break;
+    {% for i = numel(SampleTimes) %}
+    {% if SampleTimes(i).TID ~= 0 %}
+        //Check if subrate {%num2str(SampleTimes(i).TID)%} should be unblocked
+        if (rtmStepTask(mModel->getRTM(), {%num2str(SampleTimes(i).TID)%})) {
+          mSubRate{%num2str(SampleTimes(i).TID)%}Sem.notify();
+        }
+    {% endif %}
+    {% endfor %}
+	{% if ExtmodeInfo.ExtmodeSim %}
+	/* External mode */
+    {
+      boolean_T rtmStopReq = false;
+      rtExtModePauseIfNeeded(mModel->getRTM()->extModeInfo, {%num2str(numel(SampleTimes))%},
+        &rtmStopReq);
+      if (rtmStopReq) {
+        rtmSetStopRequested(mModel->getRTM(), true);
+      }
+
+      if (rtmGetStopRequested(mModel->getRTM()) == true) {
+        rtmSetErrorStatus(mModel->getRTM(), "Simulation finished");
+		mRunModel = false;
+        break;
+      }
+    }
+	{% endif %}	
+    {% if ~HasExplicitPartitions %}
+    mModel->step0();
+    {% endif %}
+    {% if (ROS.ROSTimeStepping) %}
+    publishDone(true);
+    {% endif %}
+	{% if ExtmodeInfo.ExtmodeSim && ~ExtmodeInfo.RunInBackground %}
+    /* External mode */
+    {
+      boolean_T rtmStopReq = false;
+      rtExtModeOneStep(mModel->getRTM()->extModeInfo, {%num2str(numel(SampleTimes))%},
+                       &rtmStopReq);
+      if (rtmStopReq) {
+        rtmSetStopRequested(mModel->getRTM(), true);
+      }
+    }
+	{% endif %}		
+    {% if ExtmodeInfo.ExtmodeSim %}
+    rtExtModeCheckEndTrigger();
+    {% endif %}
+    mRunModel &= !NodeInterface::getStopRequestedFlag(); //If RunModel and not stop requested
+  }
+  // Shutdown the ROS node
+  ros::shutdown();
+}
+{% endif %}
+
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+void NodeInterface::subRate{%num2str(SampleTimes(i).TID)%}Task(void) {
+  while (mRunModel) {
+    mSubRate{%num2str(SampleTimes(i).TID)%}Sem.wait();
+#ifdef MW_DEBUG_LOG
+    ROS_INFO("** Sub-rate {%num2str(SampleTimes(i).TID)%} task semaphore received\n");
+#endif
+    if (!mRunModel) break;
+    {% if ~HasExplicitPartitions %}
+    mModel->step{%num2str(SampleTimes(i).TID)%}();
+    {% endif %}
+    {% if HasExplicitPartitions %}
+    {%ModelName%}_step(*mModel,{%num2str(SampleTimes(i).TID) - 1%});
+    {% endif %}
+  }
+}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if ExtmodeInfo.ExtmodeSim && ExtmodeInfo.RunInBackground %}
+void NodeInterface::extmodeBackgroundTask(void)
+{
+  while (mRunModel) {
+    /* External mode */
+    {
+      boolean_T rtmStopReq = false;
+      rtExtModeOneStep(mModel->getRTM()->extModeInfo, {%num2str(numel(SampleTimes))%},
+                       &rtmStopReq);
+      if (rtmStopReq) {
+        rtmSetStopRequested(mModel->getRTM(), true);
+      }
+    }
+  }
+}
+{% endif %}
+}//namespace matlab
+}//namespace ros
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#else
+#pragma GCC diagnostic pop
+#endif //_MSC_VER

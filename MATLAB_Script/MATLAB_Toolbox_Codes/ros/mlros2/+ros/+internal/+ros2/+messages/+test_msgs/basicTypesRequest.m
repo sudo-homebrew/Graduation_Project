@@ -1,0 +1,41 @@
+function [data, info] = basicTypesRequest
+%BasicTypes gives an empty data for test_msgs/BasicTypesRequest
+
+% Copyright 2019-2021 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'test_msgs/BasicTypesRequest';
+[data.bool_value, info.bool_value] = ros.internal.ros2.messages.ros2.default_type('logical',1,0);
+[data.byte_value, info.byte_value] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0);
+[data.char_value, info.char_value] = ros.internal.ros2.messages.ros2.char('char',1,NaN,0);
+[data.float32_value, info.float32_value] = ros.internal.ros2.messages.ros2.default_type('single',1,0);
+[data.float64_value, info.float64_value] = ros.internal.ros2.messages.ros2.default_type('double',1,0);
+[data.int8_value, info.int8_value] = ros.internal.ros2.messages.ros2.default_type('int8',1,0);
+[data.uint8_value, info.uint8_value] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0);
+[data.int16_value, info.int16_value] = ros.internal.ros2.messages.ros2.default_type('int16',1,0);
+[data.uint16_value, info.uint16_value] = ros.internal.ros2.messages.ros2.default_type('uint16',1,0);
+[data.int32_value, info.int32_value] = ros.internal.ros2.messages.ros2.default_type('int32',1,0);
+[data.uint32_value, info.uint32_value] = ros.internal.ros2.messages.ros2.default_type('uint32',1,0);
+[data.int64_value, info.int64_value] = ros.internal.ros2.messages.ros2.default_type('int64',1,0);
+[data.uint64_value, info.uint64_value] = ros.internal.ros2.messages.ros2.default_type('uint64',1,0);
+[data.string_value, info.string_value] = ros.internal.ros2.messages.ros2.char('string',1,NaN,0);
+info.MessageType = 'test_msgs/BasicTypesRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,14);
+info.MatPath{1} = 'bool_value';
+info.MatPath{2} = 'byte_value';
+info.MatPath{3} = 'char_value';
+info.MatPath{4} = 'float32_value';
+info.MatPath{5} = 'float64_value';
+info.MatPath{6} = 'int8_value';
+info.MatPath{7} = 'uint8_value';
+info.MatPath{8} = 'int16_value';
+info.MatPath{9} = 'uint16_value';
+info.MatPath{10} = 'int32_value';
+info.MatPath{11} = 'uint32_value';
+info.MatPath{12} = 'int64_value';
+info.MatPath{13} = 'uint64_value';
+info.MatPath{14} = 'string_value';

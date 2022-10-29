@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.3//EN" "http://www.web3d.org/specifications/x3d-3.3.dtd">
+<X3D profile='Immersive' version='3.3' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.3.xsd'>
+<head>
+</head>
+<Scene>
+<ProtoDeclare name='Obstacle'>
+<ProtoInterface>
+<field name='myTranslation' type='SFVec3f' accessType='inputOutput' value='0 0 0'/>
+</ProtoInterface>
+<ProtoBody>
+  <Transform>
+  <IS>
+  <connect protoField='myTranslation' nodeField='translation' />
+  </IS>
+    <Shape>
+      <Appearance>
+        <ImageTexture url='"*sl3dlib/objects/Textures/General/Raindrop.png" '>
+        </ImageTexture>
+        <Material specularColor='0.07 0.07 0.2' shininess='0.01' emissiveColor='0.03 0.03 0.04' diffuseColor='0.5 0.5 0.5' ambientIntensity='0.0867'>
+        </Material>
+      </Appearance>
+      <Box size='0.5 0.2 0.5'>
+      </Box>
+    </Shape>
+  </Transform>
+</ProtoBody></ProtoDeclare>
+<ProtoDeclare name='RobotPillar'>
+<ProtoInterface>
+<field name='RPTrans' type='SFVec3f' accessType='inputOutput' value='0 0 0'/>
+</ProtoInterface>
+<ProtoBody>
+  <Transform>
+  <IS>
+  <connect protoField='RPTrans' nodeField='translation' />
+  </IS>
+    <Shape>
+      <Appearance>
+        <Material diffuseColor='0.3 0.3 0.3'>
+        </Material>
+      </Appearance>
+      <Cylinder radius='0.005' height='0.06'>
+      </Cylinder>
+    </Shape>
+  </Transform>
+</ProtoBody></ProtoDeclare>
+<ProtoDeclare name='RobotWheel'>
+<ProtoInterface>
+<field name='RW1Trans' type='SFVec3f' accessType='inputOutput' value='0 0 0'/>
+<field name='RW2Trans' type='SFVec3f' accessType='inputOutput' value='0 0 0'/>
+<field name='RW3Trans' type='SFVec3f' accessType='inputOutput' value='0 0 0'/>
+</ProtoInterface>
+<ProtoBody>
+  <Transform rotation='1 0 0 1.5708'>
+  <IS>
+  <connect protoField='RW1Trans' nodeField='translation' />
+  </IS>
+    <Shape>
+      <Appearance>
+        <Material diffuseColor='0.5 0.5 0.5'>
+        </Material>
+      </Appearance>
+      <Cylinder radius='0.038' height='0.03'>
+      </Cylinder>
+    </Shape>
+    <Transform>
+    <IS>
+    <connect protoField='RW2Trans' nodeField='translation' />
+    </IS>
+      <Shape>
+        <Appearance>
+          <Material>
+          </Material>
+        </Appearance>
+        <Cylinder radius='0.005' height='0.03'>
+        </Cylinder>
+      </Shape>
+    </Transform>
+    <Transform>
+    <IS>
+    <connect protoField='RW3Trans' nodeField='translation' />
+    </IS>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0.2 0.2 0.2'>
+          </Material>
+        </Appearance>
+        <Box size='0.04 0.02 0.02'>
+        </Box>
+      </Shape>
+    </Transform>
+  </Transform>
+</ProtoBody></ProtoDeclare>
+<ProtoDeclare name='RobotSupportWheel'>
+<ProtoInterface>
+<field name='RSWTrans' type='SFVec3f' accessType='inputOutput' value='0 0 0'/>
+</ProtoInterface>
+<ProtoBody>
+  <Transform>
+  <IS>
+  <connect protoField='RSWTrans' nodeField='translation' />
+  </IS>
+    <Shape>
+      <Appearance>
+        <Material diffuseColor='0.5 0.5 0.5'>
+        </Material>
+      </Appearance>
+      <Cylinder radius='0.009' height='0.015'>
+      </Cylinder>
+    </Shape>
+    <Transform translation='0 -0.005 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0.9 0.9 0.9'>
+          </Material>
+        </Appearance>
+        <Sphere radius='0.009'>
+        </Sphere>
+      </Shape>
+    </Transform>
+  </Transform>
+</ProtoBody></ProtoDeclare>
+<WorldInfo title='Differential Wheeled Robot with LIDAR Sensor' info='"Copyright 1998-2017 HUMUSOFT s.r.o. and The MathWorks, Inc." '>
+</WorldInfo>
+<Background groundAngle='0.9 1.5 1.57' groundColor='0 0.8 0 0.174249 0.82 0.187362 0.467223 0.82 0.445801 0.621997 0.67 0.600279' skyAngle='0.1 1.2 1.57' skyColor='0.76238 0.8 0.1427 0.277798 0.219779 0.7 0.222549 0.390234 0.7 0.60094 0.662637 0.69'>
+</Background>
+<DirectionalLight direction='-1 -1 -1' ambientIntensity='0.5' intensity='0.6'>
+</DirectionalLight>
+<DirectionalLight direction='1 -1 1' ambientIntensity='0.5' intensity='0.6'>
+</DirectionalLight>
+<Viewpoint DEF='VP_Overview'  fieldOfView='0.7854' description='Overview' orientation='1 0 0 -0.95' position='0 7 6'>
+</Viewpoint>
+<Viewpoint DEF='VP_Top'  fieldOfView='0.7854' description='View from the Top' orientation='1 0 0 -1.5708' position='0 11 0'>
+</Viewpoint>
+<Transform DEF='Static_Objects'  scale='2 2 2'>
+  <Shape DEF='Ground' >
+    <Appearance>
+      <TextureTransform scale='50 50'>
+      </TextureTransform>
+      <ImageTexture url='"*sl3dlib/objects/Textures/General/Pavement2.jpg" '>
+      </ImageTexture>
+    </Appearance>
+    <IndexedFaceSet coordIndex='3 2 1 0 -1' colorPerVertex='false'>
+      <Coordinate point='-105 -0.1 -105 125 -0.1 -105 125 -0.1 125 -105 -0.1 125'>
+      </Coordinate>
+    </IndexedFaceSet>
+  </Shape>
+  <Shape DEF='Floor' >
+    <Appearance>
+      <TextureTransform scale='20 20'>
+      </TextureTransform>
+      <ImageTexture url='"*sl3dlib/objects/Textures/General/Granite.jpg" '>
+      </ImageTexture>
+      <Material DEF='Area_Mat'  shininess='0' diffuseColor='0.37 0.5 0.33' ambientIntensity='0.5'>
+      </Material>
+    </Appearance>
+    <IndexedFaceSet coordIndex='3 2 1 0 -1'>
+      <Coordinate point='-2.2 0 -2.2 2.2 0 -2.2 2.2 0 2.2 -2.2 0 2.2'>
+      </Coordinate>
+    </IndexedFaceSet>
+  </Shape>
+</Transform>
+<Group DEF='Walls_Obstacles' >
+  <Transform DEF='Walls'  scale='2 3 2'>
+    <Transform translation='0 0.2 -2.1'>
+      <Shape DEF='Wall1' >
+        <Appearance>
+          <TextureTransform scale='6 2'>
+          </TextureTransform>
+          <ImageTexture url='"*sl3dlib/objects/Textures/General/Brick_Stone.png" '>
+          </ImageTexture>
+          <Material diffuseColor='0.25 0.25 0.25'>
+          </Material>
+        </Appearance>
+        <Box size='4.4 0.4 0.2'>
+        </Box>
+      </Shape>
+    </Transform>
+    <Transform translation='0 0.2 2.1'>
+      <Shape DEF='Wall2' >
+        <Appearance>
+          <TextureTransform scale='6 2'>
+          </TextureTransform>
+          <ImageTexture url='"*sl3dlib/objects/Textures/General/Brick_Stone.png" '>
+          </ImageTexture>
+          <Material diffuseColor='0.25 0.25 0.25'>
+          </Material>
+        </Appearance>
+        <Box size='4.4 0.4 0.2'>
+        </Box>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Transform translation='-2.1 0.2 0' rotation='0 1 0 -1.5708'>
+        <Shape DEF='Wall4' >
+          <Appearance>
+            <TextureTransform scale='6 2'>
+            </TextureTransform>
+            <ImageTexture url='"*sl3dlib/objects/Textures/General/Brick_Stone.png" '>
+            </ImageTexture>
+            <Material diffuseColor='0.25 0.25 0.25'>
+            </Material>
+          </Appearance>
+          <Box size='4.4 0.4 0.2'>
+          </Box>
+        </Shape>
+      </Transform>
+    </Transform>
+    <Transform>
+      <Transform translation='2.1 0.2 0' rotation='0 1 0 1.5708'>
+        <Shape DEF='Wall3_0001' >
+          <Appearance>
+            <TextureTransform scale='6 2'>
+            </TextureTransform>
+            <ImageTexture url='"*sl3dlib/objects/Textures/General/Brick_Stone.png" '>
+            </ImageTexture>
+            <Material diffuseColor='0.25 0.25 0.25'>
+            </Material>
+          </Appearance>
+          <Box size='4.4 0.4 0.2'>
+          </Box>
+        </Shape>
+      </Transform>
+    </Transform>
+  </Transform>
+  <Transform DEF='Truck'  translation='-1.2 0.55 -1.2' scale='0.5 0.5 0.4' rotation='0 1 0 1.5708'>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.8857 0 0' shininess='0.68215' diffuseColor='0.7714 0 0' ambientIntensity='0.1483'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='15 16 1 0 -1 9 17 15 0 -1'>
+          <Coordinate DEF='Fire_Truck_IFS_Coord'  point='-1.00017 0.135 3.19995 -0.890145 1.015 2.75995 -1.00014 -0.725 2.65995 1.01988 -0.365 2.36005 1.01986 -0.725 2.66005 1.01991 -0.365 1.69005 -1.00012 -0.365 2.35995 0.909911 1.015 1.69005 -0.890089 1.015 1.68995 -1.00017 -0.725 3.14995 1.01992 -0.715 1.48005 -0.999966 -0.365 -0.650053 1.02012 -0.365 -2.26995 -0.999842 -0.715 -3.01005 1.02016 -0.715 -3.00995 1.01983 0.135 3.20005 0.909855 1.015 2.76005 1.01983 -0.725 3.15005 -0.900069 1.005 1.30995 -0.999832 0.135 -3.20005 -0.999881 -0.365 -2.27005 -1.00009 0.135 1.68995 -0.999981 -0.715 -0.360053 -1.00008 -0.715 1.47995 -1.00009 -0.365 1.68995 -0.999861 -0.715 -2.65005 1.01991 0.135 1.69005 -0.899848 1.005 -2.88005 0.919931 1.005 1.31005 1.02017 0.135 -3.19995 1.02017 -0.365 -3.19995 1.02003 -0.365 -0.649946 1.02014 -0.715 -2.64995 1.02002 -0.715 -0.359946 -1.06007 0.605 1.25994 -1.05985 0.605 -2.83006 -0.999851 1.015 -2.83005 -1.00007 1.015 1.25995 -0.949851 1.005 -2.83005 -0.950066 1.005 1.25995 -1.01985 0.585 -2.83005 -1.02007 0.585 1.25995 0.999934 1.015 1.26005 0.950149 1.005 -2.82995 1.00015 1.015 -2.82995 0.949934 1.005 1.26005 1.01993 0.585 1.26005 1.05993 0.605 1.26006 1.02015 0.585 -2.82995 1.06015 0.605 -2.82994 0.059902 1.395 1.87 -0.040098 1.395 1.87 0.169883 1.015 2.22001 0.169911 1.015 1.69001 0.169883 1.145 2.22001 -0.150117 1.145 2.21999 -0.150089 1.145 1.68999 -0.150089 1.015 1.68999 -0.150117 1.015 2.21999 -0.150082 1.015 1.55999 -0.150082 1.145 1.55999 -0.150089 0.765 1.68999 -0.150082 0.765 1.55999 0.169918 0.765 1.56001 0.169911 0.765 1.69001 0.169918 1.015 1.56001 0.169918 1.145 1.56001 0.169911 1.145 1.69001 -0.040107 1.145 2.04 0.059902 1.145 1.87 -0.040098 1.285 1.87 -0.040098 1.145 1.87 0.059902 1.285 1.87 0.059893 1.145 2.04 0.059893 1.395 2.04 0.029855 1.375 2.75 -0.010145 1.375 2.75 -0.010145 1.305 2.75 -0.040107 1.395 2.04 0.029855 1.305 2.75 -0.040107 1.285 2.04 0.059893 1.285 2.04 -0.98992 -0.905 -1.53005 -0.989912 -0.555 -1.68005 -0.989875 -0.555 -2.38005 -0.595912 -0.555 -1.68003 0.566107 -1.395 -2.02997 0.566125 -0.555 -2.37997 0.566125 -1.255 -2.37997 0.960125 -1.255 -2.37995 0.960125 -0.555 -2.37995 0.960088 -0.555 -1.67995 0.96008 -0.905 -1.52995 -0.990128 -1.255 2.43995 -0.990128 -0.555 2.43995 -0.990109 -0.405 2.07995 -0.990083 -0.905 1.57995 -0.596083 -0.905 1.57997 -0.596091 -0.555 1.72997 -0.596109 -0.405 2.07997 -0.596128 -0.555 2.43997 -0.596136 -0.905 2.57997 -0.596128 -1.255 2.43997 -0.990109 -1.395 2.07995 -0.596109 -1.395 2.07997 -0.990136 -0.905 2.57995 -0.990091 -0.555 1.72995 -0.596091 -1.255 1.72997 -0.990091 -1.255 1.72995 -0.989969 -1.255 -0.590052 -0.989969 -0.555 -0.590052 -0.98995 -0.405 -0.950052 -0.989932 -1.255 -1.30005 -0.595932 -1.255 -1.30003 -0.595924 -0.905 -1.45003 -0.595932 -0.555 -1.30003 -0.59595 -1.395 -0.950031 -0.98995 -1.395 -0.950052 -0.595969 -1.255 -0.590031 -0.595976 -0.905 -0.450031 -0.989976 -0.905 -0.450052 -0.595969 -0.555 -0.590031 -0.59595 -0.405 -0.950031 -0.989932 -0.555 -1.30005 -0.989924 -0.905 -1.45005 -0.989893 -1.395 -2.03005 -0.595893 -1.395 -2.03003 -0.595912 -1.255 -1.68003 -0.989912 -1.255 -1.68005 -0.59592 -0.905 -1.53003 -0.595893 -0.405 -2.03003 -0.989893 -0.405 -2.03005 -0.595875 -0.555 -2.38003 -0.595867 -0.905 -2.53003 -0.989867 -0.905 -2.53005 -0.595875 -1.255 -2.38003 -0.989875 -1.255 -2.38005 0.565872 -1.255 2.44003 0.565872 -0.555 2.44003 0.565917 -0.905 1.58003 0.959917 -0.905 1.58005 0.959872 -0.555 2.44005 0.959891 -1.395 2.08005 0.565891 -1.395 2.08003 0.959872 -1.255 2.44005 0.959864 -0.905 2.58005 0.565864 -0.905 2.58003 0.959891 -0.405 2.08005 0.565891 -0.405 2.08003 0.959909 -0.555 1.73005 0.565909 -0.555 1.73003 0.959909 -1.255 1.73005 0.565909 -1.255 1.73003 0.56605 -1.395 -0.94997 0.566031 -1.255 -0.58997 0.566024 -0.905 -0.44997 0.56605 -0.405 -0.94997 0.566076 -0.905 -1.44997 0.566068 -1.255 -1.29997 0.960076 -0.905 -1.44995 0.96005 -0.405 -0.94995 0.960031 -0.555 -0.589949 0.96005 -1.395 -0.94995 0.960031 -1.255 -0.589949 0.960024 -0.905 -0.44995 0.566031 -0.555 -0.58997 0.960068 -0.555 -1.29995 0.566068 -0.555 -1.29997 0.960068 -1.255 -1.29995 0.960107 -1.395 -2.02995 0.960088 -1.255 -1.67995 0.566088 -1.255 -1.67997 0.56608 -0.905 -1.52997 0.566088 -0.555 -1.67997 0.960107 -0.405 -2.02995 0.566107 -0.405 -2.02997 0.960133 -0.905 -2.52995 0.566133 -0.905 -2.52997 0.920152 1.005 -2.87995 -0.999832 -0.365 -3.20005'>
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.8857 0 0' shininess='0.68215' diffuseColor='0.7714 0 0' ambientIntensity='0.1483'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='14 13 179 30 -1 27 178 29 19 -1 179 19 29 30 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.3 0.3 0.3' shininess='0.3' diffuseColor='1 1 1' ambientIntensity='0.4'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='46 48 49 47 -1 43 45 42 44 -1 42 47 49 44 -1 48 43 44 49 -1 45 46 47 42 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.3 0.3 0.3' shininess='0.3' diffuseColor='1 1 1' ambientIntensity='0.4'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='34 35 40 41 -1 36 37 39 38 -1 36 35 34 37 -1 35 36 38 40 -1 37 34 41 39 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.8857 0 0' shininess='0.68215' diffuseColor='0.7714 0 0' ambientIntensity='0.1483'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='17 4 3 15 -1 3 5 26 15 -1 16 7 8 1 -1 0 1 8 21 -1 2 9 0 6 -1 16 15 26 7 -1 21 24 6 0 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.5 0.5 0.5' shininess='0.05' diffuseColor='0.0122 0.0122 0.0122' ambientIntensity='0'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='25 32 12 20 -1 20 12 31 11 -1 23 10 5 24 -1 6 3 4 2 -1 7 26 21 8 -1 24 5 3 6 -1 17 9 2 4 -1 23 22 33 10 -1 33 22 11 31 -1 25 13 14 32 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.8857 0 0' shininess='0.68215' diffuseColor='0.7714 0 0' ambientIntensity='0.1483'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='12 29 26 31 -1 32 14 30 12 -1 30 29 12 -1 18 27 19 21 -1 179 20 19 -1 13 25 20 179 -1 19 20 11 21 -1 27 18 28 178 -1 22 23 24 11 -1 24 21 11 -1 26 28 18 21 -1 178 28 26 29 -1 5 31 26 -1 10 33 31 5 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.3 0.3 0.3' shininess='0.3' diffuseColor='0.6163 0.6163 0.6163' ambientIntensity='0.9551'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='77 76 78 80 -1 75 79 81 74 -1 79 75 76 77 -1 51 50 72 70 -1 72 81 73 69 -1 80 70 71 68 -1 71 69 67 56 -1 73 68 55 54 -1 64 63 65 53 -1 66 60 56 67 -1 61 62 63 64 -1 59 60 66 65 -1 54 55 58 52 -1 50 51 78 74 -1 67 54 52 53 -1 55 56 57 58 -1 60 59 57 56 -1 65 66 67 53 -1 62 61 57 59 -1 63 62 59 65 -1 68 71 56 55 -1 69 73 54 67 -1 70 72 69 71 -1 81 80 68 73 -1 50 74 81 72 -1 78 51 70 80 -1 79 77 80 81 -1 76 75 74 78 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.1 0.1 0.1' shininess='0.3' diffuseColor='0.4 0.4 0.4' ambientIntensity='0'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='88 89 169 86 -1 87 90 176 177 -1 173 91 174 175 -1 171 170 92 172 -1 158 168 162 153 -1 167 166 159 157 -1 165 161 160 156 -1 154 163 164 155 -1 168 159 166 160 161 164 163 162 -1 152 151 142 143 -1 150 149 140 139 -1 138 141 147 148 -1 137 144 145 146 -1 151 140 149 147 141 145 144 142 -1 136 135 126 125 -1 84 132 133 134 -1 83 85 130 131 -1 128 127 129 82 -1 112 113 116 117 -1 123 115 114 124 -1 110 121 122 111 -1 109 118 119 120 -1 113 114 115 122 121 119 118 116 -1 108 107 104 103 -1 106 98 97 96 -1 94 100 99 95 -1 93 102 101 105 -1 107 97 98 99 100 101 102 104 -1 89 176 90 174 91 92 170 169 -1 135 133 132 130 85 129 127 126 -1 125 128 82 83 131 84 134 136 -1 86 171 172 173 175 87 177 88 -1 103 93 105 94 95 106 96 108 -1 103 104 102 93 -1 105 101 100 94 -1 95 99 98 106 -1 96 97 107 108 -1 117 109 120 110 111 123 124 112 -1 117 116 118 109 -1 120 119 121 110 -1 111 122 115 123 -1 124 114 113 112 -1 125 126 127 128 -1 82 129 85 83 -1 131 130 132 84 -1 134 133 135 136 -1 143 137 146 138 148 150 139 152 -1 143 142 144 137 -1 146 145 141 138 -1 148 147 149 150 -1 139 140 151 152 -1 153 154 155 165 156 167 157 158 -1 153 162 163 154 -1 155 164 161 165 -1 156 160 166 167 -1 157 159 168 158 -1 86 169 170 171 -1 172 92 91 173 -1 175 174 90 87 -1 177 176 89 88 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+  </Transform>
+  <Transform DEF='Truck_0001'  translation='0.8 0.55 1.4' scale='0.5 0.5 0.4' rotation='0 1 0 3.14'>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.8857 0 0' shininess='0.68215' diffuseColor='0.7714 0 0' ambientIntensity='0.1483'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='15 16 1 0 -1 9 17 15 0 -1'>
+          <Coordinate DEF='Fire_Truck_IFS_Coord_0001'  point='-1.00017 0.135 3.19995 -0.890145 1.015 2.75995 -1.00014 -0.725 2.65995 1.01988 -0.365 2.36005 1.01986 -0.725 2.66005 1.01991 -0.365 1.69005 -1.00012 -0.365 2.35995 0.909911 1.015 1.69005 -0.890089 1.015 1.68995 -1.00017 -0.725 3.14995 1.01992 -0.715 1.48005 -0.999966 -0.365 -0.650053 1.02012 -0.365 -2.26995 -0.999842 -0.715 -3.01005 1.02016 -0.715 -3.00995 1.01983 0.135 3.20005 0.909855 1.015 2.76005 1.01983 -0.725 3.15005 -0.900069 1.005 1.30995 -0.999832 0.135 -3.20005 -0.999881 -0.365 -2.27005 -1.00009 0.135 1.68995 -0.999981 -0.715 -0.360053 -1.00008 -0.715 1.47995 -1.00009 -0.365 1.68995 -0.999861 -0.715 -2.65005 1.01991 0.135 1.69005 -0.899848 1.005 -2.88005 0.919931 1.005 1.31005 1.02017 0.135 -3.19995 1.02017 -0.365 -3.19995 1.02003 -0.365 -0.649946 1.02014 -0.715 -2.64995 1.02002 -0.715 -0.359946 -1.06007 0.605 1.25994 -1.05985 0.605 -2.83006 -0.999851 1.015 -2.83005 -1.00007 1.015 1.25995 -0.949851 1.005 -2.83005 -0.950066 1.005 1.25995 -1.01985 0.585 -2.83005 -1.02007 0.585 1.25995 0.999934 1.015 1.26005 0.950149 1.005 -2.82995 1.00015 1.015 -2.82995 0.949934 1.005 1.26005 1.01993 0.585 1.26005 1.05993 0.605 1.26006 1.02015 0.585 -2.82995 1.06015 0.605 -2.82994 0.059902 1.395 1.87 -0.040098 1.395 1.87 0.169883 1.015 2.22001 0.169911 1.015 1.69001 0.169883 1.145 2.22001 -0.150117 1.145 2.21999 -0.150089 1.145 1.68999 -0.150089 1.015 1.68999 -0.150117 1.015 2.21999 -0.150082 1.015 1.55999 -0.150082 1.145 1.55999 -0.150089 0.765 1.68999 -0.150082 0.765 1.55999 0.169918 0.765 1.56001 0.169911 0.765 1.69001 0.169918 1.015 1.56001 0.169918 1.145 1.56001 0.169911 1.145 1.69001 -0.040107 1.145 2.04 0.059902 1.145 1.87 -0.040098 1.285 1.87 -0.040098 1.145 1.87 0.059902 1.285 1.87 0.059893 1.145 2.04 0.059893 1.395 2.04 0.029855 1.375 2.75 -0.010145 1.375 2.75 -0.010145 1.305 2.75 -0.040107 1.395 2.04 0.029855 1.305 2.75 -0.040107 1.285 2.04 0.059893 1.285 2.04 -0.98992 -0.905 -1.53005 -0.989912 -0.555 -1.68005 -0.989875 -0.555 -2.38005 -0.595912 -0.555 -1.68003 0.566107 -1.395 -2.02997 0.566125 -0.555 -2.37997 0.566125 -1.255 -2.37997 0.960125 -1.255 -2.37995 0.960125 -0.555 -2.37995 0.960088 -0.555 -1.67995 0.96008 -0.905 -1.52995 -0.990128 -1.255 2.43995 -0.990128 -0.555 2.43995 -0.990109 -0.405 2.07995 -0.990083 -0.905 1.57995 -0.596083 -0.905 1.57997 -0.596091 -0.555 1.72997 -0.596109 -0.405 2.07997 -0.596128 -0.555 2.43997 -0.596136 -0.905 2.57997 -0.596128 -1.255 2.43997 -0.990109 -1.395 2.07995 -0.596109 -1.395 2.07997 -0.990136 -0.905 2.57995 -0.990091 -0.555 1.72995 -0.596091 -1.255 1.72997 -0.990091 -1.255 1.72995 -0.989969 -1.255 -0.590052 -0.989969 -0.555 -0.590052 -0.98995 -0.405 -0.950052 -0.989932 -1.255 -1.30005 -0.595932 -1.255 -1.30003 -0.595924 -0.905 -1.45003 -0.595932 -0.555 -1.30003 -0.59595 -1.395 -0.950031 -0.98995 -1.395 -0.950052 -0.595969 -1.255 -0.590031 -0.595976 -0.905 -0.450031 -0.989976 -0.905 -0.450052 -0.595969 -0.555 -0.590031 -0.59595 -0.405 -0.950031 -0.989932 -0.555 -1.30005 -0.989924 -0.905 -1.45005 -0.989893 -1.395 -2.03005 -0.595893 -1.395 -2.03003 -0.595912 -1.255 -1.68003 -0.989912 -1.255 -1.68005 -0.59592 -0.905 -1.53003 -0.595893 -0.405 -2.03003 -0.989893 -0.405 -2.03005 -0.595875 -0.555 -2.38003 -0.595867 -0.905 -2.53003 -0.989867 -0.905 -2.53005 -0.595875 -1.255 -2.38003 -0.989875 -1.255 -2.38005 0.565872 -1.255 2.44003 0.565872 -0.555 2.44003 0.565917 -0.905 1.58003 0.959917 -0.905 1.58005 0.959872 -0.555 2.44005 0.959891 -1.395 2.08005 0.565891 -1.395 2.08003 0.959872 -1.255 2.44005 0.959864 -0.905 2.58005 0.565864 -0.905 2.58003 0.959891 -0.405 2.08005 0.565891 -0.405 2.08003 0.959909 -0.555 1.73005 0.565909 -0.555 1.73003 0.959909 -1.255 1.73005 0.565909 -1.255 1.73003 0.56605 -1.395 -0.94997 0.566031 -1.255 -0.58997 0.566024 -0.905 -0.44997 0.56605 -0.405 -0.94997 0.566076 -0.905 -1.44997 0.566068 -1.255 -1.29997 0.960076 -0.905 -1.44995 0.96005 -0.405 -0.94995 0.960031 -0.555 -0.589949 0.96005 -1.395 -0.94995 0.960031 -1.255 -0.589949 0.960024 -0.905 -0.44995 0.566031 -0.555 -0.58997 0.960068 -0.555 -1.29995 0.566068 -0.555 -1.29997 0.960068 -1.255 -1.29995 0.960107 -1.395 -2.02995 0.960088 -1.255 -1.67995 0.566088 -1.255 -1.67997 0.56608 -0.905 -1.52997 0.566088 -0.555 -1.67997 0.960107 -0.405 -2.02995 0.566107 -0.405 -2.02997 0.960133 -0.905 -2.52995 0.566133 -0.905 -2.52997 0.920152 1.005 -2.87995 -0.999832 -0.365 -3.20005'>
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.8857 0 0' shininess='0.68215' diffuseColor='0.7714 0 0' ambientIntensity='0.1483'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='14 13 179 30 -1 27 178 29 19 -1 179 19 29 30 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.3 0.3 0.3' shininess='0.3' diffuseColor='1 1 1' ambientIntensity='0.4'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='46 48 49 47 -1 43 45 42 44 -1 42 47 49 44 -1 48 43 44 49 -1 45 46 47 42 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.3 0.3 0.3' shininess='0.3' diffuseColor='1 1 1' ambientIntensity='0.4'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='34 35 40 41 -1 36 37 39 38 -1 36 35 34 37 -1 35 36 38 40 -1 37 34 41 39 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.8857 0 0' shininess='0.68215' diffuseColor='0.7714 0 0' ambientIntensity='0.1483'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='17 4 3 15 -1 3 5 26 15 -1 16 7 8 1 -1 0 1 8 21 -1 2 9 0 6 -1 16 15 26 7 -1 21 24 6 0 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.5 0.5 0.5' shininess='0.05' diffuseColor='0.0122 0.0122 0.0122' ambientIntensity='0'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='25 32 12 20 -1 20 12 31 11 -1 23 10 5 24 -1 6 3 4 2 -1 7 26 21 8 -1 24 5 3 6 -1 17 9 2 4 -1 23 22 33 10 -1 33 22 11 31 -1 25 13 14 32 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.8857 0 0' shininess='0.68215' diffuseColor='0.7714 0 0' ambientIntensity='0.1483'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='12 29 26 31 -1 32 14 30 12 -1 30 29 12 -1 18 27 19 21 -1 179 20 19 -1 13 25 20 179 -1 19 20 11 21 -1 27 18 28 178 -1 22 23 24 11 -1 24 21 11 -1 26 28 18 21 -1 178 28 26 29 -1 5 31 26 -1 10 33 31 5 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.3 0.3 0.3' shininess='0.3' diffuseColor='0.6163 0.6163 0.6163' ambientIntensity='0.9551'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='77 76 78 80 -1 75 79 81 74 -1 79 75 76 77 -1 51 50 72 70 -1 72 81 73 69 -1 80 70 71 68 -1 71 69 67 56 -1 73 68 55 54 -1 64 63 65 53 -1 66 60 56 67 -1 61 62 63 64 -1 59 60 66 65 -1 54 55 58 52 -1 50 51 78 74 -1 67 54 52 53 -1 55 56 57 58 -1 60 59 57 56 -1 65 66 67 53 -1 62 61 57 59 -1 63 62 59 65 -1 68 71 56 55 -1 69 73 54 67 -1 70 72 69 71 -1 81 80 68 73 -1 50 74 81 72 -1 78 51 70 80 -1 79 77 80 81 -1 76 75 74 78 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+    <Transform>
+      <Shape>
+        <Appearance>
+          <Material specularColor='0.1 0.1 0.1' shininess='0.3' diffuseColor='0.4 0.4 0.4' ambientIntensity='0'>
+          </Material>
+        </Appearance>
+        <IndexedFaceSet creaseAngle='1' coordIndex='88 89 169 86 -1 87 90 176 177 -1 173 91 174 175 -1 171 170 92 172 -1 158 168 162 153 -1 167 166 159 157 -1 165 161 160 156 -1 154 163 164 155 -1 168 159 166 160 161 164 163 162 -1 152 151 142 143 -1 150 149 140 139 -1 138 141 147 148 -1 137 144 145 146 -1 151 140 149 147 141 145 144 142 -1 136 135 126 125 -1 84 132 133 134 -1 83 85 130 131 -1 128 127 129 82 -1 112 113 116 117 -1 123 115 114 124 -1 110 121 122 111 -1 109 118 119 120 -1 113 114 115 122 121 119 118 116 -1 108 107 104 103 -1 106 98 97 96 -1 94 100 99 95 -1 93 102 101 105 -1 107 97 98 99 100 101 102 104 -1 89 176 90 174 91 92 170 169 -1 135 133 132 130 85 129 127 126 -1 125 128 82 83 131 84 134 136 -1 86 171 172 173 175 87 177 88 -1 103 93 105 94 95 106 96 108 -1 103 104 102 93 -1 105 101 100 94 -1 95 99 98 106 -1 96 97 107 108 -1 117 109 120 110 111 123 124 112 -1 117 116 118 109 -1 120 119 121 110 -1 111 122 115 123 -1 124 114 113 112 -1 125 126 127 128 -1 82 129 85 83 -1 131 130 132 84 -1 134 133 135 136 -1 143 137 146 138 148 150 139 152 -1 143 142 144 137 -1 146 145 141 138 -1 148 147 149 150 -1 139 140 151 152 -1 153 154 155 165 156 167 157 158 -1 153 162 163 154 -1 155 164 161 165 -1 156 160 166 167 -1 157 159 168 158 -1 86 169 170 171 -1 172 92 91 173 -1 175 174 90 87 -1 177 176 89 88 -1'>
+          <Coordinate USE='Fire_Truck_IFS_Coord' >
+          </Coordinate>
+        </IndexedFaceSet>
+      </Shape>
+    </Transform>
+  </Transform>
+</Group>
+<Transform DEF='Robot'  translation='0 0.2 0' scale='1 0.8 1' rotation='0 1 0 0'>
+  <Transform DEF='Robot_Parts'  translation='-0.506122 0 -2.8' rotation='0 1 0 -0.737313'>
+    <Transform DEF='Follow_VP_Placement'  translation='-0.7 0.5 0' rotation='0 1 0 -1.5708'>
+      <Viewpoint DEF='VP_Follow'  fieldOfView='1' description='Follow Robot' orientation='1 0 0 -0.35' position='0 0.5 0.5'>
+      </Viewpoint>
+    </Transform>
+    <Transform DEF='Robot_Body'  scale='1 2.4 1'>
+      <Transform DEF='top_part'  translation='0 0.05 0'>
+        <Shape>
+          <Appearance>
+            <Material diffuseColor='0.4 0.4 1'>
+            </Material>
+          </Appearance>
+          <Cylinder radius='0.13' height='0.01'>
+          </Cylinder>
+        </Shape>
+      </Transform>
+      <ProtoInstance DEF='RP1' name='RobotPillar'>
+      <fieldValue name='RPTrans' value='0.07 0.02 0.07'/>
+      </ProtoInstance>
+      <ProtoInstance DEF='RP2' name='RobotPillar'>
+      <fieldValue name='RPTrans' value='0.07 0.02 -0.07'/>
+      </ProtoInstance>
+      <ProtoInstance DEF='RP3' name='RobotPillar'>
+      <fieldValue name='RPTrans' value='-0.07 0.02 0.07'/>
+      </ProtoInstance>
+      <ProtoInstance DEF='RP4' name='RobotPillar'>
+      <fieldValue name='RPTrans' value='-0.07 0.02 -0.07'/>
+      </ProtoInstance>
+      <ProtoInstance DEF='W1' name='RobotWheel'>
+      <fieldValue name='RW1Trans' value='0 0 0.1175'/>
+      <fieldValue name='RW2Trans' value='0 -0.015 0'/>
+      <fieldValue name='RW3Trans' value='0 -0.03 0'/>
+      </ProtoInstance>
+      <ProtoInstance DEF='W2' name='RobotWheel'>
+      <fieldValue name='RW1Trans' value='0 0 -0.1175'/>
+      <fieldValue name='RW2Trans' value='0 0.015 0'/>
+      <fieldValue name='RW3Trans' value='0 0.03 0'/>
+      </ProtoInstance>
+      <ProtoInstance DEF='RSW1' name='RobotSupportWheel'>
+      <fieldValue name='RSWTrans' value='0.1 -0.025 0'/>
+      </ProtoInstance>
+      <ProtoInstance DEF='RSW2' name='RobotSupportWheel'>
+      <fieldValue name='RSWTrans' value='-0.1 -0.025 0'/>
+      </ProtoInstance>
+      <Transform DEF='bottom_part'  translation='0 -0.02 0'>
+        <Shape>
+          <Appearance>
+            <Material diffuseColor='0.4 0.4 1'>
+            </Material>
+          </Appearance>
+          <Extrusion spine='0 0 0 0 0.01 0' crossSection='0.0445 0.1222 0.065 0.1126 0.0836 0.0996 0.0996 0.0836 0.1126 0.065 0.1222 0.0445 0.128 0.0226 0.13 0 0.128 -0.0226 0.1222 -0.0445 0.1126 -0.065 0.0996 -0.0836 0.0836 -0.0996 0.065 -0.1126 0.0445 -0.1222 0.045 -0.1 -0.045 -0.1 -0.0445 -0.1222 -0.065 -0.1126 -0.0836 -0.0996 -0.0996 -0.0836 -0.1126 -0.065 -0.1222 -0.0445 -0.128 -0.0226 -0.13 0 -0.128 0.0226 -0.1222 0.0445 -0.1126 0.065 -0.0996 0.0836 -0.0836 0.0996 -0.065 0.1126 -0.0445 0.1222 -0.045 0.1 0.045 0.1 0.0445 0.1222' creaseAngle='0.5'>
+          </Extrusion>
+        </Shape>
+      </Transform>
+    </Transform>
+    <Transform DEF='Lidar_Placement'  translation='0 0.2 0' rotation='0 1 0 0'>
+      <Transform DEF='Lidar_Puck'  rotation='0 1 0 0'>
+        <Transform translation='0 0.1 0'>
+          <Shape>
+            <Appearance>
+              <Material specularColor='0.5 0.5 0.5' shininess='0.12' emissiveColor='1 0 0.6' diffuseColor='0.33 0.33 0.33' ambientIntensity='0.04'>
+              </Material>
+            </Appearance>
+            <Cylinder radius='0.028' height='0.06'>
+            </Cylinder>
+          </Shape>
+        </Transform>
+        <Transform translation='0 0.1 0'>
+          <Shape>
+            <Appearance>
+              <Material specularColor='0.5 0.5 0.5' shininess='0.3' emissiveColor='0 0.06 0.1' diffuseColor='0.1 0.1 0.1' ambientIntensity='0.04'>
+              </Material>
+            </Appearance>
+            <Cylinder radius='0.03' height='0.03'>
+            </Cylinder>
+          </Shape>
+        </Transform>
+        <Shape>
+          <Appearance>
+            <Material DEF='Lineset_Sensor_Mat'  transparency='0.87' shininess='0.8' emissiveColor='0.8 0.8 0' diffuseColor='1 1 1'>
+            </Material>
+          </Appearance>
+          <IndexedLineSet DEF='Lineset_Sensor'  coordIndex='0 1 -1 0 2 -1 0 3 -1 0 4 -1 0 5 -1 0 6 -1 0 7 -1 0 8 -1 0 9 -1 0 10 -1 0 11 -1 0 12 -1 0 13 -1 0 14 -1 0 15 -1 0 16 -1 0 17 -1 0 18 -1 0 19 -1 0 20 -1 0 21 -1 0 22 -1 0 23 -1 0 24 -1 0 25 -1 0 26 -1 0 27 -1 0 28 -1 0 29 -1 0 30 -1 0 31 -1 0 32 -1 0 33 -1 0 34 -1 0 35 -1 0 36 -1 0 37 -1 0 38 -1 0 39 -1 0 40 -1 0 41 -1 0 42 -1 0 43 -1 0 44 -1 0 45 -1 0 46 -1 0 47 -1 0 48 -1 0 49 -1 0 50 -1 0 51 -1 0 52 -1 0 53 -1 0 54 -1 0 55 -1 0 56 -1 0 57 -1 0 58 -1 0 59 -1 0 60 -1 0 61 -1 0 62 -1 0 63 -1 0 64 -1 0 65 -1 0 66 -1 0 67 -1 0 68 -1 0 69 -1 0 70 -1 0 71 -1 0 72 -1 0 73 -1 0 74 -1 0 75 -1 0 76 -1 0 77 -1 0 78 -1 0 79 -1 0 80 -1 0 81 -1 0 82 -1 0 83 -1 0 84 -1 0 85 -1 0 86 -1 0 87 -1 0 88 -1 0 89 -1 0 90 -1 0 91 -1 0 92 -1 0 93 -1 0 94 -1 0 95 -1 0 96 -1 0 97 -1 0 98 -1 0 99 -1 0 100 -1 0 101 -1 0 102 -1 0 103 -1 0 104 -1 0 105 -1 0 106 -1 0 107 -1 0 108 -1 0 109 -1 0 110 -1 0 111 -1 0 112 -1 0 113 -1 0 114 -1 0 115 -1 0 116 -1 0 117 -1 0 118 -1 0 119 -1 0 120 -1 0 121 -1 0 122 -1 0 123 -1 0 124 -1 0 125 -1 0 126 -1 0 127 -1 0 128 -1 0 129 -1 0 130 -1 0 131 -1 0 132 -1 0 133 -1 0 134 -1 0 135 -1 0 136 -1 0 137 -1 0 138 -1 0 139 -1 0 140 -1 0 141 -1 0 142 -1 0 143 -1 0 144 -1 0 145 -1 0 146 -1 0 147 -1 0 148 -1 0 149 -1 0 150 -1 0 151 -1 0 152 -1 0 153 -1 0 154 -1 0 155 -1 0 156 -1 0 157 -1 0 158 -1 0 159 -1 0 160 -1 0 161 -1 0 162 -1 0 163 -1 0 164 -1 0 165 -1 0 166 -1 0 167 -1 0 168 -1 0 169 -1 0 170 -1 0 171 -1 0 172 -1 0 173 -1 0 174 -1 0 175 -1 0 176 -1 0 177 -1 0 178 -1 0 179 -1 0 180 -1 0 181 -1 0 182 -1 0 183 -1 0 184 -1 0 185 -1 0 186 -1 0 187 -1 0 188 -1 0 189 -1 0 190 -1 0 191 -1 0 192 -1 0 193 -1 0 194 -1 0 195 -1 0 196 -1 0 197 -1 0 198 -1 0 199 -1 0 200 -1 0 201 -1 0 202 -1 0 203 -1 0 204 -1 0 205 -1 0 206 -1 0 207 -1 0 208 -1 0 209 -1 0 210 -1 0 211 -1 0 212 -1 0 213 -1 0 214 -1 0 215 -1 0 216 -1 0 217 -1 0 218 -1 0 219 -1 0 220 -1 0 221 -1 0 222 -1 0 223 -1 0 224 -1 0 225 -1 0 226 -1 0 227 -1 0 228 -1 0 229 -1 0 230 -1 0 231 -1 0 232 -1 0 233 -1 0 234 -1 0 235 -1 0 236 -1 0 237 -1 0 238 -1 0 239 -1 0 240 -1' colorPerVertex='false'>
+            <Coordinate DEF='Lineset_Sensor_Coord'  point='0 0.1 0 -10 0 -1.22465e-15 -9.99657 0 -0.261769 -9.9863 0 -0.52336 -9.96917 0 -0.784591 -9.94522 0 -1.04528 -9.91445 0 -1.30526 -9.87688 0 -1.56434 -9.83255 0 -1.82236 -9.78148 0 -2.07912 -9.7237 0 -2.33445 -9.65926 0 -2.58819 -9.5882 0 -2.84015 -9.51056 0 -3.09017 -9.42641 0 -3.33807 -9.3358 0 -3.58368 -9.2388 0 -3.82683 -9.13545 0 -4.06737 -9.02585 0 -4.30511 -8.91007 0 -4.53991 -8.78817 0 -4.77159 -8.66025 0 -5 -8.5264 0 -5.22499 -8.38671 0 -5.44639 -8.24126 0 -5.66406 -8.09017 0 -5.87785 -7.93353 0 -6.08761 -7.77146 0 -6.2932 -7.60406 0 -6.49448 -7.43145 0 -6.69131 -7.25374 0 -6.88355 -7.07107 0 -7.07107 -6.88355 0 -7.25374 -6.69131 0 -7.43145 -6.49448 0 -7.60406 -6.2932 0 -7.77146 -6.08761 0 -7.93353 -5.87785 0 -8.09017 -5.66406 0 -8.24126 -5.44639 0 -8.38671 -5.22499 0 -8.5264 -5 0 -8.66025 -4.77159 0 -8.78817 -4.53991 0 -8.91007 -4.30511 0 -9.02585 -4.06737 0 -9.13545 -3.82683 0 -9.2388 -3.58368 0 -9.3358 -3.33807 0 -9.42641 -3.09017 0 -9.51056 -2.84015 0 -9.5882 -2.58819 0 -9.65926 -2.33445 0 -9.7237 -2.07912 0 -9.78148 -1.82236 0 -9.83255 -1.56434 0 -9.87688 -1.30526 0 -9.91445 -1.04528 0 -9.94522 -0.784591 0 -9.96917 -0.52336 0 -9.9863 -0.261769 0 -9.99657 6.12323e-16 0 -10 0.261769 0 -9.99657 0.52336 0 -9.9863 0.784591 0 -9.96917 1.04528 0 -9.94522 1.30526 0 -9.91445 1.56434 0 -9.87688 1.82236 0 -9.83255 2.07912 0 -9.78148 2.33445 0 -9.7237 2.58819 0 -9.65926 2.84015 0 -9.5882 3.09017 0 -9.51056 3.33807 0 -9.42641 3.58368 0 -9.3358 3.82683 0 -9.2388 4.06737 0 -9.13545 4.30511 0 -9.02585 4.53991 0 -8.91007 4.77159 0 -8.78817 5 0 -8.66025 5.22499 0 -8.5264 5.44639 0 -8.38671 5.66406 0 -8.24126 5.87785 0 -8.09017 6.08761 0 -7.93353 6.2932 0 -7.77146 6.49448 0 -7.60406 6.69131 0 -7.43145 6.88355 0 -7.25374 7.07107 0 -7.07107 7.25374 0 -6.88355 7.43145 0 -6.69131 7.60406 0 -6.49448 7.77146 0 -6.2932 7.93353 0 -6.08761 8.09017 0 -5.87785 8.24126 0 -5.66406 8.38671 0 -5.44639 8.5264 0 -5.22499 8.66025 0 -5 8.78817 0 -4.77159 8.91007 0 -4.53991 9.02585 0 -4.30511 9.13545 0 -4.06737 9.2388 0 -3.82683 9.3358 0 -3.58368 9.42641 0 -3.33807 9.51056 0 -3.09017 9.5882 0 -2.84015 9.65926 0 -2.58819 9.7237 0 -2.33445 9.78148 0 -2.07912 9.83255 0 -1.82236 9.87688 0 -1.56434 9.91445 0 -1.30526 9.94522 0 -1.04528 9.96917 0 -0.784591 9.9863 0 -0.52336 9.99657 0 -0.261769 10 0 0 9.99657 0 0.261769 9.9863 0 0.52336 9.96917 0 0.784591 9.94522 0 1.04528 9.91445 0 1.30526 9.87688 0 1.56434 9.83255 0 1.82236 9.78148 0 2.07912 9.7237 0 2.33445 9.65926 0 2.58819 9.5882 0 2.84015 9.51056 0 3.09017 9.42641 0 3.33807 9.3358 0 3.58368 9.2388 0 3.82683 9.13545 0 4.06737 9.02585 0 4.30511 8.91007 0 4.53991 8.78817 0 4.77159 8.66025 0 5 8.5264 0 5.22499 8.38671 0 5.44639 8.24126 0 5.66406 8.09017 0 5.87785 7.93353 0 6.08761 7.77146 0 6.2932 7.60406 0 6.49448 7.43145 0 6.69131 7.25374 0 6.88355 7.07107 0 7.07107 6.88355 0 7.25374 6.69131 0 7.43145 6.49448 0 7.60406 6.2932 0 7.77146 6.08761 0 7.93353 5.87785 0 8.09017 5.66406 0 8.24126 5.44639 0 8.38671 5.22499 0 8.5264 5 0 8.66025 4.77159 0 8.78817 4.53991 0 8.91007 4.30511 0 9.02585 4.06737 0 9.13545 3.82683 0 9.2388 3.58368 0 9.3358 3.33807 0 9.42641 3.09017 0 9.51056 2.84015 0 9.5882 2.58819 0 9.65926 2.33445 0 9.7237 2.07912 0 9.78148 1.82236 0 9.83255 1.56434 0 9.87688 1.30526 0 9.91445 1.04528 0 9.94522 0.784591 0 9.96917 0.52336 0 9.9863 0.261769 0 9.99657 6.12323e-16 0 10 -0.261769 0 9.99657 -0.52336 0 9.9863 -0.784591 0 9.96917 -1.04528 0 9.94522 -1.30526 0 9.91445 -1.56434 0 9.87688 -1.82236 0 9.83255 -2.07912 0 9.78148 -2.33445 0 9.7237 -2.58819 0 9.65926 -2.84015 0 9.5882 -3.09017 0 9.51056 -3.33807 0 9.42641 -3.58368 0 9.3358 -3.82683 0 9.2388 -4.06737 0 9.13545 -4.30511 0 9.02585 -4.53991 0 8.91007 -4.77159 0 8.78817 -5 0 8.66025 -5.22499 0 8.5264 -5.44639 0 8.38671 -5.66406 0 8.24126 -5.87785 0 8.09017 -6.08761 0 7.93353 -6.2932 0 7.77146 -6.49448 0 7.60406 -6.69131 0 7.43145 -6.88355 0 7.25374 -7.07107 0 7.07107 -7.25374 0 6.88355 -7.43145 0 6.69131 -7.60406 0 6.49448 -7.77146 0 6.2932 -7.93353 0 6.08761 -8.09017 0 5.87785 -8.24126 0 5.66406 -8.38671 0 5.44639 -8.5264 0 5.22499 -8.66025 0 5 -8.78817 0 4.77159 -8.91007 0 4.53991 -9.02585 0 4.30511 -9.13545 0 4.06737 -9.2388 0 3.82683 -9.3358 0 3.58368 -9.42641 0 3.33807 -9.51056 0 3.09017 -9.5882 0 2.84015 -9.65926 0 2.58819 -9.7237 0 2.33445 -9.78148 0 2.07912 -9.83255 0 1.82236 -9.87688 0 1.56434 -9.91445 0 1.30526 -9.94522 0 1.04528 -9.96917 0 0.784591 -9.9863 0 0.52336 -9.99657 0 0.261769'>
+            </Coordinate>
+          </IndexedLineSet>
+        </Shape>
+        <LinePickSensor DEF='LIDAR_Sensor'  intersectionType='GEOMETRY' sortOrder='CLOSEST'>
+          <IndexedLineSet USE='Lineset_Sensor'  containerField='pickingGeometry'>
+          </IndexedLineSet>
+          <Group USE='Walls_Obstacles'  containerField='pickTarget'>
+          </Group>
+        </LinePickSensor>
+        <Transform>
+          <Shape>
+            <Appearance>
+              <Material specularColor='0.5 0.5 0.5' shininess='0.12' emissiveColor='0 0.06 0.1' diffuseColor='0.33 0.33 0.33' ambientIntensity='0.04'>
+              </Material>
+            </Appearance>
+            <Cylinder radius='0.01' height='0.14'>
+            </Cylinder>
+          </Shape>
+        </Transform>
+      </Transform>
+    </Transform>
+  </Transform>
+</Transform>
+</Scene>
+</X3D>

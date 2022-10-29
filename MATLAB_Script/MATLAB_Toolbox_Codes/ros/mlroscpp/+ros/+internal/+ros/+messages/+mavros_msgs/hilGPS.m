@@ -1,0 +1,45 @@
+function [data, info] = hilGPS
+%HilGPS gives an empty data for mavros_msgs/HilGPS
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'mavros_msgs/HilGPS';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.FixType, info.FixType] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.Geo, info.Geo] = ros.internal.ros.messages.geographic_msgs.geoPoint;
+info.Geo.MLdataType = 'struct';
+[data.Eph, info.Eph] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.Epv, info.Epv] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.Vel, info.Vel] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.Vn, info.Vn] = ros.internal.ros.messages.ros.default_type('int16',1);
+[data.Ve, info.Ve] = ros.internal.ros.messages.ros.default_type('int16',1);
+[data.Vd, info.Vd] = ros.internal.ros.messages.ros.default_type('int16',1);
+[data.Cog, info.Cog] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.SatellitesVisible, info.SatellitesVisible] = ros.internal.ros.messages.ros.default_type('uint8',1);
+info.MessageType = 'mavros_msgs/HilGPS';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,19);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'fix_type';
+info.MatPath{8} = 'geo';
+info.MatPath{9} = 'geo.latitude';
+info.MatPath{10} = 'geo.longitude';
+info.MatPath{11} = 'geo.altitude';
+info.MatPath{12} = 'eph';
+info.MatPath{13} = 'epv';
+info.MatPath{14} = 'vel';
+info.MatPath{15} = 'vn';
+info.MatPath{16} = 've';
+info.MatPath{17} = 'vd';
+info.MatPath{18} = 'cog';
+info.MatPath{19} = 'satellites_visible';

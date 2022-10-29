@@ -1,0 +1,2 @@
+set(rosbridge_library_MESSAGE_FILES "msg/Num.msg;msg/TestChar.msg;msg/TestDurationArray.msg;msg/TestHeader.msg;msg/TestHeaderArray.msg;msg/TestHeaderTwo.msg;msg/TestTimeArray.msg;msg/TestUInt8.msg;msg/TestUInt8FixedSizeArray16.msg")
+set(rosbridge_library_SERVICE_FILES "srv/AddTwoInts.srv;srv/SendBytes.srv;srv/TestEmpty.srv;srv/TestNestedService.srv;srv/TestRequestAndResponse.srv;srv/TestRequestOnly.srv;srv/TestResponseOnly.srv")

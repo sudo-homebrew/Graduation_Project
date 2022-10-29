@@ -1,0 +1,40 @@
+function [data, info] = denseLaserObjectFeatures
+%DenseLaserObjectFeatures gives an empty data for calibration_msgs/DenseLaserObjectFeatures
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'calibration_msgs/DenseLaserObjectFeatures';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.DenseLaserPoints, info.DenseLaserPoints] = ros.internal.ros.messages.calibration_msgs.denseLaserPoint;
+info.DenseLaserPoints.MLdataType = 'struct';
+info.DenseLaserPoints.MaxLen = NaN;
+info.DenseLaserPoints.MinLen = 0;
+data.DenseLaserPoints = data.DenseLaserPoints([],1);
+[data.ObjectPoints, info.ObjectPoints] = ros.internal.ros.messages.geometry_msgs.point;
+info.ObjectPoints.MLdataType = 'struct';
+info.ObjectPoints.MaxLen = NaN;
+info.ObjectPoints.MinLen = 0;
+data.ObjectPoints = data.ObjectPoints([],1);
+[data.Success, info.Success] = ros.internal.ros.messages.ros.default_type('uint8',1);
+info.MessageType = 'calibration_msgs/DenseLaserObjectFeatures';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,14);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'dense_laser_points';
+info.MatPath{8} = 'dense_laser_points.scan';
+info.MatPath{9} = 'dense_laser_points.ray';
+info.MatPath{10} = 'object_points';
+info.MatPath{11} = 'object_points.x';
+info.MatPath{12} = 'object_points.y';
+info.MatPath{13} = 'object_points.z';
+info.MatPath{14} = 'success';

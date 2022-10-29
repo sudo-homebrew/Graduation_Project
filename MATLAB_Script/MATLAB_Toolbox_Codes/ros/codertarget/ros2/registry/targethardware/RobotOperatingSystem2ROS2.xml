@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<productinfo version="2.0">
+  <name>Robot Operating System 2 (ROS 2)</name>
+  <release>R2022a</release>
+  <baseproductid>8</baseproductid>
+  <deviceid>Intel-&gt;x86-64 (Windows64)</deviceid>
+  <subfamily>Intel</subfamily>
+  <numofcores>1</numofcores>
+  <productionhwdevicetype>Intel-&gt;x86-64 (Windows64)</productionhwdevicetype>
+  <enableprodhwdevicetype>true</enableprodhwdevicetype>
+  <supportsonlysimulation>false</supportsonlysimulation>
+  <toolchain loadcommand="ros.slros2.internal.cgen.runApplication" loadcommandargs="ros.codertarget.internal.DeploymentHooks.getLoadCommandArgs">
+    <name>Colcon Tools</name>
+    <IsLoadCommandMATLABFcn>true</IsLoadCommandMATLABFcn>
+    <loadername>ROS2 Loader</loadername>
+  </toolchain>
+  <parameterinfo>$(TARGET_ROOT)/registry/parameters/RobotOperatingSystem2ROS2.xml</parameterinfo>
+  <attributeinfo>$(TARGET_ROOT)/registry/attributes/ROS2DeployerRobotOperatingSystem2ROS2.xml</attributeinfo>
+  <rtosinfo>$(MATLAB_ROOT)/toolbox/target/codertarget/rtos/registry/linux.xml</rtosinfo>
+  <matlabpilinfo GetPropsFcn="ros.codertarget.internal.getROS2MATLABPILProps"/>
+  <esbcompatible>0</esbcompatible>
+  <supportssocbprofiling>0</supportssocbprofiling>
+  <supportsconnectedio>false</supportsconnectedio>
+  <defaultioblocksmode>deployed</defaultioblocksmode>
+</productinfo>

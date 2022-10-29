@@ -1,0 +1,2 @@
+set(geographic_msgs_MESSAGE_FILES "msg/BoundingBox.msg;msg/GeoPath.msg;msg/GeoPoint.msg;msg/GeoPointStamped.msg;msg/GeoPose.msg;msg/GeoPoseStamped.msg;msg/GeographicMap.msg;msg/GeographicMapChanges.msg;msg/KeyValue.msg;msg/MapFeature.msg;msg/RouteNetwork.msg;msg/RoutePath.msg;msg/RouteSegment.msg;msg/WayPoint.msg")
+set(geographic_msgs_SERVICE_FILES "srv/GetGeoPath.srv;srv/GetGeographicMap.srv;srv/GetRoutePlan.srv;srv/UpdateGeographicMap.srv")

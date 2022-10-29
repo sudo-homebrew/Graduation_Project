@@ -1,0 +1,10 @@
+string publisher
+float64 timeStamp
+string joint
+uint32 registerValue
+bool enableBridge
+bool enableMotor
+bool releaseBrake
+bool embeddedMotCom
+uint16 controlMode
+bool clearFaults

@@ -1,0 +1,44 @@
+function [data, info] = blobs
+%Blobs gives an empty data for cmvision/Blobs
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'cmvision/Blobs';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.ImageWidth, info.ImageWidth] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.ImageHeight, info.ImageHeight] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.BlobCount, info.BlobCount] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.Blobs_, info.Blobs_] = ros.internal.ros.messages.cmvision.blob;
+info.Blobs_.MLdataType = 'struct';
+info.Blobs_.MaxLen = NaN;
+info.Blobs_.MinLen = 0;
+data.Blobs_ = data.Blobs_([],1);
+info.MessageType = 'cmvision/Blobs';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,21);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'image_width';
+info.MatPath{8} = 'image_height';
+info.MatPath{9} = 'blob_count';
+info.MatPath{10} = 'blobs';
+info.MatPath{11} = 'blobs.name';
+info.MatPath{12} = 'blobs.red';
+info.MatPath{13} = 'blobs.green';
+info.MatPath{14} = 'blobs.blue';
+info.MatPath{15} = 'blobs.area';
+info.MatPath{16} = 'blobs.x';
+info.MatPath{17} = 'blobs.y';
+info.MatPath{18} = 'blobs.left';
+info.MatPath{19} = 'blobs.right';
+info.MatPath{20} = 'blobs.top';
+info.MatPath{21} = 'blobs.bottom';

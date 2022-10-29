@@ -1,0 +1,79 @@
+
+class {%upper(msgInfo.pkgName)%}_EXPORT {%msgInfo.pkgName%}_{%msgInfo.actionName%}_action : public ROSMsgElementInterfaceFactory {
+  public:
+    virtual ~{%msgInfo.pkgName%}_{%msgInfo.actionName%}_action(){}
+    virtual std::shared_ptr<MATLABPublisherInterface> generatePublisherInterface(ElementType type);
+    virtual std::shared_ptr<MATLABSubscriberInterface> generateSubscriberInterface(ElementType type);
+    virtual std::shared_ptr<MATLABRosbagWriterInterface> generateRosbagWriterInterface(ElementType type);
+    virtual std::shared_ptr<MATLABActClientInterface> generateActClientInterface();
+    virtual std::shared_ptr<MATLABActServerInterface> generateActServerInterface();
+};  
+  std::shared_ptr<MATLABPublisherInterface> 
+          {%msgInfo.pkgName%}_{%msgInfo.actionName%}_action::generatePublisherInterface(ElementType type){
+      
+    std::shared_ptr<MATLABPublisherInterface> ptr;
+    if(type == eGoal){
+        ptr = std::make_shared<ROSPublisherImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Goal,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Goal_common>>();
+    }else if(type == eFeedback){
+        ptr = std::make_shared<ROSPublisherImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Feedback,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Feedback_common>>();
+    }else if(type == eResult){
+        ptr = std::make_shared<ROSPublisherImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Result,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Result_common>>();
+    }else{
+        throw std::invalid_argument("Wrong input, Expected 'Goal' or 'Feedback' or 'Result'");
+    }
+    return ptr;
+  }
+  std::shared_ptr<MATLABSubscriberInterface> 
+         {%msgInfo.pkgName%}_{%msgInfo.actionName%}_action::generateSubscriberInterface(ElementType type){
+    std::shared_ptr<MATLABSubscriberInterface> ptr;
+    if(type == eGoal){
+        ptr = std::make_shared<ROSSubscriberImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Goal,{%msgInfo.pkgName%}::{%msgInfo.actionName%}Goal::ConstPtr,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Goal_common>>();
+    }else if(type == eFeedback){
+        ptr = std::make_shared<ROSSubscriberImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Feedback,{%msgInfo.pkgName%}::{%msgInfo.actionName%}Feedback::ConstPtr,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Feedback_common>>();
+    }else if(type == eResult){
+        ptr = std::make_shared<ROSSubscriberImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Result,{%msgInfo.pkgName%}::{%msgInfo.actionName%}Result::ConstPtr,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Result_common>>();
+    }else{
+        throw std::invalid_argument("Wrong input, Expected 'Goal' or 'Feedback' or 'Result'");
+    }
+    return ptr;
+  }
+  std::shared_ptr<MATLABActClientInterface> 
+          {%msgInfo.pkgName%}_{%msgInfo.actionName%}_action::generateActClientInterface(){
+      return std::make_shared<ROSActClientImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Action,{%msgInfo.pkgName%}::{%msgInfo.actionName%}Goal,{%msgInfo.pkgName%}::{%msgInfo.actionName%}FeedbackConstPtr,{%msgInfo.pkgName%}::{%msgInfo.actionName%}ResultConstPtr,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Goal_common,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Feedback_common,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Result_common>>();
+  }
+  std::shared_ptr<MATLABActServerInterface> 
+          {%msgInfo.pkgName%}_{%msgInfo.actionName%}_action::generateActServerInterface(){
+      return std::make_shared<ROSActServerImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Action,{%msgInfo.pkgName%}::{%msgInfo.actionName%}Feedback,{%msgInfo.pkgName%}::{%msgInfo.actionName%}Result,{%msgInfo.pkgName%}::{%msgInfo.actionName%}GoalConstPtr,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Goal_common,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Feedback_common,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Result_common>>();
+  }
+#include "ROSbagTemplates.hpp" 
+  std::shared_ptr<MATLABRosbagWriterInterface> 
+          {%msgInfo.pkgName%}_{%msgInfo.actionName%}_action::generateRosbagWriterInterface(ElementType type){
+      
+    std::shared_ptr<MATLABRosbagWriterInterface> ptr;
+    if(type == eGoal){
+        ptr = std::make_shared<ROSBagWriterImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Goal,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Goal_common>>();
+    }else if(type == eFeedback){
+        ptr = std::make_shared<ROSBagWriterImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Feedback,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Feedback_common>>();
+    }else if(type == eResult){
+        ptr = std::make_shared<ROSBagWriterImpl<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Result,{%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Result_common>>();
+    }else{
+        throw std::invalid_argument("Wrong input, Expected 'Goal' or 'Feedback' or 'Result'");
+    }
+    return ptr;
+  }
+
+#include "register_macro.hpp"
+// Register the component with class_loader.
+// This acts as a sort of entry point, allowing the component to be discoverable when its library
+// is being loaded into a running process.
+CLASS_LOADER_REGISTER_CLASS({%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Goal_common, MATLABROSMsgInterface<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Goal>)
+CLASS_LOADER_REGISTER_CLASS({%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Feedback_common, MATLABROSMsgInterface<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Feedback>)
+CLASS_LOADER_REGISTER_CLASS({%msgInfo.pkgName%}_msg_{%msgInfo.actionName%}Result_common, MATLABROSMsgInterface<{%msgInfo.pkgName%}::{%msgInfo.actionName%}Result>)
+CLASS_LOADER_REGISTER_CLASS({%msgInfo.pkgName%}_{%msgInfo.actionName%}_action, ROSMsgElementInterfaceFactory)
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#else
+#pragma GCC diagnostic pop
+#endif //_MSC_VER
+//gen-1

@@ -1,0 +1,45 @@
+function [data, info] = euclideanSegmentResponse
+%EuclideanSegment gives an empty data for jsk_pcl_ros/EuclideanSegmentResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'jsk_pcl_ros/EuclideanSegmentResponse';
+[data.Output, info.Output] = ros.internal.ros.messages.sensor_msgs.pointCloud2;
+info.Output.MLdataType = 'struct';
+info.Output.MaxLen = NaN;
+info.Output.MinLen = 0;
+data.Output = data.Output([],1);
+info.MessageType = 'jsk_pcl_ros/EuclideanSegmentResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,27);
+info.MatPath{1} = 'output';
+info.MatPath{2} = 'output.header';
+info.MatPath{3} = 'output.header.seq';
+info.MatPath{4} = 'output.header.stamp';
+info.MatPath{5} = 'output.header.stamp.sec';
+info.MatPath{6} = 'output.header.stamp.nsec';
+info.MatPath{7} = 'output.header.frame_id';
+info.MatPath{8} = 'output.height';
+info.MatPath{9} = 'output.width';
+info.MatPath{10} = 'output.fields';
+info.MatPath{11} = 'output.fields.INT8';
+info.MatPath{12} = 'output.fields.UINT8';
+info.MatPath{13} = 'output.fields.INT16';
+info.MatPath{14} = 'output.fields.UINT16';
+info.MatPath{15} = 'output.fields.INT32';
+info.MatPath{16} = 'output.fields.UINT32';
+info.MatPath{17} = 'output.fields.FLOAT32';
+info.MatPath{18} = 'output.fields.FLOAT64';
+info.MatPath{19} = 'output.fields.name';
+info.MatPath{20} = 'output.fields.offset';
+info.MatPath{21} = 'output.fields.datatype';
+info.MatPath{22} = 'output.fields.count';
+info.MatPath{23} = 'output.is_bigendian';
+info.MatPath{24} = 'output.point_step';
+info.MatPath{25} = 'output.row_step';
+info.MatPath{26} = 'output.data';
+info.MatPath{27} = 'output.is_dense';

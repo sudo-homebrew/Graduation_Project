@@ -1,0 +1,4 @@
+string arm_name
+string tip_name
+---
+bool result

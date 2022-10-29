@@ -1,0 +1,43 @@
+function [data, info] = placeLocationResult
+%PlaceLocationResult gives an empty data for manipulation_msgs/PlaceLocationResult
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'manipulation_msgs/PlaceLocationResult';
+[data.SUCCESS, info.SUCCESS] = ros.internal.ros.messages.ros.default_type('int32',1, 1);
+[data.PLACEOUTOFREACH, info.PLACEOUTOFREACH] = ros.internal.ros.messages.ros.default_type('int32',1, 2);
+[data.PLACEINCOLLISION, info.PLACEINCOLLISION] = ros.internal.ros.messages.ros.default_type('int32',1, 3);
+[data.PLACEUNFEASIBLE, info.PLACEUNFEASIBLE] = ros.internal.ros.messages.ros.default_type('int32',1, 4);
+[data.PREPLACEOUTOFREACH, info.PREPLACEOUTOFREACH] = ros.internal.ros.messages.ros.default_type('int32',1, 5);
+[data.PREPLACEINCOLLISION, info.PREPLACEINCOLLISION] = ros.internal.ros.messages.ros.default_type('int32',1, 6);
+[data.PREPLACEUNFEASIBLE, info.PREPLACEUNFEASIBLE] = ros.internal.ros.messages.ros.default_type('int32',1, 7);
+[data.RETREATOUTOFREACH, info.RETREATOUTOFREACH] = ros.internal.ros.messages.ros.default_type('int32',1, 8);
+[data.RETREATINCOLLISION, info.RETREATINCOLLISION] = ros.internal.ros.messages.ros.default_type('int32',1, 9);
+[data.RETREATUNFEASIBLE, info.RETREATUNFEASIBLE] = ros.internal.ros.messages.ros.default_type('int32',1, 10);
+[data.MOVEARMFAILED, info.MOVEARMFAILED] = ros.internal.ros.messages.ros.default_type('int32',1, 11);
+[data.PLACEFAILED, info.PLACEFAILED] = ros.internal.ros.messages.ros.default_type('int32',1, 12);
+[data.RETREATFAILED, info.RETREATFAILED] = ros.internal.ros.messages.ros.default_type('int32',1, 13);
+[data.ResultCode, info.ResultCode] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.ContinuationPossible, info.ContinuationPossible] = ros.internal.ros.messages.ros.default_type('logical',1);
+info.MessageType = 'manipulation_msgs/PlaceLocationResult';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'SUCCESS';
+info.MatPath{2} = 'PLACE_OUT_OF_REACH';
+info.MatPath{3} = 'PLACE_IN_COLLISION';
+info.MatPath{4} = 'PLACE_UNFEASIBLE';
+info.MatPath{5} = 'PREPLACE_OUT_OF_REACH';
+info.MatPath{6} = 'PREPLACE_IN_COLLISION';
+info.MatPath{7} = 'PREPLACE_UNFEASIBLE';
+info.MatPath{8} = 'RETREAT_OUT_OF_REACH';
+info.MatPath{9} = 'RETREAT_IN_COLLISION';
+info.MatPath{10} = 'RETREAT_UNFEASIBLE';
+info.MatPath{11} = 'MOVE_ARM_FAILED';
+info.MatPath{12} = 'PLACE_FAILED';
+info.MatPath{13} = 'RETREAT_FAILED';
+info.MatPath{14} = 'result_code';
+info.MatPath{15} = 'continuation_possible';

@@ -1,0 +1,747 @@
+/* Copyright 2019-2020 The MathWorks, Inc. */
+
+//This function is for internal use only. It may be removed in the future.
+// DO NOT EDIT!
+// This is C++ MEX source file, which converts Simulink message into Co-Sim Packet message.
+// Further, MEX function is generated for this source file.
+
+#include "mex.hpp"
+#include "mexAdapter.hpp"
+#include "{% msgInfo.MessageFileName %}.pb.h"
+#include <google/protobuf/stubs/logging.h>
+#include <google/protobuf/stubs/common.h>
+#include <google/protobuf/descriptor.pb.h>
+#include <google/protobuf/descriptor.h>
+#include <google/protobuf/extension_set.h>
+#include <google/protobuf/generated_message_reflection.h>
+#include <google/protobuf/generated_message_util.h>
+#include <google/protobuf/inlined_string_field.h>
+#include <google/protobuf/map_field.h>
+#include <google/protobuf/map_field_inl.h>
+#include <google/protobuf/stubs/mutex.h>
+#include <google/protobuf/repeated_field.h>
+#include <google/protobuf/wire_format.h>
+#include <map>
+#include <vector>
+#include <algorithm>
+
+
+{% msgInfo.MessageNameSpace %}
+
+class MexFunction : public matlab::mex::Function {
+    
+private:
+    // create and set protobuf message
+{% msgInfo.MessageDefinition %}
+
+const google::protobuf::Descriptor *m_descriptor;
+
+std::shared_ptr<matlab::engine::MATLABEngine> matlabPtr;
+
+public:
+    /* Constructor for the class. */
+    MexFunction()
+    {
+        matlabPtr = getEngine();
+    }
+    
+    void displayError(std::string errorMessage)
+    {
+        matlab::data::ArrayFactory factory;
+        matlabPtr->feval(u"error", 0, std::vector<matlab::data::Array>({
+            factory.createScalar(errorMessage) }));
+    }
+    
+    template <typename TVal, typename TSet, typename TAdd, typename TSetRepeated>
+            void inserFieldValues(google::protobuf::Message *message,
+            const google::protobuf::FieldDescriptor *fieldType,
+            TSet const setScalar,
+            TAdd const addRepeated,
+            TSetRepeated const setRepeated,
+            const google::protobuf::Reflection *reflection,
+            std::vector<TVal> value)
+    {
+        if (fieldType->is_repeated())
+        {
+            int field_size = reflection->FieldSize(*message, fieldType);
+            int count = 0;
+            
+            for (unsigned int idx = 0; idx < value.size(); idx++)
+            {
+                if (count < field_size)
+                {
+                    (reflection->*setRepeated)(message, fieldType, count, value[idx]);
+                }
+                else
+                {
+                    (reflection->*addRepeated)(message, fieldType, value[idx]);
+                }
+                count++;
+            }
+        }
+        else
+        {
+            (reflection->*setScalar)(message, fieldType, value[0]);
+        }
+    }
+    
+    void initializeProtoMessage(google::protobuf::Message *message, const google::protobuf::Descriptor *descriptor)
+    {
+        
+        auto reflection = message->GetReflection();
+        
+        for (int i = 0; i < descriptor->field_count(); i++)
+        {
+            
+            const google::protobuf::FieldDescriptor *field_desc = descriptor->field(i);
+            
+            switch (field_desc->cpp_type())
+            {
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_INT32:
+                {
+                    std::vector<int32_t> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<int32_t>(message, field_desc, &google::protobuf::Reflection::SetInt32,
+                            &google::protobuf::Reflection::AddInt32, &google::protobuf::Reflection::SetRepeatedInt32, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_INT64:
+                {
+                    std::vector<int64_t> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<int64_t>(message, field_desc, &google::protobuf::Reflection::SetInt64,
+                            &google::protobuf::Reflection::AddInt64, &google::protobuf::Reflection::SetRepeatedInt64, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_UINT32:
+                {
+                    std::vector<uint32_t> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<uint32_t>(message, field_desc, &google::protobuf::Reflection::SetUInt32,
+                            &google::protobuf::Reflection::AddUInt32, &google::protobuf::Reflection::SetRepeatedUInt32, reflection, values);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::CPPTYPE_UINT64:
+                {
+                    std::vector<uint64_t> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<uint64_t>(message, field_desc, &google::protobuf::Reflection::SetUInt64,
+                            &google::protobuf::Reflection::AddUInt64, &google::protobuf::Reflection::SetRepeatedUInt64, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_FLOAT:
+                {
+                    std::vector<float> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<float>(message, field_desc, &google::protobuf::Reflection::SetFloat,
+                            &google::protobuf::Reflection::AddFloat, &google::protobuf::Reflection::SetRepeatedFloat, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_DOUBLE:
+                {
+                    std::vector<double> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<double>(message, field_desc, &google::protobuf::Reflection::SetDouble,
+                            &google::protobuf::Reflection::AddDouble, &google::protobuf::Reflection::SetRepeatedDouble, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_BOOL:
+                {
+                    std::vector<bool> values;
+                    values.push_back(false);
+                    
+                    inserFieldValues<bool>(message, field_desc, &google::protobuf::Reflection::SetBool,
+                            &google::protobuf::Reflection::AddBool,  &google::protobuf::Reflection::SetRepeatedBool, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_STRING:
+                {
+                    std::vector<std::string> values;
+                    values.push_back("");
+                    
+                    inserFieldValues<std::string>(message, field_desc, &google::protobuf::Reflection::SetString,
+                            &google::protobuf::Reflection::AddString,  &google::protobuf::Reflection::SetRepeatedString, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_ENUM:
+                {
+                    // can not initialize always with '0'
+                    // Enum value should one value out of defined ( Enum list)
+                    //std::vector<int32_t> values;
+                    //values.push_back(0);
+                    //inserFieldValues<int32_t>(message, field_desc, &google::protobuf::Reflection::SetEnumValue,
+                    //        &google::protobuf::Reflection::AddEnumValue, &google::protobuf::Reflection::SetRepeatedEnumValue, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_MESSAGE:
+                {
+                    const google::protobuf::Descriptor *desc = field_desc->message_type();
+                    if (field_desc->is_repeated())
+                    {
+                        initializeProtoMessage(reflection->AddMessage(message, field_desc), desc);
+                    }
+                    else
+                    {
+                        initializeProtoMessage(reflection->MutableMessage(message, field_desc), desc);
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
+    
+    // fill protobuf message using MATLAB struct input
+    void fillMessageStruct(const matlab::data::StructArray inStruct, google::protobuf::Message *tempMessage, std::string fieldName)
+    {
+        const google::protobuf::Descriptor* descriptor = tempMessage->GetDescriptor();
+        const google::protobuf::Reflection* reflection = tempMessage->GetReflection();
+        auto field_desc = descriptor->FindFieldByName(fieldName);
+        
+        {
+            switch(field_desc->type())
+            {
+                case google::protobuf::FieldDescriptor::Type::TYPE_GROUP:
+                {
+                    // avoid warnings in Mac
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_MESSAGE:
+                {
+                    // avoid warnings in Mac
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_INT32:
+                {
+                    matlab::data::TypedArray<int32_t> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<int32_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back(elem);
+                    }
+                    inserFieldValues<int32_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetInt32,
+                            &google::protobuf::Reflection::AddInt32, &google::protobuf::Reflection::SetRepeatedInt32, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_SINT32:
+                {
+                    matlab::data::TypedArray<int32_t> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<int32_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back(elem);
+                    }
+                    inserFieldValues<int32_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetInt32,
+                            &google::protobuf::Reflection::AddInt32, &google::protobuf::Reflection::SetRepeatedInt32, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_SFIXED32:
+                {
+                    matlab::data::TypedArray<int32_t> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<int32_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back(elem);
+                    }
+                    inserFieldValues<int32_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetInt32,
+                            &google::protobuf::Reflection::AddInt32, &google::protobuf::Reflection::SetRepeatedInt32, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_INT64:
+                {
+                    matlab::data::TypedArray<double> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<int64_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back((int64_t)elem);
+                    }
+                    inserFieldValues<int64_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetInt64,
+                            &google::protobuf::Reflection::AddInt64, &google::protobuf::Reflection::SetRepeatedInt64, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_SINT64:
+                {
+                    matlab::data::TypedArray<double> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<int64_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back((int64_t)elem);
+                    }
+                    inserFieldValues<int64_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetInt64,
+                            &google::protobuf::Reflection::AddInt64, &google::protobuf::Reflection::SetRepeatedInt64, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_SFIXED64:
+                {
+                    matlab::data::TypedArray<double> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<int64_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back((int64_t)elem);
+                    }
+                    inserFieldValues<int64_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetInt64,
+                            &google::protobuf::Reflection::AddInt64, &google::protobuf::Reflection::SetRepeatedInt64, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_UINT32:
+                {
+                    matlab::data::TypedArray<uint32_t> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<uint32_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back(elem);
+                    }
+                    inserFieldValues<uint32_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetUInt32,
+                            &google::protobuf::Reflection::AddUInt32, &google::protobuf::Reflection::SetRepeatedUInt32, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_FIXED32:
+                {
+                    matlab::data::TypedArray<uint32_t> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<uint32_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back(elem);
+                    }
+                    inserFieldValues<uint32_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetUInt32,
+                            &google::protobuf::Reflection::AddUInt32, &google::protobuf::Reflection::SetRepeatedUInt32, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_UINT64:
+                {
+                    matlab::data::TypedArray<double> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<uint64_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back((uint64_t)elem);
+                    }
+                    inserFieldValues<uint64_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetUInt64,
+                            &google::protobuf::Reflection::AddUInt64, &google::protobuf::Reflection::SetRepeatedUInt64, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_FIXED64:
+                {
+                    matlab::data::TypedArray<double> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<uint64_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back((uint64_t)elem);
+                    }
+                    inserFieldValues<uint64_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetUInt64,
+                            &google::protobuf::Reflection::AddUInt64, &google::protobuf::Reflection::SetRepeatedUInt64, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_FLOAT:
+                {
+                    matlab::data::TypedArray<float> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<float> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back(elem);
+                    }
+                    inserFieldValues<float>(tempMessage, field_desc, &google::protobuf::Reflection::SetFloat,
+                            &google::protobuf::Reflection::AddFloat, &google::protobuf::Reflection::SetRepeatedFloat, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_DOUBLE:
+                {
+                    matlab::data::TypedArray<double> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<double> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back((double)elem);
+                    }
+                    inserFieldValues<double>(tempMessage, field_desc, &google::protobuf::Reflection::SetDouble,
+                            &google::protobuf::Reflection::AddDouble, &google::protobuf::Reflection::SetRepeatedDouble, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_BOOL:
+                {
+                    matlab::data::TypedArray<bool> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<bool> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back((bool)elem);
+                    }
+                    inserFieldValues<bool>(tempMessage, field_desc, &google::protobuf::Reflection::SetBool,
+                            &google::protobuf::Reflection::AddBool, &google::protobuf::Reflection::SetRepeatedBool, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_ENUM:
+                {
+                    matlab::data::TypedArray<int32_t> fieldArray = std::move(inStruct[0][fieldName]);
+                    std::vector<int32_t> values;
+                    for (auto& elem : fieldArray)
+                    {
+                        values.push_back(elem);
+                    }
+                    inserFieldValues<int32_t>(tempMessage, field_desc, &google::protobuf::Reflection::SetEnumValue,
+                            &google::protobuf::Reflection::AddEnumValue, &google::protobuf::Reflection::SetRepeatedEnumValue, reflection, values);
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_STRING:
+                {
+                    if(field_desc->is_repeated())
+                    {
+                        matlab::data::TypedArray<uint8_t> fieldArray = std::move(inStruct[0][fieldName]);
+                        std::vector<uint8_t> fieldValueVector;
+                        for (auto& elem : fieldArray)
+                        {
+                            fieldValueVector.push_back(elem);
+                        }
+                        
+                        std::string fieldSizeName = fieldName + "_size";
+                        matlab::data::TypedArray<uint32_t> fieldArraySize = std::move(inStruct[0][fieldSizeName]);
+                        std::vector<uint32_t> fieldSizeVector;
+                        int fieldCount = 0;
+                        for (auto& elem : fieldArraySize)
+                        {
+                            fieldSizeVector.push_back(elem);
+                            fieldCount += (int)elem;
+                        }
+                        
+                        // if repeated string are not initialized in the Simulink message
+                        // then padSignal function add '0' for empty fields
+                        // this is not valid as empty string size is '1'
+                        // thus, replacing fieldCount '0' by '1'
+                        if( fieldCount == 0 && fieldValueVector.size() == 1)
+                        {
+                            if( fieldValueVector[0] == 0)
+                            {
+                                fieldCount = 1;
+                            }
+                        }
+                        
+                        if( fieldCount != fieldValueVector.size())
+                        {
+                            displayError(" Add the correct number of charcters for each 'Repeated string field' in the '_size' field of Simulink message field ");
+                        }
+                        
+                        int fIdx = 0;
+                        int fieldNum = 1;
+                        std::string strData;
+                        for(int idx0 = 0;idx0<fieldValueVector.size();idx0++)
+                        {
+                            int fIndex = fieldSizeVector[fIdx];
+                            strData += fieldValueVector[idx0];
+                            if( fieldNum < fIndex)
+                            {
+                                fieldNum++;
+                            }
+                            else
+                            {
+                                strData.clear();
+                                fIdx++;
+                                fieldNum = 1;
+                            }
+                        }
+                        std::string stringData;
+                        int field_size = reflection->FieldSize(*tempMessage, field_desc);
+                        int count = 0;
+                        int fieldNumber = 1;
+                        int fieldIdx = 0;
+                        for (auto& elem : fieldArray)
+                        {
+                            int fieldIndex = fieldSizeVector[fieldIdx];
+                            stringData += (elem);
+                            
+                            if( fieldNumber == fieldIndex) // seperate strings based on string/byte size
+                            {
+                                if (count < field_size)
+                                {
+                                    reflection->SetRepeatedString(tempMessage, field_desc, count, stringData);
+                                }
+                                else
+                                {
+                                    reflection->AddString(tempMessage, field_desc, stringData);
+                                }
+                                count++;
+                                stringData.clear();
+                                fieldNumber = 1;
+                                fieldIdx++;
+                            }
+                            else
+                            {
+                                fieldNumber++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        matlab::data::TypedArray<uint8_t> fieldArray = std::move(inStruct[0][fieldName]);
+                        std::string stringData;
+                        for (auto& elem : fieldArray)
+                        {
+                            stringData += (elem);
+                        }
+                        reflection->SetString(tempMessage, field_desc, stringData);
+                    }
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_BYTES:
+                {
+                    if(field_desc->is_repeated())
+                    {
+                        matlab::data::TypedArray<uint8_t> fieldArray = std::move(inStruct[0][fieldName]);
+                        
+                        std::vector<uint8_t> fieldValueVector;
+                        for (auto& elem : fieldArray)
+                        {
+                            fieldValueVector.push_back(elem);
+                        }
+                        
+                        std::string fieldSizeName = fieldName + "_size";
+                        matlab::data::TypedArray<uint32_t> fieldArraySize = std::move(inStruct[0][fieldSizeName]);
+                        std::vector<uint32_t> fieldSizeVector;
+                        int fieldCount = 0;
+                        for (auto& elem : fieldArraySize)
+                        {
+                            fieldSizeVector.push_back(elem);
+                            fieldCount += (int)elem;
+                        }
+                        
+                        // if repeated bytes are not initialized in the Simulink message
+                        // then padSignal function add '0' for empty fields
+                        // this is not valid as empty bytes size is '1'
+                        // thus, replacing fieldCount '0' by '1'
+                        if( fieldCount == 0 && fieldValueVector.size() == 1)
+                        {
+                            if( fieldValueVector[0] == 0)
+                            {
+                                fieldCount = 1;
+                            }
+                        }
+                        
+                        if( fieldCount != fieldValueVector.size())
+                        {
+                            displayError(" Add the correct number of bytes for each 'Repeated bytes field' in the '_size' field of Simulink message field ");
+                        }
+                        std::string stringData;
+                        int field_size = reflection->FieldSize(*tempMessage, field_desc);
+                        int count = 0;
+                        int fieldNumber = 1;
+                        int fieldIdx = 0;
+                        for (auto& elem : fieldArray)
+                        {
+                            int fieldIndex = fieldSizeVector[fieldIdx];
+                            stringData += (elem);
+                            
+                            if( fieldNumber == fieldIndex)  // seperate strings based on string/byte size
+                            {
+                                if (count < field_size)
+                                {
+                                    reflection->SetRepeatedString(tempMessage, field_desc, count, stringData);
+                                }
+                                else
+                                {
+                                    reflection->AddString(tempMessage, field_desc, stringData);
+                                }
+                                count++;
+                                stringData.clear();
+                                fieldNumber = 1;
+                                fieldIdx++;
+                            }
+                            else
+                            {
+                                fieldNumber++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        matlab::data::TypedArray<uint8_t> fieldArray = std::move(inStruct[0][fieldName]);
+                        std::string stringData;
+                        for (auto& elem : fieldArray)
+                        {
+                            stringData += (elem);
+                        }
+                        reflection->SetString(tempMessage, field_desc, stringData);
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
+    void getFieldStruct(const matlab::data::StructArray inStruct, google::protobuf::Message *message)
+    {
+        size_t numFields = inStruct.getNumberOfFields();
+        
+        auto fields = inStruct.getFieldNames();
+        std::vector<matlab::data::MATLABFieldIdentifier> fieldNames(fields.begin(), fields.end());
+        
+        const google::protobuf::Descriptor* descriptor = message->GetDescriptor();
+        const google::protobuf::Reflection* reflection = message->GetReflection();
+        
+        for(int i=0;i<numFields;i++)
+        {
+            if(inStruct[0][fieldNames[i]].getType() == matlab::data::ArrayType::STRUCT)
+            {
+                std::string fieldString = std::string(fieldNames[i]);
+                
+                const matlab::data::StructArray data = inStruct[0][fieldNames[i]];
+                
+                auto field_desc = descriptor->FindFieldByName(fieldString);
+                
+                if(field_desc)
+                {
+                    
+                    if (field_desc->is_repeated())
+                    {
+                        int field_size = reflection->FieldSize(*message, field_desc);
+                        int count = 0;
+                        
+                        if (count < field_size)
+                        {
+                            auto tempMsg = reflection->MutableRepeatedMessage(message, field_desc, count);
+                            getFieldStruct(data, tempMsg);
+                        }
+                        else
+                        {
+                            auto tempMsg = reflection->AddMessage(message, field_desc);
+                            getFieldStruct(data, tempMsg);
+                        }
+                        count++;
+                    }
+                    else
+                    {
+                        auto oneofFieldDesc = field_desc->containing_oneof();
+                        if(oneofFieldDesc)
+                        {
+                            std::string statusFieldName = field_desc->name() + "_status";
+                            matlab::data::TypedArray<bool> fieldArray = std::move(inStruct[0][statusFieldName]);
+                            bool oneofFlag;
+                            for (auto& elem : fieldArray)
+                            {
+                                oneofFlag = elem;
+                            }
+                            if(oneofFlag)
+                            {
+                                auto tempMsg = reflection->MutableMessage(message, field_desc);
+                                getFieldStruct(data, tempMsg);
+                            }
+                        }
+                        else
+                        {
+                            auto tempMsg = reflection->MutableMessage(message, field_desc);
+                            getFieldStruct(data, tempMsg);
+                        }
+                    }
+                }
+                else
+                {
+                    displayError(" Invalid message field in the input MATLAB struct ");
+                }
+            }
+            else
+            {
+                std::string fieldString = std::string(fieldNames[i]);
+                auto field_desc = descriptor->FindFieldByName(fieldString);
+                
+                if( field_desc == NULL)
+                {
+                    size_t found = fieldString.find("_status");
+                    if (found != std::string::npos)
+                    {
+                        matlab::data::TypedArray<bool> fieldArray = std::move(inStruct[0][fieldString]);
+                        std::vector<int32_t> values;
+                        bool oneofFlag;
+                        for (auto& elem : fieldArray)
+                        {
+                            oneofFlag = elem;
+                        }
+                        
+                        fieldString.erase(fieldString.find("_status"));
+                        if(oneofFlag)
+                        {
+                            fillMessageStruct(inStruct,message,fieldString);
+                        }
+                    }
+                }
+                else
+                {
+                    if(!field_desc->containing_oneof())
+                    {
+                        fillMessageStruct(inStruct,message,fieldString);
+                    }
+                }
+            }
+        }
+    }
+    
+    void operator()(matlab::mex::ArgumentList outputs, matlab::mex::ArgumentList inputs)
+    {
+        matlab::data::ArrayFactory m_factory;
+        
+        //get first input i.e. simulink message struct
+        matlab::data::StructArray inStruct(inputs[0]);
+        
+        {% msgInfo.createMessageDefinition %}
+        
+        m_descriptor = {% msgInfo.MessageName %}->GetDescriptor();
+        
+        // initialize all fields of proto message with zero value
+        initializeProtoMessage({% msgInfo.MessageName %}.get(), m_descriptor);
+        
+        // read MATLAB struct fields and copy into protobuf message
+        getFieldStruct(inStruct, {% msgInfo.MessageName %}.get());
+        
+        //{% msgInfo.copyMessage %}
+        
+        // serialize custom protobuf message into string
+        {% msgInfo.CustomMsgSupportData %}
+        
+        // create struct string array
+        auto structArrayOut = m_factory.createStructArray({ 1 }, { "stringData"});
+        
+        // convert serialized custom message string into array of uint8
+        std::vector<uint8_t> uint8Array(msg.begin(), msg.end());
+        
+        // initialize output struct size
+        structArrayOut[0]["stringData"] = m_factory.createArray<uint8_t>({uint8Array.size()});
+        
+        // initialize struct array size
+        matlab::data::TypedArray<uint8_t> out = m_factory.createArray<uint8_t>({uint8Array.size()});
+        
+        // copy serialize custom protobuf message data into struct array
+        for(int i = 0; i < uint8Array.size(); i++)
+        {
+            out[i] = (uint8_t)uint8Array[i];
+        }
+        
+        // copy struct array into output MATLAB struct
+        structArrayOut[0]["stringData"] = out;
+        
+        outputs[0] = structArrayOut;
+    }
+};

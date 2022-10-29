@@ -1,0 +1,628 @@
+{
+    "trackScoreLogic":
+    {
+        "inputs":
+        [
+            {"name":"ConfirmationThreshold",    "kind":"namevalue"},
+            {"name":"DeletionThreshold",        "kind":"namevalue"}
+        ]
+    },
+
+    "fusion.internal.trackIntegratedLogic":
+    {
+        "inputs":
+        [
+            {"name":"ConfirmationThreshold",    "kind":"namevalue"},
+            {"name":"DeletionThreshold",        "kind":"namevalue"},
+            {"name":"DeathRate",                "kind":"namevalue"}
+        ]
+    },
+
+    "trackingCKF":
+    {
+        "inputs":
+        [
+            {"name": "StateTransitionFcn", "kind": "namevalue", "type": ["function_handle"]},
+            {"name": "MeasurementFcn", "kind": "namevalue", "type": ["function_handle"]},
+            {"name": "State", "kind": "namevalue", "type": ["numeric"]},
+            {"name": "ProcessNoise", "kind": "namevalue", "type": ["numeric","square"]},
+            {"name": "StateCovariance", "kind": "namevalue", "type": ["numeric","square"]},
+            {"name": "MeasurementNoise", "kind": "namevalue", "type": ["numeric","square"]},
+            {"name": "HasAdditiveProcessNoise", "kind": "namevalue", "type": ["logical","integer"]},
+            {"name": "HasAdditiveMeasurementNoise", "kind": "namevalue", "type": ["logical","integer"]},
+            {"name": "HasMeasurementWrapping", "kind": "namevalue", "type": ["logical","integer"]},
+            {"name": "EnableSmoothing", "kind": "namevalue", "type": ["logical","integer"]},
+            {"name": "MaxNumSmoothingSteps", "kind": "namevalue", "type": ["numeric","integer"]}
+        ]
+    },
+
+    "trackingPF":
+        {
+        "inputs":
+        [
+            {"name": "StateTransitionFcn", "kind": "namevalue", "type": ["function_handle"]},
+            {"name": "MeasurementFcn", "kind": "namevalue", "type": ["function_handle"]},
+            {"name": "State", "kind": "namevalue", "type": ["numeric"]},
+            {"name": "NumParticles", "kind": "namevalue", "type": ["numeric","integer"]},
+            {"name": "ProcessNoise", "kind": "namevalue", "type": ["numeric","square"]},
+            {"name": "StateCovariance", "kind": "namevalue", "type": ["numeric","square"]},
+            {"name": "MeasurementNoise", "kind": "namevalue", "type": ["numeric","square"]},
+            {"name": "MeasurementLikelihoodFcn","kind": "namevalue", "type":["function_handle"]},
+            {"name": "HasAdditiveProcessNoise", "kind": "namevalue", "type": ["logical","integer"]}
+        ]
+    },
+   "trackingIMM":
+        {
+        "inputs":
+        [
+            {"name": "TrackingFilters", "kind": "namevalue", "type": ["cell"]},
+            {"name": "ModelConversionFcn", "kind": "namevalue", "type": ["function_handle"]},
+            {"name": "TransitionProbabilities", "kind": "namevalue", "type": ["numeric","square"]},
+            {"name": "State", "kind": "namevalue", "type": ["numeric"]},
+            {"name": "StateCovariance", "kind": "namevalue", "type": ["numeric","square"]},
+            {"name": "MeasurementNoise", "kind": "namevalue", "type": ["numeric","square"]},
+            {"name": "ModelProbabilities", "kind": "namevalue", "type": ["numeric"]},
+            {"name": "MaxNumOOSMSteps", "kind": "namevalue", "type": ["numeric","integer"]}
+        ]
+    }, 
+    
+    "switchimm":
+    {
+        "inputs": 
+        [
+            {"name": "modelType1", "kind":"required", "type":"choices={'constvel', 'constacc', 'constturn'}"},
+            {"name": "x1", "kind":"required", "type":[["double"], ["single"]]},
+            {"name": "modelType2", "kind":"required", "type":"choices={'constvel', 'constacc', 'constturn'}"},
+            {"name": "x2", "kind":"optional", "type":[["double"], ["single"]]}
+        ]
+    },
+
+    "fusecovint":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup": [
+                [
+                    {"name":"State", "kind":"required", "type":[["double"], ["single"]]},
+                    {"name":"StateCovariance", "kind":"required", "type":[["double"], ["single"]]},
+                    {"name":"Minimization Property", "kind":"optional", "type":"choices={'det', 'trace'}"}
+                ]
+        ]}
+        ]
+    },
+    
+    "trackerGNN":
+    {
+        "inputs":
+        [
+            {"name":"TrackerIndex",                 "kind":"namevalue"},
+            {"name":"FilterInitializationFcn",      "kind":"namevalue"},
+            {"name":"Assignment",                   "kind":"namevalue", "type":"choices=getAllowedValues(trackerGNN.AssignmentSet)"},
+            {"name":"AssignmentThreshold",          "kind":"namevalue", "type":["numeric","scalar"]},
+            {"name":"TrackLogic",                   "kind":"namevalue", "type":"choices=getAllowedValues(trackerGNN.TrackLogicSet)"},
+            {"name":"ConfirmationThreshold",        "kind":"namevalue", "type":"numeric"},
+            {"name":"CustomAssignmentFcn",          "kind":"namevalue"},
+            {"name":"DeletionThreshold",            "kind":"namevalue", "type":"numeric"},
+            {"name":"DetectionProbability",         "kind":"namevalue", "type":"numeric"},
+            {"name":"FalseAlarmRate",               "kind":"namevalue", "type":"numeric"},
+            {"name":"Beta",                         "kind":"namevalue", "type":"numeric"},
+            {"name":"Volume",                       "kind":"namevalue", "type":"numeric"},
+            {"name":"MaxNumTracks",                 "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"MaxNumDetections",             "kind":"namevalue", "type":["numeric",">=0"]},
+            {"name":"MaxNumSensors",                "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"OOSMHandling",                 "kind":"namevalue", "type":"choices=getAllowedValues(trackerGNN.OOSMHandlingSet)"},
+            {"name":"MaxNumOOSMSteps",              "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"HasCostMatrixInput",           "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"HasDetectableTrackIDsInput",   "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"StateParameters",              "kind":"namevalue", "type":["struct"]},
+            {"name":"AssignmentClustering",         "kind":"namevalue", "type":"choices= getAllowedValues(trackerGNN.AssignmentClusteringSet)"},
+            {"name":"EnableMemoryManagement",       "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"MaxNumDetectionsPerSensor",    "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"MaxNumDetectionsPerCluster",   "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"MaxNumTracksPerCluster",       "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"ClusterViolationHandling",     "kind":"namevalue", "type":"choices= getAllowedValues(trackerGNN.ClusterViolationHandlingSet)"}
+        ]
+    },
+    "trackerJPDA":
+    {
+        "inputs":
+        [
+            {"name":"TrackerIndex",                 "kind":"namevalue"},
+            {"name":"AssignmentThreshold",          "kind":"namevalue", "type":"numeric"},
+            {"name":"ClutterDensity",               "kind":"namevalue", "type":["numeric","positive","<=1"]},
+            {"name":"ConfirmationThreshold",        "kind":"namevalue", "type":"numeric"},
+            {"name":"DeathRate",                    "kind":"namevalue", "type":["numeric",">=0","<=1"]},
+            {"name":"DeletionThreshold",            "kind":"namevalue", "type":"numeric"},
+            {"name":"DetectionProbability",         "kind":"namevalue", "type":["numeric",">=0","<=1"]},
+            {"name":"MaxNumEvents",                 "kind":"namevalue", "type":"numeric"},
+            {"name":"EventGenerationFcn",           "kind":"namevalue"},
+            {"name":"FilterInitializationFcn",      "kind":"namevalue"},
+            {"name":"HasCostMatrixInput",           "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"HasDetectableTrackIDsInput",   "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"HitMissThreshold",             "kind":"namevalue", "type":["numeric",">=0","<=1"]},
+            {"name":"InitializationThreshold",      "kind":"namevalue", "type":["numeric",">=0","<=1"]},
+            {"name":"MaxNumTracks",                 "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"MaxNumDetections",             "kind":"namevalue", "type":["numeric",">=0"]},
+            {"name":"MaxNumSensors",                "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"OOSMHandling",                 "kind":"namevalue", "type":"choices=getAllowedValues(trackerJPDA.OOSMHandlingSet)"},
+            {"name":"MaxNumOOSMSteps",              "kind":"namevalue", "type":["integer","positive","scalar"]},
+            {"name":"NewTargetDensity",             "kind":"namevalue", "type":"numeric"},
+            {"name":"TimeTolerance",                "kind":"namevalue", "type":["numeric","positive","scalar"]},
+            {"name":"TrackLogic",                   "kind":"namevalue", "type":"choices=getAllowedValues(trackerJPDA.TrackLogicSet)"},
+            {"name":"StateParameters",              "kind":"namevalue", "type":["struct"]},
+            {"name":"EnableMemoryManagement",       "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"MaxNumDetectionsPerSensor",    "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"MaxNumDetectionsPerCluster",   "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"MaxNumTracksPerCluster",       "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"ClusterViolationHandling",     "kind":"namevalue", "type":"choices= getAllowedValues(trackerJPDA.ClusterViolationHandlingSet)"}
+        ]
+    },
+    "trackerPHD":
+    {
+        "inputs":
+        [
+            {"kind":"varargin","type":["trackerPHD"]}
+        ]
+    },
+    "trackerGridRFS":
+    {
+        "inputs":
+        [
+            {"kind":"varargin","type":["trackerGridRFS"]}
+        ]
+    },
+    "trackerTOMHT":
+    {
+        "inputs":
+        [
+            {"kind":"varargin", "type":["trackerTOMHT"]}
+        ]
+    },
+    "trackBranchHistory":
+    {
+        "inputs":
+        [
+            {"name":"MaxNumTracks",                 "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"MaxNumSensors",                "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"MaxNumHistoryScans",           "kind":"namevalue", "type":["integer","scalar"]},
+            {"name":"MaxNumTrackBranches",          "kind":"namevalue", "type":["integer","scalar"]}
+        ]
+    },
+    "pruneTrackBranches":
+    {
+        "inputs":
+        [
+            {"name":"history","kind":"required","type":["numeric"]},
+            {"name":"scores","kind":"required","type":["numeric"]},
+            {"name":"hypotheses","kind":"required","type":["logical"]},
+            {"name":"MinBranchProbability","kind":"namevalue","type":["numeric","scalar"]},
+            {"name":"MaxNumTrackBranches","kind":"namevalue","type":["integer","scalar"]},
+            {"name":"NScanPruning","kind":"namevalue","type":"choices={'None';'Hypothesis';'Probability'}"},
+            {"name":"NumSensors","kind":"namevalue","type":["integer","scalar"]}
+        ]
+    },
+    "sonarEmitter":
+    {
+        "inputs":
+        [
+            {"name":"emitterIndex",             "kind":"optional", "type":["integer","scalar","real","positive","finite"]},
+            {"name":"scanConfig",               "kind":"optional", "type":"choices={'No scanning';'Raster';'Rotator';'Sector'}"},
+            {"name":"EmitterIndex",             "kind":"namevalue", "type":["integer","scalar","real","positive","finite"]},
+            {"name":"UpdateRate",               "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"MountingLocation",         "kind":"namevalue", "type":["numeric","vector","numel=3","real","finite"]},
+            {"name":"MountingAngles",           "kind":"namevalue", "type":["numeric","vector","numel=3","real","finite"]},
+            {"name":"FieldOfView",              "kind":"namevalue", "type":["numeric","vector","numel=2","real","positive","finite"]},
+            {"name":"ScanMode",                 "kind":"namevalue", "type":"choices=getAllowedValues(sonarEmitter.ScanModeSet)"},
+            {"name":"MaxMechanicalScanRate",    "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"MechanicalScanLimits",     "kind":"namevalue", "type":["numeric","vector","real","positive","finite"]},
+            {"name":"ElectronicScanLimits",     "kind":"namevalue", "type":["numeric","vector","real","positive","finite"]},
+            {"name":"HasElevation",             "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"SourceLevel",              "kind":"namevalue", "type":["numeric","scalar","real","finite"]},
+            {"name":"CenterFrequency",          "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"Bandwidth",                "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"WaveformType",             "kind":"namevalue", "type":["integer","scalar","real",">=0","finite"]},
+            {"name":"ProcessingGain",           "kind":"namevalue", "type":["numeric","scalar","real","finite"]}
+        ]
+    },
+    "sonarSensor":
+    {
+        "inputs":
+        [
+            {"name":"sensorIndex",              "kind":"optional", "type":["integer","scalar","real","positive","finite"]},
+            {"name":"scanConfig",               "kind":"optional", "type":"choices={'No scanning';'Raster';'Rotator';'Sector'}"},
+            {"name":"SensorIndex",              "kind":"namevalue", "type":["integer","scalar","real","positive","finite"]},
+            {"name":"UpdateRate",               "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"DetectionMode",            "kind":"namevalue", "type":"choices=getAllowedValues(sonarSensor.DetectionModeSet)"},
+            {"name":"EmitterIndex",             "kind":"namevalue", "type":["integer","scalar","real","positive","finite"]},
+            {"name":"MountingLocation",         "kind":"namevalue", "type":["numeric","vector","numel=3","real","finite"]},
+            {"name":"MountingAngles",           "kind":"namevalue", "type":["numeric","vector","numel=3","real","finite"]},
+            {"name":"FieldOfView",              "kind":"namevalue", "type":["numeric","vector","numel=2","real","positive","finite"]},
+            {"name":"ScanMode",                 "kind":"namevalue", "type":"choices=getAllowedValues(sonarSensor.ScanModeSet)"},
+            {"name":"ElectronicScanLimits",     "kind":"namevalue", "type":["numeric","vector","real","positive","finite"]},
+            {"name":"HasElevation",             "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"CenterFrequency",          "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"Bandwidth",                "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"WaveformTypes",            "kind":"namevalue", "type":["integer","vector","real","finite"]},
+            {"name":"ConfusionMatrix",          "kind":"namevalue", "type":["numeric","2d","real","finite"]},
+            {"name":"FalseAlarmRate",           "kind":"namevalue", "type":["numeric","scalar","real",">=1e-7","<=1e-3"]},
+            {"name":"AmbientNoiseLevel",        "kind":"namevalue", "type":["numeric","scalar","real","finite"]},
+            {"name":"AzimuthResolution",        "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"ElevationResolution",      "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"RangeResolution",          "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"RangeRateResolution",      "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"AzimuthBiasFraction",      "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"ElevationBiasFraction",    "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"RangeBiasFraction",        "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"RangeRateBiasFraction",    "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"HasRangeRate",             "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"HasRangeAmbiguities",      "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"HasRangeRateAmbiguities",  "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"MaxUnambiguousRange",      "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"MaxUnambiguousRadialSpeed","kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"HasINS",                   "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"HasNoise",                 "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"HasFalseAlarms",           "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"MaxNumDetectionsSource",   "kind":"namevalue", "type":"choices=getAllowedValues(fusion.internal.remotesensors.ScanningSensor.MaxNumDetectionsSourceSet)"},
+            {"name":"MaxNumDetections",         "kind":"namevalue", "type":["integer","scalar","real","positive"]},
+            {"name":"DetectionCoordinates",     "kind":"namevalue", "type":"choices=getAllowedValues(sonarSensor.DetectionCoordinatesSet)"}
+        ]
+    },
+    "irSensor":
+    {
+        "inputs":
+        [
+            {"name":"sensorIndex",              "kind":"optional", "type":["integer","scalar","real","positive","finite"]},
+            {"name":"scanConfig",               "kind":"optional", "type":"choices={'No scanning';'Raster';'Rotator';'Sector'}"},
+            {"name":"SensorIndex",              "kind":"namevalue", "type":["integer","scalar","real","positive","finite"]},
+            {"name":"UpdateRate",               "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"ScanMode",                 "kind":"namevalue", "type":"choices=getAllowedValues(irSensor.ScanModeSet)"},
+            {"name":"MountingLocation",         "kind":"namevalue", "type":["numeric","vector","numel=3","real","finite"]},
+            {"name":"MountingAngles",           "kind":"namevalue", "type":["numeric","vector","numel=3","real","finite"]},
+            {"name":"MaxMechanicalScanRate",    "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"MechanicalScanLimits",     "kind":"namevalue", "type":["numeric","vector","real","positive","finite"]},
+            {"name":"LensDiameter",             "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"FocalLength",              "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"NumDetectors",             "kind":"namevalue", "type":["numeric","vector","numel=2","real","positive","integer","finite"]},
+            {"name":"CutoffFrequency",          "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"DetectorArea",             "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"MinClassificationArea",    "kind":"namevalue", "type":["numeric","scalar","real","nonnegative","finite"]},
+            {"name":"Detectivity",              "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"NoiseEquivalentBandwidth", "kind":"namevalue", "type":["numeric","scalar","real","positive","finite"]},
+            {"name":"FalseAlarmRate",           "kind":"namevalue", "type":["numeric","scalar","real",">=1e-7","<=1e-3"]},
+            {"name":"AzimuthBiasFraction",      "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"ElevationBiasFraction",    "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"MaxAllowedOcclusion",      "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"HasElevation",             "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"HasAngularSize",           "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"HasINS",                   "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"HasNoise",                 "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"HasFalseAlarms",           "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"HasOcclusion",             "kind":"namevalue", "type":["logical","scalar","real","finite"]},
+            {"name":"MaxNumDetectionsSource",   "kind":"namevalue", "type":"choices=getAllowedValues(fusion.internal.remotesensors.ScanningSensor.MaxNumDetectionsSourceSet)"},
+            {"name":"MaxNumDetections",         "kind":"namevalue", "type":["integer","scalar","real","positive","finite"]}
+        ]
+    },
+    "irSignature":
+    {
+        "inputs":
+        [
+            {"name":"Pattern",                  "kind":"namevalue", "type":["numeric","2d","real"]},
+            {"name":"Azimuth",                  "kind":"namevalue", "type":["numeric","vector","real","finite","nondecreasing"]},
+            {"name":"Elevation",                "kind":"namevalue", "type":["numeric","vector","real","finite","nondecreasing"]}
+        ]
+    },
+    "staticDetectionFuser":
+    {
+        "inputs":
+        [
+            {"kind":"varargin", "type":["staticDetectionFuser"]}
+        ]
+    },
+    "fusionRadarSensor":
+    {
+        "inputs":
+        [
+            {"name":"sensorIndex",              "kind":"ordered",   "type":["integer","scalar","real","positive"]},
+            {"name":"scanConfig",               "kind":"ordered",   "type":"choices={'No scanning';'Raster';'Rotator';'Sector'}"},
+            {"name":"AzimuthBiasFraction",      "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"AzimuthResolution",        "kind":"namevalue", "type":["numeric","scalar","real","positive"]},
+            {"name":"Bandwidth",                "kind":"namevalue", "type":["numeric","scalar","real",">=0"]},
+            {"name":"CenterFrequency",          "kind":"namevalue", "type":["numeric","scalar","real",">=0"]},
+            {"name":"ConfirmationThreshold",    "kind":"namevalue", "type":["numeric","vector","numel=2","integer"]},
+            {"name":"ConfusionMatrix",          "kind":"namevalue", "type":["numeric","2d","real"]},
+            {"name":"DeletionThreshold",        "kind":"namevalue", "type":["numeric","vector","numel=2","integer"]},
+            {"name":"DetectionCoordinates",     "kind":"namevalue", "type":"choices=getAllowedValues(radarDataGenerator.DetectionCoordinatesSet)"},
+            {"name":"DetectionMode",            "kind":"namevalue", "type":"choices=getAllowedValues(radarDataGenerator.DetectionModeSet)"},
+            {"name":"DetectionProbability",     "kind":"namevalue", "type":["numeric","scalar","real","positive","<=1"]},
+            {"name":"DetectionThreshold",       "kind":"namevalue", "type":["numeric","scalar","real"]},
+            {"name":"ElectronicAzimuthLimits",  "kind":"namevalue", "type":["numeric","vector","numel=2","real"]},
+            {"name":"ElectronicElevationLimits","kind":"namevalue", "type":["numeric","vector","numel=2","real"]},
+            {"name":"ElevationBiasFraction",    "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"ElevationResolution",      "kind":"namevalue", "type":["numeric","scalar","real","positive"]},
+            {"name":"EmissionsInputPort",       "kind":"namevalue", "type":["logical","scalar","real"]},
+            {"name":"EmitterIndex",             "kind":"namevalue", "type":["integer","scalar","real","positive"]},
+            {"name":"FalseAlarmRate",           "kind":"namevalue", "type":["numeric","scalar","real",">=1e-7","<=1e-3"]},
+            {"name":"FieldOfView",              "kind":"namevalue", "type":["numeric","vector","numel=2","real","positive"]},
+            {"name":"FilterInitializationFcn",  "kind":"namevalue", "type": ["function_handle"]},
+            {"name":"HasElevation",             "kind":"namevalue", "type":["logical","scalar","real"]},
+            {"name":"HasFalseAlarms",           "kind":"namevalue", "type":["logical","scalar","real"]},
+            {"name":"HasINS",                   "kind":"namevalue", "type":["logical","scalar","real"]},
+            {"name":"HasNoise",                 "kind":"namevalue", "type":["logical","scalar","real"]},
+            {"name":"HasOcclusion",             "kind":"namevalue", "type":["logical","scalar","real"]},
+            {"name":"HasRangeAmbiguities",      "kind":"namevalue", "type":["logical","scalar","real"]},
+            {"name":"HasRangeRate",             "kind":"namevalue", "type":["logical","scalar","real"]},
+            {"name":"HasRangeRateAmbiguities",  "kind":"namevalue", "type":["logical","scalar","real"]},
+            {"name":"InterferenceInputPort",    "kind":"namevalue", "type":["logical","scalar","real"]},
+            {"name":"MaxAzimuthScanRate",       "kind":"namevalue", "type":["numeric","scalar","real","positive"]},
+            {"name":"MaxElevationScanRate",     "kind":"namevalue", "type":["numeric","scalar","real","positive"]},
+            {"name":"MaxNumReports",            "kind":"namevalue", "type":["integer","scalar","real","positive"]},
+            {"name":"MaxNumReportsSource",      "kind":"namevalue", "type":"choices=getAllowedValues(radarDataGenerator.MaxNumReportsSource)"},
+            {"name":"MaxUnambiguousRadialSpeed","kind":"namevalue", "type":["numeric","scalar","real","positive"]},
+            {"name":"MaxUnambiguousRange",      "kind":"namevalue", "type":["numeric","scalar","real","positive"]},
+            {"name":"MechanicalAzimuthLimits",  "kind":"namevalue", "type":["numeric","vector","numel=2","real"]},
+            {"name":"MechanicalElevationLimits","kind":"namevalue", "type":["numeric","vector","numel=2","real"]},
+            {"name":"MountingAngles",           "kind":"namevalue", "type":["numeric","vector","numel=3","real"]},
+            {"name":"MountingLocation",         "kind":"namevalue", "type":["numeric","vector","numel=3","real"]},
+            {"name":"Profiles",                 "kind":"namevalue", "type":["struct"]},
+            {"name":"RangeBiasFraction",        "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"RangeLimits",              "kind":"namevalue", "type":["numeric","vector","numel=2","real",">=0"]},
+            {"name":"RangeRateBiasFraction",    "kind":"namevalue", "type":["numeric","scalar","real",">=0","<=1"]},
+            {"name":"RangeRateLimits",          "kind":"namevalue", "type":["numeric","vector","numel=2","real"]},
+            {"name":"RangeRateResolution",      "kind":"namevalue", "type":["numeric","scalar","real","positive"]},
+            {"name":"RangeResolution",          "kind":"namevalue", "type":["numeric","scalar","real","positive"]},
+            {"name":"ReferenceRCS",             "kind":"namevalue", "type":["numeric","scalar","real"]},
+            {"name":"ReferenceRange",           "kind":"namevalue", "type":["numeric","scalar","real","positive"]},
+            {"name":"ScanMode",                 "kind":"namevalue", "type":"choices=getAllowedValues(radarDataGenerator.ScanModeSet)"},
+            {"name":"Sensitivity",              "kind":"namevalue", "type":["numeric","scalar","real"]},
+            {"name":"SensorIndex",              "kind":"namevalue", "type":["integer","scalar","real","positive"]},
+            {"name":"TargetReportFormat",       "kind":"namevalue", "type":"choices=getAllowedValues(radarDataGenerator.TargetReportFormat)"},
+            {"name":"TrackCoordinates",         "kind":"namevalue", "type":"choices=getAllowedValues(radarDataGenerator.TrackCoordinates)"},
+            {"name":"UpdateRate",               "kind":"namevalue", "type":["numeric","scalar","real","positive"]},
+            {"name":"WaveformTypes",            "kind":"namevalue", "type":["integer","vector","real"]}
+        ]
+    },
+    "fuserSourceConfiguration":
+	{
+        "inputs":
+        [
+            {"kind":"varargin", "type":["fuserSourceConfiguration"]}
+        ]
+    },
+    "gmphd":
+    {   
+        "inputs":
+        [   
+            {"name":"States","kind":"positional"},
+            {"name":"StateCovariances","kind":"positional"},
+            {"name":"MeasurementOrigin","kind":"namevalue", "type":["choices={'center';'extent'}"]},
+            {"kind":"varargin", "type":["gmphd"]}
+        ]
+    },
+    "ggiwphd":
+    {
+        "inputs":
+    [
+            {"kind":"varargin","type":["ggiwphd"]}
+    ]
+    },
+    "trackFuser":
+    {
+        "inputs":
+    [
+            {"kind":"varargin","type":["trackFuser"]}
+    ]
+    },
+    "trackOSPAMetric":
+    {
+        "inputs":
+    [
+            {"kind":"varargin","type":["trackOSPAMetric"]}
+    ]
+    },
+    "trackGOSPAMetric":
+    {
+        "inputs":
+    [
+            {"kind":"varargin","type":["trackGOSPAMetric"]}
+    ]
+    },
+    "trackingSensorConfiguration":
+	{
+        "inputs":
+        [
+            {"kind":"varargin", "type":["trackingSensorConfiguration"]}
+        ]
+    },
+    "monostaticLidarSensor":
+    {
+        "inputs":
+    [
+            {"kind":"varargin","type":["monostaticLidarSensor"]}
+    ]
+    },
+    "monteCarloRun":
+    {
+        "inputs":
+    [
+            {"name":"scenario","kind":"required","type":"trackingScenario"},
+            {"name":"numRuns","kind":"required","type":["integer","scalar"]},
+            {"name":"UseParallel","kind":"namevalue","type":["logical","scalar"]},
+            {"name":"InitialSeeds","kind":"namevalue","type":["integer","vector","positive"]}
+    ]
+    },
+    "trackingScenario":
+    {
+        "inputs":
+    [
+           {"name":"UpdateRate","kind":"namevalue","type":["numeric","scalar"]},
+           {"name":"StopTime","kind":"namevalue","type":["numeric","scalar"]},
+           {"name":"IsEarthCentered","kind":"namevalue","type":["logical","scalar"]}
+    ]
+    },
+    "record":
+    {
+        "inputs":
+        [
+           {"name":"s","kind":"required","type":"trackingScenario"},
+           {"name":"fmt","kind":"positional","type":["choices={'Quaternion';'Rotmat'}"]},
+           {"name":"IncludeEmitters","kind":"namevalue","type":["logical","scalar"]},
+           {"name":"IncludeSensors","kind":"namevalue","type":["logical","scalar"]},
+           {"name":"InitialSeed","kind":"namevalue","type":["integer","scalar"]},
+           {"name":"HasOcclusion","kind":"namevalue","type":["logical","scalar"]},
+           {"name":"RecordingFormat","kind":"namevalue","type":["choices={'Struct';'Recording'}"]},
+           {"name":"CoordinateSystem","kind":"namevalue","type":["choices={'Cartesian';'Geodetic'}"]} 
+        ]
+    },
+    "platformPoses":
+    {
+        "inputs":
+        [
+           {"name":"s","kind":"required","type":"trackingScenario"},
+           {"name":"fmt","kind":"positional","type":["choices={'Quaternion';'Rotmat'}"]},
+           {"name":"CoordinateSystem","kind":"namevalue","type":["choices={'Cartesian';'Geodetic'}"]}
+        ]
+    },
+    "addTracker":
+    {
+        "inputs":
+        [
+           {"name":"a",            "kind":"required",  "type":"trackingArchitecture"},
+           {"name":"tracker",      "kind":"required"},
+           {"name":"ToOutput",     "kind":"namevalue", "type":["logical","scalar"]},
+           {"name":"SensorIndices","kind":"namevalue", "type":["integer","vector","positive"]},
+           {"name":"Name",         "kind":"namevalue", "type":["string","scalar"]}
+        ]
+    },
+    "addTrackFuser":
+    {
+        "inputs":
+        [
+           {"name":"a",            "kind":"required",  "type":"trackingArchitecture"},
+           {"name":"trackFuser",   "kind":"required"},
+           {"name":"ToOutput",     "kind":"namevalue", "type":["logical","scalar"]},
+           {"name":"Name",         "kind":"namevalue", "type":["string","scalar"]}
+        ]
+    },
+    "adsbTransponder":
+    {
+       "inputs":
+       [ 
+           {"name":"icao","kind":"required","type":["string","scalar"]},
+           {"name":"UpdateRate","kind":"namevalue","type":["numeric","scalar"]},
+           {"name":"Callsign","kind":"namevalue","type":["string","scalar"]},
+           {"name":"Category","kind":"namevalue","type":"adsbCategory"},
+           {"name":"GPS","kind":"namevalue","type":"gpsSensor"}
+       ]
+    },
+    "adsbReceiver":
+    {
+       "inputs":
+       [
+           {"kind":"varargin", "type":["adsbReceiver"]}
+       ]
+    },
+    "trackingGlobeViewer":
+    {
+       "inputs":
+       [
+           {"name":"uifig","kind":"positional","type":["uifigure", "scalar"]},
+           {"name":"Basemap","kind":"namevalue","type":"choices=matlab.graphics.chart.internal.maps.basemapNames"},
+           {"name":"Terrain","kind":"namevalue","type":"choices={'none';'gmted2010'}"},
+           {"name":"ReferenceLocation","kind":"namevalue","type":["numeric","vector","numel=3","real"]},
+           {"name":"CoverageMode","kind":"namevalue","type":["choices={'Beam';'Coverage'}"]},
+           {"name":"CoverageRangeScale","kind":"namevalue","type":["numeric","scalar","positive"]},
+           {"name":"PlatformHistoryDepth","kind":"namevalue","type":["scalar","integer","nonnegative"]},
+           {"name":"TrackHistoryDepth","kind":"namevalue","type":["scalar","integer","nonnegative"]},
+           {"name":"NumCovarianceSigma","kind":"namevalue","type":["scalar","integer","positive"]},
+           {"name":"TrackLabelScale","kind":"namevalue","type":["numeric","scalar","positive"]},
+           {"name":"ShowDroppedTracks","kind":"namevalue","type":["logical","scalar"]}
+       ]
+    },
+    "trackingGlobeViewer.plotPlatform":
+    {
+        
+       "inputs":
+       [
+          {"name":"globe","kind":"required","type":"trackingGlobeViewer"},
+          {"mutuallyExclusiveGroup":
+           [
+               [
+                   {"name":"platforms","kind":"required","type":"struct"},
+                   {"name":"ReferenceFrame","kind":"positional","type":["choices={'NED';'ENU';'ECEF'}"]}
+               ],
+               [
+                   {"name":"platforms","kind":"required","type":"fusion.scenario.Platform"}
+               ] 
+           ]
+          },
+          {"name":"Color","kind":"namevalue"},
+          {"name":"Marker","kind":"namevalue","type":"string"},
+          {"name":"LineWidth","kind":"namevalue","type":["scalar","integer","positive"]},
+          {"name":"TrajectoryMode","kind":"namevalue","type":["choices={'None';'History';'Full'}"]}
+       ]
+    },
+    "trackingGlobeViewer.plotTrack":
+    {
+       "inputs":
+       [
+          {"name":"globe","kind":"required","type":"trackingGlobeViewer"},
+          {"name":"tracks","kind":"required","type":[["objectTrack"],["struct"],["cell"]]},
+          {"name":"ReferenceFrame","kind":"positional","type":["choices={'NED';'ENU';'ECEF'}"]},
+          {"name":"PositionSelector","kind":"namevalue","type":["2d","real"]},
+          {"name":"VelocitySelector","kind":"namevalue","type":["2d","real"]},
+          {"name":"Color","kind":"namevalue"},
+          {"name":"LineWidth","kind":"namevalue","type":["scalar","integer","positive"]},
+          {"name":"LabelStyle","kind":"namevalue","type":["choices={'ID';'ATC';'Custom'}"]},
+          {"name":"CustomLabel","kind":"namevalue","type":"string"}
+       ]
+    },
+    "trackingGlobeViewer.plotDetection":
+    {
+       "inputs":
+       [
+          {"name":"globe","kind":"required","type":"trackingGlobeViewer"},
+          {"name":"detections","kind":"required","type":[["objectDetection"],["struct"]]},
+          {"name":"ReferenceFrame","kind":"positional","type":["choices={'NED';'ENU';'ECEF'}"]},
+          {"name":"Color","kind":"namevalue"},
+          {"name":"LineWidth","kind":"namevalue","type":["scalar","integer","positive"]}
+       ]
+    },
+    "trackingGlobeViewer.plotTrajectory":
+    {
+       "inputs":
+       [
+          {"name":"globe","kind":"required","type":"trackingGlobeViewer"},
+          {"name":"trajs","kind":"required","type":[["waypointTrajectory"],["geoTrajectory"]]},
+          {"name":"Color","kind":"namevalue"},
+          {"name":"LineWidth","kind":"namevalue","type":["scalar","integer","positive"]}
+       ]
+    },
+    "trackingGlobeViewer.plotCoverage":
+    {
+       "inputs":
+       [
+          {"name":"globe","kind":"required","type":"trackingGlobeViewer"},
+          {"name":"covcon","kind":"required","type":["struct"]},
+          {"name":"ReferenceFrame","kind":"positional","type":["choices={'NED';'ENU';'ECEF'}"]},
+          {"name":"Color","kind":"namevalue"},
+          {"name":"Alpha","kind":"namevalue","type":["numeric","scalar","real",">=0","<=1"]}
+       ]
+    },
+    "trackingGlobeViewer.plotScenario":
+    {
+       "inputs":
+       [
+          {"name":"globe","kind":"required","type":"trackingGlobeViewer"},
+          {"name":"scene","kind":"required","type":["trackingScenario"]},
+          {"name":"dets","kind":"positional","type":[["objectDetection"],["cell"],["struct"]]},
+          {"name":"tracks","kind":"positional","type":[["objectTrack"],["struct"]]}
+       ]
+    },
+    "objectDetectionDelay":
+    {
+       "inputs":
+       [
+           {"kind":"varargin", "type":["objectDetectionDelay"]}
+       ]
+    }
+}

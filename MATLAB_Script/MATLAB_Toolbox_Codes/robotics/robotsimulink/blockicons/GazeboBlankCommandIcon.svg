@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{font-size:16.18px;fill:#333;font-family:Helvetica;}.cls-2{fill:none;stroke:gray;stroke-miterlimit:10;stroke-width:2px;}.cls-3{fill:gray;}.cls-4{fill:#595959;}.cls-5{fill:#fff;}</style>
+   </defs>
+   <title>Gazebo Black Command_042619</title>
+   <text class="cls-1" transform="translate(46.67 72.72)">Gazebo</text>
+   <line class="cls-2" x1="75" x2="75" y1="51.77" y2="38.79"/>
+   <polygon class="cls-3" points="78.49 50.75 75 56.79 71.51 50.75 78.49 50.75"/>
+   <rect class="cls-4" height="26.27" width="3.08" x="73.42" y="5.78"/>
+   <path class="cls-4" d="M76,6.28V31.55H73.92V6.28H76m1-1H72.92V32.55H77V5.28Z"/>
+   <rect class="cls-5" height="1.53" width="3.08" x="73.42" y="19.62"/>
+   <path class="cls-4" d="M76,20.12v.53H73.92v-.53H76m1-1H72.92v2.53H77V19.12Z"/>
+   <rect class="cls-5" height="0.47" width="3.08" x="73.42" y="18.68"/>
+   <polygon class="cls-4"
+            points="77 18.18 72.92 18.18 72.92 19.65 77 19.65 77 18.18 77 18.18"/>
+   <rect class="cls-5" height="1.53" width="3.08" x="73.42" y="16.68"/>
+   <path class="cls-4" d="M76,17.18v.53H73.92v-.53H76m1-1H72.92v2.53H77V16.18Z"/>
+   <path class="cls-4" d="M83.59,19.4,77,24.06V23l5.39-4.12L77,14.8v-1l6.6,4.66Z"/>
+   <path class="cls-4" d="M73,27.31,66.41,32v-1l5.39-4.12-5.39-4.11v-1L73,26.34Z"/>
+   <path class="cls-4" d="M73,11.49l-6.6,4.66v-1L71.8,11,66.41,6.89v-1L73,10.52Z"/>
+</svg>

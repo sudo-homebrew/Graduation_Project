@@ -1,0 +1,44 @@
+function [data, info] = pressureInfoElement
+%PressureInfoElement gives an empty data for fingertip_pressure/PressureInfoElement
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'fingertip_pressure/PressureInfoElement';
+[data.FrameId, info.FrameId] = ros.internal.ros.messages.ros.char('string',0);
+[data.Center, info.Center] = ros.internal.ros.messages.geometry_msgs.vector3;
+info.Center.MLdataType = 'struct';
+info.Center.MaxLen = NaN;
+info.Center.MinLen = 0;
+data.Center = data.Center([],1);
+[data.Halfside1, info.Halfside1] = ros.internal.ros.messages.geometry_msgs.vector3;
+info.Halfside1.MLdataType = 'struct';
+info.Halfside1.MaxLen = NaN;
+info.Halfside1.MinLen = 0;
+data.Halfside1 = data.Halfside1([],1);
+[data.Halfside2, info.Halfside2] = ros.internal.ros.messages.geometry_msgs.vector3;
+info.Halfside2.MLdataType = 'struct';
+info.Halfside2.MaxLen = NaN;
+info.Halfside2.MinLen = 0;
+data.Halfside2 = data.Halfside2([],1);
+[data.ForcePerUnit, info.ForcePerUnit] = ros.internal.ros.messages.ros.default_type('double',NaN);
+info.MessageType = 'fingertip_pressure/PressureInfoElement';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,14);
+info.MatPath{1} = 'frame_id';
+info.MatPath{2} = 'center';
+info.MatPath{3} = 'center.x';
+info.MatPath{4} = 'center.y';
+info.MatPath{5} = 'center.z';
+info.MatPath{6} = 'halfside1';
+info.MatPath{7} = 'halfside1.x';
+info.MatPath{8} = 'halfside1.y';
+info.MatPath{9} = 'halfside1.z';
+info.MatPath{10} = 'halfside2';
+info.MatPath{11} = 'halfside2.x';
+info.MatPath{12} = 'halfside2.y';
+info.MatPath{13} = 'halfside2.z';
+info.MatPath{14} = 'force_per_unit';

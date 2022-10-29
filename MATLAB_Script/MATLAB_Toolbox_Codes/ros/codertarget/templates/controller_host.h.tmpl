@@ -1,0 +1,83 @@
+{% if (false) %}
+// Copyright 2021-2022 The MathWorks, Inc.
+{% endif %}
+
+{% var slCoderVer = ver('simulinkcoder') %}
+//
+// Code generated for Simulink model '{%ModelName%}'.
+//
+// Model version                  : {% get_param(ModelName,'ModelVersion') %}
+// Simulink Coder version         : {% [slCoderVer.Version, ' ', slCoderVer.Release, ' ', slCoderVer.Date] %}
+// C/C++ source code generated on : {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %}
+//
+#pragma once
+
+#include <controller_interface/controller.h>
+#include <controller_interface/multi_interface_controller.h>
+{% for k = numel(HardwareInterfaces) %}
+#include <hardware_interface/{%HardwareInterfaces(k).Header%}>
+{% endfor %}
+#include <realtime_tools/realtime_buffer.h>
+#include <realtime_tools/realtime_publisher.h>
+#include <ros/node_handle.h>
+#include <ros/time.h>
+
+#include "{%ModelName%}.h"
+#include "slros_initialize.h"
+{% var inportIndices = arrayfun(@(y)isequal(y.PortType,'Inport'), JointInterfaces) %}
+{% var outportIndices = arrayfun(@(y)isequal(y.PortType,'Outport'), JointInterfaces) %}
+{% var inportRes = JointInterfaces(inportIndices) %}
+{% var outportRes = JointInterfaces(outportIndices) %}
+
+{% if ~isempty(inportRes) %}
+// Extern declaration for Simulink model input structure
+{% InputType %}
+{% endif %}
+
+{% if ~isempty(outportRes) %}
+// Extern declaration for Simulink model output structure
+{% OutputType %}
+{% endif %}
+
+
+namespace {%ProjectName%} {
+class {%ClassName%} : public controller_interface::MultiInterfaceController<
+{% for i = numel(HardwareInterfaces) %}
+hardware_interface::{%HardwareInterfaces(i).Type%}
+{% if i ~= numel(HardwareInterfaces) %}
+,
+{% endif %}
+{% endfor %}
+>
+{
+ public:
+  {%ClassName%}()
+  {
+  }
+
+  ~{%ClassName%}()
+  {
+    {% TermFcn %};
+  }
+
+  bool init(hardware_interface::RobotHW* hw, ros::NodeHandle& nh) override;
+  void starting(const ros::Time& time) override;
+  void update(const ros::Time& time, const ros::Duration& period) override;
+  void stopping (const ros::Time& time) override;
+
+ private:
+  void reset();
+  // Declare the hardware interfaces
+  {% for k = numel(JointInterfaces) %}
+  hardware_interface::{%JointInterfaces(k).HwInterfaceClass%} joint_handle{% num2str(k-1) %}_;
+  {% endfor %}
+};
+
+}  // namespace {%ProjectName%}
+
+//
+// File trailer for generated code.
+//
+// [EOF]
+//
+

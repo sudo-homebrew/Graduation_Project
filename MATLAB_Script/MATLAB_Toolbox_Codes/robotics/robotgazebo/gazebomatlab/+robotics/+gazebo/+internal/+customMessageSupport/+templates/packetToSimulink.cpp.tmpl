@@ -1,0 +1,741 @@
+/* Copyright 2019-2020 The MathWorks, Inc. */
+
+//This function is for internal use only. It may be removed in the future.
+// DO NOT EDIT!
+// This is C++ MEX source file, which converts Co-Sim Packet message into Simulink message.
+// Further, MEX function is generated for this source file.
+
+#include "mex.hpp"
+#include "mexAdapter.hpp"
+#include "{% msgInfo.MessageFileName %}.pb.h"
+#include <google/protobuf/stubs/logging.h>
+#include <google/protobuf/stubs/common.h>
+#include <google/protobuf/descriptor.pb.h>
+#include <google/protobuf/descriptor.h>
+#include <google/protobuf/reflection.h>
+#include <google/protobuf/extension_set.h>
+#include <google/protobuf/generated_message_reflection.h>
+#include <google/protobuf/generated_message_util.h>
+#include <google/protobuf/inlined_string_field.h>
+#include <google/protobuf/map_field.h>
+#include <google/protobuf/map_field_inl.h>
+#include <google/protobuf/stubs/mutex.h>
+#include <google/protobuf/repeated_field.h>
+#include <google/protobuf/wire_format.h>
+#include <map>
+#include <vector>
+#include <algorithm>
+
+{% msgInfo.MessageNameSpace %}
+
+class MexFunction : public matlab::mex::Function
+{
+private:
+    // create and set protobuf message
+{% msgInfo.MessageDefinitionPtr %}
+
+const google::protobuf::Descriptor *m_descriptor;
+
+public:
+    // fill MATLAB structure based on protobuf message fields
+    template <typename TVal, typename TFcn>
+            void fillArrayDataFromMsg(const google::protobuf::Message &replyMessage, matlab::data::StructArray &structArrayTemp,
+            const google::protobuf::FieldDescriptor *field_descriptor, const google::protobuf::Reflection *reflection, TFcn const scalarGetter, size_t index)
+    {
+        std::vector<matlab::data::Array> fieldValues;
+        matlab::data::ArrayFactory m_factory;
+        
+        if( field_descriptor->is_repeated())
+        {
+            auto const& repeatedFieldValues = reflection->GetRepeatedFieldRef<TVal>(replyMessage, field_descriptor);
+            
+            auto result =  m_factory.createArray<TVal>({1, static_cast<size_t>(repeatedFieldValues.size())});
+            std::copy(repeatedFieldValues.begin(), repeatedFieldValues.end(), result.begin());
+            fieldValues.push_back(result);
+            
+        }
+        else
+        {
+            fieldValues.push_back(m_factory.createScalar<TVal>((reflection->*scalarGetter)(replyMessage,field_descriptor)));
+        }
+        
+        for(int id=0;id<fieldValues.size();id++)
+        {
+            structArrayTemp[index][field_descriptor->name()]  = fieldValues[id];
+            auto oneofFieldDesc = field_descriptor->containing_oneof();
+            if(oneofFieldDesc)
+            {
+                std::string statusFieldName = field_descriptor->name() + "_status";
+                if(reflection->HasField(replyMessage, field_descriptor))
+                {
+                    structArrayTemp[index][statusFieldName]  = m_factory.createScalar<bool>(1);
+                }
+                else
+                {
+                    structArrayTemp[index][statusFieldName]  = m_factory.createScalar<bool>(0);
+                }
+            }
+            
+        }
+    }
+    
+    /// create MATLAB struct array from Protobuf message types
+    matlab::data::StructArray createStructArrayFromMsgType(
+            google::protobuf::Descriptor const* msgtype,
+            size_t numElems)
+    {
+        matlab::data::ArrayFactory m_factory;
+        
+        // extract payload field names and store in map number-wise
+        int fieldIndex = 0;
+        std::map<int, std::string, std::less<int> > fieldNameMap; // auto-sort
+        for (int idx = 0; idx < msgtype->field_count(); ++idx) {
+            auto field_desc = msgtype->field(idx);
+            int fieldId = field_desc->number() + fieldIndex;
+            fieldNameMap.insert(std::make_pair(fieldId,field_desc->name()));
+        }
+        
+        // add field names in ascending number
+        std::vector<std::string> fieldNames;
+        std::map<int,std::string> :: iterator it;
+        for (it=fieldNameMap.begin() ; it!=fieldNameMap.end() ; it++)
+        {
+            fieldNames.push_back((*it).second);
+            auto field_desc = msgtype->FindFieldByName((*it).second);
+            if(field_desc->containing_oneof())
+            {
+                std::string statusFieldName = field_desc->name() + "_status";
+                fieldNames.push_back(statusFieldName);
+            }
+            auto fieldType = field_desc->type();
+            if( field_desc->is_repeated() &&
+                    ( fieldType == google::protobuf::FieldDescriptor::Type::TYPE_STRING
+                    || fieldType == google::protobuf::FieldDescriptor::Type::TYPE_BYTES ) )
+            {
+                std::string sizeFieldName = field_desc->name() + "_size";
+                fieldNames.push_back(sizeFieldName);
+            }
+        }
+        return m_factory.createStructArray({1, numElems}, fieldNames);
+    }
+    
+    // fill sruct for protobuf repeated fields of oneof field which are not set
+    void fillStructForMissingOneofField(matlab::data::StructArray& msgField,
+            google::protobuf::Descriptor const* nestedMsgType, size_t idx )
+    {
+        matlab::data::ArrayFactory m_factory;
+        for (int fieldIdx = 0; fieldIdx < nestedMsgType->field_count(); ++fieldIdx)
+        {
+            auto fieldType = nestedMsgType->field(fieldIdx);
+            
+            // check for oneOf field
+            auto oneofFieldDesc = fieldType->containing_oneof();
+            if(oneofFieldDesc)
+            {
+                std::string statusFieldName = fieldType->name() + "_status";
+                msgField[idx][statusFieldName]  = m_factory.createScalar<bool>(0);
+            }
+            
+            switch (fieldType->type())
+            {
+                case google::protobuf::FieldDescriptor::Type::TYPE_GROUP:
+                {
+                    // avoid warnings in Mac
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_INT32:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<int32_t>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_INT64:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<int64_t>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_UINT32:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<uint32_t>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_UINT64:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<uint64_t>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_FLOAT:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<float>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_DOUBLE:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<double>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_BOOL:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<bool>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_ENUM:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<int32_t>({1, 1});
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::Type::TYPE_SINT32:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<int32_t>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_SINT64:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<int64_t>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_SFIXED32:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<int32_t>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_SFIXED64:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<int64_t>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_FIXED32:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<uint32_t>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_FIXED64:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<uint64_t>({1, 1});
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_STRING:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<uint8_t>({1, 1});
+                    
+                    if(fieldType->is_repeated())
+                    {
+                        std::string fieldSizeName = fieldType->name() + "_size";
+                        msgField[idx][fieldSizeName] = m_factory.createArray<uint32_t>({1, 1});
+                    }
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_BYTES:
+                {
+                    msgField[idx][fieldType->name()]  = m_factory.createArray<uint8_t>({1, 1});
+                    
+                    if(fieldType->is_repeated())
+                    {
+                        std::string fieldSizeName = fieldType->name() + "_size";
+                        msgField[idx][fieldSizeName] = m_factory.createArray<uint32_t>({1, 1});
+                    }
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_MESSAGE:
+                {
+                    std::vector<matlab::data::Array> fieldValues;
+                    auto nestedMsgTypeNew = fieldType->message_type();
+                    
+                    auto msgFieldNew = createStructArrayFromMsgType( nestedMsgTypeNew, 1);
+                    
+                    fillStructForMissingOneofField(msgFieldNew, nestedMsgTypeNew, idx);
+                    fieldValues.push_back(msgFieldNew);
+                    
+                    for(int id=0;id<fieldValues.size();id++)
+                    {
+                        msgField[idx][fieldType->name()]  = fieldValues[id];
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
+    void fillMLStructWithMsg(google::protobuf::Message const& msg,
+            google::protobuf::Descriptor const* msgtype,
+            size_t idx, matlab::data::StructArray& output)
+    {
+        auto reflection = msg.GetReflection();
+        matlab::data::ArrayFactory m_factory;
+        
+        for (int fieldIdx = 0; fieldIdx < msgtype->field_count(); ++fieldIdx)
+        {
+            auto fieldType = msgtype->field(fieldIdx);
+            switch (fieldType->type())
+            {
+                case google::protobuf::FieldDescriptor::Type::TYPE_GROUP:
+                {
+                    // avoid warnings in Mac
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_INT32:
+                {
+                    fillArrayDataFromMsg<int32_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetInt32,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_INT64:
+                {
+                    fillArrayDataFromMsg<int64_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetInt64,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_UINT32:
+                {
+                    fillArrayDataFromMsg<uint32_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetUInt32,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_UINT64:
+                {
+                    fillArrayDataFromMsg<uint64_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetUInt64,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_FLOAT:
+                {
+                    fillArrayDataFromMsg<float>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetFloat,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_DOUBLE:
+                {
+                    fillArrayDataFromMsg<double>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetDouble,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_BOOL:
+                {
+                    fillArrayDataFromMsg<bool>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetBool,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_ENUM:
+                {
+                    fillArrayDataFromMsg<int32_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetEnumValue,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_SINT32:
+                {
+                    fillArrayDataFromMsg<int32_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetInt32,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_SINT64:
+                {
+                    fillArrayDataFromMsg<int64_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetInt64,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_SFIXED32:
+                {
+                    fillArrayDataFromMsg<int32_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetInt32,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_SFIXED64:
+                {
+                    fillArrayDataFromMsg<int64_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetInt64,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_FIXED32:
+                {
+                    fillArrayDataFromMsg<uint32_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetUInt32,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_FIXED64:
+                {
+                    fillArrayDataFromMsg<uint64_t>(msg,output,fieldType,reflection,&google::protobuf::Reflection::GetUInt64,0);
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_STRING:
+                {
+                    if( fieldType->is_repeated())
+                    {
+                        auto const& repeatedFieldValues = reflection->GetRepeatedFieldRef<std::string>(msg, fieldType);
+                        
+                        auto iter = repeatedFieldValues.begin();
+                        size_t resultIdx = 0;
+                        auto result_size = m_factory.createArray<uint32_t>({1, static_cast<size_t>(repeatedFieldValues.size())});
+                        
+                        std::vector<uint8_t> byteArray;
+                        while (iter != repeatedFieldValues.end()) {
+                            std::vector<uint8_t> numericBuffer{iter->begin(), iter->end()};
+                            for(idx = 0;idx < numericBuffer.size();idx++)
+                            {
+                                byteArray.push_back(numericBuffer[idx]);
+                            }
+                            result_size[resultIdx++] = (uint32_t)numericBuffer.size();
+                            ++iter;
+                        }
+                        
+                        // if repeated fields are empty, it should return '0' such that
+                        // simulink message string field will not be empty
+                        if( byteArray.size() == 0 )
+                        {
+                            byteArray.push_back(0);
+                        }
+                        
+                        auto result =  m_factory.createArray<uint8_t>({1, static_cast<size_t>(byteArray.size())});
+                        std::copy(byteArray.begin(), byteArray.end(), result.begin());
+                        output[0][fieldType->name()] = result;
+                        std::string fieldSizeName = fieldType->name() + "_size";
+                        output[0][fieldSizeName] = result_size;
+                        
+                    }
+                    else
+                    {
+                        auto result =  m_factory.createScalar(reflection->GetString(msg, fieldType));
+                        output[idx][fieldType->name()] = result;
+                        
+                        auto oneofFieldDesc = fieldType->containing_oneof();
+                        if(oneofFieldDesc)
+                        {
+                            std::string statusFieldName = fieldType->name() + "_status";
+                            if(reflection->HasField(msg, fieldType))
+                            {
+                                output[idx][statusFieldName]  = m_factory.createScalar<bool>(1);
+                            }
+                            else
+                            {
+                                output[idx][statusFieldName]  = m_factory.createScalar<bool>(0);
+                            }
+                        }
+                    }
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_BYTES:
+                {
+                    if( fieldType->is_repeated())
+                    {
+                        auto const& repeatedFieldValues = reflection->GetRepeatedFieldRef<std::string>(msg, fieldType);
+                        
+                        auto iter = repeatedFieldValues.begin();
+                        size_t resultIdx = 0;
+                        auto result_size = m_factory.createArray<uint32_t>({1, static_cast<size_t>(repeatedFieldValues.size())});
+                        
+                        std::vector<uint8_t> byteArray;
+                        while (iter != repeatedFieldValues.end()) {
+                            std::vector<uint8_t> numericBuffer{iter->begin(), iter->end()};
+                            for(idx = 0;idx < numericBuffer.size();idx++)
+                            {
+                                byteArray.push_back(numericBuffer[idx]);
+                            }
+                            result_size[resultIdx++] = (uint32_t)numericBuffer.size();
+                            ++iter;
+                        }
+                        
+                        // if repeated fields are empty, it should return '0' such that
+                        // simulink message bytes field will not be empty
+                        if( byteArray.size() == 0 )
+                        {
+                            byteArray.push_back(0);
+                        }
+                        
+                        auto result =  m_factory.createArray<uint8_t>({1, static_cast<size_t>(byteArray.size())});
+                        std::copy(byteArray.begin(), byteArray.end(), result.begin());
+                        output[0][fieldType->name()] = result;
+                        std::string fieldSizeName = fieldType->name() + "_size";
+                        output[0][fieldSizeName] = result_size;
+                    }
+                    else
+                    {
+                        auto bytesBuffer = reflection->GetString(msg, fieldType);
+                        std::vector<uint8_t> numericBuffer{bytesBuffer.begin(), bytesBuffer.end()};
+                        auto result = m_factory.createArray({1, numericBuffer.size()}, numericBuffer.begin(), numericBuffer.end());
+                        output[idx][fieldType->name()] = result;
+                        
+                        auto oneofFieldDesc = fieldType->containing_oneof();
+                        if(oneofFieldDesc)
+                        {
+                            std::string statusFieldName = fieldType->name() + "_status";
+                            if(reflection->HasField(msg, fieldType))
+                            {
+                                output[idx][statusFieldName]  = m_factory.createScalar<bool>(1);
+                            }
+                            else
+                            {
+                                output[idx][statusFieldName]  = m_factory.createScalar<bool>(0);
+                            }
+                        }
+                    }
+                }
+                break;
+                case google::protobuf::FieldDescriptor::Type::TYPE_MESSAGE:
+                {
+                    auto nestedMsgType = fieldType->message_type();
+                    std::vector<matlab::data::Array> fieldValues;
+                    
+                    if( fieldType->is_repeated())
+                    {
+                        auto const& repeatedFieldValues = reflection->GetRepeatedFieldRef<google::protobuf::Message>(msg, fieldType);
+                        
+                        if(repeatedFieldValues.size() > 0)
+                        {
+                            // create MATLAB struct array accordingly
+                            auto msgField = createStructArrayFromMsgType( nestedMsgType, static_cast<size_t>(repeatedFieldValues.size()));
+                            // fill MATLAB struct array
+                            size_t repeatedFieldIdx = 0;
+                            auto iter = repeatedFieldValues.begin();
+                            while (iter != repeatedFieldValues.end()) {
+                                fillMLStructWithMsg(*iter, nestedMsgType, repeatedFieldIdx, msgField);
+                                ++repeatedFieldIdx;
+                                ++iter;
+                            }
+                            fieldValues.push_back(msgField);
+                        }
+                        else
+                        {
+                            auto msgField = createStructArrayFromMsgType( nestedMsgType, 1);
+                            fillStructForMissingOneofField(msgField, nestedMsgType, idx);
+                            fieldValues.push_back(msgField);
+                        }
+                    }
+                    else
+                    {
+                        auto msgField = createStructArrayFromMsgType(nestedMsgType,1);
+                        fillMLStructWithMsg(reflection->GetMessage(msg, fieldType), nestedMsgType, 0,
+                                msgField);
+                        fieldValues.push_back(msgField);
+                        
+                        auto oneofFieldDesc = fieldType->containing_oneof();
+                        if(oneofFieldDesc)
+                        {
+                            std::string statusFieldName = fieldType->name() + "_status";
+                            if(reflection->HasField(msg, fieldType))
+                            {
+                                output[idx][statusFieldName]  = m_factory.createScalar<bool>(1);
+                            }
+                            else
+                            {
+                                output[idx][statusFieldName]  = m_factory.createScalar<bool>(0);
+                            }
+                        }
+                    }
+                    
+                    for(int id=0;id<fieldValues.size();id++)
+                    {
+                        output[idx][fieldType->name()]  = fieldValues[id];
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
+    // add or set field values with zero
+    template <typename TVal, typename TSet, typename TAdd, typename TSetRepeated>
+            void inserFieldValues(google::protobuf::Message *message,
+            const google::protobuf::FieldDescriptor *fieldType,
+            TSet const setScalar,
+            TAdd const addRepeated,
+            TSetRepeated const setRepeated,
+            const google::protobuf::Reflection *reflection,
+            std::vector<TVal> value)
+    {
+        if (fieldType->is_repeated())
+        {
+            if(reflection->FieldSize(*message, fieldType) < 1  && !fieldType->containing_oneof())
+            {
+                int field_size = reflection->FieldSize(*message, fieldType);
+                int count = 0;
+                
+                for (unsigned int idx = 0; idx < value.size(); idx++)
+                {
+                    if (count < field_size)
+                    {
+                        (reflection->*setRepeated)(message, fieldType, count, value[idx]);
+                    }
+                    else
+                    {
+                        (reflection->*addRepeated)(message, fieldType, value[idx]);
+                    }
+                    count++;
+                }
+            }
+        }
+        else
+        {
+            if(!reflection->HasField(*message, fieldType) && !fieldType->containing_oneof())
+            {
+                (reflection->*setScalar)(message, fieldType, value[0]);
+            }
+        }
+    }
+    
+    // add or set field which are not set in the received proto message ( Mostly for Repeated fields )
+    void initializeProtoUnsetMessageField(google::protobuf::Message *message, const google::protobuf::Descriptor *descriptor)
+    {
+        auto reflection = message->GetReflection();
+        
+        for (int i = 0; i < descriptor->field_count(); i++)
+        {
+            
+            const google::protobuf::FieldDescriptor *field_desc = descriptor->field(i);
+            
+            switch (field_desc->cpp_type())
+            {
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_INT32:
+                {
+                    std::vector<int32_t> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<int32_t>(message, field_desc, &google::protobuf::Reflection::SetInt32,
+                            &google::protobuf::Reflection::AddInt32, &google::protobuf::Reflection::SetRepeatedInt32, reflection, values);
+                    
+                    
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_INT64:
+                {
+                    std::vector<int64_t> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<int64_t>(message, field_desc, &google::protobuf::Reflection::SetInt64,
+                            &google::protobuf::Reflection::AddInt64, &google::protobuf::Reflection::SetRepeatedInt64, reflection, values);
+                    
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_UINT32:
+                {
+                    std::vector<uint32_t> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<uint32_t>(message, field_desc, &google::protobuf::Reflection::SetUInt32,
+                            &google::protobuf::Reflection::AddUInt32, &google::protobuf::Reflection::SetRepeatedUInt32, reflection, values);
+                    
+                }
+                break;
+                case google::protobuf::FieldDescriptor::CPPTYPE_UINT64:
+                {
+                    std::vector<uint64_t> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<uint64_t>(message, field_desc, &google::protobuf::Reflection::SetUInt64,
+                            &google::protobuf::Reflection::AddUInt64, &google::protobuf::Reflection::SetRepeatedUInt64, reflection, values);
+                    
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_FLOAT:
+                {
+                    std::vector<float> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<float>(message, field_desc, &google::protobuf::Reflection::SetFloat,
+                            &google::protobuf::Reflection::AddFloat, &google::protobuf::Reflection::SetRepeatedFloat, reflection, values);
+                    
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_DOUBLE:
+                {
+                    std::vector<double> values;
+                    values.push_back(0);
+                    
+                    inserFieldValues<double>(message, field_desc, &google::protobuf::Reflection::SetDouble,
+                            &google::protobuf::Reflection::AddDouble, &google::protobuf::Reflection::SetRepeatedDouble, reflection, values);
+                    
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_BOOL:
+                {
+                    std::vector<bool> values;
+                    values.push_back(false);
+                    
+                    inserFieldValues<bool>(message, field_desc, &google::protobuf::Reflection::SetBool,
+                            &google::protobuf::Reflection::AddBool,  &google::protobuf::Reflection::SetRepeatedBool, reflection, values);
+                    
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_STRING:
+                {
+                    std::vector<std::string> values;
+                    values.push_back("");
+                    
+                    inserFieldValues<std::string>(message, field_desc, &google::protobuf::Reflection::SetString,
+                            &google::protobuf::Reflection::AddString,  &google::protobuf::Reflection::SetRepeatedString, reflection, values);
+                    
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_ENUM:
+                {
+                    // can not initialize always with '0'
+                    // Enum value should one value out of defined ( Enum list)
+                    //std::vector<int32_t> values;
+                    //values.push_back(0);
+                    //
+                    //inserFieldValues<int32_t>(message, field_desc, &google::protobuf::Reflection::SetEnumValue,
+                    //        &google::protobuf::Reflection::AddEnumValue, &google::protobuf::Reflection::SetRepeatedEnumValue, reflection, values);
+                    
+                }
+                break;
+                
+                case google::protobuf::FieldDescriptor::CPPTYPE_MESSAGE:
+                {
+                    const google::protobuf::Descriptor *desc = field_desc->message_type();
+                    if (field_desc->is_repeated())
+                    {
+                        if(reflection->FieldSize(*message, field_desc) < 1  && !field_desc->containing_oneof())
+                        {
+                            initializeProtoUnsetMessageField(reflection->AddMessage(message, field_desc), desc);
+                        }
+                        
+                    }
+                    else
+                    {
+                        if(!reflection->HasField(*message, field_desc) && !field_desc->containing_oneof() )
+                        {
+                            initializeProtoUnsetMessageField(reflection->MutableMessage(message, field_desc), desc);
+                        }
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
+    void operator()(matlab::mex::ArgumentList outputs, matlab::mex::ArgumentList inputs)
+    {
+        
+        // retrive serialized packet string
+        matlab::data::TypedArray<uint8_t> dataArray8U = inputs[0];
+        std::vector<uint8_t> dataVector;
+        for (auto& elem : dataArray8U)
+        {
+            dataVector.push_back(elem);
+        }
+        
+        // copy into string
+        std::string dataString(dataVector.begin(), dataVector.end());
+        
+        {% msgInfo.createMessageDefinition %}
+        
+        m_descriptor = {% msgInfo.MessageName %}->GetDescriptor();
+        
+        // custom message definition
+        {% msgInfo.MessageDefinition %} replyMessage;
+        replyMessage.ParseFromString(dataString);
+        
+        // Merge/Initialize message pointer with received message data/values
+        {% msgInfo.MessageName %}->MergeFrom(replyMessage);
+        
+        // Sometimes, Gazebo send message with few unset fields
+        // Thus, set message fields of proto message which are not set
+        // this avoid bus mismatch at Simulink side
+        initializeProtoUnsetMessageField({% msgInfo.MessageName %}.get(), m_descriptor);
+        
+        const google::protobuf::Descriptor *descriptor = {% msgInfo.MessageName %}->GetDescriptor();
+        const google::protobuf::Reflection *reflection = {% msgInfo.MessageName %}->GetReflection();
+        
+        std::vector<std::string> fieldNames;
+        fieldNames.push_back(descriptor->name());  // descriptor->full_name() => provide name with namespace
+        
+        matlab::data::StructArray structArrayOut = createStructArrayFromMsgType(descriptor,1);
+        
+        fillMLStructWithMsg(*{% msgInfo.MessageName %}, descriptor, 0, structArrayOut);
+        
+        outputs[0] = structArrayOut;
+    }
+};

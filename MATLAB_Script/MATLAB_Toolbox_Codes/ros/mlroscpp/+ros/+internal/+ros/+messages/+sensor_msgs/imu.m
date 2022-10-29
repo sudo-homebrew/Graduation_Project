@@ -1,0 +1,46 @@
+function [data, info] = imu
+%Imu gives an empty data for sensor_msgs/Imu
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'sensor_msgs/Imu';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Orientation, info.Orientation] = ros.internal.ros.messages.geometry_msgs.quaternion;
+info.Orientation.MLdataType = 'struct';
+[data.OrientationCovariance, info.OrientationCovariance] = ros.internal.ros.messages.ros.default_type('double',9);
+[data.AngularVelocity, info.AngularVelocity] = ros.internal.ros.messages.geometry_msgs.vector3;
+info.AngularVelocity.MLdataType = 'struct';
+[data.AngularVelocityCovariance, info.AngularVelocityCovariance] = ros.internal.ros.messages.ros.default_type('double',9);
+[data.LinearAcceleration, info.LinearAcceleration] = ros.internal.ros.messages.geometry_msgs.vector3;
+info.LinearAcceleration.MLdataType = 'struct';
+[data.LinearAccelerationCovariance, info.LinearAccelerationCovariance] = ros.internal.ros.messages.ros.default_type('double',9);
+info.MessageType = 'sensor_msgs/Imu';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,22);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'orientation';
+info.MatPath{8} = 'orientation.x';
+info.MatPath{9} = 'orientation.y';
+info.MatPath{10} = 'orientation.z';
+info.MatPath{11} = 'orientation.w';
+info.MatPath{12} = 'orientation_covariance';
+info.MatPath{13} = 'angular_velocity';
+info.MatPath{14} = 'angular_velocity.x';
+info.MatPath{15} = 'angular_velocity.y';
+info.MatPath{16} = 'angular_velocity.z';
+info.MatPath{17} = 'angular_velocity_covariance';
+info.MatPath{18} = 'linear_acceleration';
+info.MatPath{19} = 'linear_acceleration.x';
+info.MatPath{20} = 'linear_acceleration.y';
+info.MatPath{21} = 'linear_acceleration.z';
+info.MatPath{22} = 'linear_acceleration_covariance';

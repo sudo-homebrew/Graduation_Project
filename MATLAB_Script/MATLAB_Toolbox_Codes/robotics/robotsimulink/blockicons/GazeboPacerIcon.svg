@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{font-size:16.18px;font-family:Helvetica;}.cls-1,.cls-5{fill:#333;}.cls-2{fill:none;stroke:gray;stroke-width:2px;}.cls-2,.cls-6,.cls-7{stroke-miterlimit:10;}.cls-3{fill:gray;}.cls-4,.cls-6{fill:#fff;}.cls-6,.cls-7{stroke:#333;}.cls-7{fill:#bfbfbf;}</style>
+   </defs>
+   <title>Gazebo Setup_042619</title>
+   <text class="cls-1" transform="translate(45.39 19.17)">Gazebo</text>
+   <line class="cls-2" x1="73.72" x2="73.72" y1="33.99" y2="26.04"/>
+   <polygon class="cls-3" points="77.21 32.97 73.72 39.01 70.23 32.97 77.21 32.97"/>
+   <polygon class="cls-3" points="77.21 27.06 73.72 21.02 70.23 27.06 77.21 27.06"/>
+   <path class="cls-4"
+         d="M62.72,72.22a4.51,4.51,0,0,1-4.5-4.5v-22a4.51,4.51,0,0,1,4.5-4.5h22a4.51,4.51,0,0,1,4.5,4.5v20c0,2.49-4,6.5-6.5,6.5Z"/>
+   <path class="cls-5"
+         d="M84.72,41.72a4,4,0,0,1,4,4v20c0,2.19-3.81,6-6,6h-20a4,4,0,0,1-4-4v-22a4,4,0,0,1,4-4h22m0-1h-22a5,5,0,0,0-5,5v22a5,5,0,0,0,5,5h20c2.76,0,7-4.24,7-7v-20a5,5,0,0,0-5-5Z"/>
+   <polyline class="cls-6" points="62.74 51.47 79.64 51.47 79.64 58.93"/>
+   <rect class="cls-4" height="9.02" width="9.02" x="75.18" y="59.07"/>
+   <path class="cls-5" d="M83.7,59.57v8h-8v-8h8m1-1h-10v10h10v-10Z"/>
+   <polygon class="cls-4" points="66.19 45.73 76.04 51.47 66.19 57.22 66.19 45.73"/>
+   <path class="cls-5"
+         d="M66.69,46.6l8.36,4.87-8.36,4.88V46.6m-1-1.74V58.09L77,51.47,65.69,44.86Z"/>
+   <path class="cls-7"
+         d="M95.82,73.19V71.38l-2.19-.61a4.71,4.71,0,0,0-.21-.52l1.11-2L93.25,67l-2,1.11a5.49,5.49,0,0,0-.51-.21l-.62-2.19H88.33l-.61,2.19a4.71,4.71,0,0,0-.52.21l-2-1.11-1.28,1.28,1.12,2a4.77,4.77,0,0,0-.22.52l-2.19.61v1.81l2.19.61a4.77,4.77,0,0,0,.22.52l-1.12,2,1.28,1.28,2-1.12a4.77,4.77,0,0,0,.52.22l.61,2.19h1.81l.62-2.19c.17-.06.34-.14.51-.22l2,1.12,1.28-1.28-1.11-2a4.71,4.71,0,0,0,.21-.52Zm-6.58,1.18a2.09,2.09,0,1,1,2.09-2.09A2.08,2.08,0,0,1,89.24,74.37Z"/>
+</svg>

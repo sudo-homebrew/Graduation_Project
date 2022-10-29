@@ -1,0 +1,82 @@
+{
+    "computer":
+{
+    "inputs":
+    [
+        {"name":"'arch'", "kind":"flag", "type":["choices={'arch'}"]}
+    ],
+    "outputs":
+    [
+        {"name":"architecture", "kind":"ordered"},
+        {"name":"maxsize", "kind":"ordered"},
+        {"name":"endian", "kind":"ordered"}
+    ]
+    
+},
+"dos":
+{
+    "inputs":
+    [
+        {"name":"command","kind":"required","type":"char"},
+        {"name":"'-echo'","kind":"flag","type":"choices={'-echo'}"}
+    ],
+    "outputs":
+    [
+        {"name":"status","type":["double","scalar"]},
+        {"name":"data","type":"char"}
+    ]
+},
+"unix":
+{
+        "inputs":
+        [
+            {"name":"command","kind":"required","type":"char"},
+            {"name":"'-echo'","kind":"flag","type":"choices={'-echo'}"}
+        ],
+    "outputs":
+    [
+        {"name":"status","type":["double","scalar"]},
+        {"name":"data","type":"char"}
+    ]
+},
+"system":
+{
+    "inputs":
+    [
+        {"name":"command","kind":"required","type":"char"},
+        {"name":"'-echo'","kind":"flag","type":"choices={'-echo'}"}
+    ],
+    "outputs":
+    [
+        {"name":"status","type":["double","scalar"]},
+        {"name":"data","type":"char"}
+    ]
+},
+"memory":
+{
+    "outputs":
+    [
+        {"name":"USERVIEW"},
+        {"name":"SYSTEMVIEW"}
+    ]
+},
+"getenv":
+{
+    "inputs":
+    [
+        {"name":"name", "kind":"required", "type":[["string"], ["choices=subsref(matlab.oss.internal.environmentVariables, substruct('()', {':', 1}))"]]}
+    ],
+    "outputs":
+    [
+        {"name":"value"}
+    ]
+},
+"setenv":
+{
+    "inputs":
+    [
+        {"name":"name",  "kind":"required", "type":[["string"], ["choices=subsref(matlab.oss.internal.environmentVariables, substruct('()', {':', 1}))"]]},
+        {"name":"value", "kind":"required", "type":"string"}
+    ]
+}
+}

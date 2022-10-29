@@ -1,0 +1,41 @@
+function [data, info] = hilControls
+%HilControls gives an empty data for mavros_msgs/HilControls
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'mavros_msgs/HilControls';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.RollAilerons, info.RollAilerons] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.PitchElevator, info.PitchElevator] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.YawRudder, info.YawRudder] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Throttle, info.Throttle] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Aux1, info.Aux1] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Aux2, info.Aux2] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Aux3, info.Aux3] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Aux4, info.Aux4] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Mode, info.Mode] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.NavMode, info.NavMode] = ros.internal.ros.messages.ros.default_type('uint8',1);
+info.MessageType = 'mavros_msgs/HilControls';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,16);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'roll_ailerons';
+info.MatPath{8} = 'pitch_elevator';
+info.MatPath{9} = 'yaw_rudder';
+info.MatPath{10} = 'throttle';
+info.MatPath{11} = 'aux1';
+info.MatPath{12} = 'aux2';
+info.MatPath{13} = 'aux3';
+info.MatPath{14} = 'aux4';
+info.MatPath{15} = 'mode';
+info.MatPath{16} = 'nav_mode';

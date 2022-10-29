@@ -1,0 +1,2 @@
+set(pano_ros_MESSAGE_FILES "msg/Pano.msg;msg/PanoCaptureAction.msg;msg/PanoCaptureActionGoal.msg;msg/PanoCaptureActionResult.msg;msg/PanoCaptureActionFeedback.msg;msg/PanoCaptureGoal.msg;msg/PanoCaptureResult.msg;msg/PanoCaptureFeedback.msg;msg/StitchAction.msg;msg/StitchActionGoal.msg;msg/StitchActionResult.msg;msg/StitchActionFeedback.msg;msg/StitchGoal.msg;msg/StitchResult.msg;msg/StitchFeedback.msg")
+set(pano_ros_SERVICE_FILES "")

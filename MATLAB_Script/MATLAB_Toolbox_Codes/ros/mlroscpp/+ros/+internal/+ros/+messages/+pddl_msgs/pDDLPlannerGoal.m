@@ -1,0 +1,45 @@
+function [data, info] = pDDLPlannerGoal
+%PDDLPlannerGoal gives an empty data for pddl_msgs/PDDLPlannerGoal
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'pddl_msgs/PDDLPlannerGoal';
+[data.Domain, info.Domain] = ros.internal.ros.messages.pddl_msgs.pDDLDomain;
+info.Domain.MLdataType = 'struct';
+[data.Problem, info.Problem] = ros.internal.ros.messages.pddl_msgs.pDDLProblem;
+info.Problem.MLdataType = 'struct';
+[data.MaxPlanningTime, info.MaxPlanningTime] = ros.internal.ros.messages.ros.duration;
+info.MaxPlanningTime.MLdataType = 'struct';
+info.MessageType = 'pddl_msgs/PDDLPlannerGoal';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,26);
+info.MatPath{1} = 'domain';
+info.MatPath{2} = 'domain.name';
+info.MatPath{3} = 'domain.requirements';
+info.MatPath{4} = 'domain.types';
+info.MatPath{5} = 'domain.constants';
+info.MatPath{6} = 'domain.predicates';
+info.MatPath{7} = 'domain.actions';
+info.MatPath{8} = 'domain.actions.name';
+info.MatPath{9} = 'domain.actions.parameters';
+info.MatPath{10} = 'domain.actions.precondition';
+info.MatPath{11} = 'domain.actions.effect';
+info.MatPath{12} = 'domain.actions.on_condition';
+info.MatPath{13} = 'domain.actions.action_duration';
+info.MatPath{14} = 'domain.functions';
+info.MatPath{15} = 'problem';
+info.MatPath{16} = 'problem.name';
+info.MatPath{17} = 'problem.domain';
+info.MatPath{18} = 'problem.objects';
+info.MatPath{19} = 'problem.objects.name';
+info.MatPath{20} = 'problem.objects.type';
+info.MatPath{21} = 'problem.initial';
+info.MatPath{22} = 'problem.goal';
+info.MatPath{23} = 'problem.metric';
+info.MatPath{24} = 'max_planning_time';
+info.MatPath{25} = 'max_planning_time.sec';
+info.MatPath{26} = 'max_planning_time.nsec';

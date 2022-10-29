@@ -1,0 +1,41 @@
+function [data, info] = cylinderMsg
+%CylinderMsg gives an empty data for handle_detector/CylinderMsg
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'handle_detector/CylinderMsg';
+[data.Pose, info.Pose] = ros.internal.ros.messages.geometry_msgs.pose;
+info.Pose.MLdataType = 'struct';
+[data.Radius, info.Radius] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Extent, info.Extent] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Axis, info.Axis] = ros.internal.ros.messages.geometry_msgs.vector3;
+info.Axis.MLdataType = 'struct';
+[data.Normal, info.Normal] = ros.internal.ros.messages.geometry_msgs.vector3;
+info.Normal.MLdataType = 'struct';
+info.MessageType = 'handle_detector/CylinderMsg';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,20);
+info.MatPath{1} = 'pose';
+info.MatPath{2} = 'pose.position';
+info.MatPath{3} = 'pose.position.x';
+info.MatPath{4} = 'pose.position.y';
+info.MatPath{5} = 'pose.position.z';
+info.MatPath{6} = 'pose.orientation';
+info.MatPath{7} = 'pose.orientation.x';
+info.MatPath{8} = 'pose.orientation.y';
+info.MatPath{9} = 'pose.orientation.z';
+info.MatPath{10} = 'pose.orientation.w';
+info.MatPath{11} = 'radius';
+info.MatPath{12} = 'extent';
+info.MatPath{13} = 'axis';
+info.MatPath{14} = 'axis.x';
+info.MatPath{15} = 'axis.y';
+info.MatPath{16} = 'axis.z';
+info.MatPath{17} = 'normal';
+info.MatPath{18} = 'normal.x';
+info.MatPath{19} = 'normal.y';
+info.MatPath{20} = 'normal.z';

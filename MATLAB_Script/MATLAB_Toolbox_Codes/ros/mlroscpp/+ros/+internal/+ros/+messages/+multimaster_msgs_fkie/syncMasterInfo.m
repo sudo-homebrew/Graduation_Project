@@ -1,0 +1,45 @@
+function [data, info] = syncMasterInfo
+%SyncMasterInfo gives an empty data for multimaster_msgs_fkie/SyncMasterInfo
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'multimaster_msgs_fkie/SyncMasterInfo';
+[data.Masteruri, info.Masteruri] = ros.internal.ros.messages.ros.char('string',0);
+[data.Nodes, info.Nodes] = ros.internal.ros.messages.ros.char('string',NaN);
+[data.Publisher, info.Publisher] = ros.internal.ros.messages.multimaster_msgs_fkie.syncTopicInfo;
+info.Publisher.MLdataType = 'struct';
+info.Publisher.MaxLen = NaN;
+info.Publisher.MinLen = 0;
+data.Publisher = data.Publisher([],1);
+[data.Subscriber, info.Subscriber] = ros.internal.ros.messages.multimaster_msgs_fkie.syncTopicInfo;
+info.Subscriber.MLdataType = 'struct';
+info.Subscriber.MaxLen = NaN;
+info.Subscriber.MinLen = 0;
+data.Subscriber = data.Subscriber([],1);
+[data.Services, info.Services] = ros.internal.ros.messages.multimaster_msgs_fkie.syncServiceInfo;
+info.Services.MLdataType = 'struct';
+info.Services.MaxLen = NaN;
+info.Services.MinLen = 0;
+data.Services = data.Services([],1);
+info.MessageType = 'multimaster_msgs_fkie/SyncMasterInfo';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'masteruri';
+info.MatPath{2} = 'nodes';
+info.MatPath{3} = 'publisher';
+info.MatPath{4} = 'publisher.topic';
+info.MatPath{5} = 'publisher.node';
+info.MatPath{6} = 'publisher.nodeuri';
+info.MatPath{7} = 'subscriber';
+info.MatPath{8} = 'subscriber.topic';
+info.MatPath{9} = 'subscriber.node';
+info.MatPath{10} = 'subscriber.nodeuri';
+info.MatPath{11} = 'services';
+info.MatPath{12} = 'services.service';
+info.MatPath{13} = 'services.serviceuri';
+info.MatPath{14} = 'services.node';
+info.MatPath{15} = 'services.nodeuri';

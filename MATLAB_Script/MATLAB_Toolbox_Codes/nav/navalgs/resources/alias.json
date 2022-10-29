@@ -1,0 +1,69 @@
+{
+  "Aliases": [
+    {
+      "NewName": "dubinsConnection",
+      "OldNames": "robotics.DubinsConnection",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "dubinsPathSegment",
+      "OldNames": "robotics.DubinsPathSegment",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "lidarSLAM",
+      "OldNames": "robotics.LidarSLAM",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "likelihoodFieldSensorModel",
+      "OldNames": "robotics.LikelihoodFieldSensorModel",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "monteCarloLocalization",
+      "OldNames": "robotics.MonteCarloLocalization",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "occupancyMap",
+      "OldNames": "robotics.OccupancyGrid",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "occupancyMap3D",
+      "OldNames": "robotics.OccupancyMap3D",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "odometryMotionModel",
+      "OldNames": "robotics.OdometryMotionModel",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "poseGraph",
+      "OldNames": "robotics.PoseGraph",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "poseGraph3D",
+      "OldNames": "robotics.PoseGraph3D",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "reedsSheppConnection",
+      "OldNames": "robotics.ReedsSheppConnection",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "reedsSheppPathSegment",
+      "OldNames": "robotics.ReedsSheppPathSegment",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "controllerVFH",
+      "OldNames": "robotics.VectorFieldHistogram",
+      "WarnOnOldName": false
+    }
+  ]
+}

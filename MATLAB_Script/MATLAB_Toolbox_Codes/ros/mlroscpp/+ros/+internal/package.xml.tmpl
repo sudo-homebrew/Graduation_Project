@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>{%PackageName%}</name>
+  {% if ~isempty(Version) %}
+  <version>{%Version%}</version>
+  {% endif %}
+  {%if ~isempty(Description) %}
+  <description>{%Description%}</description>
+  {% endif %}
+  {% if ~isempty(MaintainerEmail)&&~isempty(MaintainerName) %}
+  <maintainer email="{%MaintainerEmail%}">{%MaintainerName%}</maintainer>
+  {% endif %}
+  {% if ~isempty(License) %}
+  <license>{%License%}</license>
+  {% endif %}
+
+  <buildtool_depend>catkin</buildtool_depend>
+  {% if ~isempty(MessageFiles) || ~isempty(ServiceFiles) || ~isempty(ActionFiles)%}
+  <build_depend>message_generation</build_depend>
+  {% for i = numel(BuildDependencies) %}
+  <build_depend>{% BuildDependencies{i} %}</build_depend>
+  {% endfor %}
+
+  {% endif %}
+
+{% for i = numel(Dependencies) %}
+  <build_depend>{% Dependencies{i} %}</build_depend>
+{% endfor %}
+
+{% for i = numel(Dependencies) %}
+  <exec_depend>{% Dependencies{i} %}</exec_depend>
+{% endfor %}
+
+  {% if ~isempty(MessageFiles) || ~isempty(ServiceFiles) || ~isempty(ActionFiles)%}
+  <exec_depend>message_runtime</exec_depend>
+  {% for i = numel(RunDependencies) %}
+  <exec_depend>{% RunDependencies{i} %}</exec_depend>
+  {% endfor %}
+
+  {% endif %}
+
+{% if ros.codertarget.internal.Util.isROSControlEnabled(CppLibraryName) %}
+  <export>
+    <controller_interface plugin="${prefix}/controllers.xml"/>
+  </export>
+{% endif %}
+
+</package>
+<!-- Generated on {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %} -->
+
+{% if (false) %}
+<!-- Copyright 2019-2022 The MathWorks, Inc. -->
+{% endif %}
+

@@ -1,0 +1,6 @@
+# Create a new user. Will fail if a user with the same name already exists
+#  on success, creates a login token for the new user
+string name
+string password
+---
+uint64 token

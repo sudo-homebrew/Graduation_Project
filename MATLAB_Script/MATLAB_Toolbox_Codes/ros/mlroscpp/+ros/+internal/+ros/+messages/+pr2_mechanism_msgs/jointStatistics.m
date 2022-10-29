@@ -1,0 +1,42 @@
+function [data, info] = jointStatistics
+%JointStatistics gives an empty data for pr2_mechanism_msgs/JointStatistics
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'pr2_mechanism_msgs/JointStatistics';
+[data.Name, info.Name] = ros.internal.ros.messages.ros.char('string',0);
+[data.Timestamp, info.Timestamp] = ros.internal.ros.messages.ros.time;
+info.Timestamp.MLdataType = 'struct';
+[data.Position, info.Position] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Velocity, info.Velocity] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MeasuredEffort, info.MeasuredEffort] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.CommandedEffort, info.CommandedEffort] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.IsCalibrated, info.IsCalibrated] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.ViolatedLimits, info.ViolatedLimits] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.Odometer, info.Odometer] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MinPosition, info.MinPosition] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MaxPosition, info.MaxPosition] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MaxAbsVelocity, info.MaxAbsVelocity] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MaxAbsEffort, info.MaxAbsEffort] = ros.internal.ros.messages.ros.default_type('double',1);
+info.MessageType = 'pr2_mechanism_msgs/JointStatistics';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'name';
+info.MatPath{2} = 'timestamp';
+info.MatPath{3} = 'timestamp.sec';
+info.MatPath{4} = 'timestamp.nsec';
+info.MatPath{5} = 'position';
+info.MatPath{6} = 'velocity';
+info.MatPath{7} = 'measured_effort';
+info.MatPath{8} = 'commanded_effort';
+info.MatPath{9} = 'is_calibrated';
+info.MatPath{10} = 'violated_limits';
+info.MatPath{11} = 'odometer';
+info.MatPath{12} = 'min_position';
+info.MatPath{13} = 'max_position';
+info.MatPath{14} = 'max_abs_velocity';
+info.MatPath{15} = 'max_abs_effort';

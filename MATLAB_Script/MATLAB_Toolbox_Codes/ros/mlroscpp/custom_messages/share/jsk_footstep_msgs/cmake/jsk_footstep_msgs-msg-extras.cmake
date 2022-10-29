@@ -1,0 +1,2 @@
+set(jsk_footstep_msgs_MESSAGE_FILES "msg/Footstep.msg;msg/FootstepArray.msg;msg/ExecFootstepsAction.msg;msg/ExecFootstepsActionGoal.msg;msg/ExecFootstepsActionResult.msg;msg/ExecFootstepsActionFeedback.msg;msg/ExecFootstepsGoal.msg;msg/ExecFootstepsResult.msg;msg/ExecFootstepsFeedback.msg;msg/PlanFootstepsAction.msg;msg/PlanFootstepsActionGoal.msg;msg/PlanFootstepsActionResult.msg;msg/PlanFootstepsActionFeedback.msg;msg/PlanFootstepsGoal.msg;msg/PlanFootstepsResult.msg;msg/PlanFootstepsFeedback.msg")
+set(jsk_footstep_msgs_SERVICE_FILES "")

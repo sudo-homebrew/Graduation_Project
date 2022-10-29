@@ -1,0 +1,5 @@
+string mastername
+string[] clientnames
+bool ok_flag
+---
+string result

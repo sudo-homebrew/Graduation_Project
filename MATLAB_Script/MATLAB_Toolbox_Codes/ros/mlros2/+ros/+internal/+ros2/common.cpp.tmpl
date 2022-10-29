@@ -1,0 +1,118 @@
+// Copyright 2020-2021 The MathWorks, Inc.
+// Common copy functions for {%MessageType%}
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4100)
+#pragma warning(disable : 4265)
+#pragma warning(disable : 4456)
+#pragma warning(disable : 4458)
+#pragma warning(disable : 4946)
+#pragma warning(disable : 4244)
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+#pragma GCC diagnostic ignored "-Wredundant-decls"
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wshadow"
+#endif //_MSC_VER
+
+
+#include "rclcpp/rclcpp.hpp"
+#include "{%msgInfo.includeHeader%}"
+#include "visibility_control.h"
+#include "class_loader/multi_library_class_loader.hpp"
+#include "ROS2PubSubTemplates.hpp"
+
+class {%upper(msgInfo.pkgName)%}_EXPORT {%msgInfo.pkgName%}_msg_{%msgInfo.msgName%}_common : public MATLABROS2MsgInterface<{%msgInfo.msgCppClassName%}> {
+  public:
+    virtual ~{%msgInfo.pkgName%}_msg_{%msgInfo.msgName%}_common(){}
+    virtual void copy_from_struct({%msgInfo.msgCppClassName%}* msg, const matlab::data::Struct& arr, MultiLibLoader loader); 
+    //----------------------------------------------------------------------------
+    virtual MDArray_T get_arr(MDFactory_T& factory, const {%msgInfo.msgCppClassName%}* msg, MultiLibLoader loader, size_t size = 1);
+};
+  void {%msgInfo.pkgName%}_msg_{%msgInfo.msgName%}_common::copy_from_struct({%msgInfo.msgCppClassName%}* msg, const matlab::data::Struct& arr,
+               MultiLibLoader loader) {
+    {% for i = numel(fieldNames) %}
+    {% var field = eval(['msgFields.', fieldNames{i}]) %}
+    {% if isfield(field,'MLdataType') && ~field.inCopy && ((isnumeric(field.constantValue) && isnan(field.constantValue)) || (~isnumeric(field.constantValue) && isempty(field.constantValue))) %}
+    try {
+        //{%fieldNames{i}%}
+        {% var pubLine = field.pubLine %}
+        {% for ii = numel(pubLine) %}
+        {% pubLine{ii} %}
+        {% endfor %}
+    } catch (matlab::data::InvalidFieldNameException&) {
+        throw std::invalid_argument("Field '{%fieldNames{i}%}' is missing.");
+    } catch (matlab::Exception&) {
+        throw std::invalid_argument("Field '{%fieldNames{i}%}' is wrong type; expected a {%field.MLdataType%}.");
+    }
+    {% endif %}
+    {% endfor %}
+  }
+
+  //----------------------------------------------------------------------------
+  MDArray_T {%msgInfo.pkgName%}_msg_{%msgInfo.msgName%}_common::get_arr(MDFactory_T& factory, const {%msgInfo.msgCppClassName%}* msg,
+       MultiLibLoader loader, size_t size) {
+    {% subConstructor %}
+    for(size_t ctr = 0; ctr < size; ctr++){
+    outArray[ctr]["MessageType"] = factory.createCharArray("{%MessageType%}");
+    {% for i = numel(fieldNames) %}
+    {% var field = eval(['msgFields.', fieldNames{i}]) %}
+    {% if ~isfield(field,'copyData') && isfield(field,'subConstructor') && ~isempty(field.fieldNames)%}
+    {% field.subConstructor %}
+    {% endif %}
+    {% if (~isfield(field,'inCopy') || ~field.inCopy) && isfield(field,'subLine') && ~isempty(field.subLine) %}
+    // {% fieldNames{i} %}
+    {% var subLine = field.subLine %}
+    {% for ii = numel(subLine) %}
+    {% subLine{ii} %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    {% for i = numel(fieldNames) %}
+    {% var field = eval(['msgFields.', fieldNames{end-i+1}]) %}
+    {% if (~isfield(field,'inCopy') || ~field.inCopy) && isfield(field,'endSubLine') && ~isempty(field.endSubLine) %}
+    {% var subLine = field.endSubLine %}
+    {% for ii = numel(subLine) %}
+    {% subLine{ii} %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    }
+    return std::move(outArray);
+  } 
+
+class {%upper(msgInfo.pkgName)%}_EXPORT {%msgInfo.pkgName%}_{%msgInfo.msgName%}_message : public ROS2MsgElementInterfaceFactory {
+  public:
+    virtual ~{%msgInfo.pkgName%}_{%msgInfo.msgName%}_message(){}
+    virtual std::shared_ptr<MATLABPublisherInterface> generatePublisherInterface(ElementType /*type*/);
+    virtual std::shared_ptr<MATLABSubscriberInterface> generateSubscriberInterface(ElementType /*type*/);
+};  
+  std::shared_ptr<MATLABPublisherInterface> 
+          {%msgInfo.pkgName%}_{%msgInfo.msgName%}_message::generatePublisherInterface(ElementType /*type*/){
+    
+    return std::make_shared<ROS2PublisherImpl<{%msgInfo.pkgName%}::msg::{%msgInfo.msgName%},{%msgInfo.pkgName%}_msg_{%msgInfo.msgName%}_common>>();
+  }
+  std::shared_ptr<MATLABSubscriberInterface> 
+         {%msgInfo.pkgName%}_{%msgInfo.msgName%}_message::generateSubscriberInterface(ElementType /*type*/){
+    
+    return std::make_shared<ROS2SubscriberImpl<{%msgInfo.pkgName%}::msg::{%msgInfo.msgName%},{%msgInfo.pkgName%}_msg_{%msgInfo.msgName%}_common>>();
+  }
+
+#include "class_loader/register_macro.hpp"
+// Register the component with class_loader.
+// This acts as a sort of entry point, allowing the component to be discoverable when its library
+// is being loaded into a running process.
+CLASS_LOADER_REGISTER_CLASS({%msgInfo.pkgName%}_msg_{%msgInfo.msgName%}_common, MATLABROS2MsgInterface<{%msgInfo.msgCppClassName%}>)
+CLASS_LOADER_REGISTER_CLASS({%msgInfo.pkgName%}_{%msgInfo.msgName%}_message, ROS2MsgElementInterfaceFactory)
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#else
+#pragma GCC diagnostic pop
+#endif //_MSC_VER

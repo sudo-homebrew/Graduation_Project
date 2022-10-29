@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 The MathWorks, Inc. -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     id="Layer_1"
+     version="1.1"
+     viewBox="-15 -10 150 80"
+     height="80"
+     width="150">
+   <defs>
+      <style>.cls-1{isolation:isolate;}.cls-2{fill:#f2f2f2;}.cls-2,.cls-8,.cls-9{stroke:#333;stroke-linecap:round;stroke-linejoin:round;}.cls-3{opacity:0.5;}.cls-3,.cls-4{mix-blend-mode:multiply;}.cls-10,.cls-4,.cls-6{fill:#333;}.cls-4{opacity:0.25;}.cls-5{fill:#fff;}.cls-7{fill:#b3b3b3;}.cls-8{fill:none;}.cls-9{fill:#d9d9d9;}.cls-10{font-size:9px;font-family:Helvetica, Helvetica;}</style>
+   </defs>
+   <title>Blank Message ROS_032019</title>
+   <g class="cls-1">
+      <g data-name="Layer 1" id="Layer_1">
+         <polygon class="cls-2"
+                  points="77.13 54.33 47.35 46.32 58.29 5.67 76.62 10.6 84.98 25.12 77.13 54.33"/>
+         <polygon class="cls-2" points="84.98 25.12 73.54 22.04 76.62 10.6 84.98 25.12"/>
+         <g class="cls-3">
+            <path class="cls-4" d="M55,40.24,52.55,25.07l-4.7,17.4,6.36-1.09A1,1,0,0,0,55,40.24Z"/>
+         </g>
+         <path class="cls-5"
+               d="M27.75,44.17a.5.5,0,0,1-.49-.42l-2.48-15.2a.5.5,0,0,1,.41-.57l25.15-4.1h.08a.5.5,0,0,1,.49.42l2.48,15.2a.5.5,0,0,1-.41.57l-25.15,4.1Z"/>
+         <path class="cls-6"
+               d="M50.42,24.37l2.48,15.2-25.15,4.1-2.48-15.2,25.15-4.1m0-1h-.16l-25.15,4.1a1,1,0,0,0-.83,1.15l2.48,15.2a1,1,0,0,0,1,.84h.16l25.15-4.1a1,1,0,0,0,.83-1.15l-2.48-15.2a1,1,0,0,0-1-.84Z"/>
+         <polygon class="cls-7" points="25.36 28.06 39.48 36.69 50.26 24 25.36 28.06"/>
+         <polyline class="cls-8" points="50.55 24.05 39.59 37.13 25.05 28.21"/>
+         <line class="cls-8" x1="35.41" x2="27.6" y1="34.54" y2="43.86"/>
+         <line class="cls-8" x1="53.1" x2="42.83" y1="39.7" y2="33.41"/>
+         <polygon class="cls-9" points="25.02 28 35.97 14.93 50.51 23.85 25.02 28"/>
+         <path class="cls-4" d="M84.38,25.47l-9.25.17a1,1,0,0,1-1-1.14l.25-1.72Z"/>
+         <text class="cls-10" transform="translate(57.84 30.72) rotate(15.05)">ROS</text>
+      </g>
+   </g>
+</svg>

@@ -1,0 +1,39 @@
+function [data, info] = feedback
+%Feedback gives an empty data for roboteq_msgs/Feedback
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'roboteq_msgs/Feedback';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.MotorCurrent, info.MotorCurrent] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.MotorPower, info.MotorPower] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.CommandedVelocity, info.CommandedVelocity] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.MeasuredVelocity, info.MeasuredVelocity] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.MeasuredPosition, info.MeasuredPosition] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.SupplyVoltage, info.SupplyVoltage] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.SupplyCurrent, info.SupplyCurrent] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.MotorTemperature, info.MotorTemperature] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.ChannelTemperature, info.ChannelTemperature] = ros.internal.ros.messages.ros.default_type('single',1);
+info.MessageType = 'roboteq_msgs/Feedback';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'motor_current';
+info.MatPath{8} = 'motor_power';
+info.MatPath{9} = 'commanded_velocity';
+info.MatPath{10} = 'measured_velocity';
+info.MatPath{11} = 'measured_position';
+info.MatPath{12} = 'supply_voltage';
+info.MatPath{13} = 'supply_current';
+info.MatPath{14} = 'motor_temperature';
+info.MatPath{15} = 'channel_temperature';

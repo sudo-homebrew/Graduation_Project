@@ -1,0 +1,5 @@
+# -*-conf-*- See http://wiki/gitignore
+# Copyright 2021 The MathWorks, Inc.
+
+# Derived files
+/robotgazebolib.slx

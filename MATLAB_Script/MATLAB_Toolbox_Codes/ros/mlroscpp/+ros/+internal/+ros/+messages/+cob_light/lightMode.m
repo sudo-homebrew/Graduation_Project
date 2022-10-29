@@ -1,0 +1,46 @@
+function [data, info] = lightMode
+%LightMode gives an empty data for cob_light/LightMode
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'cob_light/LightMode';
+[data.Mode, info.Mode] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.Frequency, info.Frequency] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Timeout, info.Timeout] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Pulses, info.Pulses] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Priority, info.Priority] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.Colors, info.Colors] = ros.internal.ros.messages.std_msgs.colorRGBA;
+info.Colors.MLdataType = 'struct';
+info.Colors.MaxLen = NaN;
+info.Colors.MinLen = 0;
+data.Colors = data.Colors([],1);
+[data.Sequences, info.Sequences] = ros.internal.ros.messages.cob_light.sequence;
+info.Sequences.MLdataType = 'struct';
+info.Sequences.MaxLen = NaN;
+info.Sequences.MinLen = 0;
+data.Sequences = data.Sequences([],1);
+info.MessageType = 'cob_light/LightMode';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,18);
+info.MatPath{1} = 'mode';
+info.MatPath{2} = 'frequency';
+info.MatPath{3} = 'timeout';
+info.MatPath{4} = 'pulses';
+info.MatPath{5} = 'priority';
+info.MatPath{6} = 'colors';
+info.MatPath{7} = 'colors.r';
+info.MatPath{8} = 'colors.g';
+info.MatPath{9} = 'colors.b';
+info.MatPath{10} = 'colors.a';
+info.MatPath{11} = 'sequences';
+info.MatPath{12} = 'sequences.color';
+info.MatPath{13} = 'sequences.color.r';
+info.MatPath{14} = 'sequences.color.g';
+info.MatPath{15} = 'sequences.color.b';
+info.MatPath{16} = 'sequences.color.a';
+info.MatPath{17} = 'sequences.hold_time';
+info.MatPath{18} = 'sequences.cross_time';

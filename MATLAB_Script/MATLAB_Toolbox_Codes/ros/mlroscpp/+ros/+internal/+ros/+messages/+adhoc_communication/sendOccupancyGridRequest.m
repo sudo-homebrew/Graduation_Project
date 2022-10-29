@@ -1,0 +1,44 @@
+function [data, info] = sendOccupancyGridRequest
+%SendOccupancyGrid gives an empty data for adhoc_communication/SendOccupancyGridRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'adhoc_communication/SendOccupancyGridRequest';
+[data.DstRobot, info.DstRobot] = ros.internal.ros.messages.ros.char('string',0);
+[data.Topic, info.Topic] = ros.internal.ros.messages.ros.char('string',0);
+[data.Map, info.Map] = ros.internal.ros.messages.nav_msgs.occupancyGrid;
+info.Map.MLdataType = 'struct';
+info.MessageType = 'adhoc_communication/SendOccupancyGridRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,27);
+info.MatPath{1} = 'dst_robot';
+info.MatPath{2} = 'topic';
+info.MatPath{3} = 'map';
+info.MatPath{4} = 'map.header';
+info.MatPath{5} = 'map.header.seq';
+info.MatPath{6} = 'map.header.stamp';
+info.MatPath{7} = 'map.header.stamp.sec';
+info.MatPath{8} = 'map.header.stamp.nsec';
+info.MatPath{9} = 'map.header.frame_id';
+info.MatPath{10} = 'map.info';
+info.MatPath{11} = 'map.info.map_load_time';
+info.MatPath{12} = 'map.info.map_load_time.sec';
+info.MatPath{13} = 'map.info.map_load_time.nsec';
+info.MatPath{14} = 'map.info.resolution';
+info.MatPath{15} = 'map.info.width';
+info.MatPath{16} = 'map.info.height';
+info.MatPath{17} = 'map.info.origin';
+info.MatPath{18} = 'map.info.origin.position';
+info.MatPath{19} = 'map.info.origin.position.x';
+info.MatPath{20} = 'map.info.origin.position.y';
+info.MatPath{21} = 'map.info.origin.position.z';
+info.MatPath{22} = 'map.info.origin.orientation';
+info.MatPath{23} = 'map.info.origin.orientation.x';
+info.MatPath{24} = 'map.info.origin.orientation.y';
+info.MatPath{25} = 'map.info.origin.orientation.z';
+info.MatPath{26} = 'map.info.origin.orientation.w';
+info.MatPath{27} = 'map.data';

@@ -1,0 +1,12 @@
+# For remocons who need to retrieve a filtered list of interactions
+# appropriate to the role and platform they will run for/on. 
+
+# Filter according to roles. If not specified it will return 
+# interactions for all roles.
+string[] roles
+
+# Filter according to the rocon uri of the requesting device. T
+# If not specified, the manager will assume 'rocon://' (wildcards)
+string uri
+---
+Interaction[] interactions

@@ -1,0 +1,4 @@
+string joint
+bool state
+---
+int32 status

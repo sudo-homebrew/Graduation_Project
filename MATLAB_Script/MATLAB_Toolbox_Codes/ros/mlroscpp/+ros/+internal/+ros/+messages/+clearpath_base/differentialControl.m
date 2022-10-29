@@ -1,0 +1,45 @@
+function [data, info] = differentialControl
+%DifferentialControl gives an empty data for clearpath_base/DifferentialControl
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'clearpath_base/DifferentialControl';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.LP, info.LP] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.LI, info.LI] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.LD, info.LD] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.LFfwd, info.LFfwd] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.LStic, info.LStic] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.LSat, info.LSat] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.RP, info.RP] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.RI, info.RI] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.RD, info.RD] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.RFfwd, info.RFfwd] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.RStic, info.RStic] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.RSat, info.RSat] = ros.internal.ros.messages.ros.default_type('double',1);
+info.MessageType = 'clearpath_base/DifferentialControl';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,18);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'l_p';
+info.MatPath{8} = 'l_i';
+info.MatPath{9} = 'l_d';
+info.MatPath{10} = 'l_ffwd';
+info.MatPath{11} = 'l_stic';
+info.MatPath{12} = 'l_sat';
+info.MatPath{13} = 'r_p';
+info.MatPath{14} = 'r_i';
+info.MatPath{15} = 'r_d';
+info.MatPath{16} = 'r_ffwd';
+info.MatPath{17} = 'r_stic';
+info.MatPath{18} = 'r_sat';

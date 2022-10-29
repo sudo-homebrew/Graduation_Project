@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 The MathWorks, Inc. -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+     <style>.cls-1{font-size:16.18px;fill:#333;font-family:Helvetica;}.cls-2{fill:#ccc;}.cls-3{fill:#fff;}.cls-4{fill:#404040;}.cls-5{fill:none;stroke:gray;stroke-miterlimit:10;stroke-width:2px;}.cls-6{fill:gray;}</style>
+   </defs>
+   <title>Gazebo Select Model (Arm Highlight)_041719</title>
+   
+   <g id="SelectLink" data-name="SelectEntityLink" d:visible="SelectType=='Link'">       
+       <text class="cls-1" transform="translate(47.16 19.17)">Gazebo</text>
+       <path class="cls-2"
+             d="M60.86,56.64h0a7.82,7.82,0,0,1,7.82,7.82v9a0,0,0,0,1,0,0H53a0,0,0,0,1,0,0v-9a7.82,7.82,0,0,1,7.82-7.82Z"/>
+       <path class="cls-2"
+             d="M60.84,66.69a4.5,4.5,0,0,1-4.06-2.56L46.62,42.91A4.5,4.5,0,0,1,54.74,39L64.9,60.24a4.52,4.52,0,0,1-4.06,6.45Z"/>
+       <path class="cls-2"
+             d="M94.19,61.43l-5.26.31L84.3,58.29a3,3,0,0,1-.62-4.23l1.37-1.85L82.22,50.1l2.17-2.91,2.83,2.11,1.38-1.85a3,3,0,0,1,4.23-.62l4.63,3.45,1.22,5.12-7.74-5.76-4.49,6Z"/>
+       <rect class="cls-2" height="5.34" transform="translate(-9.99 98.1) rotate(-53.34)"
+             width="2.08"
+             x="91.63"
+             y="56.33"/>
+       <rect class="cls-2" height="5.34" transform="translate(-5.19 98.95) rotate(-53.34)"
+             width="2.08"
+             x="94.88"
+             y="51.97"/>
+       <path class="cls-2"
+             d="M80.29,50.94a4.47,4.47,0,0,1-2.68-.89L70.29,44.6a4.5,4.5,0,0,1,5.38-7.22L83,42.83a4.5,4.5,0,0,1-2.69,8.11Z"/>
+       <circle class="cls-3" cx="60.84" cy="62.19" r="2.43"/>
+       <path class="cls-4" d="M72.92,45.46H50.68a4.5,4.5,0,0,1,0-9H72.92a4.5,4.5,0,0,1,0,9Z"/>
+       <circle class="cls-3" cx="72.98" cy="40.99" r="2.43"/>
+       <circle class="cls-3" cx="50.76" cy="40.99" r="2.43"/>
+       <line class="cls-5" x1="75.41" x2="75.41" y1="29.98" y2="21"/>
+       <polygon class="cls-6" points="78.9 28.95 75.41 35 71.92 28.95 78.9 28.95"/>
+   </g>
+   
+   <g id="SelectJoint" data-name="SelectEntityJoint" d:visible="SelectType=='Joint'">
+      <text class="cls-1" transform="translate(48.66 19.17)">Gazebo</text>
+      <line class="cls-5" x1="75" x2="75" y1="29.98" y2="21"/>
+      <polygon class="cls-3" points="78.49 28.95 75 35 71.51 28.95 78.49 28.95"/>
+      <path class="cls-2"
+            d="M62.36,56.64h0a7.82,7.82,0,0,1,7.82,7.82v9a0,0,0,0,1,0,0H54.54a0,0,0,0,1,0,0v-9A7.82,7.82,0,0,1,62.36,56.64Z"/>
+      <path class="cls-2" d="M74.41,45.46H52.18a4.5,4.5,0,0,1,0-9H74.41a4.5,4.5,0,0,1,0,9Z"/>
+      <path class="cls-2"
+            d="M62.34,66.69a4.53,4.53,0,0,1-4.07-2.56L48.12,42.91A4.5,4.5,0,0,1,56.24,39L66.39,60.24a4.51,4.51,0,0,1-4,6.45Z"/>
+      <path class="cls-2"
+            d="M95.69,61.43l-5.26.31-4.64-3.45a3,3,0,0,1-.62-4.23l1.38-1.85L83.72,50.1l2.17-2.91,2.83,2.11,1.37-1.85a3,3,0,0,1,4.23-.62L99,50.28l1.21,5.12-7.74-5.76-4.49,6Z"/>
+      <rect class="cls-2" height="5.34" transform="translate(-9.39 99.3) rotate(-53.34)"
+            width="2.08"
+            x="93.12"
+            y="56.33"/>
+      <rect class="cls-2" height="5.34" transform="translate(-4.59 100.15) rotate(-53.34)"
+            width="2.08"
+            x="96.37"
+            y="51.97"/>
+      <path class="cls-2"
+            d="M81.79,50.94a4.5,4.5,0,0,1-2.69-.89L71.79,44.6a4.5,4.5,0,0,1,5.37-7.22l7.32,5.45a4.5,4.5,0,0,1-2.69,8.11Z"/>
+      <circle class="cls-4" cx="62.33" cy="62.19" r="2.43"/>
+      <circle class="cls-4" cx="74.47" cy="40.99" r="2.43"/>
+      <circle class="cls-4" cx="52.26" cy="40.99" r="2.43"/>
+   </g>
+</svg>

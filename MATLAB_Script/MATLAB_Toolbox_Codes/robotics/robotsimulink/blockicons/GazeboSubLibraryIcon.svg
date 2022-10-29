@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{font-size:16.18px;font-family:Helvetica;}.cls-1,.cls-5{fill:#333;}.cls-2{fill:none;stroke:gray;stroke-width:2px;}.cls-2,.cls-6{stroke-miterlimit:10;}.cls-3{fill:gray;}.cls-4,.cls-6{fill:#fff;}.cls-6{stroke:#333;}</style>
+   </defs>
+   <title>Gazebo Sublibrary_042619</title>
+   <text class="cls-1" transform="translate(16.16 56.12)">Gazebo</text>
+   <line class="cls-2" x1="93.52" x2="80.56" y1="51.85" y2="51.85"/>
+   <polygon class="cls-3" points="92.49 48.36 98.54 51.85 92.49 55.34 92.49 48.36"/>
+   <polygon class="cls-3" points="81.59 48.36 75.54 51.85 81.59 55.34 81.59 48.36"/>
+   <rect class="cls-4" height="31" rx="4.5" width="31" x="102.33" y="34.5"/>
+   <path class="cls-5"
+         d="M128.83,35a4,4,0,0,1,4,4V61a4,4,0,0,1-4,4h-22a4,4,0,0,1-4-4V39a4,4,0,0,1,4-4h22m0-1h-22a5,5,0,0,0-5,5V61a5,5,0,0,0,5,5h22a5,5,0,0,0,5-5V39a5,5,0,0,0-5-5Z"/>
+   <polyline class="cls-6" points="106.86 44.75 123.75 44.75 123.75 52.2"/>
+   <rect class="cls-4" height="9.02" width="9.02" x="119.3" y="52.35"/>
+   <path class="cls-5" d="M127.81,52.85v8h-8v-8h8m1-1h-10v10h10v-10Z"/>
+   <polygon class="cls-4" points="110.3 39.01 120.15 44.75 110.3 50.5 110.3 39.01"/>
+   <path class="cls-5"
+         d="M110.8,39.88l8.36,4.87-8.36,4.88V39.88m-1-1.75V51.37l11.35-6.62L109.8,38.13Z"/>
+</svg>

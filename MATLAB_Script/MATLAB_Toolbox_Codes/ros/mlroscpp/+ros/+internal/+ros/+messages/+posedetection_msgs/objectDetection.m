@@ -1,0 +1,39 @@
+function [data, info] = objectDetection
+%ObjectDetection gives an empty data for posedetection_msgs/ObjectDetection
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'posedetection_msgs/ObjectDetection';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Objects, info.Objects] = ros.internal.ros.messages.posedetection_msgs.object6DPose;
+info.Objects.MLdataType = 'struct';
+info.Objects.MaxLen = NaN;
+info.Objects.MinLen = 0;
+data.Objects = data.Objects([],1);
+info.MessageType = 'posedetection_msgs/ObjectDetection';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,19);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'objects';
+info.MatPath{8} = 'objects.pose';
+info.MatPath{9} = 'objects.pose.position';
+info.MatPath{10} = 'objects.pose.position.x';
+info.MatPath{11} = 'objects.pose.position.y';
+info.MatPath{12} = 'objects.pose.position.z';
+info.MatPath{13} = 'objects.pose.orientation';
+info.MatPath{14} = 'objects.pose.orientation.x';
+info.MatPath{15} = 'objects.pose.orientation.y';
+info.MatPath{16} = 'objects.pose.orientation.z';
+info.MatPath{17} = 'objects.pose.orientation.w';
+info.MatPath{18} = 'objects.reliability';
+info.MatPath{19} = 'objects.type';

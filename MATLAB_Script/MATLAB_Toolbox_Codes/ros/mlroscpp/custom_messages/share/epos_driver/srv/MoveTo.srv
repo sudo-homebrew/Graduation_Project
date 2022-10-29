@@ -1,0 +1,5 @@
+# In this file I define the service which sending an order to move to
+# some particular position.
+
+float64 pose #position in radians
+---

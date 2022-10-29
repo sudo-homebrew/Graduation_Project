@@ -1,0 +1,41 @@
+function [data, info] = solidPrimitive
+%SolidPrimitive gives an empty data for shape_msgs/SolidPrimitive
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'shape_msgs/SolidPrimitive';
+[data.BOX, info.BOX] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 1, [NaN]);
+[data.SPHERE, info.SPHERE] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 2, [NaN]);
+[data.CYLINDER, info.CYLINDER] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 3, [NaN]);
+[data.CONE, info.CONE] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 4, [NaN]);
+[data.type, info.type] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0);
+[data.dimensions, info.dimensions] = ros.internal.ros2.messages.ros2.default_type('double',3,1);
+[data.BOX_X, info.BOX_X] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 0, [NaN]);
+[data.BOX_Y, info.BOX_Y] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 1, [NaN]);
+[data.BOX_Z, info.BOX_Z] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 2, [NaN]);
+[data.SPHERE_RADIUS, info.SPHERE_RADIUS] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 0, [NaN]);
+[data.CYLINDER_HEIGHT, info.CYLINDER_HEIGHT] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 0, [NaN]);
+[data.CYLINDER_RADIUS, info.CYLINDER_RADIUS] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 1, [NaN]);
+[data.CONE_HEIGHT, info.CONE_HEIGHT] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 0, [NaN]);
+[data.CONE_RADIUS, info.CONE_RADIUS] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 1, [NaN]);
+info.MessageType = 'shape_msgs/SolidPrimitive';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,14);
+info.MatPath{1} = 'BOX';
+info.MatPath{2} = 'SPHERE';
+info.MatPath{3} = 'CYLINDER';
+info.MatPath{4} = 'CONE';
+info.MatPath{5} = 'type';
+info.MatPath{6} = 'dimensions';
+info.MatPath{7} = 'BOX_X';
+info.MatPath{8} = 'BOX_Y';
+info.MatPath{9} = 'BOX_Z';
+info.MatPath{10} = 'SPHERE_RADIUS';
+info.MatPath{11} = 'CYLINDER_HEIGHT';
+info.MatPath{12} = 'CYLINDER_RADIUS';
+info.MatPath{13} = 'CONE_HEIGHT';
+info.MatPath{14} = 'CONE_RADIUS';

@@ -1,0 +1,46 @@
+function [data, info] = cameraInfo
+%CameraInfo gives an empty data for sensor_msgs/CameraInfo
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'sensor_msgs/CameraInfo';
+[data.header, info.header] = ros.internal.ros2.messages.std_msgs.header;
+info.header.MLdataType = 'struct';
+[data.height, info.height] = ros.internal.ros2.messages.ros2.default_type('uint32',1,0);
+[data.width, info.width] = ros.internal.ros2.messages.ros2.default_type('uint32',1,0);
+[data.distortion_model, info.distortion_model] = ros.internal.ros2.messages.ros2.char('string',1,NaN,0);
+[data.d, info.d] = ros.internal.ros2.messages.ros2.default_type('double',NaN,0);
+[data.k, info.k] = ros.internal.ros2.messages.ros2.default_type('double',9,0);
+[data.r, info.r] = ros.internal.ros2.messages.ros2.default_type('double',9,0);
+[data.p, info.p] = ros.internal.ros2.messages.ros2.default_type('double',12,0);
+[data.binning_x, info.binning_x] = ros.internal.ros2.messages.ros2.default_type('uint32',1,0);
+[data.binning_y, info.binning_y] = ros.internal.ros2.messages.ros2.default_type('uint32',1,0);
+[data.roi, info.roi] = ros.internal.ros2.messages.sensor_msgs.regionOfInterest;
+info.roi.MLdataType = 'struct';
+info.MessageType = 'sensor_msgs/CameraInfo';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,20);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.stamp';
+info.MatPath{3} = 'header.stamp.sec';
+info.MatPath{4} = 'header.stamp.nanosec';
+info.MatPath{5} = 'header.frame_id';
+info.MatPath{6} = 'height';
+info.MatPath{7} = 'width';
+info.MatPath{8} = 'distortion_model';
+info.MatPath{9} = 'd';
+info.MatPath{10} = 'k';
+info.MatPath{11} = 'r';
+info.MatPath{12} = 'p';
+info.MatPath{13} = 'binning_x';
+info.MatPath{14} = 'binning_y';
+info.MatPath{15} = 'roi';
+info.MatPath{16} = 'roi.x_offset';
+info.MatPath{17} = 'roi.y_offset';
+info.MatPath{18} = 'roi.height';
+info.MatPath{19} = 'roi.width';
+info.MatPath{20} = 'roi.do_rectify';

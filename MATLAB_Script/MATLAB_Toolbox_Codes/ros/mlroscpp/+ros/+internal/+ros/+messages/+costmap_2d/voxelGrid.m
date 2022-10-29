@@ -1,0 +1,41 @@
+function [data, info] = voxelGrid
+%VoxelGrid gives an empty data for costmap_2d/VoxelGrid
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'costmap_2d/VoxelGrid';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Data, info.Data] = ros.internal.ros.messages.ros.default_type('uint32',NaN);
+[data.Origin, info.Origin] = ros.internal.ros.messages.geometry_msgs.point32;
+info.Origin.MLdataType = 'struct';
+[data.Resolutions, info.Resolutions] = ros.internal.ros.messages.geometry_msgs.vector3;
+info.Resolutions.MLdataType = 'struct';
+[data.SizeX, info.SizeX] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.SizeY, info.SizeY] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.SizeZ, info.SizeZ] = ros.internal.ros.messages.ros.default_type('uint32',1);
+info.MessageType = 'costmap_2d/VoxelGrid';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,18);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'data';
+info.MatPath{8} = 'origin';
+info.MatPath{9} = 'origin.x';
+info.MatPath{10} = 'origin.y';
+info.MatPath{11} = 'origin.z';
+info.MatPath{12} = 'resolutions';
+info.MatPath{13} = 'resolutions.x';
+info.MatPath{14} = 'resolutions.y';
+info.MatPath{15} = 'resolutions.z';
+info.MatPath{16} = 'size_x';
+info.MatPath{17} = 'size_y';
+info.MatPath{18} = 'size_z';

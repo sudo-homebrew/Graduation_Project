@@ -1,0 +1,41 @@
+function [data, info] = poseCommandArray
+%PoseCommandArray gives an empty data for r2_msgs/PoseCommandArray
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'r2_msgs/PoseCommandArray';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Command, info.Command] = ros.internal.ros.messages.r2_msgs.poseCommand;
+info.Command.MLdataType = 'struct';
+info.Command.MaxLen = NaN;
+info.Command.MinLen = 0;
+data.Command = data.Command([],1);
+info.MessageType = 'r2_msgs/PoseCommandArray';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,21);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'command';
+info.MatPath{8} = 'command.commandId';
+info.MatPath{9} = 'command.refFrame';
+info.MatPath{10} = 'command.pose';
+info.MatPath{11} = 'command.pose.position';
+info.MatPath{12} = 'command.pose.position.x';
+info.MatPath{13} = 'command.pose.position.y';
+info.MatPath{14} = 'command.pose.position.z';
+info.MatPath{15} = 'command.pose.orientation';
+info.MatPath{16} = 'command.pose.orientation.x';
+info.MatPath{17} = 'command.pose.orientation.y';
+info.MatPath{18} = 'command.pose.orientation.z';
+info.MatPath{19} = 'command.pose.orientation.w';
+info.MatPath{20} = 'command.baseFrame';
+info.MatPath{21} = 'command.toolFrame';

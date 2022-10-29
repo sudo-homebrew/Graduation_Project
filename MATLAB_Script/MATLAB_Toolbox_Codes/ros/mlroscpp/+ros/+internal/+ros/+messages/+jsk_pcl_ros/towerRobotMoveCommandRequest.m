@@ -1,0 +1,47 @@
+function [data, info] = towerRobotMoveCommandRequest
+%TowerRobotMoveCommand gives an empty data for jsk_pcl_ros/TowerRobotMoveCommandRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'jsk_pcl_ros/TowerRobotMoveCommandRequest';
+[data.ROBOT1, info.ROBOT1] = ros.internal.ros.messages.ros.default_type('int8',1, 1);
+[data.ROBOT2, info.ROBOT2] = ros.internal.ros.messages.ros.default_type('int8',1, 2);
+[data.ROBOT3, info.ROBOT3] = ros.internal.ros.messages.ros.default_type('int8',1, 3);
+[data.PLATESMALL, info.PLATESMALL] = ros.internal.ros.messages.ros.default_type('int8',1, 1);
+[data.PLATEMIDDLE, info.PLATEMIDDLE] = ros.internal.ros.messages.ros.default_type('int8',1, 2);
+[data.PLATELARGE, info.PLATELARGE] = ros.internal.ros.messages.ros.default_type('int8',1, 3);
+[data.TOWERLOWEST, info.TOWERLOWEST] = ros.internal.ros.messages.ros.default_type('int8',1, 1);
+[data.TOWERMIDDLE, info.TOWERMIDDLE] = ros.internal.ros.messages.ros.default_type('int8',1, 2);
+[data.TOWERHIGHEST, info.TOWERHIGHEST] = ros.internal.ros.messages.ros.default_type('int8',1, 3);
+[data.TOWERLOWEST2, info.TOWERLOWEST2] = ros.internal.ros.messages.ros.default_type('int8',1, 1);
+[data.OPTIONNONE, info.OPTIONNONE] = ros.internal.ros.messages.ros.default_type('int8',1, 0);
+[data.OPTIONMOVEINITIAL, info.OPTIONMOVEINITIAL] = ros.internal.ros.messages.ros.default_type('int8',1, 1);
+[data.RobotIndex, info.RobotIndex] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.PlateIndex, info.PlateIndex] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.FromTower, info.FromTower] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.ToTower, info.ToTower] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.OptionCommand, info.OptionCommand] = ros.internal.ros.messages.ros.default_type('int32',1);
+info.MessageType = 'jsk_pcl_ros/TowerRobotMoveCommandRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,17);
+info.MatPath{1} = 'ROBOT1';
+info.MatPath{2} = 'ROBOT2';
+info.MatPath{3} = 'ROBOT3';
+info.MatPath{4} = 'PLATE_SMALL';
+info.MatPath{5} = 'PLATE_MIDDLE';
+info.MatPath{6} = 'PLATE_LARGE';
+info.MatPath{7} = 'TOWER_LOWEST';
+info.MatPath{8} = 'TOWER_MIDDLE';
+info.MatPath{9} = 'TOWER_HIGHEST';
+info.MatPath{10} = 'TOWER_LOWEST2';
+info.MatPath{11} = 'OPTION_NONE';
+info.MatPath{12} = 'OPTION_MOVE_INITIAL';
+info.MatPath{13} = 'robot_index';
+info.MatPath{14} = 'plate_index';
+info.MatPath{15} = 'from_tower';
+info.MatPath{16} = 'to_tower';
+info.MatPath{17} = 'option_command';

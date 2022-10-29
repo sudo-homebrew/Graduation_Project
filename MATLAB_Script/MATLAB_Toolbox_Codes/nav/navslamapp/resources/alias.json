@@ -1,0 +1,7 @@
+{
+  "Aliases": {
+    "NewName": "nav.slamapp.internal.States",
+    "OldNames": "robotics.slamapp.internal.States",
+    "WarnOnOldName": false
+  }
+}

@@ -1,0 +1,43 @@
+function [data, info] = mouseEvent
+%MouseEvent gives an empty data for image_view2/MouseEvent
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'image_view2/MouseEvent';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.KEYPRESSED, info.KEYPRESSED] = ros.internal.ros.messages.ros.default_type('int32',1, 1);
+[data.MOUSELEFTUP, info.MOUSELEFTUP] = ros.internal.ros.messages.ros.default_type('int32',1, 2);
+[data.MOUSELEFTDOWN, info.MOUSELEFTDOWN] = ros.internal.ros.messages.ros.default_type('int32',1, 3);
+[data.MOUSEMOVE, info.MOUSEMOVE] = ros.internal.ros.messages.ros.default_type('int32',1, 4);
+[data.MOUSERIGHTDOWN, info.MOUSERIGHTDOWN] = ros.internal.ros.messages.ros.default_type('int32',1, 5);
+[data.Type, info.Type] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Key, info.Key] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.X, info.X] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Y, info.Y] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Width, info.Width] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.Height, info.Height] = ros.internal.ros.messages.ros.default_type('int32',1);
+info.MessageType = 'image_view2/MouseEvent';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,17);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'KEY_PRESSED';
+info.MatPath{8} = 'MOUSE_LEFT_UP';
+info.MatPath{9} = 'MOUSE_LEFT_DOWN';
+info.MatPath{10} = 'MOUSE_MOVE';
+info.MatPath{11} = 'MOUSE_RIGHT_DOWN';
+info.MatPath{12} = 'type';
+info.MatPath{13} = 'key';
+info.MatPath{14} = 'x';
+info.MatPath{15} = 'y';
+info.MatPath{16} = 'width';
+info.MatPath{17} = 'height';

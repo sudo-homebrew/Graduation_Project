@@ -1,0 +1,44 @@
+function [data, info] = eSCInfo
+%ESCInfo gives an empty data for mavros_msgs/ESCInfo
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'mavros_msgs/ESCInfo';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Counter, info.Counter] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.Count, info.Count] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.ConnectionType, info.ConnectionType] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.Info, info.Info] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.EscInfo, info.EscInfo] = ros.internal.ros.messages.mavros_msgs.eSCInfoItem;
+info.EscInfo.MLdataType = 'struct';
+info.EscInfo.MaxLen = NaN;
+info.EscInfo.MinLen = 0;
+data.EscInfo = data.EscInfo([],1);
+info.MessageType = 'mavros_msgs/ESCInfo';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,20);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'counter';
+info.MatPath{8} = 'count';
+info.MatPath{9} = 'connection_type';
+info.MatPath{10} = 'info';
+info.MatPath{11} = 'esc_info';
+info.MatPath{12} = 'esc_info.header';
+info.MatPath{13} = 'esc_info.header.seq';
+info.MatPath{14} = 'esc_info.header.stamp';
+info.MatPath{15} = 'esc_info.header.stamp.sec';
+info.MatPath{16} = 'esc_info.header.stamp.nsec';
+info.MatPath{17} = 'esc_info.header.frame_id';
+info.MatPath{18} = 'esc_info.failure_flags';
+info.MatPath{19} = 'esc_info.error_count';
+info.MatPath{20} = 'esc_info.temperature';

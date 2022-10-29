@@ -1,0 +1,41 @@
+function [data, info] = wifiStatus
+%WifiStatus gives an empty data for jsk_network_tools/WifiStatus
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'jsk_network_tools/WifiStatus';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Interface, info.Interface] = ros.internal.ros.messages.ros.char('string',0);
+[data.Enabled, info.Enabled] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.Connected, info.Connected] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.Ssid, info.Ssid] = ros.internal.ros.messages.ros.char('string',0);
+[data.Frequency, info.Frequency] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AccessPoint, info.AccessPoint] = ros.internal.ros.messages.ros.char('string',0);
+[data.Bitrate, info.Bitrate] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.TxPower, info.TxPower] = ros.internal.ros.messages.ros.default_type('int16',1);
+[data.LinkQuality, info.LinkQuality] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.SignalLevel, info.SignalLevel] = ros.internal.ros.messages.ros.default_type('int16',1);
+info.MessageType = 'jsk_network_tools/WifiStatus';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,16);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'interface';
+info.MatPath{8} = 'enabled';
+info.MatPath{9} = 'connected';
+info.MatPath{10} = 'ssid';
+info.MatPath{11} = 'frequency';
+info.MatPath{12} = 'access_point';
+info.MatPath{13} = 'bitrate';
+info.MatPath{14} = 'tx_power';
+info.MatPath{15} = 'link_quality';
+info.MatPath{16} = 'signal_level';

@@ -1,0 +1,39 @@
+function [data, info] = baTestEnvironmentRequest
+%BaTestEnvironment gives an empty data for cob_object_detection_msgs/BaTestEnvironmentRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'cob_object_detection_msgs/BaTestEnvironmentRequest';
+[data.NumberPoints, info.NumberPoints] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.FrameViewNumber, info.FrameViewNumber] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.ConePointsPerPlane, info.ConePointsPerPlane] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.LimitErrorMatching, info.LimitErrorMatching] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.BaKernelParam, info.BaKernelParam] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.BaNumIter, info.BaNumIter] = ros.internal.ros.messages.ros.default_type('int32',1);
+[data.BaInitialMu, info.BaInitialMu] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.BaFinalMuFactor, info.BaFinalMuFactor] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.BaTau, info.BaTau] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AngleSigmaDegree, info.AngleSigmaDegree] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.TranslateSigmaM, info.TranslateSigmaM] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.ObsPointSigmaM, info.ObsPointSigmaM] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.WorldPointSigmaM, info.WorldPointSigmaM] = ros.internal.ros.messages.ros.default_type('single',1);
+info.MessageType = 'cob_object_detection_msgs/BaTestEnvironmentRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,13);
+info.MatPath{1} = 'number_points';
+info.MatPath{2} = 'frame_view_number';
+info.MatPath{3} = 'cone_points_per_plane';
+info.MatPath{4} = 'limit_error_matching';
+info.MatPath{5} = 'ba_kernel_param';
+info.MatPath{6} = 'ba_num_iter';
+info.MatPath{7} = 'ba_initial_mu';
+info.MatPath{8} = 'ba_final_mu_factor';
+info.MatPath{9} = 'ba_tau';
+info.MatPath{10} = 'angle_sigma_degree';
+info.MatPath{11} = 'translate_sigma_m';
+info.MatPath{12} = 'obs_point_sigma_m';
+info.MatPath{13} = 'world_point_sigma_m';

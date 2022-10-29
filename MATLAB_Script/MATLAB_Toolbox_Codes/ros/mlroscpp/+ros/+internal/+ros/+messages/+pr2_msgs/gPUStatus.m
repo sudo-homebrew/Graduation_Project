@@ -1,0 +1,39 @@
+function [data, info] = gPUStatus
+%GPUStatus gives an empty data for pr2_msgs/GPUStatus
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'pr2_msgs/GPUStatus';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.ProductName, info.ProductName] = ros.internal.ros.messages.ros.char('string',0);
+[data.PciDeviceId, info.PciDeviceId] = ros.internal.ros.messages.ros.char('string',0);
+[data.PciLocation, info.PciLocation] = ros.internal.ros.messages.ros.char('string',0);
+[data.Display, info.Display] = ros.internal.ros.messages.ros.char('string',0);
+[data.DriverVersion, info.DriverVersion] = ros.internal.ros.messages.ros.char('string',0);
+[data.Temperature, info.Temperature] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.FanSpeed, info.FanSpeed] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.GpuUsage, info.GpuUsage] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.MemoryUsage, info.MemoryUsage] = ros.internal.ros.messages.ros.default_type('single',1);
+info.MessageType = 'pr2_msgs/GPUStatus';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'product_name';
+info.MatPath{8} = 'pci_device_id';
+info.MatPath{9} = 'pci_location';
+info.MatPath{10} = 'display';
+info.MatPath{11} = 'driver_version';
+info.MatPath{12} = 'temperature';
+info.MatPath{13} = 'fan_speed';
+info.MatPath{14} = 'gpu_usage';
+info.MatPath{15} = 'memory_usage';

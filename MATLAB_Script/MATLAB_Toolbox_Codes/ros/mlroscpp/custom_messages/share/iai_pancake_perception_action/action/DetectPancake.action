@@ -1,0 +1,10 @@
+#goal
+#... so far, nothing
+---
+#result
+# shall return last detected pose of __a__ pancake with stamp and reference
+# frame which can be transformed using tf
+geometry_msgs/PoseStamped pancake_pose
+---
+#feedback
+#... so far, nothing

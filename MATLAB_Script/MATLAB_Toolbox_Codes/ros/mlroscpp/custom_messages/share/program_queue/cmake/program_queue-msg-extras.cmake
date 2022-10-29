@@ -1,0 +1,2 @@
+set(program_queue_MESSAGE_FILES "msg/Output.msg;msg/Program.msg;msg/ProgramInfo.msg")
+set(program_queue_SERVICE_FILES "srv/CallProgram.srv;srv/ClearQueue.srv;srv/CreateProgram.srv;srv/CreateUser.srv;srv/DequeueProgram.srv;srv/GetMyPrograms.srv;srv/GetOutput.srv;srv/GetProgram.srv;srv/GetPrograms.srv;srv/GetQueue.srv;srv/Login.srv;srv/Logout.srv;srv/QueueProgram.srv;srv/RunProgram.srv;srv/UpdateProgram.srv")

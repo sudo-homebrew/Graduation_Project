@@ -1,0 +1,143 @@
+{
+    "ros2":
+    {
+        "inputs":
+        [
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"command", "kind":"required", "type":"choices={'msg'}"},
+                     {"mutuallyExclusiveGroup":
+                      [
+                          [
+                              {"name":"sub_command", "kind":"required", "type":"choices={'list'}"}
+                          ],
+                          [
+                              {"name":"sub_command", "kind":"required", "type":"choices={'show'}"},
+                              {"name":"option", "kind":"required", "type":"choices=ros2('msg', 'list')"}
+                          ]
+                      ]
+                     }
+                 ],
+                 [
+                     {"name":"command", "kind":"required", "type":"choices={'node'}"},
+                     {"name":"sub_command", "kind":"required", "type":"choices={'list'}"},
+                     {"name":"DomainID", "kind":"namevalue", "type":["numeric", "scalar", "integer", ">=0", "<=232"]}
+                 ],
+                 [
+                     {"name":"command", "kind":"required", "type":"choices={'topic'}"},
+                     {"name":"sub_command", "kind":"required", "type":"choices={'list'}"},
+                     {"name":"DomainID", "kind":"namevalue", "type":["numeric", "scalar", "integer", ">=0", "<=232"]}
+                 ],
+                 [
+                     {"name":"command", "kind":"required", "type":"choices={'service'}"},
+                     {"mutuallyExclusiveGroup":
+                      [
+                          [
+                              {"name":"sub_command", "kind":"required", "type":"choices={'list'}"},
+                              {"name":"DomainID", "kind":"namevalue", "type":["numeric", "scalar", "integer", ">=0", "<=232"]}
+                          ],
+                          [
+                              {"name":"sub_command", "kind":"required", "type":"choices={'type'}"},
+                              {"name":"option", "kind":"required", "type":"choices=ros2('service', 'list')"},
+                              {"name":"DomainID", "kind":"namevalue", "type":["numeric", "scalar", "integer", ">=0", "<=232"]}
+                          ]
+                      ]
+                     }
+                 ],
+                 [
+                     {"name":"command", "kind":"required", "type":"choices={'bag'}"},
+                     {"name":"sub_command", "kind":"required", "type":"choices={'info'}"},
+                     {"name":"folder_path", "kind":"required", "type":["char", "folder"]}
+                 ]
+             ]
+            }
+        ]
+    },
+    "ros2genmsg":
+    {
+        "inputs":
+        [
+            {"name":"folder_path", "kind":"required", "type":["char", "folder"]},
+            {"name":"BuildConfiguration", "kind":"namevalue", "type":"choices={'fasterbuilds', 'fasterruns'}"}
+        ]
+    },
+    "ros2message":
+    {
+        "inputs":
+        [
+            {"name":"msg_type", "kind":"required", "type":"choices=ros2('msg', 'list')"}
+        ]
+    },
+    "ros2publisher":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["ros2node"]]},
+            {"name":"topic_name", "kind":"required", "type":[["char"], ["choices=ros2('topic', 'list', 'DomainID', node.ID)"]]},
+            {"name":"msg_type", "kind":"ordered", "type":[["char"], ["choices=ros2('msg', 'list')"]]},
+            {"name":"History", "kind":"namevalue", "type":[["char"], ["choices={'keeplast', 'keepall'}"]]},
+            {"name":"Depth", "kind":"namevalue", "type":["numeric", "scalar"]},
+            {"name":"Reliability", "kind":"namevalue", "type":[["char"], ["choices={'reliable', 'besteffort'}"]]},
+            {"name":"Durability", "kind":"namevalue", "type":[["char"], ["choices={'volatile', 'transientlocal'}"]]}
+        ]
+    },
+    "ros2subscriber":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["ros2node"]]},
+            {"name":"topic_name", "kind":"required", "type":[["char"], ["choices=ros2('topic', 'list', 'DomainID', node.ID)"]]},
+            {"name":"msg_type", "kind":"ordered", "type":[["char"], ["choices=ros2('msg', 'list')"]]},
+            {"name":"callback", "kind":"ordered", "type":[["function_handle"], ["cell"]]},
+            {"name":"History", "kind":"namevalue", "type":[["char"], ["choices={'keeplast', 'keepall'}"]]},
+            {"name":"Depth", "kind":"namevalue", "type":["numeric", "scalar"]},
+            {"name":"Reliability", "kind":"namevalue", "type":[["char"], ["choices={'reliable', 'besteffort'}"]]},
+            {"name":"Durability", "kind":"namevalue", "type":[["char"], ["choices={'volatile', 'transientlocal'}"]]}
+        ]
+    },
+    "ros2svcclient":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["ros2node"]]},
+            {"name":"svc_name", "kind":"required", "type":[["char"], ["choices=ros2('service', 'list', 'DomainID', node.ID)"]]},
+            {"name":"svc_type", "kind":"required", "type":[["char"], ["choices=ros.ros2.internal.Introspection.getAllServiceTypesStatic"]]},
+            {"name":"History", "kind":"namevalue", "type":[["char"], ["choices={'keeplast', 'keepall'}"]]},
+            {"name":"Depth", "kind":"namevalue", "type":["numeric", "scalar"]},
+            {"name":"Reliability", "kind":"namevalue", "type":[["char"], ["choices={'reliable', 'besteffort'}"]]},
+            {"name":"Durability", "kind":"namevalue", "type":[["char"], ["choices={'volatile', 'transientlocal'}"]]}
+        ]
+    },
+    "ros2svcserver":
+    {
+        "inputs":
+        [
+            {"name":"node", "kind":"required", "type":[["ros2node"]]},
+            {"name":"svc_name", "kind":"required", "type":["char"]},
+            {"name":"svc_type", "kind":"required", "type":[["char"], ["choices=ros.ros2.internal.Introspection.getAllServiceTypesStatic"]]},
+            {"name":"callback", "kind":"required", "type":[["function_handle"], ["cell"]]},
+            {"name":"History", "kind":"namevalue", "type":[["char"], ["choices={'keeplast', 'keepall'}"]]},
+            {"name":"Depth", "kind":"namevalue", "type":["numeric", "scalar"]},
+            {"name":"Reliability", "kind":"namevalue", "type":[["char"], ["choices={'reliable', 'besteffort'}"]]},
+            {"name":"Durability", "kind":"namevalue", "type":[["char"], ["choices={'volatile', 'transientlocal'}"]]}
+        ]
+    },
+    "ros2bag":
+    {
+        "inputs":
+        [
+            {"name":"folder_path", "kind":"required", "type":["char", "folder"]}
+        ]
+    },
+    "ros2bag.select":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"ros2bag"},
+            {"name":"Time", "kind":"namevalue", "type":"numeric"},
+            {"name":"Topic", "kind":"namevalue", "type":[["char"], ["string"], ["cell"]]},
+            {"name":"MessageType", "kind":"namevalue", "type":[["char"], ["string"], ["cell"]]}
+        ]
+    }
+}

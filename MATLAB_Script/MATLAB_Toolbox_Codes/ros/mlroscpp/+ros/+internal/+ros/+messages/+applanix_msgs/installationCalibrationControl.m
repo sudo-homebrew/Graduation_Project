@@ -1,0 +1,43 @@
+function [data, info] = installationCalibrationControl
+%InstallationCalibrationControl gives an empty data for applanix_msgs/InstallationCalibrationControl
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'applanix_msgs/InstallationCalibrationControl';
+[data.Transaction, info.Transaction] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.ACTIONNONE, info.ACTIONNONE] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.ACTIONSTOP, info.ACTIONSTOP] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.ACTIONMANUALCALIBRATION, info.ACTIONMANUALCALIBRATION] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.ACTIONAUTOCALIBRATION, info.ACTIONAUTOCALIBRATION] = ros.internal.ros.messages.ros.default_type('uint8',1, 3);
+[data.ACTIONNORMALCALIBRATEDPARAMTRANSFER, info.ACTIONNORMALCALIBRATEDPARAMTRANSFER] = ros.internal.ros.messages.ros.default_type('uint8',1, 4);
+[data.ACTIONFORCEDCALIBRATEDPARAMTRANSFER, info.ACTIONFORCEDCALIBRATEDPARAMTRANSFER] = ros.internal.ros.messages.ros.default_type('uint8',1, 5);
+[data.Action, info.Action] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.SELECTPRIMARYGNSSLEVERARM, info.SELECTPRIMARYGNSSLEVERARM] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.SELECTAUX1GNSSLEVERARM, info.SELECTAUX1GNSSLEVERARM] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.SELECTAUX2GNSSLEVERARM, info.SELECTAUX2GNSSLEVERARM] = ros.internal.ros.messages.ros.default_type('uint8',1, 4);
+[data.SELECTDMILEVERARM, info.SELECTDMILEVERARM] = ros.internal.ros.messages.ros.default_type('uint8',1, 8);
+[data.SELECTDMISCALEFACTOR, info.SELECTDMISCALEFACTOR] = ros.internal.ros.messages.ros.default_type('uint8',1, 16);
+[data.SELECTPOSITIONFIXLEVERARM, info.SELECTPOSITIONFIXLEVERARM] = ros.internal.ros.messages.ros.default_type('uint8',1, 64);
+[data.Select, info.Select] = ros.internal.ros.messages.ros.default_type('uint8',1);
+info.MessageType = 'applanix_msgs/InstallationCalibrationControl';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'transaction';
+info.MatPath{2} = 'ACTION_NONE';
+info.MatPath{3} = 'ACTION_STOP';
+info.MatPath{4} = 'ACTION_MANUAL_CALIBRATION';
+info.MatPath{5} = 'ACTION_AUTO_CALIBRATION';
+info.MatPath{6} = 'ACTION_NORMAL_CALIBRATED_PARAM_TRANSFER';
+info.MatPath{7} = 'ACTION_FORCED_CALIBRATED_PARAM_TRANSFER';
+info.MatPath{8} = 'action';
+info.MatPath{9} = 'SELECT_PRIMARY_GNSS_LEVER_ARM';
+info.MatPath{10} = 'SELECT_AUX_1_GNSS_LEVER_ARM';
+info.MatPath{11} = 'SELECT_AUX_2_GNSS_LEVER_ARM';
+info.MatPath{12} = 'SELECT_DMI_LEVER_ARM';
+info.MatPath{13} = 'SELECT_DMI_SCALE_FACTOR';
+info.MatPath{14} = 'SELECT_POSITION_FIX_LEVER_ARM';
+info.MatPath{15} = 'select';

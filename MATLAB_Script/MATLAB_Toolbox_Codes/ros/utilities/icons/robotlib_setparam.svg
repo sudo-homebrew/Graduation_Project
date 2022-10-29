@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 The MathWorks, Inc. -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     id="Layer_1"
+     version="1.1"
+     viewBox="-5 -5 50 50"
+     height="80"
+     width="150">
+   <defs>
+      <style>.cls-1{isolation:isolate;}.cls-2{fill:#bfbfbf;}.cls-3,.cls-5{fill:#333;}.cls-10,.cls-4,.cls-6{fill:#fff;}.cls-5{font-size:6.5px;font-family:Helvetica;}.cls-6{stroke:gray;}.cls-10,.cls-6,.cls-8,.cls-9{stroke-miterlimit:10;}.cls-7{fill:#4d4d4d;}.cls-8{fill:none;stroke:#4d4d4d;}.cls-9{fill:#ccc;}.cls-10,.cls-9{stroke:#333;}.cls-11{opacity:0.25;mix-blend-mode:multiply;}</style>
+   </defs>
+   <title>setParametersROS</title>
+   <g class="cls-1">
+      <g data-name="Layer 1" id="Layer_1">
+         <path class="cls-2"
+               d="M5.78,25.56v-.09a3.7,3.7,0,0,0,3.47-2.36,3.2,3.2,0,0,0,.18-.74h5.14a3.2,3.2,0,0,0,.18.74,3.62,3.62,0,0,0,3.44,2.33v.12Z"/>
+         <path class="cls-3"
+               d="M14.16,22.87a3.17,3.17,0,0,0,.12.41,4.07,4.07,0,0,0,1.3,1.78H8.42a4.07,4.07,0,0,0,1.3-1.78,3.17,3.17,0,0,0,.12-.41h4.32m.88-1H9a3.29,3.29,0,0,1-.18,1.07,3.13,3.13,0,0,1-3,2,.53.53,0,0,0-.53.53v.59H18.72v-.59a.53.53,0,0,0-.53-.53h0a3.13,3.13,0,0,1-3-2A3.29,3.29,0,0,1,15,21.87Z"/>
+         <rect class="cls-4" height="14.07" rx="1.5" width="23" x="0.5" y="8.28"/>
+         <path class="cls-3"
+               d="M22,8.78a1,1,0,0,1,1,1V20.85a1,1,0,0,1-1,1H2a1,1,0,0,1-1-1V9.78a1,1,0,0,1,1-1H22m0-1H2a2,2,0,0,0-2,2V20.85a2,2,0,0,0,2,2H22a2,2,0,0,0,2-2V9.78a2,2,0,0,0-2-2Z"/>
+         <text class="cls-5" transform="translate(8.91 4.72)">ROS</text>
+         <rect class="cls-6" height="4.42" width="4.42" x="3.28" y="13.42"/>
+         <rect class="cls-7" height="1.15" width="10.5" x="11.22" y="13.9"/>
+         <rect class="cls-7" height="1.15" width="6.09" x="11.22" y="16.21"/>
+         <polyline class="cls-8" points="10.22 12.24 6.25 16.21 4.64 14.6"/>
+         <polygon class="cls-9"
+                  points="31.54 29.54 22.46 29.54 20.46 27.54 20.46 18.46 31.54 18.46 31.54 29.54"/>
+         <rect class="cls-10" height="3.77" width="5.93" x="23.04" y="25.77"/>
+         <rect class="cls-10" height="5.31" width="5.93" x="23.04" y="18.46"/>
+         <rect class="cls-3" height="1" width="3.05" x="24.54" y="19.67"/>
+         <rect class="cls-3" height="1" width="2.22" x="24.54" y="21.5"/>
+         <rect class="cls-3" height="1.46" width="1.08" x="30.22" y="20.17"/>
+         <rect class="cls-3" height="2.26" width="1.08" x="26.52" y="26.85"/>
+         <g class="cls-11">
+            <polygon class="cls-3"
+                     points="19.97 19.01 18.97 19.01 18.97 22.84 19.97 22.84 19.97 19.01 19.97 19.01"/>
+         </g>
+      </g>
+   </g>
+</svg>

@@ -1,0 +1,7 @@
+{
+  "Aliases": {
+    "NewName": "ros.slros.internal.DeviceParameterParser",
+    "OldNames": "robotics.slros.internal.DeviceParameterParser",
+    "WarnOnOldName": false
+  }
+}

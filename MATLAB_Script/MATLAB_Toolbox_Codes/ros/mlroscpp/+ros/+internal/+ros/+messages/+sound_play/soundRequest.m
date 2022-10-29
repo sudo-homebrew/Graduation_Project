@@ -1,0 +1,45 @@
+function [data, info] = soundRequest
+%SoundRequest gives an empty data for sound_play/SoundRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'sound_play/SoundRequest';
+[data.BACKINGUP, info.BACKINGUP] = ros.internal.ros.messages.ros.default_type('int8',1, 1);
+[data.NEEDSUNPLUGGING, info.NEEDSUNPLUGGING] = ros.internal.ros.messages.ros.default_type('int8',1, 2);
+[data.NEEDSPLUGGING, info.NEEDSPLUGGING] = ros.internal.ros.messages.ros.default_type('int8',1, 3);
+[data.NEEDSUNPLUGGINGBADLY, info.NEEDSUNPLUGGINGBADLY] = ros.internal.ros.messages.ros.default_type('int8',1, 4);
+[data.NEEDSPLUGGINGBADLY, info.NEEDSPLUGGINGBADLY] = ros.internal.ros.messages.ros.default_type('int8',1, 5);
+[data.ALL, info.ALL] = ros.internal.ros.messages.ros.default_type('int8',1, -1);
+[data.PLAYFILE, info.PLAYFILE] = ros.internal.ros.messages.ros.default_type('int8',1, -2);
+[data.SAY, info.SAY] = ros.internal.ros.messages.ros.default_type('int8',1, -3);
+[data.Sound, info.Sound] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.PLAYSTOP, info.PLAYSTOP] = ros.internal.ros.messages.ros.default_type('int8',1, 0);
+[data.PLAYONCE, info.PLAYONCE] = ros.internal.ros.messages.ros.default_type('int8',1, 1);
+[data.PLAYSTART, info.PLAYSTART] = ros.internal.ros.messages.ros.default_type('int8',1, 2);
+[data.Command, info.Command] = ros.internal.ros.messages.ros.default_type('int8',1);
+[data.Volume, info.Volume] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.Arg, info.Arg] = ros.internal.ros.messages.ros.char('string',0);
+[data.Arg2, info.Arg2] = ros.internal.ros.messages.ros.char('string',0);
+info.MessageType = 'sound_play/SoundRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,16);
+info.MatPath{1} = 'BACKINGUP';
+info.MatPath{2} = 'NEEDS_UNPLUGGING';
+info.MatPath{3} = 'NEEDS_PLUGGING';
+info.MatPath{4} = 'NEEDS_UNPLUGGING_BADLY';
+info.MatPath{5} = 'NEEDS_PLUGGING_BADLY';
+info.MatPath{6} = 'ALL';
+info.MatPath{7} = 'PLAY_FILE';
+info.MatPath{8} = 'SAY';
+info.MatPath{9} = 'sound';
+info.MatPath{10} = 'PLAY_STOP';
+info.MatPath{11} = 'PLAY_ONCE';
+info.MatPath{12} = 'PLAY_START';
+info.MatPath{13} = 'command';
+info.MatPath{14} = 'volume';
+info.MatPath{15} = 'arg';
+info.MatPath{16} = 'arg2';

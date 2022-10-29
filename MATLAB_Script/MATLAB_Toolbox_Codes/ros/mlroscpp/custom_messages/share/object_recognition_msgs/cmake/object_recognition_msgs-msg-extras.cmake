@@ -1,0 +1,2 @@
+set(object_recognition_msgs_MESSAGE_FILES "msg/ObjectInformation.msg;msg/ObjectType.msg;msg/RecognizedObject.msg;msg/RecognizedObjectArray.msg;msg/Table.msg;msg/TableArray.msg;msg/ObjectRecognitionAction.msg;msg/ObjectRecognitionActionGoal.msg;msg/ObjectRecognitionActionResult.msg;msg/ObjectRecognitionActionFeedback.msg;msg/ObjectRecognitionGoal.msg;msg/ObjectRecognitionResult.msg;msg/ObjectRecognitionFeedback.msg")
+set(object_recognition_msgs_SERVICE_FILES "srv/GetObjectInformation.srv")

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{fill:#f2f2f2;stroke:#b3b3b3;}.cls-1,.cls-4{stroke-miterlimit:10;}.cls-2{font-size:10px;fill:#404040;font-family:LMRoman12-Bold, Latin Modern Roman;font-weight:700;}.cls-3{fill:#bfbfbf;}.cls-4{fill:none;stroke:#333;}.cls-5{fill:#333;}</style>
+   </defs>
+   <title>Get Transform_042619</title>
+   <rect class="cls-1" height="16.81" width="15.41" x="89.81" y="10.7"/>
+   <text class="cls-2" transform="translate(93.61 22.48)">T</text>
+   <path class="cls-3"
+         d="M77.17,17.34V15.27H72.86v7.51h4.31V20.71h5.34v2.07l-4,3.39H72.7a3,3,0,0,1-3-3v-2.3H66.53a4.49,4.49,0,0,1-4.12,2.71H53.29l-.46,0H39.23L53.81,49a7.8,7.8,0,0,1,5.66,7.51v9H43.83v-9a7.78,7.78,0,0,1,1.38-4.43L27.56,21.26l0-.09a3.1,3.1,0,0,1-.21-.45,3.27,3.27,0,0,1-.17-.53s0,0,0,0A2.68,2.68,0,0,1,27,19.6,3.64,3.64,0,0,1,27,19a3.69,3.69,0,0,1,0-.58,3.35,3.35,0,0,1,.11-.55s0,0,0,0a2.81,2.81,0,0,1,.16-.49,3.39,3.39,0,0,1,.33-.66,1.67,1.67,0,0,1,.18-.28,2.35,2.35,0,0,1,.19-.25s0,0,0,0a3.58,3.58,0,0,1,.26-.29,2.15,2.15,0,0,1,.32-.29l.27-.21a2.64,2.64,0,0,1,.35-.23,4,4,0,0,1,.6-.28,3,3,0,0,1,.39-.13.79.79,0,0,1,.22-.06,3.69,3.69,0,0,1,.46-.08,3.64,3.64,0,0,1,.57,0H53.71l.46,0h8.24a4.49,4.49,0,0,1,4.1,2.66h3.16V14.9a3,3,0,0,1,3-3h5.78l4,3.39v2.07Z"/>
+   <polyline class="cls-4" points="38.83 54.49 38.83 70.84 55.35 70.84"/>
+   <polygon class="cls-5" points="36.58 55.15 38.83 51.26 41.07 55.15 36.58 55.15"/>
+   <polygon class="cls-5" points="54.7 73.09 58.58 70.84 54.7 68.6 54.7 73.09"/>
+   <polyline class="cls-4" points="79.05 12.85 74.39 19.69 81.48 24.53"/>
+   <polygon class="cls-5" points="76.83 12.13 80.87 10.18 80.54 14.65 76.83 12.13"/>
+   <polygon class="cls-5" points="79.68 26.01 84.15 26.34 82.2 22.3 79.68 26.01"/>
+   <line class="cls-4" x1="42.24" x2="72.11" y1="66.77" y2="22.86"/>
+   <polygon class="cls-5" points="43.97 67.33 40.83 68.84 41.08 65.36 43.97 67.33"/>
+   <polygon class="cls-5" points="73.26 24.26 73.52 20.78 70.38 22.3 73.26 24.26"/>
+</svg>

@@ -1,0 +1,41 @@
+function [data, info] = cobPlaceGoal
+%CobPlaceGoal gives an empty data for cob_pick_place_action/CobPlaceGoal
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'cob_pick_place_action/CobPlaceGoal';
+[data.ObjectClass, info.ObjectClass] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.ObjectName, info.ObjectName] = ros.internal.ros.messages.ros.char('string',0);
+[data.Destinations, info.Destinations] = ros.internal.ros.messages.geometry_msgs.poseStamped;
+info.Destinations.MLdataType = 'struct';
+info.Destinations.MaxLen = NaN;
+info.Destinations.MinLen = 0;
+data.Destinations = data.Destinations([],1);
+[data.SupportSurface, info.SupportSurface] = ros.internal.ros.messages.ros.char('string',0);
+info.MessageType = 'cob_pick_place_action/CobPlaceGoal';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,20);
+info.MatPath{1} = 'object_class';
+info.MatPath{2} = 'object_name';
+info.MatPath{3} = 'destinations';
+info.MatPath{4} = 'destinations.header';
+info.MatPath{5} = 'destinations.header.seq';
+info.MatPath{6} = 'destinations.header.stamp';
+info.MatPath{7} = 'destinations.header.stamp.sec';
+info.MatPath{8} = 'destinations.header.stamp.nsec';
+info.MatPath{9} = 'destinations.header.frame_id';
+info.MatPath{10} = 'destinations.pose';
+info.MatPath{11} = 'destinations.pose.position';
+info.MatPath{12} = 'destinations.pose.position.x';
+info.MatPath{13} = 'destinations.pose.position.y';
+info.MatPath{14} = 'destinations.pose.position.z';
+info.MatPath{15} = 'destinations.pose.orientation';
+info.MatPath{16} = 'destinations.pose.orientation.x';
+info.MatPath{17} = 'destinations.pose.orientation.y';
+info.MatPath{18} = 'destinations.pose.orientation.z';
+info.MatPath{19} = 'destinations.pose.orientation.w';
+info.MatPath{20} = 'support_surface';

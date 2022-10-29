@@ -1,0 +1,41 @@
+function [data, info] = gNSSChannelStatus
+%GNSSChannelStatus gives an empty data for applanix_msgs/GNSSChannelStatus
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'applanix_msgs/GNSSChannelStatus';
+[data.SvPrn, info.SvPrn] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.STATUSL1IDLE, info.STATUSL1IDLE] = ros.internal.ros.messages.ros.default_type('uint16',1, 0);
+[data.STATUSL1ACQUISITION, info.STATUSL1ACQUISITION] = ros.internal.ros.messages.ros.default_type('uint16',1, 1);
+[data.STATUSL1CODELOCK, info.STATUSL1CODELOCK] = ros.internal.ros.messages.ros.default_type('uint16',1, 3);
+[data.STATUSL1PHASELOCK, info.STATUSL1PHASELOCK] = ros.internal.ros.messages.ros.default_type('uint16',1, 5);
+[data.STATUSL2IDLE, info.STATUSL2IDLE] = ros.internal.ros.messages.ros.default_type('uint16',1, 6);
+[data.STATUSL2ACQUISITION, info.STATUSL2ACQUISITION] = ros.internal.ros.messages.ros.default_type('uint16',1, 8);
+[data.STATUSL2CODELOCK, info.STATUSL2CODELOCK] = ros.internal.ros.messages.ros.default_type('uint16',1, 9);
+[data.STATUSL2PHASELOCK, info.STATUSL2PHASELOCK] = ros.internal.ros.messages.ros.default_type('uint16',1, 11);
+[data.Status, info.Status] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.SvAzimuth, info.SvAzimuth] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.SvElevation, info.SvElevation] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.SvL1Snr, info.SvL1Snr] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.SvL2Snr, info.SvL2Snr] = ros.internal.ros.messages.ros.default_type('single',1);
+info.MessageType = 'applanix_msgs/GNSSChannelStatus';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,14);
+info.MatPath{1} = 'sv_prn';
+info.MatPath{2} = 'STATUS_L1_IDLE';
+info.MatPath{3} = 'STATUS_L1_ACQUISITION';
+info.MatPath{4} = 'STATUS_L1_CODE_LOCK';
+info.MatPath{5} = 'STATUS_L1_PHASE_LOCK';
+info.MatPath{6} = 'STATUS_L2_IDLE';
+info.MatPath{7} = 'STATUS_L2_ACQUISITION';
+info.MatPath{8} = 'STATUS_L2_CODE_LOCK';
+info.MatPath{9} = 'STATUS_L2_PHASE_LOCK';
+info.MatPath{10} = 'status';
+info.MatPath{11} = 'sv_azimuth';
+info.MatPath{12} = 'sv_elevation';
+info.MatPath{13} = 'sv_l1_snr';
+info.MatPath{14} = 'sv_l2_snr';

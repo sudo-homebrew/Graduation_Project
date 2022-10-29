@@ -1,0 +1,8 @@
+Header header
+geometry_msgs/Pose[] poses
+float32[] times
+---
+---
+uint32 pose_index
+float32 percent_complete
+

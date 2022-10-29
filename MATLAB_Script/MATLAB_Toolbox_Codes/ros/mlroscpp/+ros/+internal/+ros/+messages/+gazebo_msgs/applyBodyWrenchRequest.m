@@ -1,0 +1,44 @@
+function [data, info] = applyBodyWrenchRequest
+%ApplyBodyWrench gives an empty data for gazebo_msgs/ApplyBodyWrenchRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'gazebo_msgs/ApplyBodyWrenchRequest';
+[data.BodyName, info.BodyName] = ros.internal.ros.messages.ros.char('string',0);
+[data.ReferenceFrame, info.ReferenceFrame] = ros.internal.ros.messages.ros.char('string',0);
+[data.ReferencePoint, info.ReferencePoint] = ros.internal.ros.messages.geometry_msgs.point;
+info.ReferencePoint.MLdataType = 'struct';
+[data.Wrench, info.Wrench] = ros.internal.ros.messages.geometry_msgs.wrench;
+info.Wrench.MLdataType = 'struct';
+[data.StartTime, info.StartTime] = ros.internal.ros.messages.ros.time;
+info.StartTime.MLdataType = 'struct';
+[data.Duration, info.Duration] = ros.internal.ros.messages.ros.duration;
+info.Duration.MLdataType = 'struct';
+info.MessageType = 'gazebo_msgs/ApplyBodyWrenchRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,21);
+info.MatPath{1} = 'body_name';
+info.MatPath{2} = 'reference_frame';
+info.MatPath{3} = 'reference_point';
+info.MatPath{4} = 'reference_point.x';
+info.MatPath{5} = 'reference_point.y';
+info.MatPath{6} = 'reference_point.z';
+info.MatPath{7} = 'wrench';
+info.MatPath{8} = 'wrench.force';
+info.MatPath{9} = 'wrench.force.x';
+info.MatPath{10} = 'wrench.force.y';
+info.MatPath{11} = 'wrench.force.z';
+info.MatPath{12} = 'wrench.torque';
+info.MatPath{13} = 'wrench.torque.x';
+info.MatPath{14} = 'wrench.torque.y';
+info.MatPath{15} = 'wrench.torque.z';
+info.MatPath{16} = 'start_time';
+info.MatPath{17} = 'start_time.sec';
+info.MatPath{18} = 'start_time.nsec';
+info.MatPath{19} = 'duration';
+info.MatPath{20} = 'duration.sec';
+info.MatPath{21} = 'duration.nsec';

@@ -1,0 +1,10 @@
+<package>
+  <name>octomap_msgs</name>
+  <description>TODO</description>
+  <maintainer email="TODO@EMAIL.COM">TODO</maintainer>
+  <license>TODO</license>
+  <version>0.3.1</version>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_msgs</build_depend>
+</package>

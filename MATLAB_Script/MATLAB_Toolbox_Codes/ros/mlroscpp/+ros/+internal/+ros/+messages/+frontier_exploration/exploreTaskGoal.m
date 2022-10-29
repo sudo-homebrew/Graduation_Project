@@ -1,0 +1,40 @@
+function [data, info] = exploreTaskGoal
+%ExploreTaskGoal gives an empty data for frontier_exploration/ExploreTaskGoal
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'frontier_exploration/ExploreTaskGoal';
+[data.ExploreBoundary, info.ExploreBoundary] = ros.internal.ros.messages.geometry_msgs.polygonStamped;
+info.ExploreBoundary.MLdataType = 'struct';
+[data.ExploreCenter, info.ExploreCenter] = ros.internal.ros.messages.geometry_msgs.pointStamped;
+info.ExploreCenter.MLdataType = 'struct';
+info.MessageType = 'frontier_exploration/ExploreTaskGoal';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,23);
+info.MatPath{1} = 'explore_boundary';
+info.MatPath{2} = 'explore_boundary.header';
+info.MatPath{3} = 'explore_boundary.header.seq';
+info.MatPath{4} = 'explore_boundary.header.stamp';
+info.MatPath{5} = 'explore_boundary.header.stamp.sec';
+info.MatPath{6} = 'explore_boundary.header.stamp.nsec';
+info.MatPath{7} = 'explore_boundary.header.frame_id';
+info.MatPath{8} = 'explore_boundary.polygon';
+info.MatPath{9} = 'explore_boundary.polygon.points';
+info.MatPath{10} = 'explore_boundary.polygon.points.x';
+info.MatPath{11} = 'explore_boundary.polygon.points.y';
+info.MatPath{12} = 'explore_boundary.polygon.points.z';
+info.MatPath{13} = 'explore_center';
+info.MatPath{14} = 'explore_center.header';
+info.MatPath{15} = 'explore_center.header.seq';
+info.MatPath{16} = 'explore_center.header.stamp';
+info.MatPath{17} = 'explore_center.header.stamp.sec';
+info.MatPath{18} = 'explore_center.header.stamp.nsec';
+info.MatPath{19} = 'explore_center.header.frame_id';
+info.MatPath{20} = 'explore_center.point';
+info.MatPath{21} = 'explore_center.point.x';
+info.MatPath{22} = 'explore_center.point.y';
+info.MatPath{23} = 'explore_center.point.z';

@@ -1,0 +1,39 @@
+function [data, info] = getRobotTrajectoryResponse
+%GetRobotTrajectory gives an empty data for hector_nav_msgs/GetRobotTrajectoryResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'hector_nav_msgs/GetRobotTrajectoryResponse';
+[data.Trajectory, info.Trajectory] = ros.internal.ros.messages.nav_msgs.path;
+info.Trajectory.MLdataType = 'struct';
+info.MessageType = 'hector_nav_msgs/GetRobotTrajectoryResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,24);
+info.MatPath{1} = 'trajectory';
+info.MatPath{2} = 'trajectory.header';
+info.MatPath{3} = 'trajectory.header.seq';
+info.MatPath{4} = 'trajectory.header.stamp';
+info.MatPath{5} = 'trajectory.header.stamp.sec';
+info.MatPath{6} = 'trajectory.header.stamp.nsec';
+info.MatPath{7} = 'trajectory.header.frame_id';
+info.MatPath{8} = 'trajectory.poses';
+info.MatPath{9} = 'trajectory.poses.header';
+info.MatPath{10} = 'trajectory.poses.header.seq';
+info.MatPath{11} = 'trajectory.poses.header.stamp';
+info.MatPath{12} = 'trajectory.poses.header.stamp.sec';
+info.MatPath{13} = 'trajectory.poses.header.stamp.nsec';
+info.MatPath{14} = 'trajectory.poses.header.frame_id';
+info.MatPath{15} = 'trajectory.poses.pose';
+info.MatPath{16} = 'trajectory.poses.pose.position';
+info.MatPath{17} = 'trajectory.poses.pose.position.x';
+info.MatPath{18} = 'trajectory.poses.pose.position.y';
+info.MatPath{19} = 'trajectory.poses.pose.position.z';
+info.MatPath{20} = 'trajectory.poses.pose.orientation';
+info.MatPath{21} = 'trajectory.poses.pose.orientation.x';
+info.MatPath{22} = 'trajectory.poses.pose.orientation.y';
+info.MatPath{23} = 'trajectory.poses.pose.orientation.z';
+info.MatPath{24} = 'trajectory.poses.pose.orientation.w';

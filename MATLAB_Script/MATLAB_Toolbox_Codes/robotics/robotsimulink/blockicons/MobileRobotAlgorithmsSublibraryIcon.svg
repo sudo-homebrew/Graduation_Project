@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{fill:#d9d9d9;}.cls-2{fill:#595959;}.cls-3{fill:#333;}.cls-4,.cls-6{fill:none;stroke-miterlimit:10;}.cls-4{stroke:#666;}.cls-5{fill:#666;}.cls-6{stroke:#333;}</style>
+   </defs>
+   <title>Differential Drive_040219</title>
+   <polygon class="cls-1"
+            points="94.06 19.84 25 19.84 25 80.16 94.06 80.16 125 50 94.06 19.84"/>
+   <rect class="cls-2" height="5.02" rx="2.16" ry="2.16" width="36.66" x="30.49"
+         y="69.64"/>
+   <rect class="cls-2" height="5.02" rx="2.16" ry="2.16" width="36.66" x="30.49"
+         y="25.34"/>
+   <circle class="cls-3" cx="48.82" cy="50" r="3.48"/>
+   <circle class="cls-2" cx="101.33" cy="50" r="3.09"/>
+   <line class="cls-4" x1="48.82" x2="48.82" y1="66.05" y2="56.66"/>
+   <polygon class="cls-5" points="51.06 65.4 48.82 69.28 46.58 65.4 51.06 65.4"/>
+   <polygon class="cls-5" points="51.06 57.31 48.82 53.43 46.58 57.31 51.06 57.31"/>
+   <line class="cls-6" x1="52.23" x2="93.16" y1="50" y2="50"/>
+   <polygon class="cls-3" points="92.5 52.24 96.39 50 92.5 47.76 92.5 52.24"/>
+   <path class="cls-4" d="M71,37.21a25.66,25.66,0,0,1,3,9.22"/>
+   <polygon class="cls-5" points="71.65 45.97 74.21 49.65 76.13 45.6 71.65 45.97"/>
+   <line class="cls-6" x1="48.82" x2="87.95" y1="49.91" y2="27.02"/>
+   <polygon class="cls-3" points="88.52 29.29 90.74 25.39 86.25 25.42 88.52 29.29"/>
+</svg>

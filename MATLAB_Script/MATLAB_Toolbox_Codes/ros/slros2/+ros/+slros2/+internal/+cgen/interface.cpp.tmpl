@@ -1,0 +1,362 @@
+{% if (false) %}
+// Copyright 2019-2022 The MathWorks, Inc.
+{% endif %}
+
+{% var slCoderVer = ver('simulinkcoder') %}
+//
+// File ros2nodeinterface.cpp
+//
+// Code generated for Simulink model '{%ModelName%}'.
+//
+// Model version                  : {% get_param(ModelName,'ModelVersion') %}
+// Simulink Coder version         : {% [slCoderVer.Version, ' ', slCoderVer.Release, ' ', slCoderVer.Date] %}
+// C/C++ source code generated on : {% datestr(now,'ddd mmm dd HH:MM:SS YYYY') %}
+//
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4244)
+#pragma warning(disable : 4265)
+#pragma warning(disable : 4458)
+#pragma warning(disable : 4100)
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+#pragma GCC diagnostic ignored "-Wredundant-decls"
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wshadow"
+#endif //_MSC_VER
+#include "rclcpp/rclcpp.hpp"
+#include "{%ModelName%}.h"
+#include "ros2nodeinterface.h"
+
+#include <thread>
+#include <chrono>
+#include <utility>
+
+const std::string SLROSNodeName("{%ModelName%}");
+{% if ~isempty(ConstructorArgDefns) %}
+{% ConstructorArgDefns %}
+{% endif %}
+
+{% if HasExplicitPartitions %}
+extern void {%ModelName%}_step({%ModelClassName%}& classObj, int tid);
+{% endif %}
+
+namespace ros2 {
+namespace matlab {
+
+NodeInterface::NodeInterface()
+    : mNode()
+    , mModel()
+    , mExec()
+    , mBaseRateSem()
+    , mBaseRateThread()
+    , mSchedulerThread()
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+    , mSubRate{%num2str(SampleTimes(i).TID)%}Sem()
+    , mSubRate{%num2str(SampleTimes(i).TID)%}Thread()
+{% endif %}
+{% endfor %}
+{% endif %}
+    , mStopSem()
+    , mRunModel(true){
+  }
+
+NodeInterface::~NodeInterface() {
+    terminate();
+  }
+
+void NodeInterface::initialize(int argc, char * const argv[]) {
+    try {
+        //initialize ros2
+        std::vector<char *> args(argv, argv + argc);
+        rclcpp::init(static_cast<int>(args.size()), args.data());
+
+        //create the Node specified in Model
+        std::string NodeName("{%ModelName%}");
+        mNode = std::make_shared<rclcpp::Node>(NodeName);
+        mExec = std::make_shared<rclcpp::executors::MultiThreadedExecutor>();
+        mExec->add_node(mNode);
+
+        //initialize the model which will initialize the publishers and subscribers
+        mModel = std::make_shared<{%ModelClassName%}>(
+        {% if ~isempty(ConstructorArgs) %}
+        {% ConstructorArgs %}
+        {% endif %}
+        );
+		rtmSetErrorStatus(mModel->getRTM(), (NULL));
+        mModel->initialize();
+
+        //create the threads for the rates in the Model
+        mBaseRateThread = std::make_shared<std::thread>(&NodeInterface::baseRateTask, this);
+        {% if ~isSingleTasking %}
+        {% for i = numel(SampleTimes) %}
+        {% if SampleTimes(i).TID ~= 0 %}
+            mSubRate{%num2str(SampleTimes(i).TID)%}Thread = std::make_shared<std::thread>(&NodeInterface::subRate{%num2str(SampleTimes(i).TID)%}Task, this);
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+		mSchedulerThread = std::make_shared<std::thread>(&NodeInterface::schedulerThreadCallback, this);
+    }
+    catch (std::exception& ex) {
+        std::cout << ex.what() << std::endl;
+        throw ex;
+    }
+    catch (...) {
+        std::cout << "Unknown exception" << std::endl;
+        throw;
+    }
+}
+
+int NodeInterface::run() {
+  if (mExec) {
+    mExec->spin();
+  }
+  mRunModel = false;
+  return 0;
+}
+
+boolean_T NodeInterface::getStopRequestedFlag(void) {
+    #ifndef rtmGetStopRequested
+    return (!(rtmGetErrorStatus(mModel->getRTM())
+        == (NULL)));
+    #else
+    return (!(rtmGetErrorStatus(mModel->getRTM())
+        == (NULL)) || rtmGetStopRequested(mModel->getRTM()));
+    #endif
+}
+
+void NodeInterface::stop(void) {
+  if (mExec.get()) {
+    mExec->cancel();
+    if (mNode) {
+      mExec->remove_node(mNode);
+    }
+    while (mExec.use_count() > 1);
+  }
+}
+
+void NodeInterface::terminate(void) {
+    if (mBaseRateThread.get()) {
+        mRunModel = false;
+        mBaseRateSem.notify(); // break out wait
+        mBaseRateThread->join();
+        if (mSchedulerThread.get()) {
+            mSchedulerThread->join();
+            mSchedulerThread.reset();
+        }
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+        mSubRate{%num2str(SampleTimes(i).TID)%}Sem.notify();
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+        mSubRate{%num2str(SampleTimes(i).TID)%}Thread->join();
+        mSubRate{%num2str(SampleTimes(i).TID)%}Thread.reset();
+{% endif %}
+{% endfor %}
+{% endif %}
+        mBaseRateThread.reset();
+    {% if strcmp('on',IncludeMdlTermFcn) %}
+        if (mModel.get()) {
+            mModel->terminate();
+        }
+    {% endif %}
+{% var keys = Publishers.keys %}
+{% for i = numel(keys) %}
+        // Release publisher {% keys{i} %}
+        m{%Publishers(keys{i}).BlockID%}.reset();
+{% endfor %}
+{% var keys = Subscribers.keys %}
+{% for i = numel(keys) %}
+        // Release subscriber {% keys{i} %}
+        m{%Subscribers(keys{i}).BlockID%}.reset();
+{% endfor %}
+{% var keys = ServiceCallers.keys %}
+{% for i = numel(keys) %}
+        // Release servicecaller {% keys{i} %}
+        m{%ServiceCallers(keys{i}).BlockID%}.reset();
+{% endfor %}
+        mModel.reset();
+        mExec.reset();
+        mNode.reset();
+        rclcpp::shutdown();
+    }
+}
+
+//
+void NodeInterface::schedulerThreadCallback(void)
+{
+  while (mRunModel) {
+        std::this_thread::sleep_for(std::chrono::nanoseconds({%SampleTimeNsecs%}));
+        mBaseRateSem.notify();
+    }
+}
+
+//Model specific
+{% if isSingleTasking %}
+void NodeInterface::baseRateTask(void) {
+  mRunModel = (rtmGetErrorStatus(mModel->getRTM()) ==
+              (NULL));
+  while (mRunModel) {
+    mBaseRateSem.wait();
+    if (!mRunModel) break;
+    mModel->step();
+    mRunModel &= !NodeInterface::getStopRequestedFlag(); //If RunModel and not stop requested
+  }
+  NodeInterface::stop();
+}
+{% endif %}
+
+{% if ~isSingleTasking %}
+void NodeInterface::baseRateTask(void) {
+  mRunModel = (rtmGetErrorStatus(mModel->getRTM()) ==
+              (NULL));
+  while (mRunModel) {
+    mBaseRateSem.wait();
+    if (!mRunModel) break;
+    {% for i = numel(SampleTimes) %}
+    {% if SampleTimes(i).TID ~= 0 %}
+        //Check if subrate {%num2str(SampleTimes(i).TID)%} have to be unblocked
+        if (rtmStepTask(mModel->getRTM(), {%num2str(SampleTimes(i).TID)%})) {
+          mSubRate{%num2str(SampleTimes(i).TID)%}Sem.notify();
+        }
+    {% endif %}
+    {% endfor %}
+    {% if ~HasExplicitPartitions %}
+    mModel->step0();
+    {% endif %}
+    mRunModel &= !NodeInterface::getStopRequestedFlag(); //If RunModel and not stop requested
+  }
+  NodeInterface::stop();
+}
+{% endif %}
+
+{% if ~isSingleTasking %}
+{% for i = numel(SampleTimes) %}
+{% if SampleTimes(i).TID ~= 0 %}
+void NodeInterface::subRate{%num2str(SampleTimes(i).TID)%}Task(void) {
+  while (mRunModel) {
+    mSubRate{%num2str(SampleTimes(i).TID)%}Sem.wait();
+    if (!mRunModel) break;
+    {% if ~HasExplicitPartitions %}
+    mModel->step{%num2str(SampleTimes(i).TID)%}();
+    {% endif %}
+    {% if HasExplicitPartitions %}
+    {%ModelName%}_step(*mModel,{%num2str(SampleTimes(i).TID) - 1%});
+    {% endif %}
+  }
+}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% var keys = Publishers.keys %}
+{% for i = numel(keys) %}
+// {% keys{i} %}
+void NodeInterface::create_{%Publishers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+  m{%Publishers(keys{i}).BlockID%} = mNode->create_publisher<{%Publishers(keys{i}).msgInfo.msgCppClassName%}>(topicName, ros2::matlab::getQOSSettingsFromRMW(qosProfile));
+}
+void NodeInterface::publish_{%Publishers(keys{i}).BlockID%}(const {%Publishers(keys{i}).BusName%}* inBus) {
+  auto msg = std::make_unique<{%Publishers(keys{i}).msgInfo.msgCppClassName%}>();
+  convertFromBus(*msg, inBus);
+  m{%Publishers(keys{i}).BlockID%}->publish(std::move(msg));
+}
+{% endfor %}
+
+{% var keys = Subscribers.keys %}
+{% for i = numel(keys) %}
+// {% keys{i} %}
+void NodeInterface::create_{%Subscribers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+    auto callback = [this]({%Subscribers(keys{i}).msgInfo.msgCppClassName%}::SharedPtr msg) {
+        std::lock_guard<std::mutex> lockMsg(mtx_{%Subscribers(keys{i}).BlockID%});
+        mLatestMsg_{%Subscribers(keys{i}).BlockID%} = msg;
+    };
+    m{%Subscribers(keys{i}).BlockID%} = mNode->create_subscription<{%Subscribers(keys{i}).msgInfo.msgCppClassName%}>(topicName, ros2::matlab::getQOSSettingsFromRMW(qosProfile), callback);
+}
+bool NodeInterface::getLatestMessage_{%Subscribers(keys{i}).BlockID%}({%Subscribers(keys{i}).BusName%}* outBus) {
+    if (mLatestMsg_{%Subscribers(keys{i}).BlockID%}.get()) {
+        std::lock_guard<std::mutex> lockMsg(mtx_{%Subscribers(keys{i}).BlockID%});
+        convertToBus(outBus, *mLatestMsg_{%Subscribers(keys{i}).BlockID%});
+        mLatestMsg_{%Subscribers(keys{i}).BlockID%}.reset();
+        return true;
+    }
+    return false;
+}
+{% endfor %}
+
+{% var keys = ServiceCallers.keys %}
+{% for i = numel(keys) %}
+// {% keys{i} %}
+void NodeInterface::create_{%ServiceCallers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+    m{%ServiceCallers(keys{i}).BlockID%} = mNode->create_client<{%ServiceCallers(keys{i}).msgInfo.msgBaseCppClassName%}>(topicName, qosProfile);
+}
+bool NodeInterface::waitForServer_{%ServiceCallers(keys{i}).BlockID%}(const double connectionTimeout){
+    return m{%ServiceCallers(keys{i}).BlockID%}->wait_for_service(std::chrono::duration<double>(connectionTimeout));
+}
+uint8_T NodeInterface::call_{%ServiceCallers(keys{i}).BlockID%}(const {%ServiceCallers(keys{i}).InputBusName%}* inBus, {%ServiceCallers(keys{i}).OutputBusName%}* outBus){
+    auto msg = std::make_shared<{%ServiceCallers(keys{i}).msgInfo.msgBaseCppClassName%}::Request>();
+    convertFromBus(*msg, inBus);
+    auto result = m{%ServiceCallers(keys{i}).BlockID%}->async_send_request(std::move(msg));
+    // Wait for result
+    std::future_status status = result.wait_for(std::chrono::seconds((int)1e9));
+    if (status != std::future_status::ready) {
+        return 2;
+    }
+    convertToBus(outBus, *result.get().get());
+    return 0;
+}
+{% endfor %}
+
+{% var keys = Publishers.keys %}
+{% for i = numel(keys) %}
+// Helper for {% keys{i} %}
+void create_{%Publishers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+  ros2::matlab::getNodeInterface()->create_{%Publishers(keys{i}).BlockID%}(topicName, qosProfile);
+}
+void publish_{%Publishers(keys{i}).BlockID%}(const {%Publishers(keys{i}).BusName%}* inBus) {
+  ros2::matlab::getNodeInterface()->publish_{%Publishers(keys{i}).BlockID%}(inBus);
+}
+{% endfor %}
+{% var keys = Subscribers.keys %}
+{% for i = numel(keys) %}
+// Helper for {% keys{i} %}
+void create_{%Subscribers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+  ros2::matlab::getNodeInterface()->create_{%Subscribers(keys{i}).BlockID%}(topicName, qosProfile);
+}
+bool getLatestMessage_{%Subscribers(keys{i}).BlockID%}({%Subscribers(keys{i}).BusName%}* outBus) {
+  return ros2::matlab::getNodeInterface()->getLatestMessage_{%Subscribers(keys{i}).BlockID%}(outBus);
+}
+{% endfor %}
+{% var keys = ServiceCallers.keys %}
+{% for i = numel(keys) %}
+// Helper for {% keys{i} %}
+void create_{%ServiceCallers(keys{i}).BlockID%}(const char *topicName, const rmw_qos_profile_t& qosProfile){
+  ros2::matlab::getNodeInterface()->create_{%ServiceCallers(keys{i}).BlockID%}(topicName, qosProfile);
+}
+bool waitForServer_{%ServiceCallers(keys{i}).BlockID%}(const double connectionTimeout){
+    return ros2::matlab::getNodeInterface()->waitForServer_{%ServiceCallers(keys{i}).BlockID%}(connectionTimeout);
+}
+uint8_T call_{%ServiceCallers(keys{i}).BlockID%}(const {%ServiceCallers(keys{i}).InputBusName%}* inBus, {%ServiceCallers(keys{i}).OutputBusName%}* outBus){
+    return ros2::matlab::getNodeInterface()->call_{%ServiceCallers(keys{i}).BlockID%}(inBus, outBus);
+}
+{% endfor %}
+}//namespace matlab
+}//namespace ros2
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#else
+#pragma GCC diagnostic pop
+#endif //_MSC_VER

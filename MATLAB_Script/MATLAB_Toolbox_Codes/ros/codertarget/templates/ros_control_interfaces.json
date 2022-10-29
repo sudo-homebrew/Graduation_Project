@@ -1,0 +1,43 @@
+{
+    "InputResources": [
+        {
+            "Name": "VelocityJointInterface",
+            "Classname": "JointHandle",
+            "CppVarname": "vel_joint_if",
+            "Header": "joint_command_interface.h"
+        },
+        {
+            "Name": "EffortJointInterface",
+            "Classname": "JointHandle",
+            "CppVarname": "eff_joint_if",
+            "Header": "joint_command_interface.h"
+        },
+        {
+            "Name": "PositionJointInterface",
+            "Classname": "JointHandle",
+            "CppVarname": "pos_joint_if",
+            "Header": "joint_command_interface.h"
+        }
+
+    ],
+    "OutputResources": [
+        {
+            "Name": "EffortJointInterface",
+            "Classname": "JointHandle",            
+            "CppVarname": "eff_joint_h",
+            "Header": "joint_command_interface.h"
+        },
+        {
+            "Name": "VelocityJointInterface",
+            "Classname": "JointHandle",            
+            "CppVarname": "vel_joint_h",
+            "Header": "joint_command_interface.h"
+        },
+        {
+            "Name": "PositionJointInterface",
+            "Classname": "JointHandle",            
+            "CppVarname": "pos_joint_h",
+            "Header": "joint_command_interface.h"
+        }
+    ]
+}

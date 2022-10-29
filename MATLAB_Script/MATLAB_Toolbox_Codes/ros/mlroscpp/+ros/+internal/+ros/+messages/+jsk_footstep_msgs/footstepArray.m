@@ -1,0 +1,43 @@
+function [data, info] = footstepArray
+%FootstepArray gives an empty data for jsk_footstep_msgs/FootstepArray
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'jsk_footstep_msgs/FootstepArray';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Footsteps, info.Footsteps] = ros.internal.ros.messages.jsk_footstep_msgs.footstep;
+info.Footsteps.MLdataType = 'struct';
+info.Footsteps.MaxLen = NaN;
+info.Footsteps.MinLen = 0;
+data.Footsteps = data.Footsteps([],1);
+info.MessageType = 'jsk_footstep_msgs/FootstepArray';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,23);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'footsteps';
+info.MatPath{8} = 'footsteps.RIGHT';
+info.MatPath{9} = 'footsteps.LEFT';
+info.MatPath{10} = 'footsteps.leg';
+info.MatPath{11} = 'footsteps.pose';
+info.MatPath{12} = 'footsteps.pose.position';
+info.MatPath{13} = 'footsteps.pose.position.x';
+info.MatPath{14} = 'footsteps.pose.position.y';
+info.MatPath{15} = 'footsteps.pose.position.z';
+info.MatPath{16} = 'footsteps.pose.orientation';
+info.MatPath{17} = 'footsteps.pose.orientation.x';
+info.MatPath{18} = 'footsteps.pose.orientation.y';
+info.MatPath{19} = 'footsteps.pose.orientation.z';
+info.MatPath{20} = 'footsteps.pose.orientation.w';
+info.MatPath{21} = 'footsteps.duration';
+info.MatPath{22} = 'footsteps.duration.sec';
+info.MatPath{23} = 'footsteps.duration.nsec';

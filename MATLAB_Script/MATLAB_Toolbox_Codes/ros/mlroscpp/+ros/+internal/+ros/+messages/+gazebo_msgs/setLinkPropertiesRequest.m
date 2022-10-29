@@ -1,0 +1,43 @@
+function [data, info] = setLinkPropertiesRequest
+%SetLinkProperties gives an empty data for gazebo_msgs/SetLinkPropertiesRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'gazebo_msgs/SetLinkPropertiesRequest';
+[data.LinkName, info.LinkName] = ros.internal.ros.messages.ros.char('string',0);
+[data.Com, info.Com] = ros.internal.ros.messages.geometry_msgs.pose;
+info.Com.MLdataType = 'struct';
+[data.GravityMode, info.GravityMode] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.Mass, info.Mass] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Ixx, info.Ixx] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Ixy, info.Ixy] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Ixz, info.Ixz] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Iyy, info.Iyy] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Iyz, info.Iyz] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Izz, info.Izz] = ros.internal.ros.messages.ros.default_type('double',1);
+info.MessageType = 'gazebo_msgs/SetLinkPropertiesRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,19);
+info.MatPath{1} = 'link_name';
+info.MatPath{2} = 'com';
+info.MatPath{3} = 'com.position';
+info.MatPath{4} = 'com.position.x';
+info.MatPath{5} = 'com.position.y';
+info.MatPath{6} = 'com.position.z';
+info.MatPath{7} = 'com.orientation';
+info.MatPath{8} = 'com.orientation.x';
+info.MatPath{9} = 'com.orientation.y';
+info.MatPath{10} = 'com.orientation.z';
+info.MatPath{11} = 'com.orientation.w';
+info.MatPath{12} = 'gravity_mode';
+info.MatPath{13} = 'mass';
+info.MatPath{14} = 'ixx';
+info.MatPath{15} = 'ixy';
+info.MatPath{16} = 'ixz';
+info.MatPath{17} = 'iyy';
+info.MatPath{18} = 'iyz';
+info.MatPath{19} = 'izz';

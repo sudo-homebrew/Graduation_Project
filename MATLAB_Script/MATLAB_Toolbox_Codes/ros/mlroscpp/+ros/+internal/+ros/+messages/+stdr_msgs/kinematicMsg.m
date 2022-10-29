@@ -1,0 +1,39 @@
+function [data, info] = kinematicMsg
+%KinematicMsg gives an empty data for stdr_msgs/KinematicMsg
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'stdr_msgs/KinematicMsg';
+[data.Type, info.Type] = ros.internal.ros.messages.ros.char('string',0);
+[data.AUxUx, info.AUxUx] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AUxUy, info.AUxUy] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AUxW, info.AUxW] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AUyUx, info.AUyUx] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AUyUy, info.AUyUy] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AUyW, info.AUyW] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AWUx, info.AWUx] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AWUy, info.AWUy] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AWW, info.AWW] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AGUx, info.AGUx] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AGUy, info.AGUy] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.AGW, info.AGW] = ros.internal.ros.messages.ros.default_type('single',1);
+info.MessageType = 'stdr_msgs/KinematicMsg';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,13);
+info.MatPath{1} = 'type';
+info.MatPath{2} = 'a_ux_ux';
+info.MatPath{3} = 'a_ux_uy';
+info.MatPath{4} = 'a_ux_w';
+info.MatPath{5} = 'a_uy_ux';
+info.MatPath{6} = 'a_uy_uy';
+info.MatPath{7} = 'a_uy_w';
+info.MatPath{8} = 'a_w_ux';
+info.MatPath{9} = 'a_w_uy';
+info.MatPath{10} = 'a_w_w';
+info.MatPath{11} = 'a_g_ux';
+info.MatPath{12} = 'a_g_uy';
+info.MatPath{13} = 'a_g_w';

@@ -1,0 +1,43 @@
+function [data, info] = jointImpedances
+%JointImpedances gives an empty data for brics_actuator/JointImpedances
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'brics_actuator/JointImpedances';
+[data.PoisonStamp, info.PoisonStamp] = ros.internal.ros.messages.brics_actuator.poison;
+info.PoisonStamp.MLdataType = 'struct';
+[data.Dampings, info.Dampings] = ros.internal.ros.messages.brics_actuator.jointValue;
+info.Dampings.MLdataType = 'struct';
+info.Dampings.MaxLen = NaN;
+info.Dampings.MinLen = 0;
+data.Dampings = data.Dampings([],1);
+[data.Stiffnesses, info.Stiffnesses] = ros.internal.ros.messages.brics_actuator.jointValue;
+info.Stiffnesses.MLdataType = 'struct';
+info.Stiffnesses.MaxLen = NaN;
+info.Stiffnesses.MinLen = 0;
+data.Stiffnesses = data.Stiffnesses([],1);
+info.MessageType = 'brics_actuator/JointImpedances';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,18);
+info.MatPath{1} = 'poisonStamp';
+info.MatPath{2} = 'poisonStamp.originator';
+info.MatPath{3} = 'poisonStamp.description';
+info.MatPath{4} = 'poisonStamp.qos';
+info.MatPath{5} = 'dampings';
+info.MatPath{6} = 'dampings.timeStamp';
+info.MatPath{7} = 'dampings.timeStamp.sec';
+info.MatPath{8} = 'dampings.timeStamp.nsec';
+info.MatPath{9} = 'dampings.joint_uri';
+info.MatPath{10} = 'dampings.unit';
+info.MatPath{11} = 'dampings.value';
+info.MatPath{12} = 'stiffnesses';
+info.MatPath{13} = 'stiffnesses.timeStamp';
+info.MatPath{14} = 'stiffnesses.timeStamp.sec';
+info.MatPath{15} = 'stiffnesses.timeStamp.nsec';
+info.MatPath{16} = 'stiffnesses.joint_uri';
+info.MatPath{17} = 'stiffnesses.unit';
+info.MatPath{18} = 'stiffnesses.value';

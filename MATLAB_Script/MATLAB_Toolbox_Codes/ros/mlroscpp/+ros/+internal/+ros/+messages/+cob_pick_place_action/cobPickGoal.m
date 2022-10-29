@@ -1,0 +1,46 @@
+function [data, info] = cobPickGoal
+%CobPickGoal gives an empty data for cob_pick_place_action/CobPickGoal
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'cob_pick_place_action/CobPickGoal';
+[data.ObjectClass, info.ObjectClass] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.ObjectName, info.ObjectName] = ros.internal.ros.messages.ros.char('string',0);
+[data.ObjectPose, info.ObjectPose] = ros.internal.ros.messages.geometry_msgs.poseStamped;
+info.ObjectPose.MLdataType = 'struct';
+[data.GripperType, info.GripperType] = ros.internal.ros.messages.ros.char('string',0);
+[data.GripperSide, info.GripperSide] = ros.internal.ros.messages.ros.char('string',0);
+[data.GraspDatabase, info.GraspDatabase] = ros.internal.ros.messages.ros.char('string',0);
+[data.GraspId, info.GraspId] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.SupportSurface, info.SupportSurface] = ros.internal.ros.messages.ros.char('string',0);
+info.MessageType = 'cob_pick_place_action/CobPickGoal';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,24);
+info.MatPath{1} = 'object_class';
+info.MatPath{2} = 'object_name';
+info.MatPath{3} = 'object_pose';
+info.MatPath{4} = 'object_pose.header';
+info.MatPath{5} = 'object_pose.header.seq';
+info.MatPath{6} = 'object_pose.header.stamp';
+info.MatPath{7} = 'object_pose.header.stamp.sec';
+info.MatPath{8} = 'object_pose.header.stamp.nsec';
+info.MatPath{9} = 'object_pose.header.frame_id';
+info.MatPath{10} = 'object_pose.pose';
+info.MatPath{11} = 'object_pose.pose.position';
+info.MatPath{12} = 'object_pose.pose.position.x';
+info.MatPath{13} = 'object_pose.pose.position.y';
+info.MatPath{14} = 'object_pose.pose.position.z';
+info.MatPath{15} = 'object_pose.pose.orientation';
+info.MatPath{16} = 'object_pose.pose.orientation.x';
+info.MatPath{17} = 'object_pose.pose.orientation.y';
+info.MatPath{18} = 'object_pose.pose.orientation.z';
+info.MatPath{19} = 'object_pose.pose.orientation.w';
+info.MatPath{20} = 'gripper_type';
+info.MatPath{21} = 'gripper_side';
+info.MatPath{22} = 'grasp_database';
+info.MatPath{23} = 'grasp_id';
+info.MatPath{24} = 'support_surface';

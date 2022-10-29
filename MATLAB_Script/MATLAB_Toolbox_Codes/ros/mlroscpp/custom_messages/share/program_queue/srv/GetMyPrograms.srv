@@ -1,0 +1,4 @@
+# Get the metadata for the programs associated with the current user
+uint64 token
+---
+ProgramInfo[] programs

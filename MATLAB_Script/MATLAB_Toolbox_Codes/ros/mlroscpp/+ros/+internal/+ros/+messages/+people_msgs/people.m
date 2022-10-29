@@ -1,0 +1,39 @@
+function [data, info] = people
+%People gives an empty data for people_msgs/People
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'people_msgs/People';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.People_, info.People_] = ros.internal.ros.messages.people_msgs.person;
+info.People_.MLdataType = 'struct';
+info.People_.MaxLen = NaN;
+info.People_.MinLen = 0;
+data.People_ = data.People_([],1);
+info.MessageType = 'people_msgs/People';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,19);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'people';
+info.MatPath{8} = 'people.name';
+info.MatPath{9} = 'people.position';
+info.MatPath{10} = 'people.position.x';
+info.MatPath{11} = 'people.position.y';
+info.MatPath{12} = 'people.position.z';
+info.MatPath{13} = 'people.velocity';
+info.MatPath{14} = 'people.velocity.x';
+info.MatPath{15} = 'people.velocity.y';
+info.MatPath{16} = 'people.velocity.z';
+info.MatPath{17} = 'people.reliability';
+info.MatPath{18} = 'people.tagnames';
+info.MatPath{19} = 'people.tags';

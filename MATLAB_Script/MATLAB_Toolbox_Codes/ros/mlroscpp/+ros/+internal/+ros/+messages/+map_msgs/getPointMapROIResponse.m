@@ -1,0 +1,42 @@
+function [data, info] = getPointMapROIResponse
+%GetPointMapROI gives an empty data for map_msgs/GetPointMapROIResponse
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'map_msgs/GetPointMapROIResponse';
+[data.SubMap, info.SubMap] = ros.internal.ros.messages.sensor_msgs.pointCloud2;
+info.SubMap.MLdataType = 'struct';
+info.MessageType = 'map_msgs/GetPointMapROIResponse';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,27);
+info.MatPath{1} = 'sub_map';
+info.MatPath{2} = 'sub_map.header';
+info.MatPath{3} = 'sub_map.header.seq';
+info.MatPath{4} = 'sub_map.header.stamp';
+info.MatPath{5} = 'sub_map.header.stamp.sec';
+info.MatPath{6} = 'sub_map.header.stamp.nsec';
+info.MatPath{7} = 'sub_map.header.frame_id';
+info.MatPath{8} = 'sub_map.height';
+info.MatPath{9} = 'sub_map.width';
+info.MatPath{10} = 'sub_map.fields';
+info.MatPath{11} = 'sub_map.fields.INT8';
+info.MatPath{12} = 'sub_map.fields.UINT8';
+info.MatPath{13} = 'sub_map.fields.INT16';
+info.MatPath{14} = 'sub_map.fields.UINT16';
+info.MatPath{15} = 'sub_map.fields.INT32';
+info.MatPath{16} = 'sub_map.fields.UINT32';
+info.MatPath{17} = 'sub_map.fields.FLOAT32';
+info.MatPath{18} = 'sub_map.fields.FLOAT64';
+info.MatPath{19} = 'sub_map.fields.name';
+info.MatPath{20} = 'sub_map.fields.offset';
+info.MatPath{21} = 'sub_map.fields.datatype';
+info.MatPath{22} = 'sub_map.fields.count';
+info.MatPath{23} = 'sub_map.is_bigendian';
+info.MatPath{24} = 'sub_map.point_step';
+info.MatPath{25} = 'sub_map.row_step';
+info.MatPath{26} = 'sub_map.data';
+info.MatPath{27} = 'sub_map.is_dense';

@@ -1,0 +1,43 @@
+function [data, info] = presenceSensorArray
+%PresenceSensorArray gives an empty data for robotnik_msgs/PresenceSensorArray
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'robotnik_msgs/PresenceSensorArray';
+[data.Sensors, info.Sensors] = ros.internal.ros.messages.robotnik_msgs.presenceSensor;
+info.Sensors.MLdataType = 'struct';
+info.Sensors.MaxLen = NaN;
+info.Sensors.MinLen = 0;
+data.Sensors = data.Sensors([],1);
+info.MessageType = 'robotnik_msgs/PresenceSensorArray';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,25);
+info.MatPath{1} = 'sensors';
+info.MatPath{2} = 'sensors.CAMERA';
+info.MatPath{3} = 'sensors.PHOTOCELL';
+info.MatPath{4} = 'sensors.header';
+info.MatPath{5} = 'sensors.header.seq';
+info.MatPath{6} = 'sensors.header.stamp';
+info.MatPath{7} = 'sensors.header.stamp.sec';
+info.MatPath{8} = 'sensors.header.stamp.nsec';
+info.MatPath{9} = 'sensors.header.frame_id';
+info.MatPath{10} = 'sensors.pose';
+info.MatPath{11} = 'sensors.pose.position';
+info.MatPath{12} = 'sensors.pose.position.x';
+info.MatPath{13} = 'sensors.pose.position.y';
+info.MatPath{14} = 'sensors.pose.position.z';
+info.MatPath{15} = 'sensors.pose.orientation';
+info.MatPath{16} = 'sensors.pose.orientation.x';
+info.MatPath{17} = 'sensors.pose.orientation.y';
+info.MatPath{18} = 'sensors.pose.orientation.z';
+info.MatPath{19} = 'sensors.pose.orientation.w';
+info.MatPath{20} = 'sensors.sensor_id';
+info.MatPath{21} = 'sensors.sensor_type';
+info.MatPath{22} = 'sensors.detected_id';
+info.MatPath{23} = 'sensors.zone';
+info.MatPath{24} = 'sensors.enabled';
+info.MatPath{25} = 'sensors.value';

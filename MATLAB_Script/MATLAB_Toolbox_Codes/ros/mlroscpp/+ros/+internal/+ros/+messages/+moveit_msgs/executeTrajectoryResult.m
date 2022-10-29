@@ -1,0 +1,42 @@
+function [data, info] = executeTrajectoryResult
+%ExecuteTrajectoryResult gives an empty data for moveit_msgs/ExecuteTrajectoryResult
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'moveit_msgs/ExecuteTrajectoryResult';
+[data.ErrorCode, info.ErrorCode] = ros.internal.ros.messages.moveit_msgs.moveItErrorCodes;
+info.ErrorCode.MLdataType = 'struct';
+info.MessageType = 'moveit_msgs/ExecuteTrajectoryResult';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,27);
+info.MatPath{1} = 'error_code';
+info.MatPath{2} = 'error_code.val';
+info.MatPath{3} = 'error_code.SUCCESS';
+info.MatPath{4} = 'error_code.FAILURE';
+info.MatPath{5} = 'error_code.PLANNING_FAILED';
+info.MatPath{6} = 'error_code.INVALID_MOTION_PLAN';
+info.MatPath{7} = 'error_code.MOTION_PLAN_INVALIDATED_BY_ENVIRONMENT_CHANGE';
+info.MatPath{8} = 'error_code.CONTROL_FAILED';
+info.MatPath{9} = 'error_code.UNABLE_TO_AQUIRE_SENSOR_DATA';
+info.MatPath{10} = 'error_code.TIMED_OUT';
+info.MatPath{11} = 'error_code.PREEMPTED';
+info.MatPath{12} = 'error_code.START_STATE_IN_COLLISION';
+info.MatPath{13} = 'error_code.START_STATE_VIOLATES_PATH_CONSTRAINTS';
+info.MatPath{14} = 'error_code.GOAL_IN_COLLISION';
+info.MatPath{15} = 'error_code.GOAL_VIOLATES_PATH_CONSTRAINTS';
+info.MatPath{16} = 'error_code.GOAL_CONSTRAINTS_VIOLATED';
+info.MatPath{17} = 'error_code.INVALID_GROUP_NAME';
+info.MatPath{18} = 'error_code.INVALID_GOAL_CONSTRAINTS';
+info.MatPath{19} = 'error_code.INVALID_ROBOT_STATE';
+info.MatPath{20} = 'error_code.INVALID_LINK_NAME';
+info.MatPath{21} = 'error_code.INVALID_OBJECT_NAME';
+info.MatPath{22} = 'error_code.FRAME_TRANSFORM_FAILURE';
+info.MatPath{23} = 'error_code.COLLISION_CHECKING_UNAVAILABLE';
+info.MatPath{24} = 'error_code.ROBOT_STATE_STALE';
+info.MatPath{25} = 'error_code.SENSOR_INFO_STALE';
+info.MatPath{26} = 'error_code.COMMUNICATION_FAILURE';
+info.MatPath{27} = 'error_code.NO_IK_SOLUTION';

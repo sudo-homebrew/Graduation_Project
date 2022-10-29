@@ -1,0 +1,42 @@
+function [data, info] = cartesianTwist
+%CartesianTwist gives an empty data for brics_actuator/CartesianTwist
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'brics_actuator/CartesianTwist';
+[data.TimeStamp, info.TimeStamp] = ros.internal.ros.messages.ros.time;
+info.TimeStamp.MLdataType = 'struct';
+[data.PoisonStamp, info.PoisonStamp] = ros.internal.ros.messages.brics_actuator.poison;
+info.PoisonStamp.MLdataType = 'struct';
+[data.BaseFrameUri, info.BaseFrameUri] = ros.internal.ros.messages.ros.char('string',0);
+[data.TargetFrameUri, info.TargetFrameUri] = ros.internal.ros.messages.ros.char('string',0);
+[data.Translation, info.Translation] = ros.internal.ros.messages.brics_actuator.cartesianVector;
+info.Translation.MLdataType = 'struct';
+[data.Rotation, info.Rotation] = ros.internal.ros.messages.brics_actuator.cartesianVector;
+info.Rotation.MLdataType = 'struct';
+info.MessageType = 'brics_actuator/CartesianTwist';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,19);
+info.MatPath{1} = 'timeStamp';
+info.MatPath{2} = 'timeStamp.sec';
+info.MatPath{3} = 'timeStamp.nsec';
+info.MatPath{4} = 'poisonStamp';
+info.MatPath{5} = 'poisonStamp.originator';
+info.MatPath{6} = 'poisonStamp.description';
+info.MatPath{7} = 'poisonStamp.qos';
+info.MatPath{8} = 'base_frame_uri';
+info.MatPath{9} = 'target_frame_uri';
+info.MatPath{10} = 'translation';
+info.MatPath{11} = 'translation.unit';
+info.MatPath{12} = 'translation.x';
+info.MatPath{13} = 'translation.y';
+info.MatPath{14} = 'translation.z';
+info.MatPath{15} = 'rotation';
+info.MatPath{16} = 'rotation.unit';
+info.MatPath{17} = 'rotation.x';
+info.MatPath{18} = 'rotation.y';
+info.MatPath{19} = 'rotation.z';

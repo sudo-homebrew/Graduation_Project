@@ -1,0 +1,47 @@
+function [data, info] = motorTraceSample
+%MotorTraceSample gives an empty data for ethercat_hardware/MotorTraceSample
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'ethercat_hardware/MotorTraceSample';
+[data.Timestamp, info.Timestamp] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Enabled, info.Enabled] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.SupplyVoltage, info.SupplyVoltage] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MeasuredMotorVoltage, info.MeasuredMotorVoltage] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.ProgrammedPwm, info.ProgrammedPwm] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.ExecutedCurrent, info.ExecutedCurrent] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MeasuredCurrent, info.MeasuredCurrent] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Velocity, info.Velocity] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.EncoderPosition, info.EncoderPosition] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.EncoderErrorCount, info.EncoderErrorCount] = ros.internal.ros.messages.ros.default_type('uint32',1);
+[data.MotorVoltageErrorLimit, info.MotorVoltageErrorLimit] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.FilteredMotorVoltageError, info.FilteredMotorVoltageError] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.FilteredAbsMotorVoltageError, info.FilteredAbsMotorVoltageError] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.FilteredMeasuredVoltageError, info.FilteredMeasuredVoltageError] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.FilteredAbsMeasuredVoltageError, info.FilteredAbsMeasuredVoltageError] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.FilteredCurrentError, info.FilteredCurrentError] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.FilteredAbsCurrentError, info.FilteredAbsCurrentError] = ros.internal.ros.messages.ros.default_type('double',1);
+info.MessageType = 'ethercat_hardware/MotorTraceSample';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,17);
+info.MatPath{1} = 'timestamp';
+info.MatPath{2} = 'enabled';
+info.MatPath{3} = 'supply_voltage';
+info.MatPath{4} = 'measured_motor_voltage';
+info.MatPath{5} = 'programmed_pwm';
+info.MatPath{6} = 'executed_current';
+info.MatPath{7} = 'measured_current';
+info.MatPath{8} = 'velocity';
+info.MatPath{9} = 'encoder_position';
+info.MatPath{10} = 'encoder_error_count';
+info.MatPath{11} = 'motor_voltage_error_limit';
+info.MatPath{12} = 'filtered_motor_voltage_error';
+info.MatPath{13} = 'filtered_abs_motor_voltage_error';
+info.MatPath{14} = 'filtered_measured_voltage_error';
+info.MatPath{15} = 'filtered_abs_measured_voltage_error';
+info.MatPath{16} = 'filtered_current_error';
+info.MatPath{17} = 'filtered_abs_current_error';

@@ -1,0 +1,39 @@
+function [data, info] = jointState
+%JointState gives an empty data for dynamixel_msgs/JointState
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'dynamixel_msgs/JointState';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Name, info.Name] = ros.internal.ros.messages.ros.char('string',0);
+[data.MotorIds, info.MotorIds] = ros.internal.ros.messages.ros.default_type('int32',NaN);
+[data.MotorTemps, info.MotorTemps] = ros.internal.ros.messages.ros.default_type('int32',NaN);
+[data.GoalPos, info.GoalPos] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.CurrentPos, info.CurrentPos] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Error, info.Error] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Velocity, info.Velocity] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.Load, info.Load] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.IsMoving, info.IsMoving] = ros.internal.ros.messages.ros.default_type('logical',1);
+info.MessageType = 'dynamixel_msgs/JointState';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'name';
+info.MatPath{8} = 'motor_ids';
+info.MatPath{9} = 'motor_temps';
+info.MatPath{10} = 'goal_pos';
+info.MatPath{11} = 'current_pos';
+info.MatPath{12} = 'error';
+info.MatPath{13} = 'velocity';
+info.MatPath{14} = 'load';
+info.MatPath{15} = 'is_moving';

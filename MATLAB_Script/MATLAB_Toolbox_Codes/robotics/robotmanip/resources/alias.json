@@ -1,0 +1,64 @@
+{
+  "Aliases": [
+    {
+      "NewName": "constraintAiming",
+      "OldNames": "robotics.AimingConstraint",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "constraintCartesianBounds",
+      "OldNames": "robotics.CartesianBounds",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "generalizedInverseKinematics",
+      "OldNames": "robotics.GeneralizedInverseKinematics",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "inverseKinematics",
+      "OldNames": "robotics.InverseKinematics",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "rigidBodyJoint",
+      "OldNames": "robotics.Joint",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "constraintJointBounds",
+      "OldNames": "robotics.JointPositionBounds",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "constraintOrientationTarget",
+      "OldNames": "robotics.OrientationTarget",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "constraintPoseTarget",
+      "OldNames": "robotics.PoseTarget",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "constraintPositionTarget",
+      "OldNames": "robotics.PositionTarget",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "rigidBody",
+      "OldNames": "robotics.RigidBody",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "rigidBodyTree",
+      "OldNames": "robotics.RigidBodyTree",
+      "WarnOnOldName": false
+    },
+    {
+      "NewName": "rigidBodyTreeImportInfo",
+      "OldNames": "robotics.RigidBodyTreeImportInfo",
+      "WarnOnOldName": false
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+function [data, info] = fixedArray
+%FixedArray gives an empty data for roseus/FixedArray
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'roseus/FixedArray';
+[data.Float32Data, info.Float32Data] = ros.internal.ros.messages.ros.default_type('single',3);
+[data.Float64Data, info.Float64Data] = ros.internal.ros.messages.ros.default_type('double',3);
+[data.Int16Data, info.Int16Data] = ros.internal.ros.messages.ros.default_type('int16',3);
+[data.Int32Data, info.Int32Data] = ros.internal.ros.messages.ros.default_type('int32',3);
+[data.Int64Data, info.Int64Data] = ros.internal.ros.messages.ros.default_type('int64',3);
+[data.Int8Data, info.Int8Data] = ros.internal.ros.messages.ros.default_type('int8',3);
+[data.Uint16Data, info.Uint16Data] = ros.internal.ros.messages.ros.default_type('uint16',3);
+[data.Uint32Data, info.Uint32Data] = ros.internal.ros.messages.ros.default_type('uint32',3);
+[data.Uint64Data, info.Uint64Data] = ros.internal.ros.messages.ros.default_type('uint64',3);
+[data.Uint8Data, info.Uint8Data] = ros.internal.ros.messages.ros.default_type('uint8',17);
+[data.BoolData, info.BoolData] = ros.internal.ros.messages.ros.default_type('logical',2);
+[data.TimeData, info.TimeData] = ros.internal.ros.messages.ros.time;
+info.TimeData.MLdataType = 'struct';
+info.TimeData.MaxLen = 2;
+info.TimeData.MinLen = 2;
+[data.DurationData, info.DurationData] = ros.internal.ros.messages.ros.duration;
+info.DurationData.MLdataType = 'struct';
+info.DurationData.MaxLen = 2;
+info.DurationData.MinLen = 2;
+[data.StringData, info.StringData] = ros.internal.ros.messages.std_msgs.string;
+info.StringData.MLdataType = 'struct';
+info.StringData.MaxLen = 2;
+info.StringData.MinLen = 2;
+val = [];
+for i = 1:2
+    val = vertcat(data.TimeData, val); %#ok<AGROW>
+end
+data.TimeData = val;
+val = [];
+for i = 1:2
+    val = vertcat(data.DurationData, val); %#ok<AGROW>
+end
+data.DurationData = val;
+val = [];
+for i = 1:2
+    val = vertcat(data.StringData, val); %#ok<AGROW>
+end
+data.StringData = val;
+info.MessageType = 'roseus/FixedArray';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,19);
+info.MatPath{1} = 'float32_data';
+info.MatPath{2} = 'float64_data';
+info.MatPath{3} = 'int16_data';
+info.MatPath{4} = 'int32_data';
+info.MatPath{5} = 'int64_data';
+info.MatPath{6} = 'int8_data';
+info.MatPath{7} = 'uint16_data';
+info.MatPath{8} = 'uint32_data';
+info.MatPath{9} = 'uint64_data';
+info.MatPath{10} = 'uint8_data';
+info.MatPath{11} = 'bool_data';
+info.MatPath{12} = 'time_data';
+info.MatPath{13} = 'time_data.sec';
+info.MatPath{14} = 'time_data.nsec';
+info.MatPath{15} = 'duration_data';
+info.MatPath{16} = 'duration_data.sec';
+info.MatPath{17} = 'duration_data.nsec';
+info.MatPath{18} = 'string_data';
+info.MatPath{19} = 'string_data.data';

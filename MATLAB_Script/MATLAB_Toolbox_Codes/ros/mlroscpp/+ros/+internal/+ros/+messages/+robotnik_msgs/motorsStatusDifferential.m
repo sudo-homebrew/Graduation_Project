@@ -1,0 +1,41 @@
+function [data, info] = motorsStatusDifferential
+%MotorsStatusDifferential gives an empty data for robotnik_msgs/MotorsStatusDifferential
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'robotnik_msgs/MotorsStatusDifferential';
+[data.LwStatus, info.LwStatus] = ros.internal.ros.messages.robotnik_msgs.motorStatus;
+info.LwStatus.MLdataType = 'struct';
+[data.RwStatus, info.RwStatus] = ros.internal.ros.messages.robotnik_msgs.motorStatus;
+info.RwStatus.MLdataType = 'struct';
+info.MessageType = 'robotnik_msgs/MotorsStatusDifferential';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,24);
+info.MatPath{1} = 'lwStatus';
+info.MatPath{2} = 'lwStatus.state';
+info.MatPath{3} = 'lwStatus.status';
+info.MatPath{4} = 'lwStatus.communicationstatus';
+info.MatPath{5} = 'lwStatus.statusword';
+info.MatPath{6} = 'lwStatus.driveflags';
+info.MatPath{7} = 'lwStatus.activestatusword';
+info.MatPath{8} = 'lwStatus.activedriveflags';
+info.MatPath{9} = 'lwStatus.digitaloutputs';
+info.MatPath{10} = 'lwStatus.digitalinputs';
+info.MatPath{11} = 'lwStatus.averagecurrent';
+info.MatPath{12} = 'lwStatus.analoginputs';
+info.MatPath{13} = 'rwStatus';
+info.MatPath{14} = 'rwStatus.state';
+info.MatPath{15} = 'rwStatus.status';
+info.MatPath{16} = 'rwStatus.communicationstatus';
+info.MatPath{17} = 'rwStatus.statusword';
+info.MatPath{18} = 'rwStatus.driveflags';
+info.MatPath{19} = 'rwStatus.activestatusword';
+info.MatPath{20} = 'rwStatus.activedriveflags';
+info.MatPath{21} = 'rwStatus.digitaloutputs';
+info.MatPath{22} = 'rwStatus.digitalinputs';
+info.MatPath{23} = 'rwStatus.averagecurrent';
+info.MatPath{24} = 'rwStatus.analoginputs';

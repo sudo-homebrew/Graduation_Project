@@ -1,0 +1,117 @@
+function [data, info] = {% msgInfo.msgStructGenFileName %}
+%{% [msgInfo.msgName] %} gives an empty data for {% MessageType %}
+
+% Copyright 2019-2021 The MathWorks, Inc.
+
+data = struct();
+data.MessageType = '{% MessageType %}';
+{% var PRECISION = 100 %}
+{% for i = numel(fieldNames) %}
+{% var field = msgFields.(fieldNames{i}) %}
+{% var count = field.count %}
+{% var varsize = field.varsize %}
+{% var flag = 0 %}
+{% if count == 0 %}
+{% var flag = 1 %}
+{% var count = 1 %}
+{% endif %}
+{% if ~isfield(field,'MLdataType') %}
+data.{%fieldNames{i}%} = struct();
+{% endif %}
+{% if isfield(field,'MLdataType') %}
+{% if isequal(field.MLdataType, 'struct') %}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = {%field.msgInfo.msgStructGen%};
+info.{%fieldNames{i}%}.MLdataType = 'struct';
+{% if isnan(count) %}
+info.{%fieldNames{i}%}.MaxLen = NaN;
+info.{%fieldNames{i}%}.MinLen = 0;
+{% endif %}
+{% if count > 1 %}
+info.{%fieldNames{i}%}.MaxLen = {% num2str(count)%};
+{% if ~isequal(varsize,1) %}
+info.{%fieldNames{i}%}.MinLen = {% num2str(count)%};
+{% endif %}
+{% if isequal(varsize,1) %}
+info.{%fieldNames{i}%}.MinLen = 0;
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %} 
+{% if isfield(field,'MLdataType') && ~isequal(field.MLdataType,'struct') && (~isfield(field,'fieldNames') || isempty(field.fieldNames)) %}
+{% if ~isequal(field.MLdataType,'char') && ~isequal(field.MLdataType,'string')%}
+{% if isnan(field.constantValue) && any(isnan(field.defaultValue)) %}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = ros.internal.ros2.messages.ros2.default_type('{%field.MLdataType%}',{%num2str(count)%},{%num2str(field.varsize)%});
+{% endif %}
+{% if ~isnan(field.constantValue) || ~any(isnan(field.defaultValue))%}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = ros.internal.ros2.messages.ros2.default_type('{%field.MLdataType%}',{%num2str(count)%},{%num2str(field.varsize)%}, {%num2str(field.constantValue, PRECISION)%}, [{%num2str((field.defaultValue)', PRECISION)%}]);
+{% endif %}
+{% endif %}
+{% if isequal(field.MLdataType, 'char') %}
+{% if any(isnan(field.constantValue)) && any(isnan(field.defaultValue))%}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = ros.internal.ros2.messages.ros2.char('{%field.MLdataType%}',{%num2str(count)%},{%num2str(field.maxstrlen)%},{%num2str(field.varsize)%});
+{% endif %}
+{% if ~isnan(field.constantValue) %}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = ros.internal.ros2.messages.ros2.char('{%field.MLdataType%}',{%num2str(count)%},{%num2str(field.maxstrlen)%},{%num2str(field.varsize)%},'{%num2str(field.constantValue)%}', NaN);
+{% endif %}
+{% if ~any(isnan(field.defaultValue))%}
+{% if numel(field.defaultValue) > 1 %}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = ros.internal.ros2.messages.ros2.char('{%field.MLdataType%}',{%num2str(count)%},{%num2str(field.maxstrlen)%},{%num2str(field.varsize)%});
+info.{%fieldNames{i}%}.default = 1;
+{% if ischar(field.defaultValue)%}
+{% for k = numel(field.defaultValue) %}
+data.{%fieldNames{i}%}({% num2str(k) %}) = {% field.MLdataType %}('{% num2str(field.defaultValue(k))%}');
+{% endfor %}
+{% endif %}
+{% if ~ischar(field.defaultValue)%}
+{% for k = numel(field.defaultValue) %}
+data.{%fieldNames{i}%}({% num2str(k) %}) = {% field.MLdataType %}({% num2str(field.defaultValue(k))%});
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if isequal(numel(field.defaultValue),1) %}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = ros.internal.ros2.messages.ros2.char('{%field.MLdataType%}',{%num2str(count)%},{%num2str(field.maxstrlen)%},{%num2str(field.varsize)%},NaN, '{%field.defaultValue%}' );
+{% endif %}
+{% endif %}
+{% endif %}
+{% if isequal(field.MLdataType,'string') %}
+{% if (isnumeric(field.constantValue) && isnan(field.constantValue)) && (isnumeric(field.defaultValue) && isnan(field.defaultValue))%}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = ros.internal.ros2.messages.ros2.char('{%field.MLdataType%}',{%num2str(count)%},{%num2str(field.maxstrlen)%},{%num2str(field.varsize)%});
+{% endif %}
+{% if ~isnumeric(field.constantValue) %}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = ros.internal.ros2.messages.ros2.char('{%field.MLdataType%}',{%num2str(count)%},{%num2str(field.maxstrlen)%},{%num2str(field.varsize)%},'{%num2str(field.constantValue)%}',NaN);
+{% endif %}
+{% if ~isnumeric(field.defaultValue) && ~isempty(field.defaultValue) %}
+{% if numel(field.defaultValue) > 1 %}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = ros.internal.ros2.messages.ros2.char('{%field.MLdataType%}',{%num2str(count)%},{%num2str(field.maxstrlen)%},{%num2str(field.varsize)%});
+info.{%fieldNames{i}%}.default = 1;
+{% for k = numel(field.defaultValue) %}
+data.{%fieldNames{i}%}({% num2str(k) %},:) = {'{% num2str(field.defaultValue(k))%}'};
+{% endfor %}
+{% endif %}
+{% if isequal(numel(field.defaultValue),1) %}
+[data.{%fieldNames{i}%}, info.{%fieldNames{i}%}] = ros.internal.ros2.messages.ros2.char('{%field.MLdataType%}',{%num2str(count)%},{%num2str(field.maxstrlen)%},{%num2str(field.varsize)%},NaN, '{%num2str(field.defaultValue)%}');
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% for i = numel(fieldNames) %}
+{% var field = msgFields.(fieldNames{i}) %}
+{% if  ~isnan(field.count) && field.count ~= 0 && isfield(field,'MLdataType') && isequal(field.MLdataType,'struct') %}
+val = [];
+for i = 1:{% num2str(field.count) %}
+    val = vertcat(data.{%fieldNames{i}%},val); %#ok<AGROW>
+end
+data.{%fieldNames{i}%} = val;
+{% endif %}
+{% endfor %}
+info.MessageType = '{% MessageType %}';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,{% num2str(numel(order)) %});
+{% for i = numel(order) %}
+info.MatPath{{%num2str(i)%}} = '{%msgpath{i}%}';
+{% endfor %}

@@ -1,0 +1,47 @@
+function [data, info] = cartesianPoint
+%CartesianPoint gives an empty data for moveit_msgs/CartesianPoint
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'moveit_msgs/CartesianPoint';
+[data.Pose, info.Pose] = ros.internal.ros.messages.geometry_msgs.pose;
+info.Pose.MLdataType = 'struct';
+[data.Velocity, info.Velocity] = ros.internal.ros.messages.geometry_msgs.twist;
+info.Velocity.MLdataType = 'struct';
+[data.Acceleration, info.Acceleration] = ros.internal.ros.messages.geometry_msgs.accel;
+info.Acceleration.MLdataType = 'struct';
+info.MessageType = 'moveit_msgs/CartesianPoint';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,28);
+info.MatPath{1} = 'pose';
+info.MatPath{2} = 'pose.position';
+info.MatPath{3} = 'pose.position.x';
+info.MatPath{4} = 'pose.position.y';
+info.MatPath{5} = 'pose.position.z';
+info.MatPath{6} = 'pose.orientation';
+info.MatPath{7} = 'pose.orientation.x';
+info.MatPath{8} = 'pose.orientation.y';
+info.MatPath{9} = 'pose.orientation.z';
+info.MatPath{10} = 'pose.orientation.w';
+info.MatPath{11} = 'velocity';
+info.MatPath{12} = 'velocity.linear';
+info.MatPath{13} = 'velocity.linear.x';
+info.MatPath{14} = 'velocity.linear.y';
+info.MatPath{15} = 'velocity.linear.z';
+info.MatPath{16} = 'velocity.angular';
+info.MatPath{17} = 'velocity.angular.x';
+info.MatPath{18} = 'velocity.angular.y';
+info.MatPath{19} = 'velocity.angular.z';
+info.MatPath{20} = 'acceleration';
+info.MatPath{21} = 'acceleration.linear';
+info.MatPath{22} = 'acceleration.linear.x';
+info.MatPath{23} = 'acceleration.linear.y';
+info.MatPath{24} = 'acceleration.linear.z';
+info.MatPath{25} = 'acceleration.angular';
+info.MatPath{26} = 'acceleration.angular.x';
+info.MatPath{27} = 'acceleration.angular.y';
+info.MatPath{28} = 'acceleration.angular.z';

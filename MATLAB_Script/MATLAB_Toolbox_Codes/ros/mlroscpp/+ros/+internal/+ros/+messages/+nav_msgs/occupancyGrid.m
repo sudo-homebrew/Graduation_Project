@@ -1,0 +1,42 @@
+function [data, info] = occupancyGrid
+%OccupancyGrid gives an empty data for nav_msgs/OccupancyGrid
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'nav_msgs/OccupancyGrid';
+[data.Header, info.Header] = ros.internal.ros.messages.std_msgs.header;
+info.Header.MLdataType = 'struct';
+[data.Info, info.Info] = ros.internal.ros.messages.nav_msgs.mapMetaData;
+info.Info.MLdataType = 'struct';
+[data.Data, info.Data] = ros.internal.ros.messages.ros.default_type('int8',NaN);
+info.MessageType = 'nav_msgs/OccupancyGrid';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,24);
+info.MatPath{1} = 'header';
+info.MatPath{2} = 'header.seq';
+info.MatPath{3} = 'header.stamp';
+info.MatPath{4} = 'header.stamp.sec';
+info.MatPath{5} = 'header.stamp.nsec';
+info.MatPath{6} = 'header.frame_id';
+info.MatPath{7} = 'info';
+info.MatPath{8} = 'info.map_load_time';
+info.MatPath{9} = 'info.map_load_time.sec';
+info.MatPath{10} = 'info.map_load_time.nsec';
+info.MatPath{11} = 'info.resolution';
+info.MatPath{12} = 'info.width';
+info.MatPath{13} = 'info.height';
+info.MatPath{14} = 'info.origin';
+info.MatPath{15} = 'info.origin.position';
+info.MatPath{16} = 'info.origin.position.x';
+info.MatPath{17} = 'info.origin.position.y';
+info.MatPath{18} = 'info.origin.position.z';
+info.MatPath{19} = 'info.origin.orientation';
+info.MatPath{20} = 'info.origin.orientation.x';
+info.MatPath{21} = 'info.origin.orientation.y';
+info.MatPath{22} = 'info.origin.orientation.z';
+info.MatPath{23} = 'info.origin.orientation.w';
+info.MatPath{24} = 'data';

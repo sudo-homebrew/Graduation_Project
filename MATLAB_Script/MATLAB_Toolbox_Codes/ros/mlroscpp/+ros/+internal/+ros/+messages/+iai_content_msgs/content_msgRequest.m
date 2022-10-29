@@ -1,0 +1,43 @@
+function [data, info] = content_msgRequest
+%content_msg gives an empty data for iai_content_msgs/content_msgRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'iai_content_msgs/content_msgRequest';
+[data.Depth, info.Depth] = ros.internal.ros.messages.sensor_msgs.image;
+info.Depth.MLdataType = 'struct';
+[data.DepthGrasped, info.DepthGrasped] = ros.internal.ros.messages.sensor_msgs.image;
+info.DepthGrasped.MLdataType = 'struct';
+info.MessageType = 'iai_content_msgs/content_msgRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,26);
+info.MatPath{1} = 'depth';
+info.MatPath{2} = 'depth.header';
+info.MatPath{3} = 'depth.header.seq';
+info.MatPath{4} = 'depth.header.stamp';
+info.MatPath{5} = 'depth.header.stamp.sec';
+info.MatPath{6} = 'depth.header.stamp.nsec';
+info.MatPath{7} = 'depth.header.frame_id';
+info.MatPath{8} = 'depth.height';
+info.MatPath{9} = 'depth.width';
+info.MatPath{10} = 'depth.encoding';
+info.MatPath{11} = 'depth.is_bigendian';
+info.MatPath{12} = 'depth.step';
+info.MatPath{13} = 'depth.data';
+info.MatPath{14} = 'depth_grasped';
+info.MatPath{15} = 'depth_grasped.header';
+info.MatPath{16} = 'depth_grasped.header.seq';
+info.MatPath{17} = 'depth_grasped.header.stamp';
+info.MatPath{18} = 'depth_grasped.header.stamp.sec';
+info.MatPath{19} = 'depth_grasped.header.stamp.nsec';
+info.MatPath{20} = 'depth_grasped.header.frame_id';
+info.MatPath{21} = 'depth_grasped.height';
+info.MatPath{22} = 'depth_grasped.width';
+info.MatPath{23} = 'depth_grasped.encoding';
+info.MatPath{24} = 'depth_grasped.is_bigendian';
+info.MatPath{25} = 'depth_grasped.step';
+info.MatPath{26} = 'depth_grasped.data';

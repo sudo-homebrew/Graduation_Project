@@ -1,0 +1,41 @@
+function [data, info] = updateStatus
+%UpdateStatus gives an empty data for baxter_maintenance_msgs/UpdateStatus
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'baxter_maintenance_msgs/UpdateStatus';
+[data.Status, info.Status] = ros.internal.ros.messages.ros.default_type('uint16',1);
+[data.Progress, info.Progress] = ros.internal.ros.messages.ros.default_type('single',1);
+[data.LongDescription, info.LongDescription] = ros.internal.ros.messages.ros.char('string',0);
+[data.STSIDLE, info.STSIDLE] = ros.internal.ros.messages.ros.default_type('uint16',1, 0);
+[data.STSINVALID, info.STSINVALID] = ros.internal.ros.messages.ros.default_type('uint16',1, 1);
+[data.STSBUSY, info.STSBUSY] = ros.internal.ros.messages.ros.default_type('uint16',1, 2);
+[data.STSCANCELLED, info.STSCANCELLED] = ros.internal.ros.messages.ros.default_type('uint16',1, 3);
+[data.STSERR, info.STSERR] = ros.internal.ros.messages.ros.default_type('uint16',1, 4);
+[data.STSMOUNTUPDATE, info.STSMOUNTUPDATE] = ros.internal.ros.messages.ros.default_type('uint16',1, 5);
+[data.STSVERIFYUPDATE, info.STSVERIFYUPDATE] = ros.internal.ros.messages.ros.default_type('uint16',1, 6);
+[data.STSPREPSTAGING, info.STSPREPSTAGING] = ros.internal.ros.messages.ros.default_type('uint16',1, 7);
+[data.STSMOUNTSTAGING, info.STSMOUNTSTAGING] = ros.internal.ros.messages.ros.default_type('uint16',1, 8);
+[data.STSEXTRACTUPDATE, info.STSEXTRACTUPDATE] = ros.internal.ros.messages.ros.default_type('uint16',1, 9);
+[data.STSLOADKEXEC, info.STSLOADKEXEC] = ros.internal.ros.messages.ros.default_type('uint16',1, 10);
+info.MessageType = 'baxter_maintenance_msgs/UpdateStatus';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,14);
+info.MatPath{1} = 'status';
+info.MatPath{2} = 'progress';
+info.MatPath{3} = 'long_description';
+info.MatPath{4} = 'STS_IDLE';
+info.MatPath{5} = 'STS_INVALID';
+info.MatPath{6} = 'STS_BUSY';
+info.MatPath{7} = 'STS_CANCELLED';
+info.MatPath{8} = 'STS_ERR';
+info.MatPath{9} = 'STS_MOUNT_UPDATE';
+info.MatPath{10} = 'STS_VERIFY_UPDATE';
+info.MatPath{11} = 'STS_PREP_STAGING';
+info.MatPath{12} = 'STS_MOUNT_STAGING';
+info.MatPath{13} = 'STS_EXTRACT_UPDATE';
+info.MatPath{14} = 'STS_LOAD_KEXEC';

@@ -1,0 +1,42 @@
+function ros1msg = {% msgInfo.baseName %}_2To1_Converter(message,ros1msg)
+%{% msgInfo.baseName %}_2To1_Converter passes data of ROS 2 message to ROS message.
+
+% Copyright 2019 The MathWorks, Inc.    
+{% for i = numel(order) %}
+{% var field = eval(['msgFields.', order{i}]) %}
+{% if isfield(field,'fieldNames') && ~isempty(field.fieldNames) %}
+{% endif %}
+{% if ~isfield(field,'fieldNames') || isempty(field.fieldNames) %}
+{% var count = field.count %}
+{% if count == 0 %}
+{% var count = 1 %}
+{% endif %}
+{% if isfield(field,'MLdataType') %}
+{% if ~isequal(field.MLdataType,'char') && ~isequal(field.MLdataType,'string') && ((isnumeric(field.constantValue) && isnan(field.constantValue)) || (~isnumeric(field.constantValue) && isempty(field.constantValue)))%}
+{% if ~isnan(count) %}
+ros1msg.{%ros.internal.utilities.convertROS2msgToROS1msg(msgpath{i})%} = message.{%msgpath{i}%};
+{% endif %}
+{% endif %}
+{% if isequal(field.MLdataType,'char') && ((isnumeric(field.constantValue) && isnan(field.constantValue)) || (~isnumeric(field.constantValue) && isempty(field.constantValue))) %}
+{% if ~isnan(count) %}
+ros1msg.{%ros.internal.utilities.convertROS2msgToROS1msg(msgpath{i})%} = message.{%msgpath{i}%};
+{% endif %}
+{% endif %}
+{% if isequal(field.MLdataType,'string') && ((isnumeric(field.constantValue) && isnan(field.constantValue)) || (~isnumeric(field.constantValue) && isempty(field.constantValue))) %}
+ros1msg.{%ros.internal.utilities.convertROS2msgToROS1msg(msgpath{i})%} = message.{%msgpath{i}%}{1};
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% for i = numel(order) %}
+{% var field = eval(['msgFields.', order{i}]) %}
+{% if  ~isnan(field.count) && field.count ~= 0 && isfield(field,'MLdataType') && isequal(field.MLdataType,'struct') %}
+val = [];
+for i = 1:{% num2str(field.count) %}
+  val = [data.{%msgpath{i}%} val]; %#ok<AGROW>
+end
+ros1msg.{%ros.internal.utilities.convertROS2msgToROS1msg(msgpath{i})%} = message.{%msgpath{i}%};
+{% endfor %}
+{% endfor %}
+
+end

@@ -1,0 +1,39 @@
+function [data, info] = setMixedPositionVelocityPidGainsRequest
+%SetMixedPositionVelocityPidGains gives an empty data for sr_robot_msgs/SetMixedPositionVelocityPidGainsRequest
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'sr_robot_msgs/SetMixedPositionVelocityPidGainsRequest';
+[data.PositionP, info.PositionP] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.PositionI, info.PositionI] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.PositionD, info.PositionD] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.PositionIClamp, info.PositionIClamp] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MinVelocity, info.MinVelocity] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MaxVelocity, info.MaxVelocity] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.PositionDeadband, info.PositionDeadband] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.VelocityP, info.VelocityP] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.VelocityI, info.VelocityI] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.VelocityD, info.VelocityD] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.VelocityIClamp, info.VelocityIClamp] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.MaxForce, info.MaxForce] = ros.internal.ros.messages.ros.default_type('double',1);
+[data.FrictionDeadband, info.FrictionDeadband] = ros.internal.ros.messages.ros.default_type('int32',1);
+info.MessageType = 'sr_robot_msgs/SetMixedPositionVelocityPidGainsRequest';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,13);
+info.MatPath{1} = 'position_p';
+info.MatPath{2} = 'position_i';
+info.MatPath{3} = 'position_d';
+info.MatPath{4} = 'position_i_clamp';
+info.MatPath{5} = 'min_velocity';
+info.MatPath{6} = 'max_velocity';
+info.MatPath{7} = 'position_deadband';
+info.MatPath{8} = 'velocity_p';
+info.MatPath{9} = 'velocity_i';
+info.MatPath{10} = 'velocity_d';
+info.MatPath{11} = 'velocity_i_clamp';
+info.MatPath{12} = 'max_force';
+info.MatPath{13} = 'friction_deadband';

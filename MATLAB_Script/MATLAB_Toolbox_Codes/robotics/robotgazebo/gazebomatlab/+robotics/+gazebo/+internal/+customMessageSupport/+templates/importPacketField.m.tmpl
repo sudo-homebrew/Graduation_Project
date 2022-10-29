@@ -1,0 +1,16 @@
+function [packetData] = importPacketField(cmd,msgType)
+%This function is for internal use only. It may be removed in the future.
+% DO NOT EDIT!
+%importPacketField reads simulink input cmd and fill co-sim packet and 
+%custom message based on msgType
+%
+%Copyright 2019 The MathWorks, Inc.
+
+switch msgType
+    {% msgInfo.SimToPacketSwitchCase %}
+    otherwise
+       disp("Invalid Message Field");
+end
+
+end
+

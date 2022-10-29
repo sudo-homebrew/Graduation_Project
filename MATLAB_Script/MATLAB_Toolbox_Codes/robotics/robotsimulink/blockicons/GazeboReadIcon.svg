@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{font-size:16.18px;font-family:Helvetica;}.cls-1,.cls-5{fill:#333;}.cls-2{fill:none;stroke:gray;stroke-width:2px;}.cls-2,.cls-6{stroke-miterlimit:10;}.cls-3{fill:gray;}.cls-4,.cls-6{fill:#fff;}.cls-6{stroke:#333;}</style>
+   </defs>
+   <title>Gazebo Read_042619</title>
+   <text class="cls-1" transform="translate(46.67 19.17)">Gazebo</text>
+   <line class="cls-2" x1="75" x2="75" y1="34.8" y2="21.83"/>
+   <polygon class="cls-3" points="78.49 33.78 75 39.83 71.51 33.78 78.49 33.78"/>
+   <rect class="cls-4" height="31" rx="4.5" width="31" x="59.5" y="41.22"/>
+   <path class="cls-5"
+         d="M86,41.72a4,4,0,0,1,4,4v22a4,4,0,0,1-4,4H64a4,4,0,0,1-4-4v-22a4,4,0,0,1,4-4H86m0-1H64a5,5,0,0,0-5,5v22a5,5,0,0,0,5,5H86a5,5,0,0,0,5-5v-22a5,5,0,0,0-5-5Z"/>
+   <polyline class="cls-6" points="64.02 51.47 80.92 51.47 80.92 58.93"/>
+   <rect class="cls-4" height="9.02" width="9.02" x="76.46" y="59.07"/>
+   <path class="cls-5" d="M85,59.57v8H77v-8h8m1-1H76v10H86v-10Z"/>
+   <polygon class="cls-4" points="67.47 45.73 77.32 51.47 67.47 57.22 67.47 45.73"/>
+   <path class="cls-5"
+         d="M68,46.6l8.36,4.87L68,56.35V46.6m-1-1.74V58.09l11.34-6.62L67,44.86Z"/>
+</svg>

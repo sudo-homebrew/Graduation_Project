@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 The MathWorks, Inc. -->
+<Tiling>
+  <Occupancy>
+    <Occupant InFront="yes" Name="FigName1" Tile="-1"/>
+  </Occupancy>
+</Tiling>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:d="http://www.mathworks.com/blockgraphics"
+     d:options="PreserveAspect:On;Resize:FitToBlock;Frame:Adaptive;Rotate:Off"
+     height="100"
+     id="Layer_1"
+     version="1.1"
+     width="150">
+   <defs>
+      <style>.cls-1{fill:#b3b3b3;}.cls-2{fill:#737373;}.cls-3{fill:#a6a6a6;}.cls-4,.cls-5,.cls-7{fill:none;stroke-linecap:round;}.cls-4,.cls-8{stroke:#b3b3b3;}.cls-4,.cls-5,.cls-8{stroke-miterlimit:10;}.cls-4,.cls-5{stroke-width:9px;}.cls-5{stroke:#ccc;}.cls-6,.cls-9{fill:#404040;}.cls-7{stroke:#404040;stroke-linejoin:round;}.cls-8{fill:#f2f2f2;}.cls-9{font-size:10px;font-family:LMRoman12-Bold, Latin Modern Roman;font-weight:700;}</style>
+   </defs>
+   <title>Forward Dynamics_042619</title>
+   <path class="cls-1"
+         d="M93.13,28.28l-4,3.38H83.32a3,3,0,0,1-3-3V26.33H76.77V22.71H80.3V20.4a3,3,0,0,1,3-3H89.1l4,3.38H83.48v7.52Z"/>
+   <rect class="cls-2" height="2.08" width="5.34" x="87.79" y="26.2"/>
+   <rect class="cls-2" height="2.08" width="5.34" x="87.79" y="20.76"/>
+   <path class="cls-3"
+         d="M62.27,54.2h0A7.82,7.82,0,0,1,70.1,62v9a0,0,0,0,1,0,0H54.45a0,0,0,0,1,0,0V62A7.82,7.82,0,0,1,62.27,54.2Z"/>
+   <line class="cls-4" x1="64.33" x2="42.1" y1="24.52" y2="24.52"/>
+   <line class="cls-5" x1="42.1" x2="62.25" y1="24.52" y2="59.74"/>
+   <line class="cls-5" x1="63.92" x2="73.04" y1="24.55" y2="24.55"/>
+   <circle class="cls-6" cx="62.25" cy="59.74" r="2.43"/>
+   <path class="cls-7" d="M59.69,54.41a5.81,5.81,0,1,1-3,7.64"/>
+   <polygon class="cls-6" points="61.18 56.21 56.73 55.69 59.4 52.09 61.18 56.21"/>
+   <circle class="cls-6" cx="63.91" cy="24.55" r="2.43"/>
+   <path class="cls-7" d="M69.73,24.62A5.81,5.81,0,1,1,64,18.74"/>
+   <polygon class="cls-6" points="67.47 25.25 69.76 21.39 71.96 25.3 67.47 25.25"/>
+   <circle class="cls-6" cx="42.18" cy="24.55" r="2.43"/>
+   <path class="cls-7" d="M44.37,29.94a5.81,5.81,0,1,1,3.34-7.5"/>
+   <polygon class="cls-6" points="42.95 28.09 47.38 28.79 44.56 32.27 42.95 28.09"/>
+   <rect class="cls-8" height="16.81" width="11.41" x="99.57" y="18.23"/>
+   <text class="cls-9" transform="translate(102.3 30.02)">q</text>
+   <path class="cls-6"
+         d="M104.8,24a.43.43,0,0,1-.43.44.44.44,0,0,1,0-.87A.43.43,0,0,1,104.8,24Zm1.8,0a.43.43,0,0,1-.43.44.44.44,0,0,1,0-.87A.43.43,0,0,1,106.6,24Z"/>
+</svg>

@@ -1,0 +1,43 @@
+function [data, info] = assemblyState
+%AssemblyState gives an empty data for baxter_core_msgs/AssemblyState
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'baxter_core_msgs/AssemblyState';
+[data.Ready, info.Ready] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.Enabled, info.Enabled] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.Stopped, info.Stopped] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.Error, info.Error] = ros.internal.ros.messages.ros.default_type('logical',1);
+[data.EstopButton, info.EstopButton] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.ESTOPBUTTONUNPRESSED, info.ESTOPBUTTONUNPRESSED] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.ESTOPBUTTONPRESSED, info.ESTOPBUTTONPRESSED] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.ESTOPBUTTONUNKNOWN, info.ESTOPBUTTONUNKNOWN] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.ESTOPBUTTONRELEASED, info.ESTOPBUTTONRELEASED] = ros.internal.ros.messages.ros.default_type('uint8',1, 3);
+[data.EstopSource, info.EstopSource] = ros.internal.ros.messages.ros.default_type('uint8',1);
+[data.ESTOPSOURCENONE, info.ESTOPSOURCENONE] = ros.internal.ros.messages.ros.default_type('uint8',1, 0);
+[data.ESTOPSOURCEUSER, info.ESTOPSOURCEUSER] = ros.internal.ros.messages.ros.default_type('uint8',1, 1);
+[data.ESTOPSOURCEUNKNOWN, info.ESTOPSOURCEUNKNOWN] = ros.internal.ros.messages.ros.default_type('uint8',1, 2);
+[data.ESTOPSOURCEFAULT, info.ESTOPSOURCEFAULT] = ros.internal.ros.messages.ros.default_type('uint8',1, 3);
+[data.ESTOPSOURCEBRAIN, info.ESTOPSOURCEBRAIN] = ros.internal.ros.messages.ros.default_type('uint8',1, 4);
+info.MessageType = 'baxter_core_msgs/AssemblyState';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,15);
+info.MatPath{1} = 'ready';
+info.MatPath{2} = 'enabled';
+info.MatPath{3} = 'stopped';
+info.MatPath{4} = 'error';
+info.MatPath{5} = 'estop_button';
+info.MatPath{6} = 'ESTOP_BUTTON_UNPRESSED';
+info.MatPath{7} = 'ESTOP_BUTTON_PRESSED';
+info.MatPath{8} = 'ESTOP_BUTTON_UNKNOWN';
+info.MatPath{9} = 'ESTOP_BUTTON_RELEASED';
+info.MatPath{10} = 'estop_source';
+info.MatPath{11} = 'ESTOP_SOURCE_NONE';
+info.MatPath{12} = 'ESTOP_SOURCE_USER';
+info.MatPath{13} = 'ESTOP_SOURCE_UNKNOWN';
+info.MatPath{14} = 'ESTOP_SOURCE_FAULT';
+info.MatPath{15} = 'ESTOP_SOURCE_BRAIN';

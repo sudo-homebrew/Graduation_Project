@@ -1,0 +1,40 @@
+function [data, info] = log
+%Log gives an empty data for rcl_interfaces/Log
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'rcl_interfaces/Log';
+[data.DEBUG, info.DEBUG] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 10, [NaN]);
+[data.INFO, info.INFO] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 20, [NaN]);
+[data.WARN, info.WARN] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 30, [NaN]);
+[data.ERROR, info.ERROR] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 40, [NaN]);
+[data.FATAL, info.FATAL] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0, 50, [NaN]);
+[data.stamp, info.stamp] = ros.internal.ros2.messages.builtin_interfaces.time;
+info.stamp.MLdataType = 'struct';
+[data.level, info.level] = ros.internal.ros2.messages.ros2.default_type('uint8',1,0);
+[data.name, info.name] = ros.internal.ros2.messages.ros2.char('string',1,NaN,0);
+[data.msg, info.msg] = ros.internal.ros2.messages.ros2.char('string',1,NaN,0);
+[data.file, info.file] = ros.internal.ros2.messages.ros2.char('string',1,NaN,0);
+[data.function, info.function] = ros.internal.ros2.messages.ros2.char('string',1,NaN,0);
+[data.line, info.line] = ros.internal.ros2.messages.ros2.default_type('uint32',1,0);
+info.MessageType = 'rcl_interfaces/Log';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,14);
+info.MatPath{1} = 'DEBUG';
+info.MatPath{2} = 'INFO';
+info.MatPath{3} = 'WARN';
+info.MatPath{4} = 'ERROR';
+info.MatPath{5} = 'FATAL';
+info.MatPath{6} = 'stamp';
+info.MatPath{7} = 'stamp.sec';
+info.MatPath{8} = 'stamp.nanosec';
+info.MatPath{9} = 'level';
+info.MatPath{10} = 'name';
+info.MatPath{11} = 'msg';
+info.MatPath{12} = 'file';
+info.MatPath{13} = 'function';
+info.MatPath{14} = 'line';

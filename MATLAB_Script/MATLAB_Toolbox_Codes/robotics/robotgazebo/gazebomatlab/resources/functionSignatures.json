@@ -1,0 +1,393 @@
+{
+
+    "gazebogenmsg": {
+        "inputs": [
+            {
+                "name": "filePath",
+                "kind": "required",
+                "type": "char"
+            },
+            {
+                "name": "GazeboVersion",
+                "kind": "namevalue",
+                "type": [ [ "choices=robotics.gazebo.internal.customMessageSupport.getGazeboVersionList" ] ]
+            },
+            {
+                "name": "GazeboMessageList",
+                "kind": "namevalue",
+                "type": [ [ "choices=robotics.gazebo.internal.customMessageSupport.getGazeboMsgsList" ] ]
+            }
+
+        ]
+    },
+    "gzworld": {
+        "inputs": [
+            {
+                "mutuallyExclusiveGroup": [
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'reset'}" ]
+                        }
+                    ]
+                ]
+            }
+        ]
+    },
+    "gzmodel": {
+        "inputs": [
+            {
+                "mutuallyExclusiveGroup": [
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'list'}" ]
+                        }
+                    ],
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'info'}" ]
+                        },
+                        {
+                            "name": "modelName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelList" ] ]
+                        }
+                    ],
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'get'}" ]
+                        },
+                        {
+                            "name": "modelName",
+                            "kind": "required",
+                            "type": [ [ "char", "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelList" ] ]
+                        },
+                        {
+                            "name": "paramName",
+                            "kind": "optional",
+                            "type": [ "choices={'Position', 'Orientation','SelfCollide','EnableWind','IsStatic'}" ]
+
+                        }
+                    ],
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'set'}" ]
+                        },
+                        {
+                            "name": "modelName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelList" ] ]
+                        },
+                        {
+                            "name": "Position",
+                            "kind": "namevalue",
+                            "type": [ "numeric", "vector", "numel=3" ]
+
+                        },
+                        {
+                            "name": "Orientation",
+                            "kind": "namevalue",
+                            "type": [ "numeric", "vector", "numel=4" ]
+
+                        },
+                        {
+                            "name": "SelfCollide",
+                            "kind": "namevalue",
+                            "type": [ "choices={'on', 'off'}" ]
+
+                        },
+                        {
+                            "name": "EnableWind",
+                            "kind": "namevalue",
+                            "type": [ "choices={'on', 'off'}" ]
+
+                        },
+                        {
+                            "name": "IsStatic",
+                            "kind": "namevalue",
+                            "type": [ "choices={'on', 'off'}" ]
+                        }
+                    ],
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'importSDF'}" ]
+                        },
+                        {
+                            "name": "modelName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelList" ] ]
+                        }
+
+                    ]
+
+                ]
+            }
+        ]
+    },
+    "gzlink": {
+        "inputs": [
+            {
+                "mutuallyExclusiveGroup": [
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'list'}" ]
+                        },
+                        {
+                            "name": "modelName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelList" ] ]
+                        }
+                    ],
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'get'}" ]
+                        },
+                        {
+                            "name": "modelName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelList" ] ]
+                        },
+                        {
+                            "name": "linkName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelLinkJointList(modelName,'link')" ] ]
+                        },
+                        {
+                            "name": "paramName",
+                            "kind": "optional",
+                            "type": [ "choices={'Position', 'Orientation','Mass','ProductOfInertia','PrincipalMoments','IsStatic','Canonical','SelfCollide','EnableWind','Gravity','Kinematic'}" ]
+                        }
+                    ],
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'set'}" ]
+                        },
+                        {
+                            "name": "modelName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelList" ] ]
+                        },
+                        {
+                            "name": "linkName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelLinkJointList(modelName,'link')" ] ]
+                        },
+                        {
+                            "name": "Position",
+                            "kind": "namevalue",
+                            "type": [ "numeric", "vector", "numel=3" ]
+                        },
+                        {
+                            "name": "Orientation",
+                            "kind": "namevalue",
+                            "type": [ "numeric", "vector", "numel=4" ]
+                        },
+                        {
+                            "name": "Mass",
+                            "kind": "namevalue",
+                            "type": [ "numeric" ]
+                        },
+                        {
+                            "name": "ProductOfInertia",
+                            "kind": "namevalue",
+                            "type": [ "numeric", "vector", "numel=3" ]
+                        },
+                        {
+                            "name": "PrincipalMoments",
+                            "kind": "namevalue",
+                            "type": [ "numeric", "vector", "numel=3" ]
+                        },
+                        {
+                            "name": "IsStatic",
+                            "kind": "namevalue",
+                            "type": [ "choices={'on', 'off'}" ]
+                        },
+                        {
+                            "name": "Canonical",
+                            "kind": "namevalue",
+                            "type": [ "choices={'on', 'off'}" ]
+                        },
+                        {
+                            "name": "SelfCollide",
+                            "kind": "namevalue",
+                            "type": [ "choices={'on', 'off'}" ]
+                        },
+                        {
+                            "name": "EnableWind",
+                            "kind": "namevalue",
+                            "type": [ "choices={'on', 'off'}" ]
+                        },
+                        {
+                            "name": "Gravity",
+                            "kind": "namevalue",
+                            "type": [ "choices={'on', 'off'}" ]
+                        },
+                        {
+                            "name": "Kinematic",
+                            "kind": "namevalue",
+                            "type": [ "choices={'on', 'off'}" ]
+                        }
+                    ]
+                ]
+            }
+        ]
+    },
+    "gzjoint": {
+        "inputs": [
+            {
+                "mutuallyExclusiveGroup": [
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'list'}" ]
+                        },
+                        {
+                            "name": "modelName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelList" ] ]
+                        }
+                    ],
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'get'}" ]
+                        },
+                        {
+                            "name": "modelName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelList" ] ]
+                        },
+                        {
+                            "name": "jointName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelLinkJointList(modelName,'joint')" ] ]
+                        },
+                        {
+                            "mutuallyExclusiveGroup": [
+                                [
+                                    {
+                                        "name": "paramName1",
+                                        "kind": "required",
+                                        "type": [ "choices={'Position', 'Orientation','FudgeFactor','CFM','SuspensionCFM','SuspensionERP'}" ]
+                                    }
+                                ],
+                                [
+                                    {
+                                        "name": "Axis",
+                                        "kind": "required",
+                                        "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getJointAxisChoices(modelName,jointName,'get')" ] ]
+                                    },
+                                    {
+                                        "name": "paramName2",
+                                        "kind": "optional",
+                                        "type": [ "choices={'Angle','XYZ','Damping','Friction'}" ]
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "name": "operationType",
+                            "kind": "required",
+                            "type": [ "choices={'set'}" ]
+                        },
+                        {
+                            "name": "modelName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelList" ] ]
+                        },
+                        {
+                            "name": "jointName",
+                            "kind": "required",
+                            "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getModelLinkJointList(modelName,'joint')" ] ]
+                        },
+                        {
+                            "mutuallyExclusiveGroup": [
+                                [
+                                    {
+                                        "name": "Position",
+                                        "kind": "namevalue",
+                                        "type": [ "numeric", "vector", "numel=3" ]
+                                    },
+                                    {
+                                        "name": "Orientation",
+                                        "kind": "namevalue",
+                                        "type": [ "numeric", "vector", "numel=4" ]
+                                    },
+                                    {
+                                        "name": "FudgeFactor",
+                                        "kind": "namevalue",
+                                        "type": [ "numeric" ]
+                                    },
+                                    {
+                                        "name": "CFM",
+                                        "kind": "namevalue",
+                                        "type": [ "numeric" ]
+                                    },
+                                    {
+                                        "name": "SuspensionCFM",
+                                        "kind": "namevalue",
+                                        "type": [ "numeric" ]
+                                    },
+                                    {
+                                        "name": "SuspensionERP",
+                                        "kind": "namevalue",
+                                        "type": [ "numeric" ]
+                                    }
+                                ],
+                                [
+                                    {
+                                        "name": "Axis",
+                                        "kind": "namevalue",
+                                        "type": [ [ "choices=robotics.gazebo.internal.MATLABInterface.utils.getJointAxisChoices(modelName,jointName,'set')" ] ]
+                                    },
+                                    {
+                                        "name": "Angle",
+                                        "kind": "namevalue",
+                                        "type": [ "numeric" ]
+                                    },
+                                    {
+                                        "name": "XYZ",
+                                        "kind": "namevalue",
+                                        "type": [ "numeric" ]
+                                    },
+                                    {
+                                        "name": "Damping",
+                                        "kind": "namevalue",
+                                        "type": [ "numeric" ]
+                                    },
+                                    {
+                                        "name": "Friction",
+                                        "kind": "namevalue",
+                                        "type": [ "numeric" ]
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                ]
+            }
+        ]
+    }
+
+}

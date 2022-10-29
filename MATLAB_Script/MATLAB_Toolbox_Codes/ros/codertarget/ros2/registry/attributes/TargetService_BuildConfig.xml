@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<productinfo version="3.0">
+  <buildconfigurationinfo AssemblyFlags="" CPPCompileFlags="" CPPLinkFlags="" CompileFlags="" LinkFlags="" Name="">
+    <SupportedOperatingSystems>all</SupportedOperatingSystems>
+    <SupportedToolchains>Colcon Tools</SupportedToolchains>
+  </buildconfigurationinfo>
+</productinfo>

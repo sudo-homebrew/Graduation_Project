@@ -1,0 +1,77 @@
+/* Copyright 2019 The MathWorks, Inc. */
+
+//This function is for internal use only. It may be removed in the future.
+// EDIT CAREFULLY!
+/**Note: 
+ * code line from onWorldUpdateStart() and subscribe functions are auto 
+ * generated based on user-defined custom message. The commented part 
+ * can be removed and edit as per need. Further, the message initialization 
+ * is needed in the onWorldUpdateStart(). Please take help of documentation.
+ */
+
+#include <iostream>
+#include <math.h>
+#include <sdf/sdf.hh>
+#include <ignition/math/Vector3.hh>
+
+#include "gazebo/gazebo.hh"
+#include "gazebo/common/common.hh"
+#include "gazebo/msgs/msgs.hh"
+#include "gazebo/physics/physics.hh"
+#include "gazebo/transport/transport.hh"
+{% msgInfo.ProtoMessageHeaders %}
+
+namespace gazebo
+{
+
+{% msgInfo.ProtoMessagePtrDef %}
+
+class customMessagePlugin : public WorldPlugin
+{
+  transport::NodePtr node;
+
+  {% msgInfo.GazeboSubscriberPtrList %}
+
+  {% msgInfo.GazeboPublisherPtrList %}
+
+  physics::WorldPtr world;
+  gazebo::event::ConnectionPtr worldUpdateStartEventConnection;
+  gazebo::event::ConnectionPtr m_worldUpdateEndEventConnection;
+  std::mutex pubMutex;
+
+  public:
+
+  void Load(physics::WorldPtr _parent, sdf::ElementPtr _sdf)
+  {
+    node = transport::NodePtr(new transport::Node());
+    world = _parent;
+
+    // Initialize the node with the world name
+    node->Init(world->Name());
+
+    {% msgInfo.GazeboSubscriberNodeDef %}
+
+    {% msgInfo.GazeboPublisherNodeDef %}
+
+    this->worldUpdateStartEventConnection = gazebo::event::Events::ConnectWorldUpdateBegin(std::bind(&customMessagePlugin::onWorldUpdateStart, this));
+    this->m_worldUpdateEndEventConnection = gazebo::event::Events::ConnectWorldUpdateEnd(
+        std::bind(&customMessagePlugin::onWorldUpdateEnd, this));
+  }
+
+  void onWorldUpdateStart()
+  {
+    std::lock_guard<std::mutex> lock(pubMutex);
+    {% msgInfo.PublisherCommand %}
+  }
+  
+  void onWorldUpdateEnd()
+  {
+  }
+
+  {% msgInfo.SubscriberCallback %}
+
+};
+
+// Register this plugin with the simulator
+GZ_REGISTER_WORLD_PLUGIN(customMessagePlugin)
+}

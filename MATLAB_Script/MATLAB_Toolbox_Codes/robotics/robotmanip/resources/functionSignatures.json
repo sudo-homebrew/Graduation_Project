@@ -1,0 +1,279 @@
+{
+    "constraintRevoluteJoint":
+    {
+        "inputs":[
+            {"name":"successorBody", "kind":"required", "type":[["char","vector"],["string","scalar"]]},
+            {"name":"predecessorBody", "kind":"required", "type":[["char","vector"],["string","scalar"]]},
+            {"name":"SuccessorTransform", "kind":"namevalue", "type":["numeric","2d","nrows=4","ncols=4"]},
+            {"name":"PredecessorTransform", "kind":"namevalue", "type":["numeric","2d","nrows=4","ncols=4"]},
+            {"name":"OrientationTolerance", "kind":"namevalue", "type":["numeric","scalar"]},
+            {"name":"PositionTolerance", "kind":"namevalue", "type":["numeric","scalar"]},
+            {"name":"Weights", "kind":"namevalue", "type":["numeric","2d","nrows=1","ncols=3"]},
+            {"name":"JointPositionLimits", "kind":"namevalue", "type":["numeric","2d","nrows=1","ncols=2"]}
+        ]
+    },
+    "constraintPrismaticJoint":
+    {
+        "inputs":[
+            {"name":"successorBody", "kind":"required", "type":[["char","vector"],["string","scalar"]]},
+            {"name":"predecessorBody", "kind":"required", "type":[["char","vector"],["string","scalar"]]},
+            {"name":"SuccessorTransform", "kind":"namevalue", "type":["numeric","2d","nrows=4","ncols=4"]},
+            {"name":"PredecessorTransform", "kind":"namevalue", "type":["numeric","2d","nrows=4","ncols=4"]},
+            {"name":"OrientationTolerance", "kind":"namevalue", "type":["numeric","scalar"]},
+            {"name":"PositionTolerance", "kind":"namevalue", "type":["numeric","scalar"]},
+            {"name":"Weights", "kind":"namevalue", "type":["numeric","2d","nrows=1","ncols=3"]},
+            {"name":"JointPositionLimits", "kind":"namevalue", "type":["numeric","2d","nrows=1","ncols=2"]}
+        ]
+    },
+    "constraintFixedJoint":
+    {
+        "inputs":[
+            {"name":"successorBody", "kind":"required", "type":[["char","vector"],["string","scalar"]]},
+            {"name":"predecessorBody", "kind":"required", "type":[["char","vector"],["string","scalar"]]},
+            {"name":"SuccessorTransform", "kind":"namevalue", "type":["numeric","2d","nrows=4","ncols=4"]},
+            {"name":"PredecessorTransform", "kind":"namevalue", "type":["numeric","2d","nrows=4","ncols=4"]},
+            {"name":"OrientationTolerance", "kind":"namevalue", "type":["numeric","scalar"]},
+            {"name":"PositionTolerance", "kind":"namevalue", "type":["numeric","scalar"]},
+            {"name":"Weights", "kind":"namevalue", "type":["numeric","2d","nrows=1","ncols=2"]}
+        ]
+    },
+    "importrobot":
+    {
+        "inputs":
+        [
+            {
+                "mutuallyExclusiveGroup":
+                [
+                    [
+                        {"name":"filename", "kind":"required", "type":[["file=*.urdf"], ["matlabpathfile=*.urdf"]]},
+                        {"name":"Format", "kind":"optional", "type":"choices={'urdf'}"},
+                        {"name":"MeshPath", "kind":"namevalue", "type":[["char"], ["cell"]]},
+                        {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','row','column'}"}
+                    ],
+                    [
+                        {"name":"filename", "kind":"required", "type":[["file=*.sdf"], ["matlabpathfile=*.sdf"]]},
+                        {"name":"Format", "kind":"optional", "type":"choices={'sdf'}"},
+                        {"name":"MeshPath", "kind":"namevalue", "type":[["char"], ["cell"]]},
+                        {"name":"SDFModel", "kind":"namevalue", "type":[ [ "choices=robotics.manip.internal.sdfSupport.getSDFModelNames(filename)" ] ]},
+                        {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','row','column'}"}
+                    ]
+                ]
+            }
+        ]
+    },
+    "importrobot":
+    {
+        "inputs":
+        [
+            {"name":"system", "kind":"required", "type":[["identifier=model"], ["file=*.mdl,*.slx"]]},
+            {"name":"BreakChains", "kind":"namevalue", "type":"choices={'error','remove-joints'}"},
+            {"name":"ConvertJoints", "kind":"namevalue", "type":"choices={'error','convert-to-fixed'}"},
+            {"name":"SMConstraints", "kind":"namevalue", "type":"choices={'error','remove'}"},
+            {"name":"VariableInertias", "kind":"namevalue", "type":"choices={'error','remove'}"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','row','column'}"}
+        ]
+    },
+    "interactiveRigidBodyTree":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"rigidBodyTree"},
+            {"name":"SolverPoseWeights", "kind":"namevalue", "type":["numeric", "vector", "numel=2"]},
+            {"name":"Constraints", "kind":"namevalue", "type":[["constraintAiming"], ["constraintCartesianBounds"], ["constraintJointBounds"], ["constraintOrientationTarget"], ["constraintPoseTarget"], ["constraintPositionTarget"]]},
+            {"name":"MarkerBodyName", "kind":"namevalue", "type":[["char", "vector"], ["string", "scalar"]]},
+            {"name":"MarkerControlMethod", "kind":"namevalue", "type":"choices={'InverseKinematics','JointControl'}"},
+            {"name":"MarkerScaleFactor", "kind":"namevalue", "type":["numeric", "scalar"]},
+            {"name":"ShowMarker", "kind":"namevalue", "type":["logical", "scalar"]},
+            {"name":"Configuration", "kind":"namevalue", "type":["numeric", "vector"]},
+            {"name":"StoredConfigurations", "kind":"namevalue", "type":["numeric", "2d"]},
+            {"name":"IKSolver", "kind":"namevalue", "type":"generalizedInverseKinematics"},
+            {"name":"Frames", "kind":"namevalue", "type":"choices={'on','off'}"}
+        ]
+    },
+    "robotics.URDFImporter.importrobot":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"robotics.URDFImporter"},
+            {"name":"filename", "kind":"required", "type":[["file=*.urdf"], ["matlabpathfile=*.urdf"]]},
+            {"name":"MeshPath", "kind":"namevalue", "type":[["char"], ["cell"]]}
+        ]
+    },
+    "robotics.SDFImporter.importrobot":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"robotics.SDFImporter"},
+            {"name":"filename", "kind":"required", "type":[["file=*.sdf"], ["matlabpathfile=*.sdf"]]},
+            {"name":"MeshPath", "kind":"namevalue", "type":[["char"], ["cell"]]},
+            {"name":"SDFModel", "kind":"namevalue", "type":[ [ "choices=robotics.manip.internal.sdfSupport.getSDFModelNames(filename)" ] ]}
+        ]
+    },
+    "rigidBodyTree.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"rigidBodyTree"},
+            {"name": "q", "kind":"ordered", "type":[["numeric"], ["struct"]]},
+            {"name":"PreservePlot", "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"Visuals", "kind":"namevalue", "type":"choices={'on','off'}"},
+            {"name":"Collisions", "kind":"namevalue", "type":"choices={'on','off'}"},
+            {"name":"Frames", "kind":"namevalue", "type":"choices={'on','off'}"},
+            {"name":"Parent", "kind":"namevalue", "type":"matlab.graphics.axis.Axes"},
+            {"name":"Position", "kind":"namevalue", "type":["numeric","vector", "numel=4"]},
+            {"name":"FastUpdate", "kind":"namevalue", "type":["logical","scalar"]}
+        ]
+    },
+    "robotics.URDFImporter":
+    {
+        "inputs":
+        [
+            {"name":"ParseInertial", "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"ParseVisual", "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','row','column'}"}
+        ]
+    },
+    "robotics.SDFImporter":
+    {
+        "inputs":
+        [
+            {"name":"ParseInertial", "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"ParseVisual", "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','row','column'}"}
+        ]
+    },
+    "robotics.SMImporter":
+    {
+        "inputs":
+        [
+            {"name":"BreakChains", "kind":"namevalue", "type":"choices={'error','remove-joints'}"},
+            {"name":"ConvertJoints", "kind":"namevalue", "type":"choices={'error','convert-to-fixed'}"},
+            {"name":"SMConstraints", "kind":"namevalue", "type":"choices={'error','remove'}"},
+            {"name":"VariableInertias", "kind":"namevalue", "type":"choices={'error','remove'}"},
+            {"name":"ParseInertial", "kind":"namevalue", "type":["logical","scalar"]},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','row','column'}"}
+        ]
+    },
+    "robotics.SMImporter.importrobot":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"robotics.SMImporter"},
+            {"name":"system", "kind":"required", "type":[["identifier=model"], ["file=*.mdl,*.slx"]]}
+        ]
+    },
+    "rigidBody.addVisual":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"rigidBody"},
+            {"name":"type", "kind":"required", "type":"choices={'Mesh'}"},
+            {"name":"parameter", "kind":"required", "type":[["file=*.stl,*.dae"], ["matlabpathfile=*.stl,*.dae"]]},
+            {"name":"T", "kind":"ordered", "type":["numeric"]}
+        ]
+    },
+    "rigidBody.addCollision":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"rigidBody"},
+            {"name":"type", "kind":"required", "type":"choices={'box', 'cylinder', 'sphere'}"},
+            {"name":"parameter", "kind":"required", "type":["numeric"]},
+            {"name":"T", "kind":"ordered", "type":["numeric"]}
+        ]
+    },
+    "rigidBody.addCollision":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"rigidBody"},
+            {"name":"type", "kind":"required", "type":"choices={'mesh'}"},
+            {"name":"parameter", "kind":"required", "type":[["file=*.stl,*.dae"], ["matlabpathfile=*.stl,*.dae"], ["numeric"]]},
+            {"name":"T", "kind":"ordered", "type":["numeric"]}
+        ]
+    },
+    "loadrobot":
+    {
+        "inputs":
+        [
+            {"name":"robot", "kind":"required", "type":"choices= robotics.manip.internal.RobotList.allRobots"},
+            {"name":"DataFormat", "kind":"namevalue", "type":"choices={'struct','row','column'}"},
+            {"name":"Gravity", "kind":"namevalue", "type":["numeric"]},
+            {"name":"Version", "kind":"namevalue", "type":["choices=robotics.manip.internal.RobotList.getRobotVersions(robot)"]}
+        ]
+
+    },
+    "jointSpaceMotionModel":
+    {
+        "inputs":
+        [
+            {"name":"RigidBodyTree", "kind":"namevalue","type":"rigidBodyTree"},
+            {"name":"NaturalFrequency", "kind":"namevalue", "type":["numeric", "vector", "positive"]},
+            {"name":"DampingRatio", "kind":"namevalue", "type":["numeric", "vector", "positive"]},
+            {"name":"Kp", "kind":"namevalue", "type":["numeric", "2d"]},
+            {"name":"Kd", "kind":"namevalue", "type":["numeric", "2d"]},
+            {"name":"MotionType", "kind":"namevalue", "type":"choices={'ComputedTorqueControl','IndependentJointMotion','PDControl'}"}
+        ]
+    },
+    "jointSpaceMotionModel.derivative":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"jointSpaceMotionModel"},
+            {"name":"state", "kind":"required", "type":["numeric", "vector"]},
+            {"name":"cmds", "kind":"required", "type":["numeric", "vector"]},
+            {"name":"fext", "kind":"optional", "type":["numeric", "2d", "nrows=6"]}
+        ]
+    },
+    "jointSpaceMotionModel.updateErrorDynamicsFromStep":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"jointSpaceMotionModel"},
+            {"name":"settlingTime", "kind":"required", "type":["numeric", "vector"]},
+            {"name":"overshoot", "kind":"required", "type":["numeric", "vector"]},
+            {"name":"jointIndex", "kind":"optional", "type":["numeric", "scalar"]}
+        ]
+    },
+    "taskSpaceMotionModel":
+    {
+        "inputs":
+        [
+            {"name":"RigidBodyTree", "kind":"namevalue","type":"rigidBodyTree"},
+            {"name":"EndEffectorName", "kind":"namevalue","type":["char", "scalar"]},
+            {"name":"Kp", "kind":"namevalue", "type":["numeric", "2d"]},
+            {"name":"Kd", "kind":"namevalue", "type":["numeric", "2d"]},
+            {"name":"JointDamping", "kind":"namevalue", "type":["numeric", "vector"]},
+            {"name":"MotionType", "kind":"namevalue", "type":"choices={'PDControl'}"}
+        ]
+    },
+    "taskSpaceMotionModel.derivative":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"taskSpaceMotionModel"},
+            {"name":"state", "kind":"required", "type":["numeric", "vector"]},
+            {"name":"refpose", "kind":"required", "type":["numeric", "2d", "nrows=4", "ncols=4"]},
+            {"name":"refvel", "kind":"required", "type":["numeric", "vector", "numel=6"]},
+            {"name":"fext", "kind":"optional", "type":["numeric", "2d", "nrows=6"]}
+        ]
+    },
+    "workspaceGoalRegion":
+    {
+        "inputs":
+        [
+            {"name":"endEffectorName", "kind":"required", "type":[["char", "vector"], ["string", "scalar"]]},
+            {"name":"Bounds", "kind":"namevalue", "type":["numeric", "2d", "nrows=6", "ncols=2"]},
+            {"name":"EndEffectorOffsetPose", "kind":"namevalue", "type":["numeric", "2d", "nrows=4", "ncols=4"]},
+            {"name":"ReferencePose", "kind":"namevalue", "type":["numeric", "2d", "nrows=4", "ncols=4"]}
+        ]
+    },
+    "workspaceGoalRegion.show":
+    {
+        "inputs":
+        [
+            {"name":"obj", "kind":"required", "type":"workspaceGoalRegion"},
+            {"name":"Parent", "kind":"namevalue", "type":"matlab.graphics.axis.Axes"}
+        ]
+    }
+}

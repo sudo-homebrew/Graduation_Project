@@ -1,0 +1,14 @@
+# This is used between remocons and the interactions manager to request
+# the launch of a remote application to interact with the concert.
+
+int32 hash
+
+---
+
+bool result
+
+# classifying start success/failure, see ErrorCodes.msg
+int8 error_code
+
+# human friendly string for debugging (usually upon error)
+string message

@@ -1,0 +1,9 @@
+time stamp
+string commandId
+uint8 PENDING=0
+uint8 ACTIVE=1
+uint8 REJECTED=2
+uint8 SUCCEEDED=3
+uint8 FAILED=4
+uint8 status
+string statusMessage

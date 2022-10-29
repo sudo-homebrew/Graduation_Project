@@ -1,0 +1,43 @@
+function [data, info] = connection
+%Connection gives an empty data for rocon_std_msgs/Connection
+
+% Copyright 2019-2020 The MathWorks, Inc.
+data = struct();
+data.MessageType = 'rocon_std_msgs/Connection';
+[data.PUBLISHER, info.PUBLISHER] = ros.internal.ros.messages.ros.char('string',0);
+[data.PUBLISHER, info.PUBLISHER] = ros.internal.ros.messages.ros.char('string',1,'publisher');
+[data.SUBSCRIBER, info.SUBSCRIBER] = ros.internal.ros.messages.ros.char('string',0);
+[data.SUBSCRIBER, info.SUBSCRIBER] = ros.internal.ros.messages.ros.char('string',1,'subscriber');
+[data.SERVICE, info.SERVICE] = ros.internal.ros.messages.ros.char('string',0);
+[data.SERVICE, info.SERVICE] = ros.internal.ros.messages.ros.char('string',1,'service');
+[data.ACTIONCLIENT, info.ACTIONCLIENT] = ros.internal.ros.messages.ros.char('string',0);
+[data.ACTIONCLIENT, info.ACTIONCLIENT] = ros.internal.ros.messages.ros.char('string',1,'action_client');
+[data.ACTIONSERVER, info.ACTIONSERVER] = ros.internal.ros.messages.ros.char('string',0);
+[data.ACTIONSERVER, info.ACTIONSERVER] = ros.internal.ros.messages.ros.char('string',1,'action_server');
+[data.INVALID, info.INVALID] = ros.internal.ros.messages.ros.char('string',0);
+[data.INVALID, info.INVALID] = ros.internal.ros.messages.ros.char('string',1,'invalid');
+[data.Type, info.Type] = ros.internal.ros.messages.ros.char('string',0);
+[data.Name, info.Name] = ros.internal.ros.messages.ros.char('string',0);
+[data.Node, info.Node] = ros.internal.ros.messages.ros.char('string',0);
+[data.TypeMsg, info.TypeMsg] = ros.internal.ros.messages.ros.char('string',0);
+[data.TypeInfo, info.TypeInfo] = ros.internal.ros.messages.ros.char('string',0);
+[data.XmlrpcUri, info.XmlrpcUri] = ros.internal.ros.messages.ros.char('string',0);
+info.MessageType = 'rocon_std_msgs/Connection';
+info.constant = 0;
+info.default = 0;
+info.maxstrlen = NaN;
+info.MaxLen = 1;
+info.MinLen = 1;
+info.MatPath = cell(1,12);
+info.MatPath{1} = 'PUBLISHER';
+info.MatPath{2} = 'SUBSCRIBER';
+info.MatPath{3} = 'SERVICE';
+info.MatPath{4} = 'ACTION_CLIENT';
+info.MatPath{5} = 'ACTION_SERVER';
+info.MatPath{6} = 'INVALID';
+info.MatPath{7} = 'type';
+info.MatPath{8} = 'name';
+info.MatPath{9} = 'node';
+info.MatPath{10} = 'type_msg';
+info.MatPath{11} = 'type_info';
+info.MatPath{12} = 'xmlrpc_uri';
