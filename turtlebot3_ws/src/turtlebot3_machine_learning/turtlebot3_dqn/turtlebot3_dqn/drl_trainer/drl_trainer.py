@@ -399,7 +399,7 @@ class ros_NavEnv(Node):
 
 
 class Trainer():
-    def __init__(self):
+    def __init__(self, mode):
         # super().__init__('trainer')
         print("0")
         self.env = gym_NavEnv(n_actions=5)
@@ -408,32 +408,46 @@ class Trainer():
             self.inferencing()
         else:
             self.training()
+        print("2")
 
 
-print("2")
+    def training(self):
+        model = PPO("MlpPolicy", self.env, verbose=1)
+        model = PPO.load(path="ppo_200000", env=self.env)
+        model.learn(total_timesteps=100000, log_interval=5000)
+        model.save("ppo_300000")
+        result_folder = "result_ppo"
+
+        for i in range(20):
+            logname = "ppo_" + str(300000+i*100000)
+            model.learn(total_timesteps=100000,
+                        reset_num_timesteps=False,
+                        tb_log_name=logname)
+
+            #self.env.close()
+
+            path = result_folder + logname
+            model.save(path)
 
 
-def training(self):
-    model = PPO("MlpPolicy", self.env, verbose=1)
-    model = PPO.load(path="ppo_100000", env=self.env)
-    model.learn(total_timesteps=100000, log_interval=5000)
-    model.save("ppo_200000")
+        #self.env = gym_NavEnv(n_actions=5)
+        #model.load(load_path=path, env=env)
 
 
-def inferencing(self):
-    model = PPO("MlpPolicy", self.env, verbose=1)
-    model = PPO.load(path="ppo_100000", env=self.env)
+    def inferencing(self):
+        model = PPO("MlpPolicy", self.env, verbose=1)
+        model = PPO.load(path="ppo_100000", env=self.env)
 
-    obs = self.env.reset()
-    while True:
-        action, _states = model.predict(obs)
-        obs, rewards, dones, info = self.env.step(action)
-        if dones:
-            time.sleep(10)
+        obs = self.env.reset()
+        while True:
+            action, _states = model.predict(obs)
+            obs, rewards, dones, info = self.env.step(action)
+            if dones:
+                time.sleep(10)
 
 
 def main(args=None):
-    Trainer()
+    Trainer(args)
 
 
 if __name__ == '__main__':
