@@ -19,8 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="turtlebot3_msgs, turtlebot3_navigation2, turtlebot3_node little error">
+    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="turtlebot3_node little error, turtlebot3_simulations, etc files">
+      <change afterPath="$PROJECT_DIR$/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_dqn/turtlebot3_dqn/real_goal/real_goal.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_dqn/turtlebot3_dqn/drl_trainer/drl_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_dqn/turtlebot3_dqn/drl_trainer/drl_trainer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,16 +43,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/turtlebot3_ws/install" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_dqn/turtlebot3_dqn" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\src\turtlebot3_machine_learning\turtlebot3_dqn\turtlebot3_dqn" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\install" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\build" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\build\turtlebot3_teleop" />
-      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\build\turtlebot3_dqn" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -190,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667219296289</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="turtlebot3_node little error, turtlebot3_simulations, etc files">
+      <created>1667316724963</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1667316724963</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -222,7 +231,8 @@
     <MESSAGE value="turtlebot3_description little error, turtlebot3_dqn, turtlebot3_example" />
     <MESSAGE value="turtlebot3_fake_node, turtlebot3_gazebo, turtlebot3_machine_learning little error" />
     <MESSAGE value="turtlebot3_msgs, turtlebot3_navigation2, turtlebot3_node little error" />
-    <option name="LAST_COMMIT_MESSAGE" value="turtlebot3_msgs, turtlebot3_navigation2, turtlebot3_node little error" />
+    <MESSAGE value="turtlebot3_node little error, turtlebot3_simulations, etc files" />
+    <option name="LAST_COMMIT_MESSAGE" value="turtlebot3_node little error, turtlebot3_simulations, etc files" />
   </component>
   <component name="WindowStateProjectService">
     <state x="546" y="414" width="615" height="276" key="#Notifications" timestamp="1666769461273">
@@ -245,10 +255,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="162" y="197" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1666769649735" />
-    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1667219301522">
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1667316729379">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1667219301522" />
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1667316729379" />
     <state x="726" y="493" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1664957126955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

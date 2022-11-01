@@ -404,13 +404,32 @@ class Trainer():
         print("0")
         self.env = gym_NavEnv(n_actions=5)
         print("1")
-        self.training()
-        print("2")
+        if mode == "i":
+            self.inferencing()
+        else:
+            self.training()
 
-    def training(self):
-        model = PPO("MlpPolicy", self.env, verbose=1)
-        model.learn(total_timesteps=1000 * 5000, log_interval=5000)
-        model.save("ppo_")
+
+print("2")
+
+
+def training(self):
+    model = PPO("MlpPolicy", self.env, verbose=1)
+    model = PPO.load(path="ppo_100000", env=self.env)
+    model.learn(total_timesteps=100000, log_interval=5000)
+    model.save("ppo_200000")
+
+
+def inferencing(self):
+    model = PPO("MlpPolicy", self.env, verbose=1)
+    model = PPO.load(path="ppo_100000", env=self.env)
+
+    obs = self.env.reset()
+    while True:
+        action, _states = model.predict(obs)
+        obs, rewards, dones, info = self.env.step(action)
+        if dones:
+            time.sleep(10)
 
 
 def main(args=None):

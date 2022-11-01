@@ -40,8 +40,10 @@ setup(
             'dqn_agent = turtlebot3_dqn.dqn_agent.dqn_agent:main', 
             'dqn_environment = turtlebot3_dqn.dqn_environment.dqn_environment:main', 
             'dqn_gazebo = turtlebot3_dqn.dqn_gazebo.dqn_gazebo:main', 
-            'dqn_test = turtlebot3_dqn.dqn_test.dqn_test:main', 
-            'zigzag = turtlebot3_dqn.zigzag.zigzag:main',
+            'dqn_test = turtlebot3_dqn.dqn_test.dqn_test:main',
+            'drl_trainer = turtlebot3_dqn.drl_trainer.drl_trainer:main',
+            'slam_test = turtlebot3_dqn.slam_test.python_lidar:main',
+            'real_goal = turtlebot3_dqn.real_goal.real_goal:main',
         ],
     },
 )
