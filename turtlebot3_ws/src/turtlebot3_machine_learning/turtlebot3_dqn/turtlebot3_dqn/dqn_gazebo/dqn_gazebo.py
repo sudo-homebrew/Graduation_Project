@@ -17,17 +17,12 @@
 # Authors: Ryan Shim, Gilbert
 
 import os
-import signal
 import random
 import sys
-import subprocess
-import time
 
 from gazebo_msgs.srv import DeleteEntity
 from gazebo_msgs.srv import SpawnEntity
 from geometry_msgs.msg import Pose
-# from cartographer_ros_msgs.srv import FinishTrajectory
-# from cartographer_ros_msgs.srv import StartTrajectory
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
@@ -43,8 +38,6 @@ class DQNGazebo(Node):
         ************************************************************"""
         # Stage
         self.stage = int(stage)
-        self.dp = None
-        self.gz = None
 
         # Entity 'goal'
         self.entity_dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -71,10 +64,7 @@ class DQNGazebo(Node):
         # Initialise client
         self.delete_entity_client = self.create_client(DeleteEntity, 'delete_entity')
         self.spawn_entity_client = self.create_client(SpawnEntity, 'spawn_entity')
-        self.reset_simulation_client = self.create_client(Empty, 'reset_world')
-        ####
-        # self.finish_trajectory_client = self.create_client(FinishTrajectory, 'finish_trajectory')
-        # self.start_trajectory_client = self.create_client(StartTrajectory, 'start_trajectory')
+        self.reset_simulation_client = self.create_client(Empty, 'reset_simulation')
 
         # Initialise servers
         self.task_succeed_server = self.create_service(
@@ -82,8 +72,6 @@ class DQNGazebo(Node):
             'task_succeed',
             self.task_succeed_callback)
         self.task_fail_server = self.create_service(Empty, 'task_fail', self.task_fail_callback)
-
-        # self.reset_simulation()
 
         # Process
         self.publish_timer = self.create_timer(
@@ -93,9 +81,7 @@ class DQNGazebo(Node):
     """*******************************************************************************
     ** Callback functions and relevant functions
     *******************************************************************************"""
-
     def publish_callback(self):
-        # self.reset_simulation()
         # Init
         if self.init_state is False:
             self.delete_entity()
@@ -123,9 +109,6 @@ class DQNGazebo(Node):
         self.reset_simulation()
         self.generate_goal_pose()
         print("reset the gazebo environment :(")
-        # finishtrajectory
-        # self.finish_trajectory()
-        # self.start_trajectory()
 
         return response
 
@@ -142,50 +125,17 @@ class DQNGazebo(Node):
             print("Goal pose: ", self.goal_pose_x, self.goal_pose_y)
 
     def reset_simulation(self):
-
-        # os.system('killall gzclient')
-        # os.system('killall gzserver')
-        # os.system('killall robot_state_pub')
-        # os.system('killall cartographer_node-1')
-        # os.system('killall occupancy_grid_node-2')
-        # os.system('killall rviz2')
-
-        # if self.dp is not None:
-        #     print(self.dp.pid)
-        #     #self.pid.terminate()
-        #     self.dp.terminate()
-        #     #os.killpg(self.dp.pid, signal.SIGINT)
-        #     #os.killpg(dp.pid, signal.SIGTERM)
-        #     #time.sleep(5)
-        #     #self.dp.send_signal(signal.SIGINT)
-        #
-        #     #self.dp.wait()
-        #     print("killit################################")
-        # if self.gz is not None:
-        #     print(self.gz.pid)
-        #     self.gz.terminate()
-        # #os.system('ros2 lifecycle set occupancy_grid_node shutdown')
-        # #os.system('ros2 lifecycle set cartographer_node shutdown')
-        # #os.system('ros2 launch turtlebot3_cartographer cartographer.launch.py')
-        # #k = subprocess.Popen('killall rviz2 && killall occupancy_grid_node && killall cartographer_node && killall cartographer_no', shell=True)
-        # #k = subprocess.Popen('killall rviz2', shell=True)
-        # #k.kill()
-        # self.gz = subprocess.Popen('ros2 launch turtlebot3_gazebo turtlebot3_dqn_stage4.launch.py', shell=True)
-        # time.sleep(5)
-        # self.dp = subprocess.Popen('ros2 launch turtlebot3_cartographer cartographer.launch.py', shell=True)
-        # #self.dp = subprocess.Popen(['ros2', 'launch', 'turtlebot3_cartographer', 'cartographer.launch.py'])
         req = Empty.Request()
         while not self.reset_simulation_client.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('service not available, waiting again...')
 
         self.reset_simulation_client.call_async(req)
-        # time.sleep(5)
 
     def delete_entity(self):
         req = DeleteEntity.Request()
         req.name = self.entity_name
         while not self.delete_entity_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info('delete service not available, waiting again...')
+            self.get_logger().info('service not available, waiting again...')
 
         self.delete_entity_client.call_async(req)
 
@@ -198,23 +148,9 @@ class DQNGazebo(Node):
         req.xml = self.entity
         req.initial_pose = goal_pose
         while not self.spawn_entity_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info('spawn service not available, waiting again...')
+            self.get_logger().info('service not available, waiting again...')
 
         self.spawn_entity_client.call_async(req)
-    ###
-    # def finish_trajectory(self):
-    #     req = FinishTrajectory.Request()
-    #     while not self.finish_trajectory_client.wait_for_service(timeout_sec=1.0):
-    #         self.get_logger().info('finish_trajectory service not available, waiting again...')
-    #
-    #     self.finish_trajectory_client.call_async(req)
-    #
-    # def start_trajectory(self):
-    #     req = StartTrajectory.Request()
-    #     while not self.start_trajectory_client.wait_for_service(timeout_sec=1.0):
-    #         self.get_logger().info('start_trajectory service not available, waiting again...')
-    #
-    #     self.start_trajectory_client.call_async(req)
 
 
 def main(args=sys.argv[1]):

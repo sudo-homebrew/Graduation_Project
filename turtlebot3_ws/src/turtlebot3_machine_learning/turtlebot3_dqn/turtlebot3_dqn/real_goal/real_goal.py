@@ -18,7 +18,7 @@ from std_srvs.srv import Empty
 
 
 class RealGoal(Node):
-    def __init__(self, x, y):
+    def __init__(self, pose):
         super().__init__('real_goal')
 
         """************************************************************
@@ -26,8 +26,8 @@ class RealGoal(Node):
         ************************************************************"""
 
 
-        self.goal_pose_x = x
-        self.goal_pose_y = y
+        self.goal_pose_x = pose[0]
+        self.goal_pose_y = pose[1]
 
         self.init_state = False
 
@@ -95,20 +95,31 @@ class RealGoal(Node):
         return response
 
     def generate_goal_pose(self):
-        x, y = input("input goal pose : ")
+        x, y = input("input goal pose : ").split(" ")
         self.goal_pose_x = x
         self.goal_pose_y = y
         print("Goal pose: ", self.goal_pose_x, self.goal_pose_y)
 
 
-def main(args=None):
+#def main(args=None):
+#    rclpy.init(args=args)
+#    real_goal = RealGoal(args)
+#    rclpy.spin(real_goal)
+#
+#    real_goal.destroy()
+#    rclpy.shutdown()
+
+def main(args=sys.argv[1], args1=sys.argv[2]):
     rclpy.init(args=args)
-    real_goal = RealGoal(args)
+    #print(args)
+    #print(args1)
+    pose = [float(args), float(args1)]
+    #print(pose)
+    real_goal = RealGoal(pose)
     rclpy.spin(real_goal)
 
     real_goal.destroy()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()

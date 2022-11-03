@@ -20,6 +20,7 @@ import time
 
 import gym
 from gym import spaces
+import sys
 
 
 # DRLEnv -> gym_NavEnv
@@ -36,7 +37,6 @@ class gym_NavEnv(gym.Env):
         self.n_actions = n_actions
         self.action_space = spaces.Discrete(n_actions)
         self.observation_space = spaces.Box(low=-3.5, high=3.5, shape=(26,), dtype=numpy.uint8)
-
         rclpy.init(args=None)
         self.drl_trainer = ros_NavEnv()
         self.goal_count = 0
@@ -79,7 +79,7 @@ class gym_NavEnv(gym.Env):
         return observation, reward, done, info
 
     def reset(self):
-        # time.sleep(15)
+        time.sleep(5)
         if self.drl_trainer.done:
             self.drl_trainer.done = False
             self.drl_trainer.succeed = False
@@ -213,13 +213,33 @@ class ros_NavEnv(Node):
         # print(self.goal_distance)
 
     def scan_callback(self, msg):
+        # print(msg)
         self.scan_ranges = msg.ranges
+        # print(len(msg.ranges))
+        # print(self.scan_ranges)
+        # count = 0
+        # sr = 0
+        # for i in self.scan_ranges:
+        #    if math.isnan(i):
+        #        count += 1
+        #    else:
+        #        sr += 1
+        # print(count)
+        # print(len(self.scan_ranges))
+        # print(sr)
         self.min_obstacle_distance = min(self.scan_ranges)
         self.min_obstacle_angle = numpy.argmin(self.scan_ranges)
 
     def get_state(self):
         # state scaling
+        # pre_state = []
+
+        # for i in range(len(self.scan_ranges)):
+        #    if i % 10 == 0:
+        #        if len(pre_state) < 24:
+        #            pre_state.append(i)
         pre_state = self.scan_ranges[0::15]
+        # print(len(self.scan_ranges), len(pre_state))
         state = []
         # print(self.goal_distance, self.goal_angle)
 
@@ -230,10 +250,10 @@ class ros_NavEnv(Node):
             if scan == numpy.inf:
                 scan = 3.5
             # scan = scan / 3.5
-            # if scan > 1:
-            #     scan = 1
-            # elif scan < -1:
-            #     scan = -1
+            if scan < 3.5:
+                pass
+            else:
+                scan = 3.5
             state.append(scan)
         # print(state)
         # print(state)
@@ -241,7 +261,7 @@ class ros_NavEnv(Node):
         #     if not (data >= -1 and data <= 1):
         #         print(state)
         self.local_step += 1
-
+        # print(state)
         # Succeed
         if self.goal_distance < 0.2:  # unit: m
             print("Goal! :)")
@@ -410,29 +430,26 @@ class Trainer():
             self.training()
         print("2")
 
-
     def training(self):
         model = PPO("MlpPolicy", self.env, verbose=1)
-        model = PPO.load(path="ppo_200000", env=self.env)
+        model = PPO.load(path="result_ppoppo_1200000", env=self.env)
         model.learn(total_timesteps=100000, log_interval=5000)
-        model.save("ppo_300000")
-        result_folder = "result_ppo"
+        model.save("result_ppoppo_1300000")
+        result_folder = "result_ppo/"
 
         for i in range(20):
-            logname = "ppo_" + str(300000+i*100000)
+            logname = "ppo_" + str(300000 + i * 100000)
             model.learn(total_timesteps=100000,
                         reset_num_timesteps=False,
                         tb_log_name=logname)
 
-            #self.env.close()
+            # self.env.close()
 
             path = result_folder + logname
             model.save(path)
 
-
-        #self.env = gym_NavEnv(n_actions=5)
-        #model.load(load_path=path, env=env)
-
+        # self.env = gym_NavEnv(n_actions=5)
+        # model.load(load_path=path, env=env)
 
     def inferencing(self):
         model = PPO("MlpPolicy", self.env, verbose=1)
@@ -446,7 +463,7 @@ class Trainer():
                 time.sleep(10)
 
 
-def main(args=None):
+def main(args=sys.argv[1]):
     Trainer(args)
 
 
