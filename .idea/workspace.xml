@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="setting deployment">
+    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="drl_trainer modify">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_dqn/turtlebot3_dqn/drl_trainer/drl_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_dqn/turtlebot3_dqn/drl_trainer/drl_trainer.py" afterDir="false" />
     </list>
@@ -219,7 +219,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667479648786</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="drl_trainer modify">
+      <created>1667979458871</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1667979458871</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -255,7 +262,8 @@
     <MESSAGE value="Real Robot Deploy real_goal.py add + setup.py modify + drl_trainer.py modify" />
     <MESSAGE value="auto training" />
     <MESSAGE value="setting deployment" />
-    <option name="LAST_COMMIT_MESSAGE" value="setting deployment" />
+    <MESSAGE value="drl_trainer modify" />
+    <option name="LAST_COMMIT_MESSAGE" value="drl_trainer modify" />
   </component>
   <component name="WindowStateProjectService">
     <state x="546" y="414" width="615" height="276" key="#Notifications" timestamp="1666769461273">
@@ -266,10 +274,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="204" y="290" width="1449" height="661" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1664957285405" />
-    <state x="1009" y="286" key="FileChooserDialogImpl" timestamp="1667635865957">
+    <state x="1009" y="286" key="FileChooserDialogImpl" timestamp="1667979527837">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1009" y="286" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1667635865957" />
+    <state x="1009" y="286" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1667979527837" />
     <state x="971" y="311" key="RollbackChangesDialog" timestamp="1664957237711">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -278,10 +286,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="162" y="197" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1666769649735" />
-    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1667479653831">
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2" timestamp="1667979465377">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1667479653831" />
+    <state x="261" y="237" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1667979465377" />
     <state x="726" y="493" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1664957126955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
