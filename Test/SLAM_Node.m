@@ -11,44 +11,31 @@ function [isSuccess] = SLAM_Node(duration)
 
     
     
-    %%  SLAM Section  %%
-%     sc = {};
-    maxLidarRange = 8;
+    %%%%%%%%%%%%%%%%%%%  SLAM Section  %%%%%%%%%%%%%%%%%%%%%
+    maxLidarRange = 3.5;
     mapResolution = 20;
-    maxNumScans = 360;
+%     maxNumScans = 360;
 
-    slamAlg = lidarSLAM(mapResolution, maxLidarRange, maxNumScans);
+%     slamAlg = lidarSLAM(mapResolution, maxLidarRange, maxNumScans);
+    slamAlg = lidarSLAM(mapResolution, maxLidarRange);
     
     
     slamAlg.LoopClosureThreshold = 210;  
-    slamAlg.LoopClosureSearchRadius = 8;
+    slamAlg.LoopClosureSearchRadius = 3.5;
     
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    % Pause Option
-    % pause(4)
-    
-    
-    
-    
+
 
     tic
-%     cnt = 0;
-    
+    before = 0;
     while toc <= duration
     %%%%%%%%%%%%%%%%%%%%%%%    SLAM Section     %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
         [scanMsge, isScaned] = receive(lidarSub);
-
-%         before = toc;
         scan_temp = rosReadLidarScan(scanMsge);
-%         sc = [sc, scan_temp];
         isScanAccepted = addScan(slamAlg, scan_temp);
 
-        [scans, optimizedPoses]  = scansAndPoses(slamAlg);
-        map = buildMap(scans, optimizedPoses, mapResolution, maxLidarRange);
-%         occMatrix = getOccupancy(map);
         
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -58,22 +45,24 @@ function [isSuccess] = SLAM_Node(duration)
         end
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+        
+        
+        if(round(toc) ~= before)
+    	    disp(['Duration = ', int2str(toc)])
+            before = round(toc);
+        end
     end
-    
     
 
     [scans, optimizedPoses]  = scansAndPoses(slamAlg);
     map = buildMap(scans, optimizedPoses, mapResolution, maxLidarRange);
     
     
-    filename = ['./Maps/map'];
+    filename = [pwd, '/Maps/map'];
 
     figure; 
-%     h = show(map);
 
     saveas(show(map), [filename, '.pgm'])
-%     show(map)
     data.image = [filename, '.pgm'];
     data.mode = 'trinary';
     data.resolution = map.Resolution;
@@ -85,3 +74,4 @@ function [isSuccess] = SLAM_Node(duration)
 
     yaml.dumpFile(filename + ".yaml", data)
 end
+
