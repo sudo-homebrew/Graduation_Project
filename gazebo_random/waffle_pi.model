@@ -61,9 +61,8 @@
     </include>
 
     <model name="box1">
-      <pose>1 1 0 0 0 0</pose>
-      <link name="link">
-
+      <pose>0.5 1 0 0 0 0</pose>
+      <link name="link1">
         <collision name="collision1">
           <geometry>
             <box>
@@ -71,7 +70,7 @@
             </box>
           </geometry>
         </collision>
-        <visual name="visual">
+        <visual name="visual1">
           <geometry>
             <box>
               <size>0.2 0.2 0.2</size>
@@ -79,15 +78,15 @@
           </geometry>
         </visual>
       </link>
-      <plugin name="random" filename="libRandomVelocityPlugin.so">
+      <plugin name="random1" filename="libRandomVelocityPlugin.so">
         <!-- Name of the link in this model that receives the velocity -->
-        <link>link</link>
+        <link>link1</link>
 
         <!-- Initial velocity that is applied to the link -->
         <initial_velocity>0.1 0.1 0</initial_velocity>
 
         <!-- Scaling factor that is used to compute a new velocity -->
-        <velocity_factor>0.5</velocity_factor>
+        <velocity_factor>0.3</velocity_factor>
 
         <!-- Time, in seconds, between new velocities -->
         <update_period>2</update_period>
@@ -100,10 +99,11 @@
     </model>
 
     <model name="box2">
-      <pose>-1 1 0 0 0 0</pose>
-      <link name="link">
+      <pose>-0.5 1 0 0 0 0</pose>
+      <link name="link2">
         <!-- kinematic>true</kinematic -->
-        <collision name="collision">
+
+        <collision name="collision2">
           <geometry>
             <box>
               <size>0.2 0.2 0.2</size>
@@ -118,7 +118,7 @@
             </friction>
           </surface>
         </collision>
-        <visual name="visual">
+        <visual name="visual2">
           <geometry>
             <box>
               <size>0.2 0.2 0.2</size>
@@ -126,15 +126,15 @@
           </geometry>
         </visual>
       </link>
-      <plugin name="random" filename="libRandomVelocityPlugin.so">
+      <plugin name="random2" filename="libRandomVelocityPlugin.so">
         <!-- Name of the link in this model that receives the velocity -->
-        <link>link</link>
+        <link>link2</link>
 
         <!-- Initial velocity that is applied to the link -->
         <initial_velocity>-0.1 0.1 0</initial_velocity>
 
         <!-- Scaling factor that is used to compute a new velocity -->
-        <velocity_factor>0.5</velocity_factor>
+        <velocity_factor>0.3</velocity_factor>
 
         <!-- Time, in seconds, between new velocities -->
         <update_period>2</update_period>
@@ -147,10 +147,10 @@
     </model>
 
     <model name="box3">
-      <pose>-1 -1 0 0 0 0</pose>
-      <link name="link">
+      <pose>-0.5 -1 0 0 0 0</pose>
+      <link name="link3">
 
-        <collision name="collision">
+        <collision name="collision3">
           <geometry>
             <box>
               <size>0.2 0.2 0.2</size>
@@ -165,7 +165,7 @@
             </friction>
           </surface>
         </collision>
-        <visual name="visual">
+        <visual name="visual3">
           <geometry>
             <box>
               <size>0.2 0.2 0.2</size>
@@ -173,15 +173,15 @@
           </geometry>
         </visual>
       </link>
-      <plugin name="random" filename="libRandomVelocityPlugin.so">
+      <plugin name="random3" filename="libRandomVelocityPlugin.so">
         <!-- Name of the link in this model that receives the velocity -->
-        <link>link</link>
+        <link>link3</link>
 
         <!-- Initial velocity that is applied to the link -->
         <initial_velocity>-0.1 -0.1 0</initial_velocity>
 
         <!-- Scaling factor that is used to compute a new velocity -->
-        <velocity_factor>0.5</velocity_factor>
+        <velocity_factor>0.3</velocity_factor>
 
         <!-- Time, in seconds, between new velocities -->
         <update_period>2</update_period>
@@ -193,10 +193,10 @@
       </plugin>
     </model>
     <model name="box4">
-      <pose>1 -1 0 0 0 0</pose>
-      <link name="link">
+      <pose>0.5 -1 0 0 0 0</pose>
+      <link name="link4">
 
-        <collision name="collision">
+        <collision name="collision4">
           <geometry>
             <box>
               <size>0.2 0.2 0.2</size>
@@ -211,7 +211,7 @@
             </friction>
           </surface>
         </collision>
-        <visual name="visual">
+        <visual name="visual4">
           <geometry>
             <box>
               <size>0.2 0.2 0.2</size>
@@ -219,15 +219,15 @@
           </geometry>
         </visual>
       </link>
-      <plugin name="random" filename="libRandomVelocityPlugin.so">
+      <plugin name="random4" filename="libRandomVelocityPlugin.so">
         <!-- Name of the link in this model that receives the velocity -->
-        <link>link</link>
+        <link>link4</link>
 
         <!-- Initial velocity that is applied to the link -->
         <initial_velocity>0.1 -0.1 0</initial_velocity>
 
         <!-- Scaling factor that is used to compute a new velocity -->
-        <velocity_factor>0.5</velocity_factor>
+        <velocity_factor>0.3</velocity_factor>
 
         <!-- Time, in seconds, between new velocities -->
         <update_period>2</update_period>

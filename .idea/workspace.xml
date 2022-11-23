@@ -19,8 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="real_goal_modify.py">
+    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="gazebo_random_world">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gazebo_random/waffle_pi.model" beforeDir="false" afterPath="$PROJECT_DIR$/gazebo_random/waffle_pi.model" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,11 +47,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\gazebo_random" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\src\turtlebot3_machine_learning\turtlebot3_dqn\turtlebot3_dqn\real_goal" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\src\turtlebot3_machine_learning\turtlebot3_dqn\turtlebot3_dqn" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\install" />
       <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws" />
-      <recent name="C:\Users\suk14\PycharmProjects\Graduation_Project\turtlebot3_ws\build" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -240,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668339420987</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="gazebo_random_world">
+      <created>1669123243784</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1669123243784</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -279,6 +287,7 @@
     <MESSAGE value="drl_trainer modify" />
     <MESSAGE value="drl_trainer modify(TD3 ver)" />
     <MESSAGE value="real_goal_modify.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="real_goal_modify.py" />
+    <MESSAGE value="gazebo_random_world" />
+    <option name="LAST_COMMIT_MESSAGE" value="gazebo_random_world" />
   </component>
 </project>
