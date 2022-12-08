@@ -19,9 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="gazebo_random_world">
+    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="gazebo_random_world waffle_pi.model modify">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gazebo_random/waffle_pi.model" beforeDir="false" afterPath="$PROJECT_DIR$/gazebo_random/waffle_pi.model" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +41,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DRL_ROBOT" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -248,7 +247,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669123243784</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="gazebo_random_world waffle_pi.model modify">
+      <created>1669211078259</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1669211078259</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -288,6 +294,7 @@
     <MESSAGE value="drl_trainer modify(TD3 ver)" />
     <MESSAGE value="real_goal_modify.py" />
     <MESSAGE value="gazebo_random_world" />
-    <option name="LAST_COMMIT_MESSAGE" value="gazebo_random_world" />
+    <MESSAGE value="gazebo_random_world waffle_pi.model modify" />
+    <option name="LAST_COMMIT_MESSAGE" value="gazebo_random_world waffle_pi.model modify" />
   </component>
 </project>
