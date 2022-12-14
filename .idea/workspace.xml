@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="gazebo_random_world waffle_pi.model modify">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="td3 reward function shaping" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,7 +39,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DRL_ROBOT" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -254,7 +252,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669211078259</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="td3 reward function shaping">
+      <created>1670503674616</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1670503674616</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -270,7 +275,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="build dynamixel_sdk" />
     <MESSAGE value="build dynamixel_sdk related folders and files" />
     <MESSAGE value="build turtlebot3, turtlebot3 related files" />
     <MESSAGE value="src DynamixelSDK, turtlebot3" />
@@ -295,6 +299,7 @@
     <MESSAGE value="real_goal_modify.py" />
     <MESSAGE value="gazebo_random_world" />
     <MESSAGE value="gazebo_random_world waffle_pi.model modify" />
-    <option name="LAST_COMMIT_MESSAGE" value="gazebo_random_world waffle_pi.model modify" />
+    <MESSAGE value="td3 reward function shaping" />
+    <option name="LAST_COMMIT_MESSAGE" value="td3 reward function shaping" />
   </component>
 </project>

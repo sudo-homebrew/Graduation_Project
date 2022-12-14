@@ -507,14 +507,36 @@ class Trainer():
         print(n_actions)
         action_noise = NormalActionNoise(mean=numpy.zeros(n_actions), sigma=0.1 * numpy.ones(n_actions))
         model = TD3.load(path="result_td3/td3_100000", env=self.env, action_noise=action_noise, verbose=1)
+        # NoE Number of Episode
+        # NoS Number of Steps
+        # AoR Accumulation of Reward
+        # NoG Number of Goal
+        # NoC Number of Collision
 
+        NoE = 50
+        NoS = 0
+        AoR = 0
+        NoG = 0
+        NoC = 0
         obs = self.env.reset()
-        while True:
+        Episode = NoE
+        while Episode:
             action, _states = model.predict(obs)
             obs, rewards, dones, info = self.env.step(action)
+            NoS += 1
+            AoR += rewards
             if dones:
+                if rewards < -50:
+                    NoC += 1
+                if rewards > 50:
+                    NoG += 1
+                Episode -= 1
                 time.sleep(10)
-
+        print("NoE : " + str(NoE))
+        print("NoS : " + str(NoS))
+        print("AoR : " + str(AoR))
+        print("NoG : " + str(NoG))
+        print("NoC : " + str(NoC))
 
 def main(args=sys.argv[1]):
     Trainer(args)
