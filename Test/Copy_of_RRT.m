@@ -11,9 +11,9 @@ function [isSuccess] = RRT(imgPath, startX, startY, goalX, goalY)
     imageBW = imageCropped < 100;
     %imshow(imageBW);
     
-    figure;
+%     figure;
     tb3map = binaryOccupancyMap(imageBW);
-    show(tb3map)
+%     show(tb3map)
     
     
     % Define start and goal points on the map
@@ -21,11 +21,11 @@ function [isSuccess] = RRT(imgPath, startX, startY, goalX, goalY)
     goal = [double(goalX), double(goalY), 0];
     
     % Set the start and goal positions of the robot
-    hold on
-    plot(start(1), start(2), 'ro')
-    plot(goal(1), goal(2), 'mo')
-    
-    hold off
+%     hold on
+%     plot(start(1), start(2), 'ro')
+%     plot(goal(1), goal(2), 'mo')
+%     
+%     hold off
     
     bounds = [tb3map.XWorldLimits; tb3map.YWorldLimits; [-pi pi]];
     
@@ -50,21 +50,21 @@ function [isSuccess] = RRT(imgPath, startX, startY, goalX, goalY)
     [pthObj, solnInfo] = plan(planner, start, goal);
     
     % Display the map
-    show(tb3map)
-    hold on
+%     show(tb3map)
+%     hold on
     
     % Search tree
-    plot(solnInfo.TreeData(:,1), solnInfo.TreeData(:,2), '.-');
+%     plot(solnInfo.TreeData(:,1), solnInfo.TreeData(:,2), '.-');
     
     % Interpolate and plot path
     interpolate(pthObj,300)
-    plot(pthObj.States(:,1), pthObj.States(:,2), 'r-', 'LineWidth', 2)
+%     plot(pthObj.States(:,1), pthObj.States(:,2), 'r-', 'LineWidth', 2)
     
     % Show the start and goal in the grid map
-    plot(start(1), start(2), 'ro')
-    plot(goal(1), goal(2), 'mo')
-    title('RRT Path')
-    hold off
+%     plot(start(1), start(2), 'ro')
+%     plot(goal(1), goal(2), 'mo')
+%     title('RRT Path')
+%     hold off
     
     Path = pthObj.States(:, 1:2);
     Path(:, 1) = Path(:, 1) - startX;
