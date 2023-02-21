@@ -19,9 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="gazebo_random_world">
+    <list default="true" id="815e81a7-9c0f-4603-a86c-eb24597b37cb" name="Default Changelist" comment="drl_trainer inferencing update td3 little modify">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gazebo_random/waffle_pi.model" beforeDir="false" afterPath="$PROJECT_DIR$/gazebo_random/waffle_pi.model" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_gazebo/worlds/turtlebot3_dqn_stage2/waffle_pi.model" beforeDir="false" afterPath="$PROJECT_DIR$/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_gazebo/worlds/turtlebot3_dqn_stage2/waffle_pi.model" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,7 +248,35 @@
       <option name="project" value="LOCAL" />
       <updated>1669123243784</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="gazebo_random_world waffle_pi.model modify">
+      <created>1669211078259</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1669211078259</updated>
+    </task>
+    <task id="LOCAL-00028" summary="td3 reward function shaping">
+      <created>1670503674616</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1670503674616</updated>
+    </task>
+    <task id="LOCAL-00029" summary="drl_trainer inferencing update">
+      <created>1671004984073</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1671004984073</updated>
+    </task>
+    <task id="LOCAL-00030" summary="drl_trainer inferencing update td3 little modify">
+      <created>1671082888628</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1671082888628</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -264,9 +292,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="build dynamixel_sdk" />
-    <MESSAGE value="build dynamixel_sdk related folders and files" />
-    <MESSAGE value="build turtlebot3, turtlebot3 related files" />
     <MESSAGE value="src DynamixelSDK, turtlebot3" />
     <MESSAGE value="src turtlebot3_msgs, turtlebot3_simulations" />
     <MESSAGE value="src turtlebot3_machine_learning" />
@@ -288,6 +313,10 @@
     <MESSAGE value="drl_trainer modify(TD3 ver)" />
     <MESSAGE value="real_goal_modify.py" />
     <MESSAGE value="gazebo_random_world" />
-    <option name="LAST_COMMIT_MESSAGE" value="gazebo_random_world" />
+    <MESSAGE value="gazebo_random_world waffle_pi.model modify" />
+    <MESSAGE value="td3 reward function shaping" />
+    <MESSAGE value="drl_trainer inferencing update" />
+    <MESSAGE value="drl_trainer inferencing update td3 little modify" />
+    <option name="LAST_COMMIT_MESSAGE" value="drl_trainer inferencing update td3 little modify" />
   </component>
 </project>

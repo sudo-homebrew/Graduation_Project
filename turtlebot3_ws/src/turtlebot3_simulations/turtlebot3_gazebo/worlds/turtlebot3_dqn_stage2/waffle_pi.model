@@ -51,7 +51,8 @@
     </model>
 
     <include>
-      <uri>model://turtlebot3_dqn_world/obstacles</uri>
+      <pose>0 0 0 0 0 0</pose>
+      <uri>model://turtlebot3_dqn_world/inner_walls</uri>
     </include>
 
     <include>
