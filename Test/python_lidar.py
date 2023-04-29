@@ -38,6 +38,7 @@ class laser_sub(Node):
         self.scanMsge = msg
       
 def main(args=None):
+    rclpy.init(args=None)
     sub = laser_sub()
     eng = matlab.engine.start_matlab()
     slamAlg = eng.GetSLAM_Alg()
