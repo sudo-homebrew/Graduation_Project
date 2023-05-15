@@ -89,17 +89,19 @@ class DQNGazebo(Node):
             self.init_state = True
             print("init!!!")
             print("Goal pose: ", self.goal_pose_x, self.goal_pose_y)
+            self.spawn_entity()
 
         # Publish goal pose
         goal_pose = Pose()
         goal_pose.position.x = self.goal_pose_x
         goal_pose.position.y = self.goal_pose_y
         self.goal_pose_pub.publish(goal_pose)
-        self.spawn_entity()
+        #self.spawn_entity()
 
     def task_succeed_callback(self, request, response):
         self.delete_entity()
         self.generate_goal_pose()
+        self.spawn_entity()
         print("generate a new goal :)")
 
         return response
@@ -108,6 +110,7 @@ class DQNGazebo(Node):
         self.delete_entity()
         self.reset_simulation()
         self.generate_goal_pose()
+        self.spawn_entity()
         print("reset the gazebo environment :(")
 
         return response

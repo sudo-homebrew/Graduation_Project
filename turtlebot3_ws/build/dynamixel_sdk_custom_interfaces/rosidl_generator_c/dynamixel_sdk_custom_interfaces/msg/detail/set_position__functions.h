@@ -66,6 +66,32 @@ ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
 void
 dynamixel_sdk_custom_interfaces__msg__SetPosition__destroy(dynamixel_sdk_custom_interfaces__msg__SetPosition * msg);
 
+/// Check for msg/SetPosition message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__msg__SetPosition__are_equal(const dynamixel_sdk_custom_interfaces__msg__SetPosition * lhs, const dynamixel_sdk_custom_interfaces__msg__SetPosition * rhs);
+
+/// Copy a msg/SetPosition message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__msg__SetPosition__copy(
+  const dynamixel_sdk_custom_interfaces__msg__SetPosition * input,
+  dynamixel_sdk_custom_interfaces__msg__SetPosition * output);
 
 /// Initialize array of msg/SetPosition messages.
 /**
@@ -116,6 +142,33 @@ dynamixel_sdk_custom_interfaces__msg__SetPosition__Sequence__create(size_t size)
 ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
 void
 dynamixel_sdk_custom_interfaces__msg__SetPosition__Sequence__destroy(dynamixel_sdk_custom_interfaces__msg__SetPosition__Sequence * array);
+
+/// Check for msg/SetPosition message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__msg__SetPosition__Sequence__are_equal(const dynamixel_sdk_custom_interfaces__msg__SetPosition__Sequence * lhs, const dynamixel_sdk_custom_interfaces__msg__SetPosition__Sequence * rhs);
+
+/// Copy an array of msg/SetPosition messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__msg__SetPosition__Sequence__copy(
+  const dynamixel_sdk_custom_interfaces__msg__SetPosition__Sequence * input,
+  dynamixel_sdk_custom_interfaces__msg__SetPosition__Sequence * output);
 
 #ifdef __cplusplus
 }

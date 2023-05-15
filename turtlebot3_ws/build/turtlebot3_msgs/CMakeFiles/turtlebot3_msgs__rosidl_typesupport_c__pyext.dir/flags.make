@@ -6,5 +6,5 @@ C_FLAGS = -fPIC   -Wall -Wextra
 
 C_DEFINES = -DRCUTILS_ENABLE_FAULT_INJECTION -DROS_PACKAGE_NAME=\"turtlebot3_msgs\" -Dturtlebot3_msgs__rosidl_typesupport_c__pyext_EXPORTS
 
-C_INCLUDES = -I/home/molozise/turtlebot3_ws/build/turtlebot3_msgs/rosidl_generator_c -I/home/molozise/turtlebot3_ws/build/turtlebot3_msgs/rosidl_generator_py -I/usr/include/python3.8 -I/home/molozise/turtlebot3_ws/build/turtlebot3_msgs/rosidl_typesupport_c -isystem /opt/ros/foxy/include 
+C_INCLUDES = -I/home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs/rosidl_generator_c -I/home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs/rosidl_generator_py -I/usr/include/python3.8 -I/home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs/rosidl_typesupport_c -isystem /opt/ros/foxy/include 
 

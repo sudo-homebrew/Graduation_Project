@@ -23,7 +23,7 @@ function(ament_cmake_symlink_install_directory cmake_current_source_dir)
 
   # make destination absolute path and ensure that it exists
   if(NOT IS_ABSOLUTE "${ARG_DESTINATION}")
-    set(ARG_DESTINATION "/home/molozise/turtlebot3_ws/install/turtlebot3_machine_learning/${ARG_DESTINATION}")
+    set(ARG_DESTINATION "/home/dmsai1/turtlebot3_ws/install/turtlebot3_machine_learning/${ARG_DESTINATION}")
   endif()
   if(NOT EXISTS "${ARG_DESTINATION}")
     file(MAKE_DIRECTORY "${ARG_DESTINATION}")
@@ -123,7 +123,7 @@ function(ament_cmake_symlink_install_files cmake_current_source_dir)
 
   # make destination an absolute path and ensure that it exists
   if(NOT IS_ABSOLUTE "${ARG_DESTINATION}")
-    set(ARG_DESTINATION "/home/molozise/turtlebot3_ws/install/turtlebot3_machine_learning/${ARG_DESTINATION}")
+    set(ARG_DESTINATION "/home/dmsai1/turtlebot3_ws/install/turtlebot3_machine_learning/${ARG_DESTINATION}")
   endif()
   if(NOT EXISTS "${ARG_DESTINATION}")
     file(MAKE_DIRECTORY "${ARG_DESTINATION}")
@@ -181,7 +181,7 @@ function(ament_cmake_symlink_install_programs cmake_current_source_dir)
 
   # make destination an absolute path and ensure that it exists
   if(NOT IS_ABSOLUTE "${ARG_DESTINATION}")
-    set(ARG_DESTINATION "/home/molozise/turtlebot3_ws/install/turtlebot3_machine_learning/${ARG_DESTINATION}")
+    set(ARG_DESTINATION "/home/dmsai1/turtlebot3_ws/install/turtlebot3_machine_learning/${ARG_DESTINATION}")
   endif()
   if(NOT EXISTS "${ARG_DESTINATION}")
     file(MAKE_DIRECTORY "${ARG_DESTINATION}")
@@ -251,7 +251,7 @@ function(ament_cmake_symlink_install_targets)
 
     # make destination an absolute path and ensure that it exists
     if(NOT IS_ABSOLUTE "${destination}")
-      set(destination "/home/molozise/turtlebot3_ws/install/turtlebot3_machine_learning/${destination}")
+      set(destination "/home/dmsai1/turtlebot3_ws/install/turtlebot3_machine_learning/${destination}")
     endif()
     if(NOT EXISTS "${destination}")
       file(MAKE_DIRECTORY "${destination}")
@@ -310,44 +310,44 @@ message(STATUS "Execute custom install script")
 
 # begin of custom install code
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
 
 # install(FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/turtlebot3_machine_learning/environment")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/turtlebot3_machine_learning/environment")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/turtlebot3_machine_learning/environment")
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/turtlebot3_machine_learning/environment")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/turtlebot3_machine_learning/environment")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/turtlebot3_machine_learning/environment")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/turtlebot3_machine_learning/environment")
 
 # install(FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh" "DESTINATION" "share/turtlebot3_machine_learning/environment")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh" "DESTINATION" "share/turtlebot3_machine_learning/environment")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh" "DESTINATION" "share/turtlebot3_machine_learning/environment")
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/turtlebot3_machine_learning/environment")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/turtlebot3_machine_learning/environment")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/turtlebot3_machine_learning/environment")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/turtlebot3_machine_learning/environment")
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/turtlebot3_machine_learning")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/turtlebot3_machine_learning")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/turtlebot3_machine_learning")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/turtlebot3_machine_learning")
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/turtlebot3_machine_learning")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/turtlebot3_machine_learning")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/turtlebot3_machine_learning")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/turtlebot3_machine_learning")
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/turtlebot3_machine_learning")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/turtlebot3_machine_learning")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/turtlebot3_machine_learning")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/turtlebot3_machine_learning")
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/turtlebot3_machine_learning")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/turtlebot3_machine_learning")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/turtlebot3_machine_learning")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/turtlebot3_machine_learning")
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/turtlebot3_machine_learning")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/turtlebot3_machine_learning")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/turtlebot3_machine_learning")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/turtlebot3_machine_learning")
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/packages/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/packages")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/packages/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/packages")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/packages/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/packages")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_index/share/ament_index/resource_index/packages/turtlebot3_machine_learning" "DESTINATION" "share/ament_index/resource_index/packages")
 
-# install(FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_core/turtlebot3_machine_learningConfig.cmake" "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_core/turtlebot3_machine_learningConfig-version.cmake" "DESTINATION" "share/turtlebot3_machine_learning/cmake")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_core/turtlebot3_machine_learningConfig.cmake" "/home/molozise/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_core/turtlebot3_machine_learningConfig-version.cmake" "DESTINATION" "share/turtlebot3_machine_learning/cmake")
+# install(FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_core/turtlebot3_machine_learningConfig.cmake" "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_core/turtlebot3_machine_learningConfig-version.cmake" "DESTINATION" "share/turtlebot3_machine_learning/cmake")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_core/turtlebot3_machine_learningConfig.cmake" "/home/dmsai1/turtlebot3_ws/build/turtlebot3_machine_learning/ament_cmake_core/turtlebot3_machine_learningConfig-version.cmake" "DESTINATION" "share/turtlebot3_machine_learning/cmake")
 
-# install(FILES "/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning/package.xml" "DESTINATION" "share/turtlebot3_machine_learning")
-ament_cmake_symlink_install_files("/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/molozise/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning/package.xml" "DESTINATION" "share/turtlebot3_machine_learning")
+# install(FILES "/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning/package.xml" "DESTINATION" "share/turtlebot3_machine_learning")
+ament_cmake_symlink_install_files("/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning" FILES "/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_machine_learning/package.xml" "DESTINATION" "share/turtlebot3_machine_learning")

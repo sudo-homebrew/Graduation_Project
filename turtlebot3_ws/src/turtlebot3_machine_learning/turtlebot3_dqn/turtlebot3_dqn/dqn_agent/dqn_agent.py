@@ -1,3 +1,4 @@
+#!/home/dmsai1/anaconda3/envs/turtlebotdrl/bin/python
 #!/usr/bin/env python3
 #
 # Copyright 2019 ROBOTIS CO., LTD.
@@ -15,6 +16,7 @@
 # limitations under the License.
 #
 # Authors: Ryan Shim, Gilbert
+
 from tensorflow import keras
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
@@ -278,3 +280,4 @@ def main(args=sys.argv[1]):
 
 if __name__ == '__main__':
     main()
+    

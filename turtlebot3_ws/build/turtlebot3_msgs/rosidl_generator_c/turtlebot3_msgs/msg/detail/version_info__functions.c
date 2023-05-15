@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "rcutils/allocator.h"
+
 
 // Include directives for member types
 // Member `hardware`
@@ -53,17 +55,74 @@ turtlebot3_msgs__msg__VersionInfo__fini(turtlebot3_msgs__msg__VersionInfo * msg)
   rosidl_runtime_c__String__fini(&msg->software);
 }
 
+bool
+turtlebot3_msgs__msg__VersionInfo__are_equal(const turtlebot3_msgs__msg__VersionInfo * lhs, const turtlebot3_msgs__msg__VersionInfo * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // hardware
+  if (!rosidl_runtime_c__String__are_equal(
+      &(lhs->hardware), &(rhs->hardware)))
+  {
+    return false;
+  }
+  // firmware
+  if (!rosidl_runtime_c__String__are_equal(
+      &(lhs->firmware), &(rhs->firmware)))
+  {
+    return false;
+  }
+  // software
+  if (!rosidl_runtime_c__String__are_equal(
+      &(lhs->software), &(rhs->software)))
+  {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__msg__VersionInfo__copy(
+  const turtlebot3_msgs__msg__VersionInfo * input,
+  turtlebot3_msgs__msg__VersionInfo * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // hardware
+  if (!rosidl_runtime_c__String__copy(
+      &(input->hardware), &(output->hardware)))
+  {
+    return false;
+  }
+  // firmware
+  if (!rosidl_runtime_c__String__copy(
+      &(input->firmware), &(output->firmware)))
+  {
+    return false;
+  }
+  // software
+  if (!rosidl_runtime_c__String__copy(
+      &(input->software), &(output->software)))
+  {
+    return false;
+  }
+  return true;
+}
+
 turtlebot3_msgs__msg__VersionInfo *
 turtlebot3_msgs__msg__VersionInfo__create()
 {
-  turtlebot3_msgs__msg__VersionInfo * msg = (turtlebot3_msgs__msg__VersionInfo *)malloc(sizeof(turtlebot3_msgs__msg__VersionInfo));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__msg__VersionInfo * msg = (turtlebot3_msgs__msg__VersionInfo *)allocator.allocate(sizeof(turtlebot3_msgs__msg__VersionInfo), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__msg__VersionInfo));
   bool success = turtlebot3_msgs__msg__VersionInfo__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -72,10 +131,11 @@ turtlebot3_msgs__msg__VersionInfo__create()
 void
 turtlebot3_msgs__msg__VersionInfo__destroy(turtlebot3_msgs__msg__VersionInfo * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__msg__VersionInfo__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -85,9 +145,11 @@ turtlebot3_msgs__msg__VersionInfo__Sequence__init(turtlebot3_msgs__msg__VersionI
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__msg__VersionInfo * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__msg__VersionInfo *)calloc(size, sizeof(turtlebot3_msgs__msg__VersionInfo));
+    data = (turtlebot3_msgs__msg__VersionInfo *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__msg__VersionInfo), allocator.state);
     if (!data) {
       return false;
     }
@@ -104,7 +166,7 @@ turtlebot3_msgs__msg__VersionInfo__Sequence__init(turtlebot3_msgs__msg__VersionI
       for (; i > 0; --i) {
         turtlebot3_msgs__msg__VersionInfo__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -120,6 +182,8 @@ turtlebot3_msgs__msg__VersionInfo__Sequence__fini(turtlebot3_msgs__msg__VersionI
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -127,7 +191,7 @@ turtlebot3_msgs__msg__VersionInfo__Sequence__fini(turtlebot3_msgs__msg__VersionI
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__msg__VersionInfo__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -141,13 +205,14 @@ turtlebot3_msgs__msg__VersionInfo__Sequence__fini(turtlebot3_msgs__msg__VersionI
 turtlebot3_msgs__msg__VersionInfo__Sequence *
 turtlebot3_msgs__msg__VersionInfo__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__msg__VersionInfo__Sequence * array = (turtlebot3_msgs__msg__VersionInfo__Sequence *)malloc(sizeof(turtlebot3_msgs__msg__VersionInfo__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__msg__VersionInfo__Sequence * array = (turtlebot3_msgs__msg__VersionInfo__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__msg__VersionInfo__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__msg__VersionInfo__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -156,8 +221,66 @@ turtlebot3_msgs__msg__VersionInfo__Sequence__create(size_t size)
 void
 turtlebot3_msgs__msg__VersionInfo__Sequence__destroy(turtlebot3_msgs__msg__VersionInfo__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__msg__VersionInfo__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__msg__VersionInfo__Sequence__are_equal(const turtlebot3_msgs__msg__VersionInfo__Sequence * lhs, const turtlebot3_msgs__msg__VersionInfo__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__msg__VersionInfo__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__msg__VersionInfo__Sequence__copy(
+  const turtlebot3_msgs__msg__VersionInfo__Sequence * input,
+  turtlebot3_msgs__msg__VersionInfo__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__msg__VersionInfo);
+    turtlebot3_msgs__msg__VersionInfo * data =
+      (turtlebot3_msgs__msg__VersionInfo *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__msg__VersionInfo__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__msg__VersionInfo__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__msg__VersionInfo__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }

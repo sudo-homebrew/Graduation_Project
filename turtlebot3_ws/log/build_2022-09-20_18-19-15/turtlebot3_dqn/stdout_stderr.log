@@ -1,0 +1,31 @@
+running develop
+running egg_info
+creating turtlebot3_dqn.egg-info
+writing turtlebot3_dqn.egg-info/PKG-INFO
+writing dependency_links to turtlebot3_dqn.egg-info/dependency_links.txt
+writing entry points to turtlebot3_dqn.egg-info/entry_points.txt
+writing requirements to turtlebot3_dqn.egg-info/requires.txt
+writing top-level names to turtlebot3_dqn.egg-info/top_level.txt
+writing manifest file 'turtlebot3_dqn.egg-info/SOURCES.txt'
+reading manifest file 'turtlebot3_dqn.egg-info/SOURCES.txt'
+writing manifest file 'turtlebot3_dqn.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/lib/python3.8/site-packages/site.py
+Creating /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/lib/python3.8/site-packages/turtlebot3-dqn.egg-link (link to .)
+Installing dqn_agent script to /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/lib/turtlebot3_dqn
+Installing dqn_environment script to /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/lib/turtlebot3_dqn
+Installing dqn_gazebo script to /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/lib/turtlebot3_dqn
+Installing dqn_test script to /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/lib/turtlebot3_dqn
+
+Installed /home/dmsai1/turtlebot3_ws/build/turtlebot3_dqn
+running install_data
+creating /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/share/ament_index
+creating /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/share/ament_index/resource_index
+creating /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/share/ament_index/resource_index/packages
+copying resource/turtlebot3_dqn -> /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/share/ament_index/resource_index/packages
+copying package.xml -> /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/share/turtlebot3_dqn
+creating /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/share/turtlebot3_dqn/launch
+copying launch/turtlebot3_dqn_stage1.launch.py -> /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/share/turtlebot3_dqn/launch
+copying launch/turtlebot3_dqn_stage2.launch.py -> /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/share/turtlebot3_dqn/launch
+copying launch/turtlebot3_dqn_stage3.launch.py -> /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/share/turtlebot3_dqn/launch
+copying launch/turtlebot3_dqn_stage4.launch.py -> /home/dmsai1/turtlebot3_ws/install/turtlebot3_dqn/share/turtlebot3_dqn/launch

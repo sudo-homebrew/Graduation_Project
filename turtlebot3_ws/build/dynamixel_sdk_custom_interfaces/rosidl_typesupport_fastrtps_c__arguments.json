@@ -1,10 +1,10 @@
 {
   "package_name": "dynamixel_sdk_custom_interfaces",
-  "output_dir": "/home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_typesupport_fastrtps_c/dynamixel_sdk_custom_interfaces",
+  "output_dir": "/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_typesupport_fastrtps_c/dynamixel_sdk_custom_interfaces",
   "template_dir": "/opt/ros/foxy/share/rosidl_typesupport_fastrtps_c/resource",
   "idl_tuples": [
-    "/home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_adapter/dynamixel_sdk_custom_interfaces:msg/SetPosition.idl",
-    "/home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_adapter/dynamixel_sdk_custom_interfaces:srv/GetPosition.idl"
+    "/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_adapter/dynamixel_sdk_custom_interfaces:msg/SetPosition.idl",
+    "/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_adapter/dynamixel_sdk_custom_interfaces:srv/GetPosition.idl"
   ],
   "ros_interface_dependencies": [
     "builtin_interfaces:/opt/ros/foxy/share/builtin_interfaces/msg/Duration.idl",
@@ -19,8 +19,8 @@
     "/opt/ros/foxy/share/rosidl_typesupport_fastrtps_c/resource/msg__type_support_c.cpp.em",
     "/opt/ros/foxy/share/rosidl_typesupport_fastrtps_c/resource/srv__rosidl_typesupport_fastrtps_c.h.em",
     "/opt/ros/foxy/share/rosidl_typesupport_fastrtps_c/resource/srv__type_support_c.cpp.em",
-    "/home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_adapter/dynamixel_sdk_custom_interfaces/msg/SetPosition.idl",
-    "/home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_adapter/dynamixel_sdk_custom_interfaces/srv/GetPosition.idl",
+    "/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_adapter/dynamixel_sdk_custom_interfaces/msg/SetPosition.idl",
+    "/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_adapter/dynamixel_sdk_custom_interfaces/srv/GetPosition.idl",
     "/opt/ros/foxy/share/builtin_interfaces/msg/Duration.idl",
     "/opt/ros/foxy/share/builtin_interfaces/msg/Time.idl"
   ]

@@ -1,0 +1,17 @@
+Metadata-Version: 1.2
+Name: turtlebot3-teleop
+Version: 2.1.4
+Summary: Teleoperation node using keyboard for TurtleBot3.
+Home-page: UNKNOWN
+Author: Darby Lim
+Author-email: thlim@robotis.com
+Maintainer: Will Son
+Maintainer-email: willson@robotis.com
+License: Apache License, Version 2.0
+Description: UNKNOWN
+Keywords: ROS
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development

@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "rcutils/allocator.h"
+
 
 // Include directives for member types
 // Member `header`
@@ -57,17 +59,110 @@ turtlebot3_msgs__msg__SensorState__fini(turtlebot3_msgs__msg__SensorState * msg)
   // battery
 }
 
+bool
+turtlebot3_msgs__msg__SensorState__are_equal(const turtlebot3_msgs__msg__SensorState * lhs, const turtlebot3_msgs__msg__SensorState * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // header
+  if (!std_msgs__msg__Header__are_equal(
+      &(lhs->header), &(rhs->header)))
+  {
+    return false;
+  }
+  // bumper
+  if (lhs->bumper != rhs->bumper) {
+    return false;
+  }
+  // cliff
+  if (lhs->cliff != rhs->cliff) {
+    return false;
+  }
+  // sonar
+  if (lhs->sonar != rhs->sonar) {
+    return false;
+  }
+  // illumination
+  if (lhs->illumination != rhs->illumination) {
+    return false;
+  }
+  // led
+  if (lhs->led != rhs->led) {
+    return false;
+  }
+  // button
+  if (lhs->button != rhs->button) {
+    return false;
+  }
+  // torque
+  if (lhs->torque != rhs->torque) {
+    return false;
+  }
+  // left_encoder
+  if (lhs->left_encoder != rhs->left_encoder) {
+    return false;
+  }
+  // right_encoder
+  if (lhs->right_encoder != rhs->right_encoder) {
+    return false;
+  }
+  // battery
+  if (lhs->battery != rhs->battery) {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__msg__SensorState__copy(
+  const turtlebot3_msgs__msg__SensorState * input,
+  turtlebot3_msgs__msg__SensorState * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // header
+  if (!std_msgs__msg__Header__copy(
+      &(input->header), &(output->header)))
+  {
+    return false;
+  }
+  // bumper
+  output->bumper = input->bumper;
+  // cliff
+  output->cliff = input->cliff;
+  // sonar
+  output->sonar = input->sonar;
+  // illumination
+  output->illumination = input->illumination;
+  // led
+  output->led = input->led;
+  // button
+  output->button = input->button;
+  // torque
+  output->torque = input->torque;
+  // left_encoder
+  output->left_encoder = input->left_encoder;
+  // right_encoder
+  output->right_encoder = input->right_encoder;
+  // battery
+  output->battery = input->battery;
+  return true;
+}
+
 turtlebot3_msgs__msg__SensorState *
 turtlebot3_msgs__msg__SensorState__create()
 {
-  turtlebot3_msgs__msg__SensorState * msg = (turtlebot3_msgs__msg__SensorState *)malloc(sizeof(turtlebot3_msgs__msg__SensorState));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__msg__SensorState * msg = (turtlebot3_msgs__msg__SensorState *)allocator.allocate(sizeof(turtlebot3_msgs__msg__SensorState), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__msg__SensorState));
   bool success = turtlebot3_msgs__msg__SensorState__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -76,10 +171,11 @@ turtlebot3_msgs__msg__SensorState__create()
 void
 turtlebot3_msgs__msg__SensorState__destroy(turtlebot3_msgs__msg__SensorState * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__msg__SensorState__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -89,9 +185,11 @@ turtlebot3_msgs__msg__SensorState__Sequence__init(turtlebot3_msgs__msg__SensorSt
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__msg__SensorState * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__msg__SensorState *)calloc(size, sizeof(turtlebot3_msgs__msg__SensorState));
+    data = (turtlebot3_msgs__msg__SensorState *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__msg__SensorState), allocator.state);
     if (!data) {
       return false;
     }
@@ -108,7 +206,7 @@ turtlebot3_msgs__msg__SensorState__Sequence__init(turtlebot3_msgs__msg__SensorSt
       for (; i > 0; --i) {
         turtlebot3_msgs__msg__SensorState__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -124,6 +222,8 @@ turtlebot3_msgs__msg__SensorState__Sequence__fini(turtlebot3_msgs__msg__SensorSt
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -131,7 +231,7 @@ turtlebot3_msgs__msg__SensorState__Sequence__fini(turtlebot3_msgs__msg__SensorSt
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__msg__SensorState__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -145,13 +245,14 @@ turtlebot3_msgs__msg__SensorState__Sequence__fini(turtlebot3_msgs__msg__SensorSt
 turtlebot3_msgs__msg__SensorState__Sequence *
 turtlebot3_msgs__msg__SensorState__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__msg__SensorState__Sequence * array = (turtlebot3_msgs__msg__SensorState__Sequence *)malloc(sizeof(turtlebot3_msgs__msg__SensorState__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__msg__SensorState__Sequence * array = (turtlebot3_msgs__msg__SensorState__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__msg__SensorState__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__msg__SensorState__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -160,8 +261,66 @@ turtlebot3_msgs__msg__SensorState__Sequence__create(size_t size)
 void
 turtlebot3_msgs__msg__SensorState__Sequence__destroy(turtlebot3_msgs__msg__SensorState__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__msg__SensorState__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__msg__SensorState__Sequence__are_equal(const turtlebot3_msgs__msg__SensorState__Sequence * lhs, const turtlebot3_msgs__msg__SensorState__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__msg__SensorState__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__msg__SensorState__Sequence__copy(
+  const turtlebot3_msgs__msg__SensorState__Sequence * input,
+  turtlebot3_msgs__msg__SensorState__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__msg__SensorState);
+    turtlebot3_msgs__msg__SensorState * data =
+      (turtlebot3_msgs__msg__SensorState *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__msg__SensorState__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__msg__SensorState__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__msg__SensorState__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }

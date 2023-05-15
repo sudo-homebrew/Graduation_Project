@@ -6,5 +6,5 @@ CXX_FLAGS =   -Wall -Wextra -Wpedantic -std=gnu++14
 
 CXX_DEFINES = -DDEFAULT_RMW_IMPLEMENTATION=rmw_fastrtps_cpp -DRCUTILS_ENABLE_FAULT_INJECTION -DSPDLOG_COMPILED_LIB
 
-CXX_INCLUDES = -I/home/molozise/turtlebot3_ws/src/turtlebot3/turtlebot3_node/include -I/home/molozise/turtlebot3_ws/install/dynamixel_sdk/include -isystem /home/molozise/turtlebot3_ws/install/turtlebot3_msgs/include -isystem /opt/ros/foxy/include 
+CXX_INCLUDES = -I/home/dmsai1/turtlebot3_ws/src/turtlebot3/turtlebot3_node/include -I/home/dmsai1/turtlebot3_ws/install/dynamixel_sdk/include -isystem /home/dmsai1/turtlebot3_ws/install/turtlebot3_msgs/include -isystem /opt/ros/foxy/include 
 

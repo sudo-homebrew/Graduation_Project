@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "rcutils/allocator.h"
+
 bool
 turtlebot3_msgs__srv__Sound_Request__init(turtlebot3_msgs__srv__Sound_Request * msg)
 {
@@ -27,17 +29,44 @@ turtlebot3_msgs__srv__Sound_Request__fini(turtlebot3_msgs__srv__Sound_Request * 
   // value
 }
 
+bool
+turtlebot3_msgs__srv__Sound_Request__are_equal(const turtlebot3_msgs__srv__Sound_Request * lhs, const turtlebot3_msgs__srv__Sound_Request * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // value
+  if (lhs->value != rhs->value) {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__srv__Sound_Request__copy(
+  const turtlebot3_msgs__srv__Sound_Request * input,
+  turtlebot3_msgs__srv__Sound_Request * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // value
+  output->value = input->value;
+  return true;
+}
+
 turtlebot3_msgs__srv__Sound_Request *
 turtlebot3_msgs__srv__Sound_Request__create()
 {
-  turtlebot3_msgs__srv__Sound_Request * msg = (turtlebot3_msgs__srv__Sound_Request *)malloc(sizeof(turtlebot3_msgs__srv__Sound_Request));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__srv__Sound_Request * msg = (turtlebot3_msgs__srv__Sound_Request *)allocator.allocate(sizeof(turtlebot3_msgs__srv__Sound_Request), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__srv__Sound_Request));
   bool success = turtlebot3_msgs__srv__Sound_Request__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -46,10 +75,11 @@ turtlebot3_msgs__srv__Sound_Request__create()
 void
 turtlebot3_msgs__srv__Sound_Request__destroy(turtlebot3_msgs__srv__Sound_Request * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__srv__Sound_Request__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -59,9 +89,11 @@ turtlebot3_msgs__srv__Sound_Request__Sequence__init(turtlebot3_msgs__srv__Sound_
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__srv__Sound_Request * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__srv__Sound_Request *)calloc(size, sizeof(turtlebot3_msgs__srv__Sound_Request));
+    data = (turtlebot3_msgs__srv__Sound_Request *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__srv__Sound_Request), allocator.state);
     if (!data) {
       return false;
     }
@@ -78,7 +110,7 @@ turtlebot3_msgs__srv__Sound_Request__Sequence__init(turtlebot3_msgs__srv__Sound_
       for (; i > 0; --i) {
         turtlebot3_msgs__srv__Sound_Request__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -94,6 +126,8 @@ turtlebot3_msgs__srv__Sound_Request__Sequence__fini(turtlebot3_msgs__srv__Sound_
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -101,7 +135,7 @@ turtlebot3_msgs__srv__Sound_Request__Sequence__fini(turtlebot3_msgs__srv__Sound_
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__srv__Sound_Request__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -115,13 +149,14 @@ turtlebot3_msgs__srv__Sound_Request__Sequence__fini(turtlebot3_msgs__srv__Sound_
 turtlebot3_msgs__srv__Sound_Request__Sequence *
 turtlebot3_msgs__srv__Sound_Request__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__srv__Sound_Request__Sequence * array = (turtlebot3_msgs__srv__Sound_Request__Sequence *)malloc(sizeof(turtlebot3_msgs__srv__Sound_Request__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__srv__Sound_Request__Sequence * array = (turtlebot3_msgs__srv__Sound_Request__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__srv__Sound_Request__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__srv__Sound_Request__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -130,10 +165,68 @@ turtlebot3_msgs__srv__Sound_Request__Sequence__create(size_t size)
 void
 turtlebot3_msgs__srv__Sound_Request__Sequence__destroy(turtlebot3_msgs__srv__Sound_Request__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__srv__Sound_Request__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__srv__Sound_Request__Sequence__are_equal(const turtlebot3_msgs__srv__Sound_Request__Sequence * lhs, const turtlebot3_msgs__srv__Sound_Request__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__srv__Sound_Request__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__srv__Sound_Request__Sequence__copy(
+  const turtlebot3_msgs__srv__Sound_Request__Sequence * input,
+  turtlebot3_msgs__srv__Sound_Request__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__srv__Sound_Request);
+    turtlebot3_msgs__srv__Sound_Request * data =
+      (turtlebot3_msgs__srv__Sound_Request *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__srv__Sound_Request__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__srv__Sound_Request__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__srv__Sound_Request__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 
@@ -167,17 +260,56 @@ turtlebot3_msgs__srv__Sound_Response__fini(turtlebot3_msgs__srv__Sound_Response 
   rosidl_runtime_c__String__fini(&msg->message);
 }
 
+bool
+turtlebot3_msgs__srv__Sound_Response__are_equal(const turtlebot3_msgs__srv__Sound_Response * lhs, const turtlebot3_msgs__srv__Sound_Response * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // success
+  if (lhs->success != rhs->success) {
+    return false;
+  }
+  // message
+  if (!rosidl_runtime_c__String__are_equal(
+      &(lhs->message), &(rhs->message)))
+  {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__srv__Sound_Response__copy(
+  const turtlebot3_msgs__srv__Sound_Response * input,
+  turtlebot3_msgs__srv__Sound_Response * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // success
+  output->success = input->success;
+  // message
+  if (!rosidl_runtime_c__String__copy(
+      &(input->message), &(output->message)))
+  {
+    return false;
+  }
+  return true;
+}
+
 turtlebot3_msgs__srv__Sound_Response *
 turtlebot3_msgs__srv__Sound_Response__create()
 {
-  turtlebot3_msgs__srv__Sound_Response * msg = (turtlebot3_msgs__srv__Sound_Response *)malloc(sizeof(turtlebot3_msgs__srv__Sound_Response));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__srv__Sound_Response * msg = (turtlebot3_msgs__srv__Sound_Response *)allocator.allocate(sizeof(turtlebot3_msgs__srv__Sound_Response), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__srv__Sound_Response));
   bool success = turtlebot3_msgs__srv__Sound_Response__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -186,10 +318,11 @@ turtlebot3_msgs__srv__Sound_Response__create()
 void
 turtlebot3_msgs__srv__Sound_Response__destroy(turtlebot3_msgs__srv__Sound_Response * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__srv__Sound_Response__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -199,9 +332,11 @@ turtlebot3_msgs__srv__Sound_Response__Sequence__init(turtlebot3_msgs__srv__Sound
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__srv__Sound_Response * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__srv__Sound_Response *)calloc(size, sizeof(turtlebot3_msgs__srv__Sound_Response));
+    data = (turtlebot3_msgs__srv__Sound_Response *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__srv__Sound_Response), allocator.state);
     if (!data) {
       return false;
     }
@@ -218,7 +353,7 @@ turtlebot3_msgs__srv__Sound_Response__Sequence__init(turtlebot3_msgs__srv__Sound
       for (; i > 0; --i) {
         turtlebot3_msgs__srv__Sound_Response__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -234,6 +369,8 @@ turtlebot3_msgs__srv__Sound_Response__Sequence__fini(turtlebot3_msgs__srv__Sound
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -241,7 +378,7 @@ turtlebot3_msgs__srv__Sound_Response__Sequence__fini(turtlebot3_msgs__srv__Sound
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__srv__Sound_Response__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -255,13 +392,14 @@ turtlebot3_msgs__srv__Sound_Response__Sequence__fini(turtlebot3_msgs__srv__Sound
 turtlebot3_msgs__srv__Sound_Response__Sequence *
 turtlebot3_msgs__srv__Sound_Response__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__srv__Sound_Response__Sequence * array = (turtlebot3_msgs__srv__Sound_Response__Sequence *)malloc(sizeof(turtlebot3_msgs__srv__Sound_Response__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__srv__Sound_Response__Sequence * array = (turtlebot3_msgs__srv__Sound_Response__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__srv__Sound_Response__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__srv__Sound_Response__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -270,8 +408,66 @@ turtlebot3_msgs__srv__Sound_Response__Sequence__create(size_t size)
 void
 turtlebot3_msgs__srv__Sound_Response__Sequence__destroy(turtlebot3_msgs__srv__Sound_Response__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__srv__Sound_Response__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__srv__Sound_Response__Sequence__are_equal(const turtlebot3_msgs__srv__Sound_Response__Sequence * lhs, const turtlebot3_msgs__srv__Sound_Response__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__srv__Sound_Response__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__srv__Sound_Response__Sequence__copy(
+  const turtlebot3_msgs__srv__Sound_Response__Sequence * input,
+  turtlebot3_msgs__srv__Sound_Response__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__srv__Sound_Response);
+    turtlebot3_msgs__srv__Sound_Response * data =
+      (turtlebot3_msgs__srv__Sound_Response *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__srv__Sound_Response__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__srv__Sound_Response__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__srv__Sound_Response__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }

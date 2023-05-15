@@ -1,0 +1,6 @@
+Invoking command in '/home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake /home/dmsai1/turtlebot3_ws/src/turtlebot3_msgs -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/dmsai1/turtlebot3_ws/install/turtlebot3_msgs
+Invoked command in '/home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake /home/dmsai1/turtlebot3_ws/src/turtlebot3_msgs -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/dmsai1/turtlebot3_ws/install/turtlebot3_msgs
+Invoking command in '/home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs -- -j12 -l12
+Invoked command in '/home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs -- -j12 -l12
+Invoking command in '/home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs
+Invoked command in '/home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /home/dmsai1/turtlebot3_ws/build/turtlebot3_msgs

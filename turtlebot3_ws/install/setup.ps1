@@ -23,7 +23,8 @@ function _colcon_prefix_chain_powershell_source_script {
 
 # source chained prefixes
 _colcon_prefix_chain_powershell_source_script "/opt/ros/foxy\local_setup.ps1"
-_colcon_prefix_chain_powershell_source_script "/home/molozise/colcon_ws/install\local_setup.ps1"
+_colcon_prefix_chain_powershell_source_script "/home/dmsai1/colcon_ws/install\local_setup.ps1"
+_colcon_prefix_chain_powershell_source_script "/home/dmsai1/turtlebot3_ws/src/turtlebot3_machine_learning/turtlebot3_dqn/install\local_setup.ps1"
 
 # source this prefix
 $env:COLCON_CURRENT_PREFIX=(Split-Path $PSCommandPath -Parent)

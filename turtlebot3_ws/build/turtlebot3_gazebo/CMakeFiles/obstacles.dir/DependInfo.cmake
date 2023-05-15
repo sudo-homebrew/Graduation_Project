@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/molozise/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_gazebo/models/turtlebot3_dqn_world/obstacle_plugin/obstacles.cc" "/home/molozise/turtlebot3_ws/build/turtlebot3_gazebo/CMakeFiles/obstacles.dir/models/turtlebot3_dqn_world/obstacle_plugin/obstacles.cc.o"
+  "/home/dmsai1/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_gazebo/models/turtlebot3_dqn_world/obstacle_plugin/obstacles.cc" "/home/dmsai1/turtlebot3_ws/build/turtlebot3_gazebo/CMakeFiles/obstacles.dir/models/turtlebot3_dqn_world/obstacle_plugin/obstacles.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -27,7 +27,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/molozise/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_gazebo/include"
+  "/home/dmsai1/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_gazebo/include"
   "/usr/include/gazebo-11"
   "/usr/include/bullet"
   "/usr/include/sdformat-9.8"

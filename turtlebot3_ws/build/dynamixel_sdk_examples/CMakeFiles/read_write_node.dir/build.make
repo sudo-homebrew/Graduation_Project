@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/molozise/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples
+CMAKE_SOURCE_DIR = /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/molozise/turtlebot3_ws/build/dynamixel_sdk_examples
+CMAKE_BINARY_DIR = /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_examples
 
 # Include any dependencies generated for this target.
 include CMakeFiles/read_write_node.dir/depend.make
@@ -58,17 +58,17 @@ include CMakeFiles/read_write_node.dir/progress.make
 include CMakeFiles/read_write_node.dir/flags.make
 
 CMakeFiles/read_write_node.dir/src/read_write_node.cpp.o: CMakeFiles/read_write_node.dir/flags.make
-CMakeFiles/read_write_node.dir/src/read_write_node.cpp.o: /home/molozise/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples/src/read_write_node.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/molozise/turtlebot3_ws/build/dynamixel_sdk_examples/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/read_write_node.dir/src/read_write_node.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/read_write_node.dir/src/read_write_node.cpp.o -c /home/molozise/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples/src/read_write_node.cpp
+CMakeFiles/read_write_node.dir/src/read_write_node.cpp.o: /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples/src/read_write_node.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_examples/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/read_write_node.dir/src/read_write_node.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/read_write_node.dir/src/read_write_node.cpp.o -c /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples/src/read_write_node.cpp
 
 CMakeFiles/read_write_node.dir/src/read_write_node.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/read_write_node.dir/src/read_write_node.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/molozise/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples/src/read_write_node.cpp > CMakeFiles/read_write_node.dir/src/read_write_node.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples/src/read_write_node.cpp > CMakeFiles/read_write_node.dir/src/read_write_node.cpp.i
 
 CMakeFiles/read_write_node.dir/src/read_write_node.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/read_write_node.dir/src/read_write_node.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/molozise/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples/src/read_write_node.cpp -o CMakeFiles/read_write_node.dir/src/read_write_node.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples/src/read_write_node.cpp -o CMakeFiles/read_write_node.dir/src/read_write_node.cpp.s
 
 # Object files for target read_write_node
 read_write_node_OBJECTS = \
@@ -79,13 +79,13 @@ read_write_node_EXTERNAL_OBJECTS =
 
 read_write_node: CMakeFiles/read_write_node.dir/src/read_write_node.cpp.o
 read_write_node: CMakeFiles/read_write_node.dir/build.make
-read_write_node: /home/molozise/turtlebot3_ws/install/dynamixel_sdk_custom_interfaces/lib/libdynamixel_sdk_custom_interfaces__rosidl_typesupport_introspection_c.so
-read_write_node: /home/molozise/turtlebot3_ws/install/dynamixel_sdk_custom_interfaces/lib/libdynamixel_sdk_custom_interfaces__rosidl_typesupport_c.so
-read_write_node: /home/molozise/turtlebot3_ws/install/dynamixel_sdk_custom_interfaces/lib/libdynamixel_sdk_custom_interfaces__rosidl_typesupport_introspection_cpp.so
-read_write_node: /home/molozise/turtlebot3_ws/install/dynamixel_sdk_custom_interfaces/lib/libdynamixel_sdk_custom_interfaces__rosidl_typesupport_cpp.so
+read_write_node: /home/dmsai1/turtlebot3_ws/install/dynamixel_sdk_custom_interfaces/lib/libdynamixel_sdk_custom_interfaces__rosidl_typesupport_introspection_c.so
+read_write_node: /home/dmsai1/turtlebot3_ws/install/dynamixel_sdk_custom_interfaces/lib/libdynamixel_sdk_custom_interfaces__rosidl_typesupport_c.so
+read_write_node: /home/dmsai1/turtlebot3_ws/install/dynamixel_sdk_custom_interfaces/lib/libdynamixel_sdk_custom_interfaces__rosidl_typesupport_introspection_cpp.so
+read_write_node: /home/dmsai1/turtlebot3_ws/install/dynamixel_sdk_custom_interfaces/lib/libdynamixel_sdk_custom_interfaces__rosidl_typesupport_cpp.so
 read_write_node: /opt/ros/foxy/lib/librclcpp.so
-read_write_node: /home/molozise/turtlebot3_ws/install/dynamixel_sdk/lib/libdynamixel_sdk.so
-read_write_node: /home/molozise/turtlebot3_ws/install/dynamixel_sdk_custom_interfaces/lib/libdynamixel_sdk_custom_interfaces__rosidl_generator_c.so
+read_write_node: /home/dmsai1/turtlebot3_ws/install/dynamixel_sdk/lib/libdynamixel_sdk.so
+read_write_node: /home/dmsai1/turtlebot3_ws/install/dynamixel_sdk_custom_interfaces/lib/libdynamixel_sdk_custom_interfaces__rosidl_generator_c.so
 read_write_node: /opt/ros/foxy/lib/liblibstatistics_collector.so
 read_write_node: /opt/ros/foxy/lib/liblibstatistics_collector_test_msgs__rosidl_typesupport_introspection_c.so
 read_write_node: /opt/ros/foxy/lib/liblibstatistics_collector_test_msgs__rosidl_generator_c.so
@@ -133,7 +133,7 @@ read_write_node: /opt/ros/foxy/lib/librcpputils.so
 read_write_node: /opt/ros/foxy/lib/librcutils.so
 read_write_node: /opt/ros/foxy/lib/libtracetools.so
 read_write_node: CMakeFiles/read_write_node.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/molozise/turtlebot3_ws/build/dynamixel_sdk_examples/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable read_write_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_examples/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable read_write_node"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/read_write_node.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -146,6 +146,6 @@ CMakeFiles/read_write_node.dir/clean:
 .PHONY : CMakeFiles/read_write_node.dir/clean
 
 CMakeFiles/read_write_node.dir/depend:
-	cd /home/molozise/turtlebot3_ws/build/dynamixel_sdk_examples && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/molozise/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples /home/molozise/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples /home/molozise/turtlebot3_ws/build/dynamixel_sdk_examples /home/molozise/turtlebot3_ws/build/dynamixel_sdk_examples /home/molozise/turtlebot3_ws/build/dynamixel_sdk_examples/CMakeFiles/read_write_node.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_examples && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_examples /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_examples /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_examples /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_examples/CMakeFiles/read_write_node.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/read_write_node.dir/depend
 

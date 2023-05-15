@@ -66,6 +66,32 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_Goal__destroy(turtlebot3_msgs__action__Patrol_Goal * msg);
 
+/// Check for action/Patrol message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Goal__are_equal(const turtlebot3_msgs__action__Patrol_Goal * lhs, const turtlebot3_msgs__action__Patrol_Goal * rhs);
+
+/// Copy a action/Patrol message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Goal__copy(
+  const turtlebot3_msgs__action__Patrol_Goal * input,
+  turtlebot3_msgs__action__Patrol_Goal * output);
 
 /// Initialize array of action/Patrol messages.
 /**
@@ -117,6 +143,33 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_Goal__Sequence__destroy(turtlebot3_msgs__action__Patrol_Goal__Sequence * array);
 
+/// Check for action/Patrol message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Goal__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_Goal__Sequence * lhs, const turtlebot3_msgs__action__Patrol_Goal__Sequence * rhs);
+
+/// Copy an array of action/Patrol messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Goal__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_Goal__Sequence * input,
+  turtlebot3_msgs__action__Patrol_Goal__Sequence * output);
+
 /// Initialize action/Patrol message.
 /**
  * If the init function is called twice for the same message without
@@ -165,6 +218,32 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_Result__destroy(turtlebot3_msgs__action__Patrol_Result * msg);
 
+/// Check for action/Patrol message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Result__are_equal(const turtlebot3_msgs__action__Patrol_Result * lhs, const turtlebot3_msgs__action__Patrol_Result * rhs);
+
+/// Copy a action/Patrol message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Result__copy(
+  const turtlebot3_msgs__action__Patrol_Result * input,
+  turtlebot3_msgs__action__Patrol_Result * output);
 
 /// Initialize array of action/Patrol messages.
 /**
@@ -216,6 +295,33 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_Result__Sequence__destroy(turtlebot3_msgs__action__Patrol_Result__Sequence * array);
 
+/// Check for action/Patrol message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Result__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_Result__Sequence * lhs, const turtlebot3_msgs__action__Patrol_Result__Sequence * rhs);
+
+/// Copy an array of action/Patrol messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Result__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_Result__Sequence * input,
+  turtlebot3_msgs__action__Patrol_Result__Sequence * output);
+
 /// Initialize action/Patrol message.
 /**
  * If the init function is called twice for the same message without
@@ -264,6 +370,32 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_Feedback__destroy(turtlebot3_msgs__action__Patrol_Feedback * msg);
 
+/// Check for action/Patrol message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Feedback__are_equal(const turtlebot3_msgs__action__Patrol_Feedback * lhs, const turtlebot3_msgs__action__Patrol_Feedback * rhs);
+
+/// Copy a action/Patrol message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Feedback__copy(
+  const turtlebot3_msgs__action__Patrol_Feedback * input,
+  turtlebot3_msgs__action__Patrol_Feedback * output);
 
 /// Initialize array of action/Patrol messages.
 /**
@@ -315,6 +447,33 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_Feedback__Sequence__destroy(turtlebot3_msgs__action__Patrol_Feedback__Sequence * array);
 
+/// Check for action/Patrol message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Feedback__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_Feedback__Sequence * lhs, const turtlebot3_msgs__action__Patrol_Feedback__Sequence * rhs);
+
+/// Copy an array of action/Patrol messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_Feedback__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_Feedback__Sequence * input,
+  turtlebot3_msgs__action__Patrol_Feedback__Sequence * output);
+
 /// Initialize action/Patrol message.
 /**
  * If the init function is called twice for the same message without
@@ -363,6 +522,32 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_SendGoal_Request__destroy(turtlebot3_msgs__action__Patrol_SendGoal_Request * msg);
 
+/// Check for action/Patrol message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Request__are_equal(const turtlebot3_msgs__action__Patrol_SendGoal_Request * lhs, const turtlebot3_msgs__action__Patrol_SendGoal_Request * rhs);
+
+/// Copy a action/Patrol message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Request__copy(
+  const turtlebot3_msgs__action__Patrol_SendGoal_Request * input,
+  turtlebot3_msgs__action__Patrol_SendGoal_Request * output);
 
 /// Initialize array of action/Patrol messages.
 /**
@@ -414,6 +599,33 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__destroy(turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * array);
 
+/// Check for action/Patrol message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * lhs, const turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * rhs);
+
+/// Copy an array of action/Patrol messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * input,
+  turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * output);
+
 /// Initialize action/Patrol message.
 /**
  * If the init function is called twice for the same message without
@@ -462,6 +674,32 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_SendGoal_Response__destroy(turtlebot3_msgs__action__Patrol_SendGoal_Response * msg);
 
+/// Check for action/Patrol message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Response__are_equal(const turtlebot3_msgs__action__Patrol_SendGoal_Response * lhs, const turtlebot3_msgs__action__Patrol_SendGoal_Response * rhs);
+
+/// Copy a action/Patrol message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Response__copy(
+  const turtlebot3_msgs__action__Patrol_SendGoal_Response * input,
+  turtlebot3_msgs__action__Patrol_SendGoal_Response * output);
 
 /// Initialize array of action/Patrol messages.
 /**
@@ -513,6 +751,33 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__destroy(turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * array);
 
+/// Check for action/Patrol message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * lhs, const turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * rhs);
+
+/// Copy an array of action/Patrol messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * input,
+  turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * output);
+
 /// Initialize action/Patrol message.
 /**
  * If the init function is called twice for the same message without
@@ -561,6 +826,32 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_GetResult_Request__destroy(turtlebot3_msgs__action__Patrol_GetResult_Request * msg);
 
+/// Check for action/Patrol message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Request__are_equal(const turtlebot3_msgs__action__Patrol_GetResult_Request * lhs, const turtlebot3_msgs__action__Patrol_GetResult_Request * rhs);
+
+/// Copy a action/Patrol message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Request__copy(
+  const turtlebot3_msgs__action__Patrol_GetResult_Request * input,
+  turtlebot3_msgs__action__Patrol_GetResult_Request * output);
 
 /// Initialize array of action/Patrol messages.
 /**
@@ -612,6 +903,33 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__destroy(turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * array);
 
+/// Check for action/Patrol message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * lhs, const turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * rhs);
+
+/// Copy an array of action/Patrol messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * input,
+  turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * output);
+
 /// Initialize action/Patrol message.
 /**
  * If the init function is called twice for the same message without
@@ -660,6 +978,32 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_GetResult_Response__destroy(turtlebot3_msgs__action__Patrol_GetResult_Response * msg);
 
+/// Check for action/Patrol message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Response__are_equal(const turtlebot3_msgs__action__Patrol_GetResult_Response * lhs, const turtlebot3_msgs__action__Patrol_GetResult_Response * rhs);
+
+/// Copy a action/Patrol message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Response__copy(
+  const turtlebot3_msgs__action__Patrol_GetResult_Response * input,
+  turtlebot3_msgs__action__Patrol_GetResult_Response * output);
 
 /// Initialize array of action/Patrol messages.
 /**
@@ -711,6 +1055,33 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__destroy(turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * array);
 
+/// Check for action/Patrol message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * lhs, const turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * rhs);
+
+/// Copy an array of action/Patrol messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * input,
+  turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * output);
+
 /// Initialize action/Patrol message.
 /**
  * If the init function is called twice for the same message without
@@ -759,6 +1130,32 @@ ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_FeedbackMessage__destroy(turtlebot3_msgs__action__Patrol_FeedbackMessage * msg);
 
+/// Check for action/Patrol message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_FeedbackMessage__are_equal(const turtlebot3_msgs__action__Patrol_FeedbackMessage * lhs, const turtlebot3_msgs__action__Patrol_FeedbackMessage * rhs);
+
+/// Copy a action/Patrol message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_FeedbackMessage__copy(
+  const turtlebot3_msgs__action__Patrol_FeedbackMessage * input,
+  turtlebot3_msgs__action__Patrol_FeedbackMessage * output);
 
 /// Initialize array of action/Patrol messages.
 /**
@@ -809,6 +1206,33 @@ turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__create(size_t size);
 ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
 void
 turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__destroy(turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * array);
+
+/// Check for action/Patrol message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * lhs, const turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * rhs);
+
+/// Copy an array of action/Patrol messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_turtlebot3_msgs
+bool
+turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * input,
+  turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * output);
 
 #ifdef __cplusplus
 }

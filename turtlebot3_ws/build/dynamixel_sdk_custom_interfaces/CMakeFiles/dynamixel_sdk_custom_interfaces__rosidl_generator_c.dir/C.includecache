@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_c/dynamixel_sdk_custom_interfaces/msg/detail/set_position__functions.c
+/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_c/dynamixel_sdk_custom_interfaces/msg/detail/set_position__functions.c
 dynamixel_sdk_custom_interfaces/msg/detail/set_position__functions.h
-/home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_c/dynamixel_sdk_custom_interfaces/msg/detail/dynamixel_sdk_custom_interfaces/msg/detail/set_position__functions.h
+/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_c/dynamixel_sdk_custom_interfaces/msg/detail/dynamixel_sdk_custom_interfaces/msg/detail/set_position__functions.h
 assert.h
 -
 stdbool.h
@@ -17,10 +17,12 @@ stdlib.h
 -
 string.h
 -
+rcutils/allocator.h
+/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_c/dynamixel_sdk_custom_interfaces/msg/detail/rcutils/allocator.h
 
-/home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_c/dynamixel_sdk_custom_interfaces/srv/detail/get_position__functions.c
+/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_c/dynamixel_sdk_custom_interfaces/srv/detail/get_position__functions.c
 dynamixel_sdk_custom_interfaces/srv/detail/get_position__functions.h
-/home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_c/dynamixel_sdk_custom_interfaces/srv/detail/dynamixel_sdk_custom_interfaces/srv/detail/get_position__functions.h
+/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_c/dynamixel_sdk_custom_interfaces/srv/detail/dynamixel_sdk_custom_interfaces/srv/detail/get_position__functions.h
 assert.h
 -
 stdbool.h
@@ -29,6 +31,48 @@ stdlib.h
 -
 string.h
 -
+rcutils/allocator.h
+/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_c/dynamixel_sdk_custom_interfaces/srv/detail/rcutils/allocator.h
+
+/opt/ros/foxy/include/rcutils/allocator.h
+stdbool.h
+-
+stddef.h
+-
+rcutils/macros.h
+/opt/ros/foxy/include/rcutils/rcutils/macros.h
+rcutils/types/rcutils_ret.h
+/opt/ros/foxy/include/rcutils/rcutils/types/rcutils_ret.h
+rcutils/visibility_control.h
+/opt/ros/foxy/include/rcutils/rcutils/visibility_control.h
+
+/opt/ros/foxy/include/rcutils/macros.h
+TargetConditionals.h
+-
+Availability.h
+-
+rcutils/testing/fault_injection.h
+/opt/ros/foxy/include/rcutils/rcutils/testing/fault_injection.h
+
+/opt/ros/foxy/include/rcutils/testing/fault_injection.h
+stdbool.h
+-
+stdio.h
+-
+stdint.h
+-
+rcutils/macros.h
+/opt/ros/foxy/include/rcutils/testing/rcutils/macros.h
+rcutils/visibility_control.h
+/opt/ros/foxy/include/rcutils/testing/rcutils/visibility_control.h
+
+/opt/ros/foxy/include/rcutils/types/rcutils_ret.h
+
+/opt/ros/foxy/include/rcutils/visibility_control.h
+rcutils/visibility_control_macros.h
+/opt/ros/foxy/include/rcutils/rcutils/visibility_control_macros.h
+
+/opt/ros/foxy/include/rcutils/visibility_control_macros.h
 
 /opt/ros/foxy/include/rosidl_runtime_c/visibility_control.h
 

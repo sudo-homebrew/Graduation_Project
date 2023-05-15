@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/molozise/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_fake_node/src/turtlebot3_fake_node.cpp" "/home/molozise/turtlebot3_ws/build/turtlebot3_fake_node/CMakeFiles/turtlebot3_fake_node.dir/src/turtlebot3_fake_node.cpp.o"
+  "/home/dmsai1/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_fake_node/src/turtlebot3_fake_node.cpp" "/home/dmsai1/turtlebot3_ws/build/turtlebot3_fake_node/CMakeFiles/turtlebot3_fake_node.dir/src/turtlebot3_fake_node.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -17,8 +17,8 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/molozise/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_fake_node/include"
-  "/home/molozise/turtlebot3_ws/install/turtlebot3_msgs/include"
+  "/home/dmsai1/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_fake_node/include"
+  "/home/dmsai1/turtlebot3_ws/install/turtlebot3_msgs/include"
   "/opt/ros/foxy/include"
   )
 

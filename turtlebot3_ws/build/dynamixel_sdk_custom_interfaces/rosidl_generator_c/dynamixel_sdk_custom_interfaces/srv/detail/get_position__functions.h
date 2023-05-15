@@ -66,6 +66,32 @@ ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
 void
 dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__destroy(dynamixel_sdk_custom_interfaces__srv__GetPosition_Request * msg);
 
+/// Check for srv/GetPosition message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__are_equal(const dynamixel_sdk_custom_interfaces__srv__GetPosition_Request * lhs, const dynamixel_sdk_custom_interfaces__srv__GetPosition_Request * rhs);
+
+/// Copy a srv/GetPosition message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__copy(
+  const dynamixel_sdk_custom_interfaces__srv__GetPosition_Request * input,
+  dynamixel_sdk_custom_interfaces__srv__GetPosition_Request * output);
 
 /// Initialize array of srv/GetPosition messages.
 /**
@@ -117,6 +143,33 @@ ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
 void
 dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__Sequence__destroy(dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__Sequence * array);
 
+/// Check for srv/GetPosition message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__Sequence__are_equal(const dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__Sequence * lhs, const dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__Sequence * rhs);
+
+/// Copy an array of srv/GetPosition messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__Sequence__copy(
+  const dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__Sequence * input,
+  dynamixel_sdk_custom_interfaces__srv__GetPosition_Request__Sequence * output);
+
 /// Initialize srv/GetPosition message.
 /**
  * If the init function is called twice for the same message without
@@ -165,6 +218,32 @@ ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
 void
 dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__destroy(dynamixel_sdk_custom_interfaces__srv__GetPosition_Response * msg);
 
+/// Check for srv/GetPosition message equality.
+/**
+ * \param[in] lhs The message on the left hand size of the equality operator.
+ * \param[in] rhs The message on the right hand size of the equality operator.
+ * \return true if messages are equal, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__are_equal(const dynamixel_sdk_custom_interfaces__srv__GetPosition_Response * lhs, const dynamixel_sdk_custom_interfaces__srv__GetPosition_Response * rhs);
+
+/// Copy a srv/GetPosition message.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source message pointer.
+ * \param[out] output The target message pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer is null
+ *   or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__copy(
+  const dynamixel_sdk_custom_interfaces__srv__GetPosition_Response * input,
+  dynamixel_sdk_custom_interfaces__srv__GetPosition_Response * output);
 
 /// Initialize array of srv/GetPosition messages.
 /**
@@ -215,6 +294,33 @@ dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__Sequence__create(siz
 ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
 void
 dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__Sequence__destroy(dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__Sequence * array);
+
+/// Check for srv/GetPosition message array equality.
+/**
+ * \param[in] lhs The message array on the left hand size of the equality operator.
+ * \param[in] rhs The message array on the right hand size of the equality operator.
+ * \return true if message arrays are equal in size and content, otherwise false.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__Sequence__are_equal(const dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__Sequence * lhs, const dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__Sequence * rhs);
+
+/// Copy an array of srv/GetPosition messages.
+/**
+ * This functions performs a deep copy, as opposed to the shallow copy that
+ * plain assignment yields.
+ *
+ * \param[in] input The source array pointer.
+ * \param[out] output The target array pointer, which must
+ *   have been initialized before calling this function.
+ * \return true if successful, or false if either pointer
+ *   is null or memory allocation fails.
+ */
+ROSIDL_GENERATOR_C_PUBLIC_dynamixel_sdk_custom_interfaces
+bool
+dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__Sequence__copy(
+  const dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__Sequence * input,
+  dynamixel_sdk_custom_interfaces__srv__GetPosition_Response__Sequence * output);
 
 #ifdef __cplusplus
 }

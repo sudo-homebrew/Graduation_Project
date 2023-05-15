@@ -6,5 +6,5 @@ CXX_FLAGS = -fPIC   -Wall -std=gnu++14
 
 CXX_DEFINES = -DRCUTILS_ENABLE_FAULT_INJECTION -DROS_PACKAGE_NAME=\"dynamixel_sdk_custom_interfaces\" -Ddynamixel_sdk_custom_interfaces__rosidl_typesupport_introspection_cpp_EXPORTS
 
-CXX_INCLUDES = -I/home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_cpp -isystem /opt/ros/foxy/include 
+CXX_INCLUDES = -I/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/rosidl_generator_cpp -isystem /opt/ros/foxy/include 
 

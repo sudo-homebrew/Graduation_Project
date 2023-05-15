@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "rcutils/allocator.h"
+
 
 bool
 turtlebot3_msgs__action__Patrol_Goal__init(turtlebot3_msgs__action__Patrol_Goal * msg)
@@ -28,17 +30,44 @@ turtlebot3_msgs__action__Patrol_Goal__fini(turtlebot3_msgs__action__Patrol_Goal 
   // radius
 }
 
+bool
+turtlebot3_msgs__action__Patrol_Goal__are_equal(const turtlebot3_msgs__action__Patrol_Goal * lhs, const turtlebot3_msgs__action__Patrol_Goal * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // radius
+  if (lhs->radius != rhs->radius) {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_Goal__copy(
+  const turtlebot3_msgs__action__Patrol_Goal * input,
+  turtlebot3_msgs__action__Patrol_Goal * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // radius
+  output->radius = input->radius;
+  return true;
+}
+
 turtlebot3_msgs__action__Patrol_Goal *
 turtlebot3_msgs__action__Patrol_Goal__create()
 {
-  turtlebot3_msgs__action__Patrol_Goal * msg = (turtlebot3_msgs__action__Patrol_Goal *)malloc(sizeof(turtlebot3_msgs__action__Patrol_Goal));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_Goal * msg = (turtlebot3_msgs__action__Patrol_Goal *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_Goal), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__action__Patrol_Goal));
   bool success = turtlebot3_msgs__action__Patrol_Goal__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -47,10 +76,11 @@ turtlebot3_msgs__action__Patrol_Goal__create()
 void
 turtlebot3_msgs__action__Patrol_Goal__destroy(turtlebot3_msgs__action__Patrol_Goal * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__action__Patrol_Goal__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -60,9 +90,11 @@ turtlebot3_msgs__action__Patrol_Goal__Sequence__init(turtlebot3_msgs__action__Pa
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__action__Patrol_Goal * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__action__Patrol_Goal *)calloc(size, sizeof(turtlebot3_msgs__action__Patrol_Goal));
+    data = (turtlebot3_msgs__action__Patrol_Goal *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__action__Patrol_Goal), allocator.state);
     if (!data) {
       return false;
     }
@@ -79,7 +111,7 @@ turtlebot3_msgs__action__Patrol_Goal__Sequence__init(turtlebot3_msgs__action__Pa
       for (; i > 0; --i) {
         turtlebot3_msgs__action__Patrol_Goal__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -95,6 +127,8 @@ turtlebot3_msgs__action__Patrol_Goal__Sequence__fini(turtlebot3_msgs__action__Pa
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -102,7 +136,7 @@ turtlebot3_msgs__action__Patrol_Goal__Sequence__fini(turtlebot3_msgs__action__Pa
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__action__Patrol_Goal__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -116,13 +150,14 @@ turtlebot3_msgs__action__Patrol_Goal__Sequence__fini(turtlebot3_msgs__action__Pa
 turtlebot3_msgs__action__Patrol_Goal__Sequence *
 turtlebot3_msgs__action__Patrol_Goal__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__action__Patrol_Goal__Sequence * array = (turtlebot3_msgs__action__Patrol_Goal__Sequence *)malloc(sizeof(turtlebot3_msgs__action__Patrol_Goal__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_Goal__Sequence * array = (turtlebot3_msgs__action__Patrol_Goal__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_Goal__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__action__Patrol_Goal__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -131,10 +166,68 @@ turtlebot3_msgs__action__Patrol_Goal__Sequence__create(size_t size)
 void
 turtlebot3_msgs__action__Patrol_Goal__Sequence__destroy(turtlebot3_msgs__action__Patrol_Goal__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__action__Patrol_Goal__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__action__Patrol_Goal__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_Goal__Sequence * lhs, const turtlebot3_msgs__action__Patrol_Goal__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_Goal__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_Goal__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_Goal__Sequence * input,
+  turtlebot3_msgs__action__Patrol_Goal__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__action__Patrol_Goal);
+    turtlebot3_msgs__action__Patrol_Goal * data =
+      (turtlebot3_msgs__action__Patrol_Goal *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__action__Patrol_Goal__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__action__Patrol_Goal__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_Goal__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 
@@ -157,17 +250,44 @@ turtlebot3_msgs__action__Patrol_Result__fini(turtlebot3_msgs__action__Patrol_Res
   // success
 }
 
+bool
+turtlebot3_msgs__action__Patrol_Result__are_equal(const turtlebot3_msgs__action__Patrol_Result * lhs, const turtlebot3_msgs__action__Patrol_Result * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // success
+  if (lhs->success != rhs->success) {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_Result__copy(
+  const turtlebot3_msgs__action__Patrol_Result * input,
+  turtlebot3_msgs__action__Patrol_Result * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // success
+  output->success = input->success;
+  return true;
+}
+
 turtlebot3_msgs__action__Patrol_Result *
 turtlebot3_msgs__action__Patrol_Result__create()
 {
-  turtlebot3_msgs__action__Patrol_Result * msg = (turtlebot3_msgs__action__Patrol_Result *)malloc(sizeof(turtlebot3_msgs__action__Patrol_Result));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_Result * msg = (turtlebot3_msgs__action__Patrol_Result *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_Result), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__action__Patrol_Result));
   bool success = turtlebot3_msgs__action__Patrol_Result__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -176,10 +296,11 @@ turtlebot3_msgs__action__Patrol_Result__create()
 void
 turtlebot3_msgs__action__Patrol_Result__destroy(turtlebot3_msgs__action__Patrol_Result * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__action__Patrol_Result__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -189,9 +310,11 @@ turtlebot3_msgs__action__Patrol_Result__Sequence__init(turtlebot3_msgs__action__
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__action__Patrol_Result * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__action__Patrol_Result *)calloc(size, sizeof(turtlebot3_msgs__action__Patrol_Result));
+    data = (turtlebot3_msgs__action__Patrol_Result *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__action__Patrol_Result), allocator.state);
     if (!data) {
       return false;
     }
@@ -208,7 +331,7 @@ turtlebot3_msgs__action__Patrol_Result__Sequence__init(turtlebot3_msgs__action__
       for (; i > 0; --i) {
         turtlebot3_msgs__action__Patrol_Result__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -224,6 +347,8 @@ turtlebot3_msgs__action__Patrol_Result__Sequence__fini(turtlebot3_msgs__action__
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -231,7 +356,7 @@ turtlebot3_msgs__action__Patrol_Result__Sequence__fini(turtlebot3_msgs__action__
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__action__Patrol_Result__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -245,13 +370,14 @@ turtlebot3_msgs__action__Patrol_Result__Sequence__fini(turtlebot3_msgs__action__
 turtlebot3_msgs__action__Patrol_Result__Sequence *
 turtlebot3_msgs__action__Patrol_Result__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__action__Patrol_Result__Sequence * array = (turtlebot3_msgs__action__Patrol_Result__Sequence *)malloc(sizeof(turtlebot3_msgs__action__Patrol_Result__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_Result__Sequence * array = (turtlebot3_msgs__action__Patrol_Result__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_Result__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__action__Patrol_Result__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -260,10 +386,68 @@ turtlebot3_msgs__action__Patrol_Result__Sequence__create(size_t size)
 void
 turtlebot3_msgs__action__Patrol_Result__Sequence__destroy(turtlebot3_msgs__action__Patrol_Result__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__action__Patrol_Result__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__action__Patrol_Result__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_Result__Sequence * lhs, const turtlebot3_msgs__action__Patrol_Result__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_Result__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_Result__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_Result__Sequence * input,
+  turtlebot3_msgs__action__Patrol_Result__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__action__Patrol_Result);
+    turtlebot3_msgs__action__Patrol_Result * data =
+      (turtlebot3_msgs__action__Patrol_Result *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__action__Patrol_Result__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__action__Patrol_Result__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_Result__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 
@@ -286,17 +470,44 @@ turtlebot3_msgs__action__Patrol_Feedback__fini(turtlebot3_msgs__action__Patrol_F
   // left_time
 }
 
+bool
+turtlebot3_msgs__action__Patrol_Feedback__are_equal(const turtlebot3_msgs__action__Patrol_Feedback * lhs, const turtlebot3_msgs__action__Patrol_Feedback * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // left_time
+  if (lhs->left_time != rhs->left_time) {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_Feedback__copy(
+  const turtlebot3_msgs__action__Patrol_Feedback * input,
+  turtlebot3_msgs__action__Patrol_Feedback * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // left_time
+  output->left_time = input->left_time;
+  return true;
+}
+
 turtlebot3_msgs__action__Patrol_Feedback *
 turtlebot3_msgs__action__Patrol_Feedback__create()
 {
-  turtlebot3_msgs__action__Patrol_Feedback * msg = (turtlebot3_msgs__action__Patrol_Feedback *)malloc(sizeof(turtlebot3_msgs__action__Patrol_Feedback));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_Feedback * msg = (turtlebot3_msgs__action__Patrol_Feedback *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_Feedback), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__action__Patrol_Feedback));
   bool success = turtlebot3_msgs__action__Patrol_Feedback__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -305,10 +516,11 @@ turtlebot3_msgs__action__Patrol_Feedback__create()
 void
 turtlebot3_msgs__action__Patrol_Feedback__destroy(turtlebot3_msgs__action__Patrol_Feedback * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__action__Patrol_Feedback__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -318,9 +530,11 @@ turtlebot3_msgs__action__Patrol_Feedback__Sequence__init(turtlebot3_msgs__action
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__action__Patrol_Feedback * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__action__Patrol_Feedback *)calloc(size, sizeof(turtlebot3_msgs__action__Patrol_Feedback));
+    data = (turtlebot3_msgs__action__Patrol_Feedback *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__action__Patrol_Feedback), allocator.state);
     if (!data) {
       return false;
     }
@@ -337,7 +551,7 @@ turtlebot3_msgs__action__Patrol_Feedback__Sequence__init(turtlebot3_msgs__action
       for (; i > 0; --i) {
         turtlebot3_msgs__action__Patrol_Feedback__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -353,6 +567,8 @@ turtlebot3_msgs__action__Patrol_Feedback__Sequence__fini(turtlebot3_msgs__action
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -360,7 +576,7 @@ turtlebot3_msgs__action__Patrol_Feedback__Sequence__fini(turtlebot3_msgs__action
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__action__Patrol_Feedback__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -374,13 +590,14 @@ turtlebot3_msgs__action__Patrol_Feedback__Sequence__fini(turtlebot3_msgs__action
 turtlebot3_msgs__action__Patrol_Feedback__Sequence *
 turtlebot3_msgs__action__Patrol_Feedback__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__action__Patrol_Feedback__Sequence * array = (turtlebot3_msgs__action__Patrol_Feedback__Sequence *)malloc(sizeof(turtlebot3_msgs__action__Patrol_Feedback__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_Feedback__Sequence * array = (turtlebot3_msgs__action__Patrol_Feedback__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_Feedback__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__action__Patrol_Feedback__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -389,10 +606,68 @@ turtlebot3_msgs__action__Patrol_Feedback__Sequence__create(size_t size)
 void
 turtlebot3_msgs__action__Patrol_Feedback__Sequence__destroy(turtlebot3_msgs__action__Patrol_Feedback__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__action__Patrol_Feedback__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__action__Patrol_Feedback__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_Feedback__Sequence * lhs, const turtlebot3_msgs__action__Patrol_Feedback__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_Feedback__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_Feedback__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_Feedback__Sequence * input,
+  turtlebot3_msgs__action__Patrol_Feedback__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__action__Patrol_Feedback);
+    turtlebot3_msgs__action__Patrol_Feedback * data =
+      (turtlebot3_msgs__action__Patrol_Feedback *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__action__Patrol_Feedback__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__action__Patrol_Feedback__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_Feedback__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 
@@ -434,17 +709,62 @@ turtlebot3_msgs__action__Patrol_SendGoal_Request__fini(turtlebot3_msgs__action__
   turtlebot3_msgs__action__Patrol_Goal__fini(&msg->goal);
 }
 
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Request__are_equal(const turtlebot3_msgs__action__Patrol_SendGoal_Request * lhs, const turtlebot3_msgs__action__Patrol_SendGoal_Request * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // goal_id
+  if (!unique_identifier_msgs__msg__UUID__are_equal(
+      &(lhs->goal_id), &(rhs->goal_id)))
+  {
+    return false;
+  }
+  // goal
+  if (!turtlebot3_msgs__action__Patrol_Goal__are_equal(
+      &(lhs->goal), &(rhs->goal)))
+  {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Request__copy(
+  const turtlebot3_msgs__action__Patrol_SendGoal_Request * input,
+  turtlebot3_msgs__action__Patrol_SendGoal_Request * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // goal_id
+  if (!unique_identifier_msgs__msg__UUID__copy(
+      &(input->goal_id), &(output->goal_id)))
+  {
+    return false;
+  }
+  // goal
+  if (!turtlebot3_msgs__action__Patrol_Goal__copy(
+      &(input->goal), &(output->goal)))
+  {
+    return false;
+  }
+  return true;
+}
+
 turtlebot3_msgs__action__Patrol_SendGoal_Request *
 turtlebot3_msgs__action__Patrol_SendGoal_Request__create()
 {
-  turtlebot3_msgs__action__Patrol_SendGoal_Request * msg = (turtlebot3_msgs__action__Patrol_SendGoal_Request *)malloc(sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Request));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_SendGoal_Request * msg = (turtlebot3_msgs__action__Patrol_SendGoal_Request *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Request), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Request));
   bool success = turtlebot3_msgs__action__Patrol_SendGoal_Request__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -453,10 +773,11 @@ turtlebot3_msgs__action__Patrol_SendGoal_Request__create()
 void
 turtlebot3_msgs__action__Patrol_SendGoal_Request__destroy(turtlebot3_msgs__action__Patrol_SendGoal_Request * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__action__Patrol_SendGoal_Request__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -466,9 +787,11 @@ turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__init(turtlebot3_msgs
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__action__Patrol_SendGoal_Request * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__action__Patrol_SendGoal_Request *)calloc(size, sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Request));
+    data = (turtlebot3_msgs__action__Patrol_SendGoal_Request *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Request), allocator.state);
     if (!data) {
       return false;
     }
@@ -485,7 +808,7 @@ turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__init(turtlebot3_msgs
       for (; i > 0; --i) {
         turtlebot3_msgs__action__Patrol_SendGoal_Request__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -501,6 +824,8 @@ turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__fini(turtlebot3_msgs
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -508,7 +833,7 @@ turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__fini(turtlebot3_msgs
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__action__Patrol_SendGoal_Request__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -522,13 +847,14 @@ turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__fini(turtlebot3_msgs
 turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence *
 turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * array = (turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence *)malloc(sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * array = (turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -537,10 +863,68 @@ turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__create(size_t size)
 void
 turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__destroy(turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * lhs, const turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_SendGoal_Request__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * input,
+  turtlebot3_msgs__action__Patrol_SendGoal_Request__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Request);
+    turtlebot3_msgs__action__Patrol_SendGoal_Request * data =
+      (turtlebot3_msgs__action__Patrol_SendGoal_Request *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__action__Patrol_SendGoal_Request__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__action__Patrol_SendGoal_Request__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_SendGoal_Request__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 
@@ -574,17 +958,56 @@ turtlebot3_msgs__action__Patrol_SendGoal_Response__fini(turtlebot3_msgs__action_
   builtin_interfaces__msg__Time__fini(&msg->stamp);
 }
 
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Response__are_equal(const turtlebot3_msgs__action__Patrol_SendGoal_Response * lhs, const turtlebot3_msgs__action__Patrol_SendGoal_Response * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // accepted
+  if (lhs->accepted != rhs->accepted) {
+    return false;
+  }
+  // stamp
+  if (!builtin_interfaces__msg__Time__are_equal(
+      &(lhs->stamp), &(rhs->stamp)))
+  {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Response__copy(
+  const turtlebot3_msgs__action__Patrol_SendGoal_Response * input,
+  turtlebot3_msgs__action__Patrol_SendGoal_Response * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // accepted
+  output->accepted = input->accepted;
+  // stamp
+  if (!builtin_interfaces__msg__Time__copy(
+      &(input->stamp), &(output->stamp)))
+  {
+    return false;
+  }
+  return true;
+}
+
 turtlebot3_msgs__action__Patrol_SendGoal_Response *
 turtlebot3_msgs__action__Patrol_SendGoal_Response__create()
 {
-  turtlebot3_msgs__action__Patrol_SendGoal_Response * msg = (turtlebot3_msgs__action__Patrol_SendGoal_Response *)malloc(sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Response));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_SendGoal_Response * msg = (turtlebot3_msgs__action__Patrol_SendGoal_Response *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Response), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Response));
   bool success = turtlebot3_msgs__action__Patrol_SendGoal_Response__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -593,10 +1016,11 @@ turtlebot3_msgs__action__Patrol_SendGoal_Response__create()
 void
 turtlebot3_msgs__action__Patrol_SendGoal_Response__destroy(turtlebot3_msgs__action__Patrol_SendGoal_Response * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__action__Patrol_SendGoal_Response__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -606,9 +1030,11 @@ turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__init(turtlebot3_msg
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__action__Patrol_SendGoal_Response * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__action__Patrol_SendGoal_Response *)calloc(size, sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Response));
+    data = (turtlebot3_msgs__action__Patrol_SendGoal_Response *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Response), allocator.state);
     if (!data) {
       return false;
     }
@@ -625,7 +1051,7 @@ turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__init(turtlebot3_msg
       for (; i > 0; --i) {
         turtlebot3_msgs__action__Patrol_SendGoal_Response__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -641,6 +1067,8 @@ turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__fini(turtlebot3_msg
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -648,7 +1076,7 @@ turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__fini(turtlebot3_msg
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__action__Patrol_SendGoal_Response__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -662,13 +1090,14 @@ turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__fini(turtlebot3_msg
 turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence *
 turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * array = (turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence *)malloc(sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * array = (turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -677,10 +1106,68 @@ turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__create(size_t size)
 void
 turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__destroy(turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * lhs, const turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_SendGoal_Response__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * input,
+  turtlebot3_msgs__action__Patrol_SendGoal_Response__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__action__Patrol_SendGoal_Response);
+    turtlebot3_msgs__action__Patrol_SendGoal_Response * data =
+      (turtlebot3_msgs__action__Patrol_SendGoal_Response *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__action__Patrol_SendGoal_Response__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__action__Patrol_SendGoal_Response__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_SendGoal_Response__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 
@@ -713,17 +1200,50 @@ turtlebot3_msgs__action__Patrol_GetResult_Request__fini(turtlebot3_msgs__action_
   unique_identifier_msgs__msg__UUID__fini(&msg->goal_id);
 }
 
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Request__are_equal(const turtlebot3_msgs__action__Patrol_GetResult_Request * lhs, const turtlebot3_msgs__action__Patrol_GetResult_Request * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // goal_id
+  if (!unique_identifier_msgs__msg__UUID__are_equal(
+      &(lhs->goal_id), &(rhs->goal_id)))
+  {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Request__copy(
+  const turtlebot3_msgs__action__Patrol_GetResult_Request * input,
+  turtlebot3_msgs__action__Patrol_GetResult_Request * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // goal_id
+  if (!unique_identifier_msgs__msg__UUID__copy(
+      &(input->goal_id), &(output->goal_id)))
+  {
+    return false;
+  }
+  return true;
+}
+
 turtlebot3_msgs__action__Patrol_GetResult_Request *
 turtlebot3_msgs__action__Patrol_GetResult_Request__create()
 {
-  turtlebot3_msgs__action__Patrol_GetResult_Request * msg = (turtlebot3_msgs__action__Patrol_GetResult_Request *)malloc(sizeof(turtlebot3_msgs__action__Patrol_GetResult_Request));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_GetResult_Request * msg = (turtlebot3_msgs__action__Patrol_GetResult_Request *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_GetResult_Request), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__action__Patrol_GetResult_Request));
   bool success = turtlebot3_msgs__action__Patrol_GetResult_Request__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -732,10 +1252,11 @@ turtlebot3_msgs__action__Patrol_GetResult_Request__create()
 void
 turtlebot3_msgs__action__Patrol_GetResult_Request__destroy(turtlebot3_msgs__action__Patrol_GetResult_Request * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__action__Patrol_GetResult_Request__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -745,9 +1266,11 @@ turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__init(turtlebot3_msg
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__action__Patrol_GetResult_Request * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__action__Patrol_GetResult_Request *)calloc(size, sizeof(turtlebot3_msgs__action__Patrol_GetResult_Request));
+    data = (turtlebot3_msgs__action__Patrol_GetResult_Request *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__action__Patrol_GetResult_Request), allocator.state);
     if (!data) {
       return false;
     }
@@ -764,7 +1287,7 @@ turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__init(turtlebot3_msg
       for (; i > 0; --i) {
         turtlebot3_msgs__action__Patrol_GetResult_Request__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -780,6 +1303,8 @@ turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__fini(turtlebot3_msg
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -787,7 +1312,7 @@ turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__fini(turtlebot3_msg
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__action__Patrol_GetResult_Request__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -801,13 +1326,14 @@ turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__fini(turtlebot3_msg
 turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence *
 turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * array = (turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence *)malloc(sizeof(turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * array = (turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -816,10 +1342,68 @@ turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__create(size_t size)
 void
 turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__destroy(turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * lhs, const turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_GetResult_Request__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * input,
+  turtlebot3_msgs__action__Patrol_GetResult_Request__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__action__Patrol_GetResult_Request);
+    turtlebot3_msgs__action__Patrol_GetResult_Request * data =
+      (turtlebot3_msgs__action__Patrol_GetResult_Request *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__action__Patrol_GetResult_Request__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__action__Patrol_GetResult_Request__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_GetResult_Request__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 
@@ -854,17 +1438,56 @@ turtlebot3_msgs__action__Patrol_GetResult_Response__fini(turtlebot3_msgs__action
   turtlebot3_msgs__action__Patrol_Result__fini(&msg->result);
 }
 
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Response__are_equal(const turtlebot3_msgs__action__Patrol_GetResult_Response * lhs, const turtlebot3_msgs__action__Patrol_GetResult_Response * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // status
+  if (lhs->status != rhs->status) {
+    return false;
+  }
+  // result
+  if (!turtlebot3_msgs__action__Patrol_Result__are_equal(
+      &(lhs->result), &(rhs->result)))
+  {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Response__copy(
+  const turtlebot3_msgs__action__Patrol_GetResult_Response * input,
+  turtlebot3_msgs__action__Patrol_GetResult_Response * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // status
+  output->status = input->status;
+  // result
+  if (!turtlebot3_msgs__action__Patrol_Result__copy(
+      &(input->result), &(output->result)))
+  {
+    return false;
+  }
+  return true;
+}
+
 turtlebot3_msgs__action__Patrol_GetResult_Response *
 turtlebot3_msgs__action__Patrol_GetResult_Response__create()
 {
-  turtlebot3_msgs__action__Patrol_GetResult_Response * msg = (turtlebot3_msgs__action__Patrol_GetResult_Response *)malloc(sizeof(turtlebot3_msgs__action__Patrol_GetResult_Response));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_GetResult_Response * msg = (turtlebot3_msgs__action__Patrol_GetResult_Response *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_GetResult_Response), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__action__Patrol_GetResult_Response));
   bool success = turtlebot3_msgs__action__Patrol_GetResult_Response__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -873,10 +1496,11 @@ turtlebot3_msgs__action__Patrol_GetResult_Response__create()
 void
 turtlebot3_msgs__action__Patrol_GetResult_Response__destroy(turtlebot3_msgs__action__Patrol_GetResult_Response * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__action__Patrol_GetResult_Response__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -886,9 +1510,11 @@ turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__init(turtlebot3_ms
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__action__Patrol_GetResult_Response * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__action__Patrol_GetResult_Response *)calloc(size, sizeof(turtlebot3_msgs__action__Patrol_GetResult_Response));
+    data = (turtlebot3_msgs__action__Patrol_GetResult_Response *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__action__Patrol_GetResult_Response), allocator.state);
     if (!data) {
       return false;
     }
@@ -905,7 +1531,7 @@ turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__init(turtlebot3_ms
       for (; i > 0; --i) {
         turtlebot3_msgs__action__Patrol_GetResult_Response__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -921,6 +1547,8 @@ turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__fini(turtlebot3_ms
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -928,7 +1556,7 @@ turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__fini(turtlebot3_ms
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__action__Patrol_GetResult_Response__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -942,13 +1570,14 @@ turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__fini(turtlebot3_ms
 turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence *
 turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * array = (turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence *)malloc(sizeof(turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * array = (turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -957,10 +1586,68 @@ turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__create(size_t size
 void
 turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__destroy(turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * lhs, const turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_GetResult_Response__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * input,
+  turtlebot3_msgs__action__Patrol_GetResult_Response__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__action__Patrol_GetResult_Response);
+    turtlebot3_msgs__action__Patrol_GetResult_Response * data =
+      (turtlebot3_msgs__action__Patrol_GetResult_Response *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__action__Patrol_GetResult_Response__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__action__Patrol_GetResult_Response__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_GetResult_Response__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 
@@ -1003,17 +1690,62 @@ turtlebot3_msgs__action__Patrol_FeedbackMessage__fini(turtlebot3_msgs__action__P
   turtlebot3_msgs__action__Patrol_Feedback__fini(&msg->feedback);
 }
 
+bool
+turtlebot3_msgs__action__Patrol_FeedbackMessage__are_equal(const turtlebot3_msgs__action__Patrol_FeedbackMessage * lhs, const turtlebot3_msgs__action__Patrol_FeedbackMessage * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // goal_id
+  if (!unique_identifier_msgs__msg__UUID__are_equal(
+      &(lhs->goal_id), &(rhs->goal_id)))
+  {
+    return false;
+  }
+  // feedback
+  if (!turtlebot3_msgs__action__Patrol_Feedback__are_equal(
+      &(lhs->feedback), &(rhs->feedback)))
+  {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_FeedbackMessage__copy(
+  const turtlebot3_msgs__action__Patrol_FeedbackMessage * input,
+  turtlebot3_msgs__action__Patrol_FeedbackMessage * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // goal_id
+  if (!unique_identifier_msgs__msg__UUID__copy(
+      &(input->goal_id), &(output->goal_id)))
+  {
+    return false;
+  }
+  // feedback
+  if (!turtlebot3_msgs__action__Patrol_Feedback__copy(
+      &(input->feedback), &(output->feedback)))
+  {
+    return false;
+  }
+  return true;
+}
+
 turtlebot3_msgs__action__Patrol_FeedbackMessage *
 turtlebot3_msgs__action__Patrol_FeedbackMessage__create()
 {
-  turtlebot3_msgs__action__Patrol_FeedbackMessage * msg = (turtlebot3_msgs__action__Patrol_FeedbackMessage *)malloc(sizeof(turtlebot3_msgs__action__Patrol_FeedbackMessage));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_FeedbackMessage * msg = (turtlebot3_msgs__action__Patrol_FeedbackMessage *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_FeedbackMessage), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__action__Patrol_FeedbackMessage));
   bool success = turtlebot3_msgs__action__Patrol_FeedbackMessage__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -1022,10 +1754,11 @@ turtlebot3_msgs__action__Patrol_FeedbackMessage__create()
 void
 turtlebot3_msgs__action__Patrol_FeedbackMessage__destroy(turtlebot3_msgs__action__Patrol_FeedbackMessage * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__action__Patrol_FeedbackMessage__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -1035,9 +1768,11 @@ turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__init(turtlebot3_msgs_
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__action__Patrol_FeedbackMessage * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__action__Patrol_FeedbackMessage *)calloc(size, sizeof(turtlebot3_msgs__action__Patrol_FeedbackMessage));
+    data = (turtlebot3_msgs__action__Patrol_FeedbackMessage *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__action__Patrol_FeedbackMessage), allocator.state);
     if (!data) {
       return false;
     }
@@ -1054,7 +1789,7 @@ turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__init(turtlebot3_msgs_
       for (; i > 0; --i) {
         turtlebot3_msgs__action__Patrol_FeedbackMessage__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -1070,6 +1805,8 @@ turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__fini(turtlebot3_msgs_
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -1077,7 +1814,7 @@ turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__fini(turtlebot3_msgs_
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__action__Patrol_FeedbackMessage__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -1091,13 +1828,14 @@ turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__fini(turtlebot3_msgs_
 turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence *
 turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * array = (turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence *)malloc(sizeof(turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * array = (turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -1106,8 +1844,66 @@ turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__create(size_t size)
 void
 turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__destroy(turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__are_equal(const turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * lhs, const turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_FeedbackMessage__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence__copy(
+  const turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * input,
+  turtlebot3_msgs__action__Patrol_FeedbackMessage__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__action__Patrol_FeedbackMessage);
+    turtlebot3_msgs__action__Patrol_FeedbackMessage * data =
+      (turtlebot3_msgs__action__Patrol_FeedbackMessage *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__action__Patrol_FeedbackMessage__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__action__Patrol_FeedbackMessage__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__action__Patrol_FeedbackMessage__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }

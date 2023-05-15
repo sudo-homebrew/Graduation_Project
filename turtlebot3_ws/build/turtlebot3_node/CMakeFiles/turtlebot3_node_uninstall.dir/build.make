@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/molozise/turtlebot3_ws/src/turtlebot3/turtlebot3_node
+CMAKE_SOURCE_DIR = /home/dmsai1/turtlebot3_ws/src/turtlebot3/turtlebot3_node
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/molozise/turtlebot3_ws/build/turtlebot3_node
+CMAKE_BINARY_DIR = /home/dmsai1/turtlebot3_ws/build/turtlebot3_node
 
 # Utility rule file for turtlebot3_node_uninstall.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/molozise/turtlebot3_ws/build/turtlebot3_node
 include CMakeFiles/turtlebot3_node_uninstall.dir/progress.make
 
 CMakeFiles/turtlebot3_node_uninstall:
-	/usr/bin/cmake -P /home/molozise/turtlebot3_ws/build/turtlebot3_node/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
+	/usr/bin/cmake -P /home/dmsai1/turtlebot3_ws/build/turtlebot3_node/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
 
 turtlebot3_node_uninstall: CMakeFiles/turtlebot3_node_uninstall
 turtlebot3_node_uninstall: CMakeFiles/turtlebot3_node_uninstall.dir/build.make
@@ -71,6 +71,6 @@ CMakeFiles/turtlebot3_node_uninstall.dir/clean:
 .PHONY : CMakeFiles/turtlebot3_node_uninstall.dir/clean
 
 CMakeFiles/turtlebot3_node_uninstall.dir/depend:
-	cd /home/molozise/turtlebot3_ws/build/turtlebot3_node && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/molozise/turtlebot3_ws/src/turtlebot3/turtlebot3_node /home/molozise/turtlebot3_ws/src/turtlebot3/turtlebot3_node /home/molozise/turtlebot3_ws/build/turtlebot3_node /home/molozise/turtlebot3_ws/build/turtlebot3_node /home/molozise/turtlebot3_ws/build/turtlebot3_node/CMakeFiles/turtlebot3_node_uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/dmsai1/turtlebot3_ws/build/turtlebot3_node && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/dmsai1/turtlebot3_ws/src/turtlebot3/turtlebot3_node /home/dmsai1/turtlebot3_ws/src/turtlebot3/turtlebot3_node /home/dmsai1/turtlebot3_ws/build/turtlebot3_node /home/dmsai1/turtlebot3_ws/build/turtlebot3_node /home/dmsai1/turtlebot3_ws/build/turtlebot3_node/CMakeFiles/turtlebot3_node_uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/turtlebot3_node_uninstall.dir/depend
 

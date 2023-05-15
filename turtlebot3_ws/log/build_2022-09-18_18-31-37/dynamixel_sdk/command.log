@@ -1,0 +1,6 @@
+Invoking command in '/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/dmsai1/turtlebot3_ws/install/dynamixel_sdk
+Invoked command in '/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/dmsai1/turtlebot3_ws/install/dynamixel_sdk
+Invoking command in '/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk -- -j12 -l12
+Invoked command in '/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk -- -j12 -l12
+Invoking command in '/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk
+Invoked command in '/home/dmsai1/turtlebot3_ws/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk

@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/molozise/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_custom_interfaces
-# Build directory: /home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces
+# Source directory: /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_custom_interfaces
+# Build directory: /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/molozise/turtlebot3_ws/src/turtlebot3/turtlebot3_node/src/node_main.cpp" "/home/molozise/turtlebot3_ws/build/turtlebot3_node/CMakeFiles/turtlebot3_ros.dir/src/node_main.cpp.o"
+  "/home/dmsai1/turtlebot3_ws/src/turtlebot3/turtlebot3_node/src/node_main.cpp" "/home/dmsai1/turtlebot3_ws/build/turtlebot3_node/CMakeFiles/turtlebot3_ros.dir/src/node_main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -17,15 +17,15 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/molozise/turtlebot3_ws/src/turtlebot3/turtlebot3_node/include"
-  "/home/molozise/turtlebot3_ws/install/dynamixel_sdk/include"
-  "/home/molozise/turtlebot3_ws/install/turtlebot3_msgs/include"
+  "/home/dmsai1/turtlebot3_ws/src/turtlebot3/turtlebot3_node/include"
+  "/home/dmsai1/turtlebot3_ws/install/dynamixel_sdk/include"
+  "/home/dmsai1/turtlebot3_ws/install/turtlebot3_msgs/include"
   "/opt/ros/foxy/include"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/molozise/turtlebot3_ws/build/turtlebot3_node/CMakeFiles/turtlebot3_node_lib.dir/DependInfo.cmake"
+  "/home/dmsai1/turtlebot3_ws/build/turtlebot3_node/CMakeFiles/turtlebot3_node_lib.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

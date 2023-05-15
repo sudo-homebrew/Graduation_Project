@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/molozise/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_custom_interfaces
+CMAKE_SOURCE_DIR = /home/dmsai1/turtlebot3_ws/src/DynamixelSDK/dynamixel_sdk_custom_interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces
+CMAKE_BINARY_DIR = /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -137,9 +137,9 @@ install/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/CMakeFiles /home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/CMakeFiles /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/molozise/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmsai1/turtlebot3_ws/build/dynamixel_sdk_custom_interfaces/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

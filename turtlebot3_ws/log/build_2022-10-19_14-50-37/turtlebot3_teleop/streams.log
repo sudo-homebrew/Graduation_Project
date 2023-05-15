@@ -1,0 +1,17 @@
+[1.409s] Invoking command in '/home/dmsai1/turtlebot3_ws/build/turtlebot3_teleop': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/dmsai1/turtlebot3_ws/install/turtlebot3_teleop/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --prefix /home/dmsai1/turtlebot3_ws/install/turtlebot3_teleop --editable --build-directory /home/dmsai1/turtlebot3_ws/build/turtlebot3_teleop/build --no-deps install_data --install-dir /home/dmsai1/turtlebot3_ws/install/turtlebot3_teleop
+[1.775s] running develop
+[1.970s] running egg_info
+[1.971s] writing turtlebot3_teleop.egg-info/PKG-INFO
+[1.971s] writing dependency_links to turtlebot3_teleop.egg-info/dependency_links.txt
+[1.971s] writing entry points to turtlebot3_teleop.egg-info/entry_points.txt
+[1.971s] writing requirements to turtlebot3_teleop.egg-info/requires.txt
+[1.971s] writing top-level names to turtlebot3_teleop.egg-info/top_level.txt
+[2.042s] reading manifest file 'turtlebot3_teleop.egg-info/SOURCES.txt'
+[2.043s] writing manifest file 'turtlebot3_teleop.egg-info/SOURCES.txt'
+[2.097s] running build_ext
+[2.102s] Creating /home/dmsai1/turtlebot3_ws/install/turtlebot3_teleop/lib/python3.8/site-packages/turtlebot3-teleop.egg-link (link to .)
+[2.102s] Installing teleop_keyboard script to /home/dmsai1/turtlebot3_ws/install/turtlebot3_teleop/lib/turtlebot3_teleop
+[2.102s] 
+[2.102s] Installed /home/dmsai1/turtlebot3_ws/build/turtlebot3_teleop
+[2.102s] running install_data
+[2.299s] Invoked command in '/home/dmsai1/turtlebot3_ws/build/turtlebot3_teleop' returned '0': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/dmsai1/turtlebot3_ws/install/turtlebot3_teleop/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --prefix /home/dmsai1/turtlebot3_ws/install/turtlebot3_teleop --editable --build-directory /home/dmsai1/turtlebot3_ws/build/turtlebot3_teleop/build --no-deps install_data --install-dir /home/dmsai1/turtlebot3_ws/install/turtlebot3_teleop

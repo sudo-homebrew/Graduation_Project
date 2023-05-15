@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "rcutils/allocator.h"
+
 
 bool
 turtlebot3_msgs__msg__Sound__init(turtlebot3_msgs__msg__Sound * msg)
@@ -28,17 +30,44 @@ turtlebot3_msgs__msg__Sound__fini(turtlebot3_msgs__msg__Sound * msg)
   // value
 }
 
+bool
+turtlebot3_msgs__msg__Sound__are_equal(const turtlebot3_msgs__msg__Sound * lhs, const turtlebot3_msgs__msg__Sound * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  // value
+  if (lhs->value != rhs->value) {
+    return false;
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__msg__Sound__copy(
+  const turtlebot3_msgs__msg__Sound * input,
+  turtlebot3_msgs__msg__Sound * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  // value
+  output->value = input->value;
+  return true;
+}
+
 turtlebot3_msgs__msg__Sound *
 turtlebot3_msgs__msg__Sound__create()
 {
-  turtlebot3_msgs__msg__Sound * msg = (turtlebot3_msgs__msg__Sound *)malloc(sizeof(turtlebot3_msgs__msg__Sound));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__msg__Sound * msg = (turtlebot3_msgs__msg__Sound *)allocator.allocate(sizeof(turtlebot3_msgs__msg__Sound), allocator.state);
   if (!msg) {
     return NULL;
   }
   memset(msg, 0, sizeof(turtlebot3_msgs__msg__Sound));
   bool success = turtlebot3_msgs__msg__Sound__init(msg);
   if (!success) {
-    free(msg);
+    allocator.deallocate(msg, allocator.state);
     return NULL;
   }
   return msg;
@@ -47,10 +76,11 @@ turtlebot3_msgs__msg__Sound__create()
 void
 turtlebot3_msgs__msg__Sound__destroy(turtlebot3_msgs__msg__Sound * msg)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (msg) {
     turtlebot3_msgs__msg__Sound__fini(msg);
   }
-  free(msg);
+  allocator.deallocate(msg, allocator.state);
 }
 
 
@@ -60,9 +90,11 @@ turtlebot3_msgs__msg__Sound__Sequence__init(turtlebot3_msgs__msg__Sound__Sequenc
   if (!array) {
     return false;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   turtlebot3_msgs__msg__Sound * data = NULL;
+
   if (size) {
-    data = (turtlebot3_msgs__msg__Sound *)calloc(size, sizeof(turtlebot3_msgs__msg__Sound));
+    data = (turtlebot3_msgs__msg__Sound *)allocator.zero_allocate(size, sizeof(turtlebot3_msgs__msg__Sound), allocator.state);
     if (!data) {
       return false;
     }
@@ -79,7 +111,7 @@ turtlebot3_msgs__msg__Sound__Sequence__init(turtlebot3_msgs__msg__Sound__Sequenc
       for (; i > 0; --i) {
         turtlebot3_msgs__msg__Sound__fini(&data[i - 1]);
       }
-      free(data);
+      allocator.deallocate(data, allocator.state);
       return false;
     }
   }
@@ -95,6 +127,8 @@ turtlebot3_msgs__msg__Sound__Sequence__fini(turtlebot3_msgs__msg__Sound__Sequenc
   if (!array) {
     return;
   }
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+
   if (array->data) {
     // ensure that data and capacity values are consistent
     assert(array->capacity > 0);
@@ -102,7 +136,7 @@ turtlebot3_msgs__msg__Sound__Sequence__fini(turtlebot3_msgs__msg__Sound__Sequenc
     for (size_t i = 0; i < array->capacity; ++i) {
       turtlebot3_msgs__msg__Sound__fini(&array->data[i]);
     }
-    free(array->data);
+    allocator.deallocate(array->data, allocator.state);
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
@@ -116,13 +150,14 @@ turtlebot3_msgs__msg__Sound__Sequence__fini(turtlebot3_msgs__msg__Sound__Sequenc
 turtlebot3_msgs__msg__Sound__Sequence *
 turtlebot3_msgs__msg__Sound__Sequence__create(size_t size)
 {
-  turtlebot3_msgs__msg__Sound__Sequence * array = (turtlebot3_msgs__msg__Sound__Sequence *)malloc(sizeof(turtlebot3_msgs__msg__Sound__Sequence));
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  turtlebot3_msgs__msg__Sound__Sequence * array = (turtlebot3_msgs__msg__Sound__Sequence *)allocator.allocate(sizeof(turtlebot3_msgs__msg__Sound__Sequence), allocator.state);
   if (!array) {
     return NULL;
   }
   bool success = turtlebot3_msgs__msg__Sound__Sequence__init(array, size);
   if (!success) {
-    free(array);
+    allocator.deallocate(array, allocator.state);
     return NULL;
   }
   return array;
@@ -131,8 +166,66 @@ turtlebot3_msgs__msg__Sound__Sequence__create(size_t size)
 void
 turtlebot3_msgs__msg__Sound__Sequence__destroy(turtlebot3_msgs__msg__Sound__Sequence * array)
 {
+  rcutils_allocator_t allocator = rcutils_get_default_allocator();
   if (array) {
     turtlebot3_msgs__msg__Sound__Sequence__fini(array);
   }
-  free(array);
+  allocator.deallocate(array, allocator.state);
+}
+
+bool
+turtlebot3_msgs__msg__Sound__Sequence__are_equal(const turtlebot3_msgs__msg__Sound__Sequence * lhs, const turtlebot3_msgs__msg__Sound__Sequence * rhs)
+{
+  if (!lhs || !rhs) {
+    return false;
+  }
+  if (lhs->size != rhs->size) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs->size; ++i) {
+    if (!turtlebot3_msgs__msg__Sound__are_equal(&(lhs->data[i]), &(rhs->data[i]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool
+turtlebot3_msgs__msg__Sound__Sequence__copy(
+  const turtlebot3_msgs__msg__Sound__Sequence * input,
+  turtlebot3_msgs__msg__Sound__Sequence * output)
+{
+  if (!input || !output) {
+    return false;
+  }
+  if (output->capacity < input->size) {
+    const size_t allocation_size =
+      input->size * sizeof(turtlebot3_msgs__msg__Sound);
+    turtlebot3_msgs__msg__Sound * data =
+      (turtlebot3_msgs__msg__Sound *)realloc(output->data, allocation_size);
+    if (!data) {
+      return false;
+    }
+    for (size_t i = output->capacity; i < input->size; ++i) {
+      if (!turtlebot3_msgs__msg__Sound__init(&data[i])) {
+        /* free currently allocated and return false */
+        for (; i-- > output->capacity; ) {
+          turtlebot3_msgs__msg__Sound__fini(&data[i]);
+        }
+        free(data);
+        return false;
+      }
+    }
+    output->data = data;
+    output->capacity = input->size;
+  }
+  output->size = input->size;
+  for (size_t i = 0; i < input->size; ++i) {
+    if (!turtlebot3_msgs__msg__Sound__copy(
+        &(input->data[i]), &(output->data[i])))
+    {
+      return false;
+    }
+  }
+  return true;
 }
