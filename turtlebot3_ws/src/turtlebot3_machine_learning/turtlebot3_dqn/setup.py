@@ -44,6 +44,7 @@ setup(
             'drl_trainer = turtlebot3_dqn.drl_trainer.drl_trainer:main',
             'slam_test = turtlebot3_dqn.slam_test.python_lidar:main',
             'real_goal = turtlebot3_dqn.real_goal.real_goal:main',
+            'gdae = turtlebot3_dqn.gdae.gdae:main',
         ],
     },
 )

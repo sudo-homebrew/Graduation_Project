@@ -57,7 +57,7 @@ function [isSuccess] = RRT_Fig(imgPath, startX, startY, goalX, goalY)
     plot(solnInfo.TreeData(:,1), solnInfo.TreeData(:,2), '.-');
     
     % Interpolate and plot path
-    interpolate(pthObj,300)
+%     interpolate(pthObj,300)
     plot(pthObj.States(:,1), pthObj.States(:,2), 'r-', 'LineWidth', 2)
     
     % Show the start and goal in the grid map
