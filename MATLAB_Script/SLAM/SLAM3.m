@@ -43,7 +43,7 @@ scanMsg = receive(lidarSub);
 figure
 rosPlot(scanMsg)
 
-sc = {}
+sc = {};
 
 pause(3)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
